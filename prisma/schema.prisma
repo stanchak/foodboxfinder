@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -10,4 +8,269 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+// ─── Enums ──────────────────────────────────────────────────────────────────
+
+enum CategoryType {
+  MEAL_KIT
+  PREPARED_MEAL
+  PROTEIN_BOX
+  PRODUCE_BOX
+  SPECIALTY
+}
+
+enum DietaryTag {
+  VEGAN
+  VEGETARIAN
+  PESCATARIAN
+  KETO
+  PALEO
+  GLUTEN_FREE
+  DAIRY_FREE
+  NUT_FREE
+  LOW_CARB
+  LOW_SODIUM
+  ORGANIC
+  HALAL
+  KOSHER
+  DIABETIC_FRIENDLY
+  WHOLE30
+  MEDITERRANEAN
+}
+
+enum PlanFrequency {
+  WEEKLY
+  BIWEEKLY
+  MONTHLY
+  FLEXIBLE
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+// ─── Core Models ────────────────────────────────────────────────────────────
+
+model Provider {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String   @db.Text
+  shortDescription String? @db.VarChar(300)
+  website     String
+  affiliateUrl String?
+  logoUrl     String?
+  heroImageUrl String?
+
+  // Business details
+  foundedYear    Int?
+  headquarters   String?
+  deliveryAreaDescription String? @db.Text
+
+  // Ratings (denormalized for performance)
+  averageRating  Float    @default(0)
+  reviewCount    Int      @default(0)
+
+  // Editorial content
+  prosJson       String?  @db.Text  // JSON array of strings
+  consJson       String?  @db.Text  // JSON array of strings
+  editorNote     String?  @db.Text
+
+  // Flags
+  featured       Boolean  @default(false)
+  active         Boolean  @default(true)
+
+  // SEO
+  metaTitle       String?  @db.VarChar(70)
+  metaDescription String?  @db.VarChar(160)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  category     CategoryType
+  dietaryTags  ProviderDietaryTag[]
+  plans        Plan[]
+  reviews      Review[]
+  faqs         ProviderFaq[]
+  affiliateClicks AffiliateClick[]
+  collectionItems CollectionItem[]
+
+  @@index([category])
+  @@index([featured])
+  @@index([active])
+  @@index([averageRating])
+}
+
+model Plan {
+  id          String   @id @default(cuid())
+  providerId  String
+  name        String
+  description String?  @db.Text
+
+  // Pricing
+  pricePerServing Float?
+  pricePerWeek    Float?
+  pricePerBox     Float?
+  shippingCost    Float   @default(0)
+  shippingNote    String?
+
+  // Plan details
+  servingsPerMeal Int?
+  mealsPerWeek    Int?
+  frequency       PlanFrequency @default(WEEKLY)
+  minimumOrder    Int?
+
+  // Flexibility
+  canSkip         Boolean @default(false)
+  canCancel       Boolean @default(false)
+  cancelPolicy    String?
+
+  featured        Boolean @default(false)
+  active          Boolean @default(true)
+  sortOrder       Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+  @@index([pricePerServing])
+}
+
+model ProviderDietaryTag {
+  id         String     @id @default(cuid())
+  providerId String
+  tag        DietaryTag
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, tag])
+  @@index([tag])
+}
+
+model Review {
+  id         String       @id @default(cuid())
+  providerId String
+  authorName String
+  authorEmail String?
+  rating     Int          // 1-5
+  title      String?
+  body       String       @db.Text
+  status     ReviewStatus @default(PENDING)
+  helpful    Int          @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+  @@index([status])
+  @@index([rating])
+}
+
+model ProviderFaq {
+  id         String @id @default(cuid())
+  providerId String
+  question   String @db.Text
+  answer     String @db.Text
+  sortOrder  Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+}
+
+// ─── Content Models ─────────────────────────────────────────────────────────
+
+model BlogPost {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  excerpt     String?       @db.VarChar(300)
+  body        String        @db.Text
+  coverImageUrl String?
+  author      String?
+
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?
+
+  // SEO
+  metaTitle       String?   @db.VarChar(70)
+  metaDescription String?   @db.VarChar(160)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([publishedAt])
+}
+
+model Collection {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  description String?       @db.Text
+  body        String?       @db.Text  // Rich editorial content above/below the list
+  coverImageUrl String?
+
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?
+
+  // SEO
+  metaTitle       String?   @db.VarChar(70)
+  metaDescription String?   @db.VarChar(160)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items CollectionItem[]
+
+  @@index([status])
+}
+
+model CollectionItem {
+  id           String @id @default(cuid())
+  collectionId String
+  providerId   String
+  sortOrder    Int    @default(0)
+  note         String? @db.Text  // Editorial note specific to this collection
+
+  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  provider   Provider   @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@unique([collectionId, providerId])
+  @@index([collectionId])
+}
+
+// ─── Analytics Models ───────────────────────────────────────────────────────
+
+model AffiliateClick {
+  id         String   @id @default(cuid())
+  providerId String
+  source     String?  // page URL where click originated
+  referrer   String?
+  userAgent  String?
+  ipHash     String?  // hashed IP for dedup, never store raw IP
+
+  createdAt DateTime @default(now())
+
+  provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+  @@index([createdAt])
 }
