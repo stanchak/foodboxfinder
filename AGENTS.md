@@ -16,6 +16,18 @@ FoodBoxFinder is a food box subscription discovery/comparison site. See `.planni
 - TypeScript strict mode
 - Vercel hosting
 
+## Next.js 16 Breaking Changes (MUST READ)
+- **`params` and `searchParams` are Promises** — must `await params` and `await searchParams` in all pages, layouts, and route handlers. This is NOT optional.
+- **`proxy.ts` replaces `middleware.ts`** — the file is renamed and the export is `proxy` not `middleware`. Uses Node.js runtime only (NOT Edge).
+- **`cookies()`, `headers()`, `draftMode()` are async** — must be awaited.
+- **`next lint` is removed** — use `npx eslint .` directly.
+- **`images.remotePatterns`** is required for external images (`images.domains` is deprecated).
+- **Cache Components** — enable `cacheComponents: true` in next.config for the new caching model with `use cache` directive and `cacheLife()`.
+- **React Compiler** — available with `reactCompiler: true` (optional, not default).
+- **No `size`/`First Load JS` in build output** — use Lighthouse for perf measurement.
+- **Parallel route slots require explicit `default.js`** — builds fail without them.
+- **`useFormState` renamed to `useActionState`** (React 19).
+
 ## Rules for All Agents
 1. Read the Next.js 16 docs in `node_modules/next/dist/docs/01-app/` before using any Next.js API you're unsure about.
 2. Server Components are the default. Only add "use client" when the component needs browser APIs, event handlers, or React hooks (useState, useEffect, etc.).
@@ -27,3 +39,5 @@ FoodBoxFinder is a food box subscription discovery/comparison site. See `.planni
 8. Keep components small and focused. Extract reusable pieces into `src/components/`.
 9. Use semantic HTML (nav, main, article, section, aside, etc.) for accessibility.
 10. Test that `next build` passes after making changes.
+11. Always `await params` and `await searchParams` — they are Promises in Next.js 16.
+12. Use `proxy.ts` (not `middleware.ts`) for request interception.

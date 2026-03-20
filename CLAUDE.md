@@ -16,7 +16,8 @@
 - Use `src/lib/db.ts` for the Prisma client singleton.
 - Keep components in `src/components/` with flat structure unless a component group needs isolation.
 - Server Actions go in `src/app/actions/` or colocated with the form.
-- Admin routes live under `src/app/admin/` and are protected by middleware.
+- Admin routes live under `src/app/admin/` and are protected by `proxy.ts` (NOT middleware.ts — renamed in Next.js 16).
+- `params` and `searchParams` are Promises in Next.js 16 — always `await` them.
 
 ## Database
 - Run `npx prisma db push` to sync schema to Neon (no migration files for now).

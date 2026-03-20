@@ -57,7 +57,7 @@ All pages use React Server Components for data fetching. Client Components only 
 - Admin: Server Actions for mutations
 
 ### AD-4: No Authentication (Phase 1)
-Admin is protected by a simple middleware check (environment variable secret or basic auth). User accounts are not needed for MVP — reviews use name + email without login.
+Admin is protected by a proxy.ts check (Next.js 16 renamed middleware.ts to proxy.ts) (environment variable secret or basic auth). User accounts are not needed for MVP — reviews use name + email without login.
 
 ### AD-5: Image Strategy
 Provider logos and hero images stored as URLs in the database (hosted on provider CDNs or uploaded to Vercel Blob in a later phase). Next.js Image component with remotePatterns for optimization.
