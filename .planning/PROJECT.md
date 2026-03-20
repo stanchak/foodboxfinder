@@ -1,37 +1,62 @@
-# FoodBoxFinder — Project Document
+# FoodBoxFinder
 
-## Vision
+## What This Is
 
-FoodBoxFinder is a ready-to-launch discovery, comparison, and directory website for food box subscription services. It helps consumers find and compare meal kits, prepared meals, protein boxes, produce boxes, and specialty food subscriptions through beautiful UX, comprehensive filtering, side-by-side comparisons, and SEO-optimized content.
+A ready-to-launch discovery, comparison, and directory website for food box subscription services. Helps consumers find and compare meal kits, prepared meals, protein boxes, produce boxes, and specialty food subscriptions through beautiful mobile-first UX, comprehensive filtering, side-by-side comparisons, and SEO-optimized content. Includes an internal admin interface for content management and affiliate click tracking for revenue.
 
-**Target launch state:** Fully functional public site with provider directory, category browsing, comparison tools, review system, blog/content engine, and an internal admin interface for content management.
+## Core Value
 
-## Goals
+Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences — with trustworthy reviews and transparent pricing.
 
-1. **Consumer UX** — Beautiful, fast, mobile-first experience for discovering and comparing food box providers
-2. **SEO-first** — Every page optimized for search: structured data, programmatic SEO pages, blog content, clean URL structure
-3. **Comparison engine** — Side-by-side provider comparison with pricing, features, dietary options, and ratings
-4. **Content platform** — Blog, "best of" collection pages, and FAQ content to drive organic traffic
-5. **Admin interface** — Internal dashboard for managing providers, plans, reviews, content, and affiliate links
-6. **Affiliate revenue** — Track clicks on affiliate/referral links to providers
+## Requirements
 
-## Stack
+### Validated
 
-| Layer | Technology | Notes |
-|-------|-----------|-------|
-| Framework | Next.js 16.2.0 (App Router) | Server Components, file-based routing |
-| UI | React 19.2.4 + Tailwind CSS 4 | Utility-first CSS, no component library initially |
-| Database | PostgreSQL (Neon) | Serverless Postgres with connection pooling |
-| ORM | Prisma 7.5 + @prisma/adapter-pg | Type-safe queries, Neon adapter |
-| Hosting | Vercel | Edge-optimized, ISR support |
-| Language | TypeScript 5 | Strict mode |
+- ✓ Next.js 16.2 App Router project scaffolded with TypeScript strict mode — existing
+- ✓ Prisma 7.5 schema with 10 models and 5 enums defined — existing
+- ✓ Neon PostgreSQL database provisioned with connection configured — existing
+- ✓ Prisma client singleton with PrismaPg adapter at `src/lib/db.ts` — existing
+- ✓ Tailwind CSS 4 configured with PostCSS — existing
 
-## Architecture Decisions
+### Active
 
-### AD-1: Server Components by Default
-All pages use React Server Components for data fetching. Client Components only for interactive elements (filters, comparison selector, mobile nav). This maximizes performance and SEO.
+- [ ] Database seeded with 15-20 real food box providers across 5 categories
+- [ ] Beautiful, responsive homepage with hero, featured providers, category cards
+- [ ] Filterable category listing pages with URL-driven state (5 categories)
+- [ ] Comprehensive provider detail pages with plans, pricing, reviews, FAQs
+- [ ] Side-by-side comparison tool for 2-4 providers
+- [ ] "Best of" collection pages and blog content engine
+- [ ] Full-text search across providers, categories, and content
+- [ ] Review submission system with moderation workflow
+- [ ] Admin dashboard for provider CRUD, review moderation, content management
+- [ ] JSON-LD structured data, sitemap, canonical URLs on all pages
+- [ ] Affiliate click tracking with analytics
+- [ ] Production-ready performance (Lighthouse >= 90)
 
-### AD-2: SEO URL Structure
+### Out of Scope
+
+- User accounts / authentication — admin-only auth via env var, reviews are anonymous
+- Email notification system — no transactional email for MVP
+- Real-time price tracking — static pricing data, manually updated
+- Provider API integrations — all data is editorial/curated
+- Payment processing — affiliate model only, no direct transactions
+- Mobile app — web-first, responsive design covers mobile
+- Dark mode — deprioritized for launch
+
+## Context
+
+**Domain:** Food box subscription comparison/discovery. Competitive space with sites like meal-kit-comparison.com, mealfinds.com. Differentiation through UX quality, comprehensive filtering, and SEO depth.
+
+**Categories:**
+| Category | Slug | Example Providers |
+|----------|------|-------------------|
+| Meal Kits | meal-kits | HelloFresh, Blue Apron, Home Chef, EveryPlate |
+| Prepared Meals | prepared-meals | Factor, CookUnity, Mosaic Foods, Snap Kitchen |
+| Protein/Meat | protein-boxes | ButcherBox, Crowd Cow, Good Chop |
+| Produce/Grocery | produce-boxes | Misfits Market, Hungryroot, Farmbox Direct |
+| Specialty | specialty | Purple Carrot, Green Chef, Sunbasket, Trifecta |
+
+**SEO URL Structure:**
 ```
 /                              → Homepage
 /meal-kits                     → Category: Meal Kits
@@ -40,7 +65,7 @@ All pages use React Server Components for data fetching. Client Components only 
 /produce-boxes                 → Category: Produce/Grocery Boxes
 /specialty                     → Category: Specialty Diet Boxes
 /providers/[slug]              → Provider detail page
-/compare/[slug-vs-slug]         → SEO comparison (2 providers, indexed)
+/compare/[slug-vs-slug]        → SEO comparison (2 providers, indexed)
 /compare?providers=a,b,c       → Flexible comparison (3-4 providers, noindex)
 /methodology                   → How we review (E-E-A-T)
 /best/[slug]                   → "Best of" collection pages
@@ -51,61 +76,48 @@ All pages use React Server Components for data fetching. Client Components only 
 /admin/content                 → Manage blog/collections
 ```
 
-### AD-3: Data Fetching Strategy
-- Provider listings: Server Components with Prisma queries, ISR revalidation
-- Provider detail: Server Components with generateStaticParams for popular providers
-- Comparison: Client-side state management for provider selection, server-fetched data
-- Filters: URL search params for shareable/bookmarkable filtered views
-- Admin: Server Actions for mutations
+**Current codebase state:** Scaffolded via create-next-app. Only default homepage and layout exist. Prisma schema defined but no seed data, query helpers, or application routes built. Prisma client generated to `src/generated/prisma/`.
 
-### AD-4: No Authentication (Phase 1)
-Admin is protected by a proxy.ts check (Next.js 16 renamed middleware.ts to proxy.ts) (environment variable secret or basic auth). User accounts are not needed for MVP — reviews use name + email without login.
+**Research files:** `.planning/research/` contains SEO-STRATEGY.md, SCHEMA-EXTENDED.md, UX-STRATEGY.md from prior analysis.
 
-### AD-5: Image Strategy
-Provider logos and hero images stored as URLs in the database (hosted on provider CDNs or uploaded to Vercel Blob in a later phase). Next.js Image component with remotePatterns for optimization.
+## Constraints
 
-## Food Box Categories
+- **Tech Stack**: Next.js 16.2, React 19, Tailwind CSS 4, Prisma 7.5, Neon PostgreSQL — already configured, no changes
+- **Hosting**: Vercel — serverless, ISR support, no deploy yet
+- **Next.js 16 Breaking Changes**: `params`/`searchParams` are Promises (must await), `proxy.ts` replaces `middleware.ts`, async `cookies()`/`headers()`/`draftMode()`
+- **No Auth**: Admin protected by `proxy.ts` + `ADMIN_SECRET` env var only. No user accounts.
+- **Images**: Provider logos stored as URLs in database. Next.js Image with `remotePatterns`.
+- **Budget**: Minimal — no paid APIs, no premium services beyond Neon and Vercel free tiers
 
-| Category | Slug | Examples |
-|----------|------|----------|
-| Meal Kits | meal-kits | HelloFresh, Blue Apron, Home Chef, EveryPlate, Dinnerly |
-| Prepared Meals | prepared-meals | Factor, CookUnity, Freshly, Mosaic Foods, Snap Kitchen |
-| Protein/Meat | protein-boxes | ButcherBox, Crowd Cow, Porter Road, Rastelli's, Good Chop |
-| Produce/Grocery | produce-boxes | Misfits Market, Imperfect Foods, Hungry Harvest, Farmbox Direct |
-| Specialty | specialty | Purple Carrot (vegan), Green Chef (organic), Sunbasket, Trifecta (keto) |
+## Key Decisions
 
-## Key Features (MVP)
+| Decision | Rationale | Outcome |
+|----------|-----------|---------|
+| Server Components by default | Maximizes performance and SEO, reduces client JS | — Pending |
+| URL search params for filter state | Shareable/bookmarkable filtered views, SEO-friendly | — Pending |
+| Denormalized price fields on Provider | Avoid Plan subqueries in listing queries | — Pending |
+| proxy.ts for admin auth (not middleware.ts) | Next.js 16 renamed middleware.ts to proxy.ts | — Pending |
+| Single queries.ts file for MVP | Split when file exceeds 300 lines | — Pending |
+| deleteAll + create for seed idempotency | Simpler than upsert, clean state each run | — Pending |
+| Imperfect Foods → Hungryroot + Farmbox Direct | Imperfect merged into Misfits Market | — Pending |
+| Freshly → Snap Kitchen | Freshly discontinued by HelloFresh | — Pending |
 
-### Consumer-Facing
-- **Homepage**: Hero section, featured providers, category cards, how-it-works, newsletter signup
-- **Category pages**: Filterable provider listings with sort options
-- **Provider detail**: Full profile with plans, pricing, pros/cons, reviews, FAQs, affiliate CTA
-- **Comparison page**: Select up to 4 providers for side-by-side comparison table
-- **"Best of" pages**: Curated collections (best for families, best budget, best keto, etc.)
-- **Blog**: Articles for SEO content (reviews, guides, comparisons)
-- **Search**: Full-text search across providers, categories, and content
-- **Filters**: Price range, dietary restrictions, servings, delivery area, rating
+## Evolution
 
-### Admin Interface
-- **Provider CRUD**: Add/edit/delete providers with all details
-- **Plan management**: Manage pricing plans per provider
-- **Review moderation**: Approve/reject user-submitted reviews
-- **Content editor**: Blog posts and collection pages
-- **Affiliate link management**: Track and manage referral URLs
-- **Analytics dashboard**: Click tracking, popular providers, search terms
+This document evolves at phase transitions and milestone boundaries.
 
-### SEO
-- JSON-LD structured data (Product, Review, FAQ, BreadcrumbList, ItemList)
-- Dynamic sitemap.xml generation
-- robots.txt
-- Open Graph and Twitter card metadata
-- Canonical URLs
-- Internal linking strategy
+**After each phase transition** (via `/gsd:transition`):
+1. Requirements invalidated? → Move to Out of Scope with reason
+2. Requirements validated? → Move to Validated with phase reference
+3. New requirements emerged? → Add to Active
+4. Decisions to log? → Add to Key Decisions
+5. "What This Is" still accurate? → Update if drifted
 
-## Non-Goals (Post-MVP)
-- User accounts / authentication
-- Email notification system
-- Real-time price tracking
-- Provider API integrations
-- Payment processing
-- Mobile app
+**After each milestone** (via `/gsd:complete-milestone`):
+1. Full review of all sections
+2. Core Value check — still the right priority?
+3. Audit Out of Scope — reasons still valid?
+4. Update Context with current state
+
+---
+*Last updated: 2026-03-20 after GSD initialization*
