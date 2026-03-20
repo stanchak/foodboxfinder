@@ -40,7 +40,9 @@ All pages use React Server Components for data fetching. Client Components only 
 /produce-boxes                 → Category: Produce/Grocery Boxes
 /specialty                     → Category: Specialty Diet Boxes
 /providers/[slug]              → Provider detail page
-/compare?providers=a,b,c       → Comparison page (query params)
+/compare/[slug-vs-slug]         → SEO comparison (2 providers, indexed)
+/compare?providers=a,b,c       → Flexible comparison (3-4 providers, noindex)
+/methodology                   → How we review (E-E-A-T)
 /best/[slug]                   → "Best of" collection pages
 /blog                          → Blog index
 /blog/[slug]                   → Blog post
