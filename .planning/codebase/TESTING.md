@@ -22,14 +22,16 @@
 
 ## Current State
 
-This is an early-stage project with no test infrastructure. Source files:
-- `src/app/layout.tsx` - Root layout (Next.js scaffold)
-- `src/app/page.tsx` - Homepage (Next.js scaffold)
+This is an early-stage scaffolded project with no test infrastructure. All source files:
+- `src/app/layout.tsx` - Root layout (Next.js scaffold default)
+- `src/app/page.tsx` - Homepage (Next.js scaffold default)
+- `src/app/globals.css` - Global styles with Tailwind v4 import
 - `src/lib/db.ts` - Prisma client singleton
 - `prisma/schema.prisma` - Database schema (10 models, 6 enums)
+- `prisma.config.ts` - Prisma configuration
 - `src/generated/prisma/` - Generated Prisma client (git-ignored)
 
-No test files, no application logic, no Server Actions, no API routes, and no custom components exist yet. The only verification currently available is:
+No test files, no custom application logic, no Server Actions, no API routes, and no custom components exist yet. The only verification currently available:
 
 ```bash
 npx prisma generate && next build    # Type checking and compilation
@@ -38,7 +40,7 @@ npx eslint .                         # Linting (replaces next lint in Next.js 16
 
 ## Recommended Test Setup
 
-Based on the stack (Next.js 16.2, React 19, TypeScript strict, Prisma 7.5), the recommended test infrastructure follows.
+Based on the stack (Next.js 16.2, React 19, TypeScript strict, Prisma 7.5), the following test infrastructure is recommended.
 
 ### Unit/Integration Testing
 
@@ -112,7 +114,7 @@ npx playwright install
 - Unit/integration: `*.test.ts` or `*.test.tsx`
 - E2E: `*.e2e.ts` in `e2e/` directory at project root
 
-**Recommended Structure:**
+**Structure:**
 ```
 src/
 ├── app/
@@ -123,9 +125,8 @@ src/
 │   └── ProviderCard.test.tsx      # Component tests
 ├── lib/
 │   ├── db.ts
-│   ├── queries/
-│   │   ├── providers.ts
-│   │   └── providers.test.ts      # Query function tests
+│   ├── queries.ts
+│   ├── queries.test.ts            # Query function tests
 │   └── utils/
 │       ├── format.ts
 │       └── format.test.ts         # Utility tests
@@ -171,9 +172,10 @@ describe("ComponentOrModule", () => {
 
 **Patterns:**
 - Use `describe` blocks to group related tests
-- Use descriptive `it` names that read as sentences
+- Use nested `describe` for conditional groupings (`when`, `given`, `with`)
+- Use descriptive `it` names that read as sentences: `it("should return filtered providers")`
 - Follow Arrange-Act-Assert pattern
-- Use `beforeEach` with `vi.clearAllMocks()` to reset mock state
+- Use `beforeEach` with `vi.clearAllMocks()` to reset mock state between tests
 - One assertion per test when practical
 
 ## Mocking
@@ -242,7 +244,7 @@ vi.mock("next/image", () => ({
 - Database calls (Prisma client methods via `@/lib/db`)
 - External API calls
 - Next.js navigation functions (`redirect`, `notFound`)
-- `cookies()`, `headers()` (async in Next.js 16)
+- `cookies()`, `headers()` (async in Next.js 16 -- mock with `vi.fn().mockResolvedValue(...)`)
 - Environment variables (`vi.stubEnv`)
 
 **What NOT to Mock:**

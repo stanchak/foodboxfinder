@@ -9,30 +9,35 @@
 - Layout components: `layout.tsx` (Next.js App Router convention)
 - Utility modules: `camelCase.ts` (e.g., `db.ts`)
 - Config files: `camelCase.config.ts` or `camelCase.config.mjs` (e.g., `next.config.ts`, `eslint.config.mjs`, `postcss.config.mjs`, `prisma.config.ts`)
-- Global styles: `globals.css`
-- Prisma schema: `schema.prisma` in `prisma/` directory
+- Global styles: `globals.css` in `src/app/`
+- Prisma schema: `schema.prisma` in `prisma/`
+- Future components: `PascalCase.tsx` (e.g., `ProviderCard.tsx`, `FilterSidebar.tsx`)
+- Future Server Actions: `camelCase.ts` in `src/app/actions/` (e.g., `reviews.ts`)
 
 **Functions:**
-- React components: `PascalCase` (e.g., `Home`, `RootLayout`)
-- Use `function` declarations for page/layout exports (not arrow functions):
+- React components: `PascalCase` function declarations (not arrow functions):
 ```typescript
 export default function Home() { ... }
+export default function RootLayout({ children }: ...) { ... }
 ```
+- Utility functions: `camelCase` (e.g., `getProviders`, `formatPrice`)
+- Server Actions: `camelCase` with verb prefix (e.g., `submitReview`, `updateProvider`)
 
 **Variables:**
-- Use `camelCase` for all variables (e.g., `geistSans`, `geistMono`, `globalForPrisma`)
-- Use `camelCase` for config constants (e.g., `nextConfig`, `eslintConfig`)
+- Local variables: `camelCase` (e.g., `geistSans`, `geistMono`, `globalForPrisma`)
+- Config objects: `camelCase` (e.g., `nextConfig`, `eslintConfig`)
+- Constants: `camelCase` (same as variables, no UPPER_CASE for JS constants)
 - Environment variables: `UPPER_SNAKE_CASE` (e.g., `DATABASE_URL`, `NODE_ENV`)
 
 **Types:**
-- Use `PascalCase` for types and interfaces
+- Type/interface names: `PascalCase`
 - Use `import type` for type-only imports:
 ```typescript
 import type { Metadata } from "next";
 import type { NextConfig } from "next";
 ```
-- Prisma-generated types come from `@/generated/prisma/client`
-- Inline type annotations for component props using `Readonly<{}>` pattern
+- Prisma-generated types: import from `@/generated/prisma/client`
+- Inline prop types with `Readonly<{}>` wrapper (no separate interface files for simple props)
 
 **Prisma Schema (`prisma/schema.prisma`):**
 - Models: `PascalCase` (e.g., `Provider`, `Plan`, `BlogPost`, `ProviderDietaryTag`)
@@ -40,18 +45,19 @@ import type { NextConfig } from "next";
 - Enum type names: `PascalCase` (e.g., `CategoryType`, `DietaryTag`, `PlanFrequency`)
 - Enum values: `UPPER_SNAKE_CASE` (e.g., `MEAL_KIT`, `GLUTEN_FREE`, `WEEKLY`)
 - ID fields: `cuid()` default (not UUID)
+- Section dividers: `// --- Section Name ---` style comments
 
 ## Code Style
 
 **Formatting:**
-- No dedicated formatter (Prettier/Biome) configured
-- 2-space indentation (observed in all source files)
-- Double quotes for all strings (imports, JSX attributes, etc.)
+- No dedicated formatter (Prettier/Biome) is configured
+- 2-space indentation in all files
+- Double quotes for all strings (imports, JSX attributes, values)
 - Semicolons at end of statements
-- Trailing commas in multi-line objects, arrays, and function params
+- Trailing commas in multi-line objects, arrays, and function parameters
 
 **Linting:**
-- ESLint 9 with flat config format: `eslint.config.mjs`
+- ESLint 9 with flat config: `eslint.config.mjs`
 - Extends `eslint-config-next/core-web-vitals` and `eslint-config-next/typescript`
 - Run with: `npx eslint .` (NOT `next lint` -- removed in Next.js 16)
 - Global ignores: `.next/**`, `out/**`, `build/**`, `next-env.d.ts`
@@ -60,7 +66,7 @@ import type { NextConfig } from "next";
 - Strict mode enabled in `tsconfig.json` (`"strict": true`)
 - All strict sub-flags active: `strictNullChecks`, `strictFunctionTypes`, `strictBindCallApply`, `strictPropertyInitialization`, `noImplicitAny`, `noImplicitThis`, `alwaysStrict`
 - No `any` types allowed (enforced by project rules in `AGENTS.md`)
-- No `@ts-ignore` allowed
+- No `@ts-ignore` allowed (enforced by project rules in `AGENTS.md`)
 - Target: `ES2017`, Module: `esnext`, Module resolution: `bundler`
 - Incremental compilation enabled
 - Next.js compiler plugin active
@@ -77,10 +83,11 @@ import type { NextConfig } from "next";
 - `@/*` maps to `./src/*` (configured in `tsconfig.json`)
 - Use `@/generated/prisma/client` for Prisma client types
 - Use `@/lib/db` for the database singleton
-- Use `@/components/` for shared components (create when adding first component)
+- Use `@/components/` for shared components
+- Use `@/app/actions/` for Server Actions
 
 **Type Import Rule:**
-- Always use `import type` for type-only imports. This is a project convention observed consistently.
+- Always use `import type` for type-only imports. This is enforced consistently.
 
 ## Component Patterns
 
@@ -91,7 +98,9 @@ import type { NextConfig } from "next";
 - Include JSON-LD structured data on every public page
 
 ```typescript
-// Every public page must export metadata
+// Pattern for every public page
+import type { Metadata } from "next";
+
 export const metadata: Metadata = {
   title: "Page Title",
   description: "Page description",
@@ -139,7 +148,7 @@ export default async function Page({
 - Use `proxy.ts` (NOT `middleware.ts`) -- renamed in Next.js 16
 - Export `proxy` function (not `middleware`)
 - Runs on Node.js runtime only (NOT Edge)
-- Admin routes under `/admin/` are protected via proxy.ts
+- Admin routes under `/admin/` are protected via `proxy.ts`
 
 ## Styling
 
@@ -165,19 +174,21 @@ export default async function Page({
 
 **Dark Mode:**
 - Uses `prefers-color-scheme` media query (system preference, not class-based toggle)
-- Dark values set in `@media (prefers-color-scheme: dark)` block
+- Dark mode is deprioritized for launch (Out of Scope per `PROJECT.md`)
+- Dark values set in `@media (prefers-color-scheme: dark)` block in `src/app/globals.css`
 
 **Fonts:**
-- Geist Sans and Geist Mono loaded via `next/font/google`
+- Geist Sans and Geist Mono loaded via `next/font/google` in `src/app/layout.tsx`
 - Applied as CSS variables on `<html>`: `--font-geist-sans`, `--font-geist-mono`
+- Referenced in `@theme inline` block as `--font-sans` and `--font-mono`
 
 **Class Application:**
 - Tailwind utility classes directly in JSX `className`
-- Template literals to compose variable classes:
+- Template literals to compose dynamic classes:
 ```typescript
 className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
 ```
-- Semantic HTML elements with Tailwind classes (`<main>`, `<nav>`, `<article>`, etc.)
+- Use semantic HTML elements with Tailwind classes (`<main>`, `<nav>`, `<article>`, `<section>`, `<aside>`)
 
 ## Database Access
 
@@ -223,7 +234,7 @@ npx tsx prisma/seed.ts    # Run seed script
 ```
 
 **Generated Output:**
-- Client generated to `src/generated/prisma/` (git-ignored in `.gitignore`)
+- Client generated to `src/generated/prisma/` (git-ignored)
 - Build script runs `prisma generate` before `next build`:
 ```json
 "build": "prisma generate && next build"
@@ -232,7 +243,7 @@ npx tsx prisma/seed.ts    # Run seed script
 ## Error Handling
 
 **Current State:**
-- No error handling patterns established yet (early-stage project)
+- No error handling patterns established yet (early-stage scaffolded project)
 - Non-null assertion (`!`) used for required env vars: `process.env.DATABASE_URL!`
 - No `error.tsx`, `not-found.tsx`, or `loading.tsx` files exist
 
@@ -277,6 +288,7 @@ npx tsx prisma/seed.ts    # Run seed script
 - Pages/layouts: `export default function` (required by Next.js)
 - Metadata: `export const metadata` (named export)
 - Prisma singleton: named export `export const prisma` from `src/lib/db.ts`
+- Utilities: named exports (no default exports for non-page modules)
 
 **Barrel Files:**
 - Not used in application code
@@ -286,6 +298,7 @@ npx tsx prisma/seed.ts    # Run seed script
 - Server Actions: `src/app/actions/` or colocated with the form
 - Shared components: `src/components/` (flat structure unless a group needs isolation)
 - Library code: `src/lib/`
+- Query helpers: `src/lib/queries.ts` (single file for MVP, split when exceeding 300 lines per `PROJECT.md`)
 - Generated code: `src/generated/` (git-ignored)
 
 ## URL Conventions
@@ -313,7 +326,7 @@ npx tsx prisma/seed.ts    # Run seed script
 **Filter/Sort State:**
 - URL search params drive filter/sort state on listing pages
 - Keep URLs shareable and bookmarkable
-- Filters update URL and results in real time
+- Filters update URL and results synchronously
 
 ---
 

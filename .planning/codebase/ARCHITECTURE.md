@@ -4,136 +4,264 @@
 
 ## Pattern Overview
 
-**Overall:** Next.js 16 App Router with React Server Components, Prisma ORM over Neon PostgreSQL, file-based routing, URL-driven state
+**Overall:** Hub-and-spoke content site built on Next.js 16 App Router with Server Components as the rendering backbone
 
 **Key Characteristics:**
-- Server Components by default; Client Components only for interactive UI (filters, modals, mobile nav)
-- File-based routing via Next.js App Router in `src/app/`
-- Database access exclusively through Prisma singleton in `src/lib/db.ts` -- server-side only
-- URL search params drive filter/sort state for shareable, SEO-indexable URLs
-- No user authentication -- admin protected by `proxy.ts` with `ADMIN_SECRET` env var
-- Affiliate revenue model: click tracking on outbound provider links
-- SEO-first: every public page requires `metadata`/`generateMetadata()` and JSON-LD structured data
+- Server Components by default; Client Components only for interactive UI (filters, forms, comparison tray, search bar)
+- Central entity is `Provider`, which radiates to category listings, detail pages, comparisons, collections, and blog content
+- All consumer-facing data fetching happens server-side via Prisma through a centralized query layer
+- URL search params are the shared state contract between Server and Client Components (no global state store)
+- Admin subsystem is isolated under `/admin` and protected by `proxy.ts` authentication
+- On-demand revalidation from admin mutations keeps pages cached but fresh
+- SEO-first: every public page requires metadata exports and JSON-LD structured data
 
-**Current State:** Scaffolded via `create-next-app`. Only the default homepage exists (`src/app/page.tsx`). The Prisma schema defines 10 models and 5 enums, but no application routes, components, query helpers, or seed data have been built yet. The project follows a 12-phase roadmap defined in `.planning/ROADMAP.md`.
+**Current State:** Scaffolded via `create-next-app`. Only the default homepage (`src/app/page.tsx`) and root layout (`src/app/layout.tsx`) exist. The Prisma schema defines 10 models and 5 enums but no application routes, components, query helpers, or seed data have been built. The project follows a 12-phase roadmap (Phases 10-120) defined in `.planning/ROADMAP.md`.
 
 ## Layers
 
-**Presentation Layer (React Server Components):**
-- Purpose: Render pages with data fetched directly via Prisma queries
-- Location: `src/app/` (route segments), `src/components/` (shared UI, not yet created)
-- Contains: Page components, layouts, metadata exports, JSON-LD structured data
-- Depends on: Prisma client via `src/lib/db.ts`, query helpers in `src/lib/`
-- Used by: End users via browser
-- Rule: All pages are Server Components. Fetch data here, pass to children as props.
+**Presentation Layer (Pages & Layouts):**
+- Purpose: Render HTML via Server Components, define routes and metadata, export JSON-LD structured data
+- Location: `src/app/`
+- Contains: Page components (`page.tsx`), layouts (`layout.tsx`), loading states (`loading.tsx`), error boundaries (`error.tsx`), not-found pages (`not-found.tsx`)
+- Depends on: Query Layer for data, Component Layer for UI
+- Used by: Next.js router (browser requests)
+- Rule: All pages are Server Components. Always `await params` and `await searchParams` (Promises in Next.js 16). Always export `metadata` or `generateMetadata()`.
 
-**Interactive Layer (React Client Components):**
+**Component Layer:**
+- Purpose: Reusable UI building blocks, both Server and Client Components
+- Location: `src/components/` (planned, does not exist yet)
+- Contains: Domain components (ProviderCard, ComparisonTable, FilterPanel) and UI primitives in `ui/` subdirectory (Button, Card, Badge, Input, Select, Skeleton)
+- Depends on: Tailwind CSS 4 for styling, props from Presentation Layer
+- Used by: Pages and layouts in `src/app/`
+- Rule: Flat structure unless a component group needs isolation. Server Components by default; add `"use client"` only when browser APIs, event handlers, or React hooks are needed.
+
+**Interactive Layer (Client Components):**
 - Purpose: Handle browser interactivity requiring state, effects, or event handlers
-- Location: `src/components/` (files must include `"use client"` directive at top)
-- Contains: Filter panels, comparison selector, mobile navigation, search bar, review forms, star rating inputs
+- Location: `src/components/` (files with `"use client"` directive)
+- Contains: FilterPanel (URL-driven filters), ComparisonTray (floating bar), SearchBar (expandable input), ReviewForm (star rating + text), mobile navigation
 - Depends on: URL search params (for filter state), props from Server Components
-- Used by: Server Components (composed as children or receive data via props)
-- Rule: NEVER import Prisma or access the database. NEVER import from `@/lib/db`.
-
-**Data Layer (Prisma ORM):**
-- Purpose: Type-safe database queries against Neon PostgreSQL
-- Location: `src/lib/db.ts` (singleton client), `prisma/schema.prisma` (schema)
-- Contains: PrismaClient instance configured with `@prisma/adapter-pg` for Neon
-- Depends on: `DATABASE_URL` environment variable
-- Used by: Server Components, Server Actions, API routes
-- Rule: Always import from `src/lib/db.ts`. Never instantiate PrismaClient elsewhere.
+- Used by: Composed as children of Server Components
+- Rule: NEVER import Prisma or `@/lib/db`. NEVER fetch data directly. Receive all data as props or interact via Server Actions and URL params.
 
 **Query Layer (planned):**
-- Purpose: Reusable typed query functions consumed by pages and API routes
-- Location: `src/lib/queries.ts` (planned, not yet created)
-- Contains: Functions like `getFeaturedProviders()`, `getProviderBySlug()`, `getProvidersByCategory()`
-- Depends on: Prisma client from `src/lib/db.ts`
-- Used by: Server Components in `src/app/`
-- Rule: All functions are `async`, export named functions, use Prisma's type-safe API (no raw SQL in MVP)
+- Purpose: All database queries, centralized data access, React.cache() deduplication
+- Location: `src/lib/queries.ts` (single file for MVP, split when exceeding 300 lines)
+- Contains: ~20 named async functions for every data need (listings, detail, comparison, search, admin stats)
+- Depends on: Database Layer (Prisma Client via `src/lib/db.ts`)
+- Used by: Server Components in Presentation Layer, Server Actions
+- Rule: Wrap all functions in `React.cache()` for request-level deduplication. Export named functions. Use Prisma's type-safe API (no raw SQL in MVP). All functions are `async`.
 
-**Mutation Layer (Server Actions, planned):**
-- Purpose: Handle form submissions and data mutations
+**Database Layer:**
+- Purpose: Type-safe database client with connection pooling via Neon adapter
+- Location: `src/lib/db.ts` (singleton), `prisma/schema.prisma` (schema definition)
+- Contains: PrismaClient instance configured with `@prisma/adapter-pg` (PrismaPg) for Neon PostgreSQL
+- Depends on: `DATABASE_URL` environment variable, generated types in `src/generated/prisma/`
+- Used by: Query Layer exclusively (never imported directly in pages or client components)
+- Rule: Always import `prisma` from `@/lib/db`. Never instantiate PrismaClient elsewhere. Singleton cached on `globalThis` in development to survive HMR.
+
+**Server Actions (planned):**
+- Purpose: Handle mutations (review submission, admin CRUD) with validation
 - Location: `src/app/actions/` for global actions, or colocated with forms
-- Contains: Review submission, admin CRUD operations
-- Depends on: Prisma client, validation logic
+- Contains: `"use server"` functions for form submissions and admin operations
+- Depends on: Database Layer, Query Layer for reads, validation logic
 - Used by: Client Components via `action={serverAction}` on forms
-- Rule: Mark with `"use server"` directive. Return structured results, do not throw.
+- Rule: Mark with `"use server"` directive. Return `{ success: boolean, errors?: Record<string, string[]> }` -- never throw exceptions to the client. Call `revalidatePath()` after mutations.
 
-**Admin Layer (planned):**
-- Purpose: Internal content management interface
-- Location: `src/app/admin/` (not yet created)
-- Contains: Provider CRUD, review moderation, blog/collection management, affiliate analytics
-- Depends on: Prisma client, `proxy.ts` for access control
-- Used by: Site administrators only
-- Rule: Protected by `proxy.ts` (Next.js 16 renamed `middleware.ts` to `proxy.ts`). Uses `ADMIN_SECRET` env var.
+**Authentication Layer (planned):**
+- Purpose: Protect admin routes from unauthorized access
+- Location: `src/proxy.ts` (Next.js 16 replaces `middleware.ts` with `proxy.ts`)
+- Contains: Request interception checking `ADMIN_SECRET` env var against request headers/cookies
+- Depends on: `ADMIN_SECRET` environment variable
+- Used by: Next.js runtime (intercepts all requests; gates `/admin/*` routes)
+- Rule: Uses Node.js runtime only (NOT Edge). Export `proxy` function (NOT `middleware`).
 
-**Generated Layer (Prisma Client Types):**
-- Purpose: Auto-generated TypeScript types and client code from schema
+**Utility Layer:**
+- Purpose: Shared helpers, type mappings, filter parsing, formatting
+- Location: `src/lib/`
+- Contains: `categories.ts` (slug-to-enum bidirectional mapping), `filters.ts` (searchParams parser with validation), `utils.ts` (formatPrice, etc.)
+- Depends on: Generated Prisma enums from `@/generated/prisma/enums`
+- Used by: All server-side layers
+
+**Generated Layer:**
+- Purpose: Auto-generated TypeScript types and Prisma client runtime
 - Location: `src/generated/prisma/`
-- Contains: PrismaClient class (`client.ts`), model types (`models.ts`), enum types (`enums.ts`), input types (`commonInputTypes.ts`)
-- Depends on: `prisma/schema.prisma`
-- Used by: All server-side code via `import { PrismaClient } from "@/generated/prisma/client"`
-- Rule: Never edit directly. Regenerate with `npx prisma generate` after any schema change.
+- Contains: PrismaClient class (`client.ts`), model types (`models.ts`), enum types (`enums.ts`), input types (`commonInputTypes.ts`), internal runtime (`internal/`)
+- Generated by: `npx prisma generate` (output configured in `prisma/schema.prisma` line 6-7)
+- Rule: Never edit directly. Regenerate after any `prisma/schema.prisma` change. Gitignored.
 
 ## Data Flow
 
-**Server-Rendered Page (primary pattern):**
+**Primary Flow: Server-Rendered Content Page**
 
-1. User requests a URL (e.g., `/meal-kits?diet=vegan&sort=rating`)
-2. Next.js App Router matches the route segment in `src/app/`
-3. Server Component receives `params` and `searchParams` as **Promises** (MUST `await` both -- Next.js 16 breaking change)
-4. Server Component calls a query function from `src/lib/queries.ts` with parsed params
-5. Query function imports `prisma` from `@/lib/db` and executes a Prisma query
-6. Results are passed as props to child components (Server or Client)
-7. Page renders HTML with `metadata`/`generateMetadata()` and JSON-LD
-8. Client Components hydrate for interactivity (filters, comparison bar)
+1. Browser requests URL (e.g., `/meal-kits?diet=vegan&sort=rating`)
+2. Next.js router matches `src/app/[category]/page.tsx`
+3. Server Component awaits `params` -> `{ category: "meal-kits" }` and `searchParams` -> `{ diet: "vegan", sort: "rating" }` (both are Promises in Next.js 16)
+4. Utility function maps URL slug to `CategoryType` enum via `src/lib/categories.ts`
+5. Filter parser validates `searchParams` into typed filter object via `src/lib/filters.ts`
+6. Page calls Query Layer function (e.g., `getProvidersByCategory()`) with parsed category and filters
+7. Query Layer executes Prisma query against Neon PostgreSQL
+8. Server Component renders HTML with data, generates metadata via `generateMetadata()`, and outputs JSON-LD `<script>` tag
+9. Filter state passed as props to FilterPanel (Client Component)
+10. HTML streamed to browser; Client Components hydrate for interactivity
 
-**Filter/Sort Interaction (URL-driven state):**
+**Filter/Sort Interaction (URL-Driven State):**
 
-1. User interacts with a Client Component (filter checkbox, sort dropdown)
-2. Client Component updates URL search params via `router.push()` or `<Link>`
-3. New URL triggers server-side re-render with updated `searchParams`
-4. Server Component awaits `searchParams`, parses filters, calls query function
-5. Updated results render via React Server Component streaming (no full page reload)
+1. User clicks filter checkbox or selects sort option in FilterPanel (Client Component)
+2. FilterPanel calls `router.push()` with updated URL search params (e.g., `/meal-kits?diet=vegan,keto&sort=price-asc`)
+3. Next.js soft navigation triggers server re-render of `[category]/page.tsx`
+4. Server Component awaits new `searchParams`, parses filters, queries with new values
+5. Streaming response replaces page content via React reconciliation (no full page reload)
+6. FilterPanel maintains visual state (checkboxes stay checked via URL params)
 
 **Form Submission (Server Actions):**
 
-1. User fills out a form (e.g., review submission on provider detail page)
-2. Client Component calls a Server Action via `action={submitReview}`
-3. Server Action validates input, executes Prisma mutation
-4. Server Action returns structured result `{ success: boolean, errors?: ... }`
-5. Client Component shows feedback based on result
+1. User fills form in Client Component (e.g., ReviewForm on provider detail page)
+2. Client Component calls Server Action via `action={submitReview}`
+3. Server Action validates all fields (rating 1-5, required fields, sanitization)
+4. Server Action executes Prisma mutation (e.g., `prisma.review.create({ status: PENDING })`)
+5. Server Action returns `{ success: true }` or `{ success: false, errors: [...] }`
+6. Client Component shows success toast or inline error messages
+7. Review does NOT appear publicly until admin approval
 
 **Affiliate Click Tracking:**
 
-1. User clicks "Visit Provider" button on any page
-2. Click routes through API endpoint (e.g., `/api/track/[providerId]`)
-3. API creates `AffiliateClick` record (provider, source page, user agent, hashed IP)
-4. User is HTTP-redirected to provider's `affiliateUrl`
+1. User clicks "Visit Provider" CTA on any page
+2. Link routes to `/api/track/[providerId]` (Route Handler)
+3. Route Handler creates `AffiliateClick` record (providerId, source page from referer header, userAgent, ipHash)
+4. Route Handler returns `NextResponse.redirect(provider.affiliateUrl)`
+5. User lands on provider's external website
+
+**Admin Mutation with Revalidation:**
+
+1. Admin submits form in `/admin/*` page
+2. Form calls Server Action (e.g., `updateProvider()`)
+3. Server Action validates input, executes Prisma mutation
+4. Server Action calls `revalidatePath()` for all affected public routes:
+   - `revalidatePath('/providers/${slug}')` (detail page)
+   - `revalidatePath('/${categorySlug}')` (category listing)
+   - `revalidatePath('/')` (homepage, if featured)
+5. Admin sees success feedback; public pages regenerate on next request
 
 **State Management:**
-- No global state library. URL search params are the primary state mechanism.
-- Comparison state (selected providers) uses client-side React state, persisted across navigations via context or URL params
-- Filter state always in URL search params for shareability and SEO
+- No global state library (no Redux, Zustand, or Context for application data)
+- URL search params are the single source of truth for filter/sort state on listing pages
+- Comparison selection uses React state in a layout-level Client Component (ComparisonTray), transfers to URL params when navigating to comparison page
+- Server Actions return structured result objects for form state management via `useActionState` (React 19)
+
+## Key Abstractions
+
+**Provider (Central Entity):**
+- Purpose: Represents a food box subscription service; the hub of all consumer-facing content
+- Schema: `prisma/schema.prisma` lines 63-112
+- Relations: has many Plans, ProviderDietaryTags, Reviews, ProviderFaqs, AffiliateClicks, CollectionItems
+- Pattern: Denormalized fields (`averageRating`, `reviewCount`, planned: `minPricePerServing`, `maxPricePerServing`, `freeShipping`) for listing query performance. Slug is the canonical URL identifier.
+
+**CategoryType (Enum, not Model):**
+- Purpose: Classifies providers into 5 fixed categories
+- Schema: `prisma/schema.prisma` lines 15-21
+- Values: MEAL_KIT, PREPARED_MEAL, PROTEIN_BOX, PRODUCE_BOX, SPECIALTY
+- Pattern: Mapped to URL slugs via bidirectional utility in `src/lib/categories.ts`: `"meal-kits"` <-> `CategoryType.MEAL_KIT`. Only 5 values, so an enum is simpler than a model.
+
+**Plan (Pricing Tier):**
+- Purpose: Represents a specific subscription plan within a provider
+- Schema: `prisma/schema.prisma` lines 114-149
+- Pattern: Multiple plans per provider; `sortOrder` for display ordering; `pricePerServing` as primary comparison metric; includes flexibility data (`canSkip`, `canCancel`, `cancelPolicy`)
+
+**Collection (Curated Editorial List):**
+- Purpose: "Best of" content grouping providers with ranked order and editorial notes
+- Schema: `prisma/schema.prisma` lines 223-258
+- Pattern: Many-to-many with Provider through CollectionItem join model (with `sortOrder` and editorial `note` per item)
+
+**Query Layer Functions (planned, `src/lib/queries.ts`):**
+- Purpose: Named, typed, cached query functions as the sole interface to the database
+- Pattern: All wrapped in `React.cache()` for deduplication within a single render pass (prevents duplicate Prisma calls when both `generateMetadata()` and page component need the same data)
+- Example functions: `getFeaturedProviders()`, `getProviderBySlug()`, `getProvidersByCategory()`, `getProvidersBySlugs()`, `searchProviders()`, `getAdminStats()`
+
+**URL SearchParams Parser (planned, `src/lib/filters.ts`):**
+- Purpose: Parse untrusted URL search params into typed, validated filter objects with safe defaults
+- Pattern: Returns typed `ProviderFilters` object; invalid values silently fall back to defaults; server is the authority on valid filter values
+
+## Entry Points
+
+**Root Layout:**
+- Location: `src/app/layout.tsx`
+- Triggers: Every page request (wraps all routes)
+- Responsibilities: HTML shell (`<html>`, `<body>`), Geist Sans and Geist Mono font loading via `next/font/google`, global CSS import (`globals.css`), antialiased text, flex column body for sticky footer pattern
+
+**Homepage:**
+- Location: `src/app/page.tsx`
+- Triggers: Request to `/`
+- Responsibilities: Currently renders default Next.js create-next-app template. Will become homepage with hero section, featured providers, category cards, social proof, WebSite/Organization JSON-LD.
+
+**Database Client Singleton:**
+- Location: `src/lib/db.ts`
+- Triggers: First import in any server-side module
+- Responsibilities: Creates and caches PrismaClient with `PrismaPg` adapter connected to Neon via `DATABASE_URL`. Cached on `globalThis` in development to survive hot module replacement.
+
+**Build Script:**
+- Location: `package.json` `"build"` script
+- Command: `prisma generate && next build`
+- Ensures Prisma client is regenerated before every production build
+
+**Proxy (planned):**
+- Location: `src/proxy.ts`
+- Triggers: All incoming requests (Next.js 16 request interception)
+- Responsibilities: Check `ADMIN_SECRET` for `/admin/*` routes; pass through all other requests. Node.js runtime only.
+
+## Error Handling
+
+**Strategy:** Not yet implemented. Planned for Phase 120 (error boundaries on all route segments with loading states for data-dependent pages).
+
+**Patterns to implement:**
+- Call `notFound()` from `next/navigation` before any Suspense boundary for missing providers/content (ensures HTTP 404 status code)
+- `error.tsx` error boundaries on all route segments (must use `"use client"`)
+- `loading.tsx` streaming loading states with skeleton components
+- `not-found.tsx` with search bar and category suggestions
+- `global-error.tsx` for unrecoverable application errors
+- Server Actions return `{ success, errors }` objects -- never throw exceptions to the client
+- JSON-LD XSS prevention: `.replace(/</g, "\\u003c")` on all `JSON.stringify` output in structured data
+
+## Cross-Cutting Concerns
+
+**Logging:** Not configured. Console logging only. No structured logging framework planned for MVP.
+
+**Validation:** Not yet implemented. Planned in Server Actions: validate all fields before database mutations. URL search params parsed and validated through `src/lib/filters.ts` utility with safe defaults for invalid values. Prisma schema provides database-level constraints (unique slugs, required fields, enum values). CHECK constraints planned for Phase 10 (`rating >= 1 AND rating <= 5`, `averageRating >= 0 AND averageRating <= 5`).
+
+**Authentication:** No user authentication. Admin access controlled by `proxy.ts` + `ADMIN_SECRET` environment variable. Reviews are anonymous (name + optional email, no login required).
+
+**SEO:** Every public page MUST export `metadata` or `generateMetadata()` plus JSON-LD structured data rendered as `<script type="application/ld+json">` in Server Components. Dynamic sitemap.xml and robots.txt planned for Phase 110. All slugs are canonical URL identifiers. Canonical URLs on all pages.
+
+**Caching:** On-demand revalidation via `revalidatePath()` from admin Server Actions. Content pages aggressively cached since all data is editorial (updated infrequently by admins). Dynamic pages (search, flexible comparison) are not cached. Next.js 16 supports `use cache` directive with `cacheLife()` when `cacheComponents: true` is enabled in `next.config.ts` (not yet enabled).
+
+**Image Optimization:** Next.js `Image` component with `remotePatterns` in `next.config.ts` for external provider logos/hero images (not yet configured -- `next.config.ts` is currently empty). Provider images stored as URLs in database.
 
 ## Database Schema
 
 **10 Models across 3 domains:**
 
 **Core Domain (5 models):**
-- `Provider` -- Central entity. Food box subscription service with slug, category, ratings, editorial content, SEO fields. All consumer pages revolve around this model. Schema: `prisma/schema.prisma` line 63.
-- `Plan` -- Pricing plan per Provider. Tracks per-serving/per-week/per-box pricing, frequency, skip/cancel policies. Schema: `prisma/schema.prisma` line 114.
-- `ProviderDietaryTag` -- Join model: Provider to `DietaryTag` enum. Unique on `[providerId, tag]`. Schema: `prisma/schema.prisma` line 151.
-- `Review` -- User-submitted review. 1-5 rating, moderation status (PENDING/APPROVED/REJECTED). Provider has denormalized `averageRating` and `reviewCount`. Schema: `prisma/schema.prisma` line 162.
-- `ProviderFaq` -- FAQ entries per provider with `sortOrder`. Schema: `prisma/schema.prisma` line 183.
+
+| Model | Purpose | Location in Schema |
+|-------|---------|-------------------|
+| `Provider` | Central entity: food box subscription service with slug, category, ratings, editorial content, SEO fields | `prisma/schema.prisma` line 63 |
+| `Plan` | Pricing plan per Provider with per-serving/per-week/per-box pricing, frequency, skip/cancel policies | `prisma/schema.prisma` line 114 |
+| `ProviderDietaryTag` | Join: Provider to DietaryTag enum. Unique on `[providerId, tag]` | `prisma/schema.prisma` line 151 |
+| `Review` | User-submitted review with 1-5 rating, moderation status (PENDING/APPROVED/REJECTED) | `prisma/schema.prisma` line 162 |
+| `ProviderFaq` | FAQ entries per provider with sortOrder | `prisma/schema.prisma` line 183 |
 
 **Content Domain (3 models):**
-- `BlogPost` -- Editorial content with slug, body, status (DRAFT/PUBLISHED/ARCHIVED), SEO fields. Schema: `prisma/schema.prisma` line 200.
-- `Collection` -- Curated "best of" lists (e.g., "Best Keto Meal Kits") with editorial body. Schema: `prisma/schema.prisma` line 223.
-- `CollectionItem` -- Join model: Collection to Provider with `sortOrder` and editorial `note`. Schema: `prisma/schema.prisma` line 246.
+
+| Model | Purpose | Location in Schema |
+|-------|---------|-------------------|
+| `BlogPost` | Editorial content with slug, body, status (DRAFT/PUBLISHED/ARCHIVED), SEO fields | `prisma/schema.prisma` line 200 |
+| `Collection` | Curated "best of" lists with editorial body content | `prisma/schema.prisma` line 223 |
+| `CollectionItem` | Join: Collection to Provider with sortOrder and editorial note | `prisma/schema.prisma` line 246 |
 
 **Analytics Domain (1 model):**
-- `AffiliateClick` -- Tracks affiliate link clicks with source, referrer, hashed IP for dedup. Schema: `prisma/schema.prisma` line 262.
+
+| Model | Purpose | Location in Schema |
+|-------|---------|-------------------|
+| `AffiliateClick` | Tracks affiliate link clicks with source, referrer, hashed IP for dedup | `prisma/schema.prisma` line 262 |
 
 **5 Enums:**
 - `CategoryType`: MEAL_KIT, PREPARED_MEAL, PROTEIN_BOX, PRODUCE_BOX, SPECIALTY
@@ -142,18 +270,26 @@
 - `ReviewStatus`: PENDING, APPROVED, REJECTED
 - `ContentStatus`: DRAFT, PUBLISHED, ARCHIVED
 
-**Key Indexes:** Provider: `[category]`, `[featured]`, `[active]`, `[averageRating]`. Plan: `[providerId]`, `[pricePerServing]`. Review: `[providerId]`, `[status]`, `[rating]`. BlogPost: `[status]`, `[publishedAt]`. ProviderDietaryTag: `[tag]`. AffiliateClick: `[providerId]`, `[createdAt]`.
+**Key Indexes:**
+- `Provider`: `[category]`, `[featured]`, `[active]`, `[averageRating]` (planned composite: `[category, active, averageRating]`)
+- `Plan`: `[providerId]`, `[pricePerServing]`
+- `Review`: `[providerId]`, `[status]`, `[rating]`
+- `BlogPost`: `[status]`, `[publishedAt]`
+- `ProviderDietaryTag`: `[tag]`, unique `[providerId, tag]`
+- `AffiliateClick`: `[providerId]`, `[createdAt]`
+- `Collection`: `[status]`
+- `CollectionItem`: `[collectionId]`, unique `[collectionId, providerId]`
 
-**Planned Schema Enhancement (Phase 10):** Add `minPricePerServing`, `maxPricePerServing`, `freeShipping` denormalized fields to `Provider` model plus composite index `[category, active, averageRating]`.
+**Planned Schema Enhancement (Phase 10):** Add denormalized fields to Provider: `minPricePerServing Float?`, `maxPricePerServing Float?`, `freeShipping Boolean @default(false)`. Add composite index `[category, active, averageRating]`. Add CHECK constraints via raw SQL.
 
 ## Planned Route Structure
 
-Per AD-2 in `.planning/PROJECT.md`:
+Per `.planning/PROJECT.md` URL structure:
 
 ```
 src/app/
   page.tsx                          # / (Homepage)
-  [category]/page.tsx               # /meal-kits, /prepared-meals, etc.
+  [category]/page.tsx               # /meal-kits, /prepared-meals, /protein-boxes, /produce-boxes, /specialty
   providers/[slug]/page.tsx         # /providers/hello-fresh
   compare/page.tsx                  # /compare?providers=a,b,c (flexible, noindex)
   compare/[slugs]/page.tsx          # /compare/hello-fresh-vs-blue-apron (SEO, indexed)
@@ -165,84 +301,30 @@ src/app/
   admin/page.tsx                    # /admin (dashboard, protected)
   admin/providers/page.tsx          # /admin/providers (CRUD)
   admin/content/page.tsx            # /admin/content (blog, collections)
+  api/track/[providerId]/route.ts   # Affiliate click tracking API
+  actions/reviews.ts                # Review submission Server Action
+  actions/admin.ts                  # Admin CRUD Server Actions
+  sitemap.ts                        # Dynamic sitemap generation
+  robots.ts                         # robots.txt generation
+  error.tsx                         # Global error boundary
+  not-found.tsx                     # Global 404 page
 ```
 
-**Note:** Only `src/app/page.tsx` and `src/app/layout.tsx` exist. All other routes are planned.
+**Note:** Only `src/app/page.tsx` and `src/app/layout.tsx` exist. All other routes are planned for Phases 30-120.
 
-## Key Abstractions
+## Caching Strategy
 
-**Prisma Client Singleton (`src/lib/db.ts`):**
-- Purpose: Single PrismaClient instance across hot reloads in development
-- Pattern: Global singleton cached on `globalThis` in non-production
-- Usage: `import { prisma } from "@/lib/db"` in any server-side module
-- Implementation uses `PrismaPg` adapter with `DATABASE_URL` connection string
-
-**Provider as Central Entity:**
-- The core data model. All consumer-facing pages revolve around Provider queries.
-- Relations fan out: Provider -> Plans, Reviews, FAQs, DietaryTags, AffiliateClicks, CollectionItems
-- Slug is the canonical URL identifier: `/providers/[slug]`
-
-**CategoryType as Route Segment:**
-- `CategoryType` enum maps to URL slugs: `MEAL_KIT` -> `/meal-kits`, `PREPARED_MEAL` -> `/prepared-meals`, etc.
-- Dynamic route `[category]` resolves enum from slug for Prisma queries
-- Must maintain a mapping utility (slug <-> enum) in `src/lib/`
-
-**URL Search Params as State:**
-- All filter/sort state encoded in URL params (e.g., `?diet=vegan&sort=price-asc&page=2`)
-- `searchParams` is a Promise in Next.js 16 -- always await
-- Enables shareable, bookmarkable, SEO-indexable filtered views
-
-## Entry Points
-
-**Application Root:**
-- Location: `src/app/layout.tsx`
-- Triggers: Every page render (wraps all routes)
-- Responsibilities: Root HTML structure (`<html>`, `<body>`), font loading (Geist Sans, Geist Mono via `next/font/google`), global CSS import (`globals.css`), dark mode class setup
-
-**Home Page:**
-- Location: `src/app/page.tsx`
-- Triggers: Request to `/`
-- Responsibilities: Currently default create-next-app content. Will become homepage with hero, featured providers, category cards, social proof.
-
-**Database Client:**
-- Location: `src/lib/db.ts`
-- Triggers: First import in any server-side module
-- Responsibilities: Creates and caches PrismaClient with Neon adapter (`@prisma/adapter-pg`)
-
-**Request Interception (planned):**
-- Location: `src/proxy.ts` (does not exist yet)
-- Triggers: Every incoming request
-- Responsibilities: Admin route protection (`/admin/*`) via `ADMIN_SECRET` env var
-- Note: Uses `proxy.ts` NOT `middleware.ts` -- Next.js 16 renamed this file
-
-**Build Entry:**
-- Location: `package.json` script `"build": "prisma generate && next build"`
-- Ensures Prisma client is regenerated before every production build
-
-## Error Handling
-
-**Strategy:** Not yet implemented. Planned per Phase 120:
-
-**Patterns to implement:**
-- `error.tsx` error boundaries on all route segments (must use `"use client"`)
-- `loading.tsx` streaming loading states for data-dependent pages
-- `not-found.tsx` with search and category suggestions
-- `global-error.tsx` for unrecoverable application errors
-- Server Actions return `{ success, errors }` objects -- never throw exceptions to the client
-
-## Cross-Cutting Concerns
-
-**Logging:** Not configured. Use `console` methods. No structured logging framework planned for MVP.
-
-**Validation:** Not yet implemented. Server Action validation for review forms and admin forms. Prisma schema provides database-level constraints (unique slugs, required fields, enum values, CHECK constraints planned in Phase 10).
-
-**Authentication:** No user authentication. Admin access controlled by `proxy.ts` + `ADMIN_SECRET` env var. Reviews are anonymous (name + optional email, no login).
-
-**SEO:** Every public page MUST export `metadata` or `generateMetadata()` plus JSON-LD structured data. Sitemap and robots.txt planned for Phase 110. All slugs are canonical URL identifiers.
-
-**Caching/ISR:** Next.js 16 supports `use cache` directive with `cacheLife()` when `cacheComponents: true` is enabled in `next.config.ts` (not yet enabled). ISR planned for provider listings and detail pages.
-
-**Image Optimization:** Next.js `Image` component with `remotePatterns` in `next.config.ts` for external provider logos/hero images (not yet configured -- `next.config.ts` is currently empty).
+| Page Type | Strategy | Revalidation Trigger |
+|-----------|----------|---------------------|
+| Homepage | `revalidate = 3600` (1 hour) + on-demand | `revalidatePath("/")` from admin actions |
+| Category Listing | `revalidate = 3600` + on-demand | `revalidatePath("/${category}")` from admin actions |
+| Provider Detail | `generateStaticParams` + on-demand | `revalidatePath("/providers/${slug}")` from admin actions |
+| Collection/Best-Of | `generateStaticParams` + on-demand | `revalidatePath("/best/${slug}")` from admin actions |
+| Blog Post | `generateStaticParams` + on-demand | `revalidatePath("/blog/${slug}")` from admin actions |
+| SEO Comparison | `generateStaticParams` + on-demand | `revalidatePath("/compare/${slugs}")` from admin actions |
+| Flexible Comparison | Dynamic (noindex, unique per request) | No caching needed |
+| Search | Dynamic (depends on query) | No caching needed |
+| Admin pages | Dynamic (always fresh) | No caching needed |
 
 ---
 

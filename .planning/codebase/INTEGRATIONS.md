@@ -6,19 +6,19 @@
 
 **None currently integrated.**
 
-The application is in early development (Phase 10 - Database Foundation). No third-party APIs, SDKs, or external service clients are imported in application code. All data is editorial/curated and stored in the database.
+The application is in early development (pre-Phase 10). No third-party APIs, SDKs, or external service clients are imported in application code. All data is editorial/curated and stored in the database.
 
 **Planned integrations per roadmap:**
-- Affiliate link tracking (Phase 120) - custom redirect-based, no external API
+- Affiliate link tracking (Phase 120) - custom redirect-based via `AffiliateClick` model, no external API
 - Full-text search (Phase 80) - PostgreSQL built-in, no external service
-- Newsletter signup (Phase 30) - provider TBD
+- No paid APIs or premium services planned (budget constraint)
 
 ## Data Storage
 
 **Database:**
 - Neon PostgreSQL (serverless)
   - Connection: `DATABASE_URL` environment variable
-  - Client: Prisma 7.5.0 with `@prisma/adapter-pg` adapter
+  - Client: Prisma 7.5.0 with `@prisma/adapter-pg` 7.5.0 adapter
   - Singleton: `src/lib/db.ts`
   - Schema: `prisma/schema.prisma`
   - Config: `prisma.config.ts`
@@ -26,10 +26,9 @@ The application is in early development (Phase 10 - Database Foundation). No thi
 
 **File Storage:**
 - None configured
-- Provider logos and hero images stored as external URLs in database fields (`logoUrl`, `heroImageUrl`)
-- Blog/collection cover images stored as external URLs (`coverImageUrl`)
+- Provider logos and hero images stored as external URLs in database fields (`logoUrl`, `heroImageUrl` on `Provider` model)
+- Blog/collection cover images stored as external URLs (`coverImageUrl` on `BlogPost`, `Collection` models)
 - No file upload capability exists or is planned for MVP
-- Planned: Vercel Blob for image uploads in post-MVP phase (per AD-5 in `.planning/PROJECT.md`)
 
 **Caching:**
 - None configured
@@ -49,7 +48,8 @@ The application is in early development (Phase 10 - Database Foundation). No thi
 
 **No user authentication system:**
 - Public visitors are anonymous
-- Review submissions collect name/email but do not create accounts (per AD-4 in `.planning/PROJECT.md`)
+- Review submissions collect `authorName`/`authorEmail` but do not create accounts
+- No OAuth, no JWT, no session management
 
 ## Monitoring & Observability
 
@@ -62,14 +62,15 @@ The application is in early development (Phase 10 - Database Foundation). No thi
 
 **Analytics:**
 - No web analytics configured (no Google Analytics, Plausible, Fathom, etc.)
-- Custom affiliate click tracking planned (Phase 120) via `AffiliateClick` database model
+- Custom affiliate click tracking planned (Phase 120) via `AffiliateClick` database model with fields: `providerId`, `source`, `referrer`, `userAgent`, `ipHash`
 
 ## CI/CD & Deployment
 
 **Hosting:**
 - Vercel (target platform)
-- `.vercel/` directory present with `project.json` (project initialized)
-- No `vercel.json` configuration file
+- `.vercel/` directory present with `project.json` (project initialized as `foodboxfinder`)
+- Vercel project ID: `prj_tAWplCf2zTDLxTi1hiUNzsV1wNJL`
+- No `vercel.json` configuration file -- uses defaults
 
 **CI Pipeline:**
 - None configured
@@ -79,6 +80,7 @@ The application is in early development (Phase 10 - Database Foundation). No thi
 **Build:**
 - `npm run build` runs `prisma generate && next build`
 - No automated testing in build pipeline
+- No automated linting in build pipeline
 
 ## Environment Configuration
 
@@ -122,20 +124,26 @@ The application is in early development (Phase 10 - Database Foundation). No thi
 
 **When adding provider images (Phase 20+):**
 - Add `images.remotePatterns` to `next.config.ts` for each external image domain
+- Use `next/image` `Image` component with `width`, `height`, and `alt` attributes
 
 **When adding admin auth (Phase 100):**
 - Create `proxy.ts` at project root (NOT `middleware.ts`)
 - Export `proxy` function (NOT `middleware`)
-- Check `ADMIN_SECRET` env var for admin routes
+- Check `ADMIN_SECRET` env var for admin routes matching `/admin/*`
 - Runs on Node.js runtime only (NOT Edge)
 
 **When adding affiliate tracking (Phase 120):**
-- Create API route to log click to `AffiliateClick` model, then redirect to provider affiliate URL
-- Hash IP addresses before storing (schema has `ipHash` field, never store raw IPs)
+- Create API route to log click to `AffiliateClick` model, then redirect to provider `affiliateUrl`
+- Hash IP addresses before storing (`ipHash` field in schema -- never store raw IPs)
+- Track `source` (originating page URL), `referrer`, and `userAgent`
 
 **When adding search (Phase 80):**
 - Use PostgreSQL full-text search via Prisma raw queries or extension
 - No external search service (Algolia, Typesense) needed for MVP scale
+
+**When adding blog markdown rendering (Phase 70):**
+- Install a markdown library (e.g., `remark`, `react-markdown`, or `unified`)
+- Blog `body` field stores raw text/markdown in `BlogPost` model
 
 ---
 

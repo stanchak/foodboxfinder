@@ -15,6 +15,7 @@
 
 **Environment:**
 - Node.js v24.9.0 (no `.nvmrc` or `.node-version` pinning file)
+- Vercel production target uses Node.js 24.x (configured in `.vercel/project.json`)
 
 **Package Manager:**
 - npm 11.6.0
@@ -38,7 +39,7 @@
   - Schema: `prisma/schema.prisma`
   - Config: `prisma.config.ts` (loads `DATABASE_URL` from `.env` via dotenv)
   - Generated client output: `src/generated/prisma/` (gitignored)
-  - Uses `@prisma/adapter-pg` for direct PostgreSQL connection (not Prisma's default engine)
+  - Uses `@prisma/adapter-pg` 7.5.0 for direct PostgreSQL connection (not Prisma's default engine)
 
 **Styling:**
 - Tailwind CSS 4.2.2 - Utility-first CSS, configured via PostCSS
@@ -52,10 +53,10 @@
 - TypeScript 5.9.3 - Type checking (strict mode)
 - ESLint 9.39.4 - Linting (flat config format)
   - Config: `eslint.config.mjs`
-  - Extends: `eslint-config-next/core-web-vitals`, `eslint-config-next/typescript`
+  - Extends: `eslint-config-next/core-web-vitals` 16.2.0, `eslint-config-next/typescript`
   - Run via: `npx eslint` (NOT `next lint`, which is removed in Next.js 16)
 - PostCSS - CSS processing via `postcss.config.mjs`
-  - Plugin: `@tailwindcss/postcss`
+  - Plugin: `@tailwindcss/postcss` 4.2.2
 
 ## Key Dependencies
 
@@ -83,6 +84,7 @@
 - No markdown rendering library (needed for Phase 70 blog)
 - No rate limiting library (needed for Phase 90 reviews)
 - No image processing beyond Next.js built-in Image component
+- No formatter (Prettier, Biome) -- no `.prettierrc` or `biome.json` present
 
 ## Configuration
 
@@ -121,7 +123,7 @@
 - Loads env via `import "dotenv/config"`
 
 **Environment:**
-- `.env` file present (contains `DATABASE_URL` for Neon PostgreSQL)
+- `.env` file present (contains database connection configuration)
 - `.env*` files are gitignored
 - No `.env.example` file to document required variables
 
@@ -179,9 +181,11 @@ npx prisma studio        # Visual database browser
 - `DATABASE_URL` environment variable
 
 **Production:**
-- Vercel hosting (`.vercel/` directory present, project initialized)
+- Vercel hosting (`.vercel/` directory present, project initialized as `foodboxfinder`)
+- Vercel Node.js 24.x runtime
 - Neon PostgreSQL (serverless, connection pooling)
 - No Docker, no CI/CD pipeline configured
+- No pre-commit hooks (no Husky, no lint-staged)
 
 ---
 
