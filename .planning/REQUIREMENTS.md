@@ -86,11 +86,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### SEO and Content
 
-- [ ] **SEO-01**: Every public page exports metadata (title, description) via generateMetadata or static metadata
-- [ ] **SEO-02**: JSON-LD structured data on every public page (appropriate schema type per page)
-- [ ] **SEO-03**: XSS-safe JSON-LD rendering with .replace(/</g, "\\u003c") on all JSON.stringify output
-- [ ] **SEO-04**: Sitemap generation for all public pages
-- [ ] **SEO-05**: Canonical URLs on all pages to prevent duplicate content
+- [x] **SEO-01**: Every public page exports metadata (title, description) via generateMetadata or static metadata
+- [x] **SEO-02**: JSON-LD structured data on every public page (appropriate schema type per page)
+- [x] **SEO-03**: XSS-safe JSON-LD rendering with .replace(/</g, "\\u003c") on all JSON.stringify output
+- [x] **SEO-04**: Sitemap generation for all public pages
+- [x] **SEO-05**: Canonical URLs on all pages to prevent duplicate content
 
 ### Collections
 
@@ -220,11 +220,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TRAY-02 | Phase 7 | Complete |
 | TRAY-03 | Phase 7 | Complete |
 | TRAY-04 | Phase 7 | Complete |
-| SEO-01 | Phase 9 | Pending |
-| SEO-02 | Phase 9 | Pending |
-| SEO-03 | Phase 9 | Pending |
-| SEO-04 | Phase 9 | Pending |
-| SEO-05 | Phase 9 | Pending |
+| SEO-01 | Phase 9 | Complete |
+| SEO-02 | Phase 9 | Complete |
+| SEO-03 | Phase 9 | Complete |
+| SEO-04 | Phase 9 | Complete |
+| SEO-05 | Phase 9 | Complete |
 | COLL-01 | Phase 9 | Complete |
 | COLL-02 | Phase 9 | Complete |
 | COLL-03 | Phase 9 | Complete |
