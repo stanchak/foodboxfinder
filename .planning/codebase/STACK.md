@@ -1,6 +1,6 @@
 # Technology Stack
 
-**Analysis Date:** 2026-03-20
+**Analysis Date:** 2026-03-21
 
 ## Languages
 
@@ -9,13 +9,13 @@
 
 **Secondary:**
 - CSS - Tailwind CSS 4 utility classes via `@import "tailwindcss"` in `src/app/globals.css`
-- SQL - PostgreSQL via Prisma ORM (no raw SQL written)
+- SQL - PostgreSQL via Prisma ORM (no raw SQL written by hand)
 
 ## Runtime
 
 **Environment:**
-- Node.js v24.9.0 (no `.nvmrc` or `.node-version` pinning file)
-- Vercel production target uses Node.js 24.x (configured in `.vercel/project.json`)
+- Node.js 24.9.0 (local); 24.x on Vercel production (configured in `.vercel/project.json`)
+- No `.nvmrc` or `.node-version` pinning file present
 
 **Package Manager:**
 - npm 11.6.0
@@ -24,169 +24,128 @@
 ## Frameworks
 
 **Core:**
-- Next.js 16.2.0 - Full-stack React framework (App Router, Server Components)
-  - Config: `next.config.ts` (currently empty/default)
-  - CRITICAL: `params` and `searchParams` are Promises -- always `await` them
-  - CRITICAL: Uses `proxy.ts` instead of `middleware.ts` for request interception
-  - CRITICAL: `cookies()`, `headers()`, `draftMode()` must be awaited
-  - CRITICAL: `useFormState` renamed to `useActionState` in React 19
-  - `next lint` is removed -- use `npx eslint` directly
+- Next.js 16.2.0 - Full-stack React framework (App Router, Server Components, ISR)
 - React 19.2.4 - UI library
-- React DOM 19.2.4
+- React DOM 19.2.4 - DOM rendering
 
 **ORM:**
-- Prisma 7.5.0 - Database ORM and schema management
-  - Schema: `prisma/schema.prisma`
-  - Config: `prisma.config.ts` (loads `DATABASE_URL` from `.env` via dotenv)
-  - Generated client output: `src/generated/prisma/` (gitignored)
-  - Uses `@prisma/adapter-pg` 7.5.0 for direct PostgreSQL connection (not Prisma's default engine)
+- Prisma 7.5.0 - Database ORM, schema management, and client generation
 
-**Styling:**
-- Tailwind CSS 4.2.2 - Utility-first CSS, configured via PostCSS
-  - No `tailwind.config.ts` -- Tailwind 4 uses CSS-based configuration
-  - Theme defined inline in `src/app/globals.css` via `@theme inline` directive
+**CSS:**
+- Tailwind CSS 4.2.2 - Utility-first CSS, configured via PostCSS (`postcss.config.mjs`)
 
 **Testing:**
-- Not configured (no test framework installed)
+- Not configured. No Jest, Vitest, or Playwright installed.
 
 **Build/Dev:**
-- TypeScript 5.9.3 - Type checking (strict mode)
-- ESLint 9.39.4 - Linting (flat config format)
-  - Config: `eslint.config.mjs`
-  - Extends: `eslint-config-next/core-web-vitals` 16.2.0, `eslint-config-next/typescript`
-  - Run via: `npx eslint` (NOT `next lint`, which is removed in Next.js 16)
-- PostCSS - CSS processing via `postcss.config.mjs`
-  - Plugin: `@tailwindcss/postcss` 4.2.2
+- TypeScript 5.9.3 - Type checking (tsc, strict mode)
+- ESLint 9.39.4 - Linting (flat config format at `eslint.config.mjs`)
+- PostCSS - CSS processing via `@tailwindcss/postcss` plugin
+- tsx 4.21.0 - TypeScript execution for seed scripts (`npx tsx prisma/seed.ts`)
 
 ## Key Dependencies
 
-**Critical (runtime):**
-- `next` 16.2.0 - Application framework
-- `react` 19.2.4 - UI rendering
-- `react-dom` 19.2.4 - DOM rendering
-- `@prisma/client` 7.5.0 - Database client (generated into `src/generated/prisma/`)
-- `@prisma/adapter-pg` 7.5.0 - PostgreSQL adapter for Prisma (uses `pg` driver directly)
-- `dotenv` 17.3.1 - Environment variable loading (used by `prisma.config.ts`)
+**Critical:**
+- `next` 16.2.0 - Application framework (`package.json`)
+- `react` 19.2.4 - UI rendering (`package.json`)
+- `react-dom` 19.2.4 - DOM rendering (`package.json`)
+- `@prisma/client` 7.5.0 - Database client, generated into `src/generated/prisma/` (`package.json`)
+- `@prisma/adapter-pg` 7.5.0 - PostgreSQL adapter for Prisma using the `pg` driver directly (`src/lib/db.ts`)
+- `server-only` 0.0.1 - Prevents query modules from being imported in client components (`src/lib/queries.ts` line 1)
 
-**Dev Dependencies:**
-- `prisma` 7.5.0 - Prisma CLI (schema management, generation)
-- `tailwindcss` 4.2.2 - CSS utility framework
-- `@tailwindcss/postcss` 4.x - PostCSS integration for Tailwind
+**Infrastructure:**
+- `pg` 8.20.0 - PostgreSQL driver (transitive dep of `@prisma/adapter-pg`)
+- `dotenv` 17.3.1 - Environment variable loading for `prisma.config.ts`
+- `prisma` 7.5.0 - Prisma CLI (schema management, codegen)
+
+**Dev Tooling:**
+- `tailwindcss` 4.2.2 - CSS framework (devDependency)
+- `@tailwindcss/postcss` 4.2.2 - PostCSS integration for Tailwind
 - `typescript` 5.9.3 - TypeScript compiler
 - `eslint` 9.39.4 - Linter
-- `eslint-config-next` 16.2.0 - Next.js ESLint rules
-- `@types/node` 20.x - Node.js type definitions
-- `@types/react` 19.x - React type definitions
-- `@types/react-dom` 19.x - React DOM type definitions
+- `eslint-config-next` 16.2.0 - Next.js ESLint rules (extends `core-web-vitals` and `typescript`)
+- `tsx` 4.21.0 - Script runner for seed and one-off scripts
 
-**NOT yet installed (planned per roadmap):**
-- No test runner (Jest, Vitest, or Playwright)
-- No markdown rendering library (needed for Phase 70 blog)
-- No rate limiting library (needed for Phase 90 reviews)
-- No image processing beyond Next.js built-in Image component
-- No formatter (Prettier, Biome) -- no `.prettierrc` or `biome.json` present
+**Missing (noted for planning):**
+- No test runner (Jest, Vitest, Playwright)
+- No formatter (Prettier, Biome)
+- No markdown rendering library (needed for blog body content)
+- No rate limiting library (needed for review submissions)
+- No image processing beyond Next.js built-in `<Image>`
 
 ## Configuration
 
 **TypeScript (`tsconfig.json`):**
-- `strict: true` - Full strict mode
-- `target: ES2017`
-- `module: esnext` with `moduleResolution: bundler`
-- Path alias: `@/*` maps to `./src/*`
-- Incremental compilation enabled
-- Next.js plugin registered
-
-**Tailwind CSS 4 (`src/app/globals.css`):**
-- Imports via `@import "tailwindcss"`
-- Custom CSS variables: `--background`, `--foreground`, `--font-sans`, `--font-mono`
-- Dark mode: `prefers-color-scheme` media query (system preference)
-- Fonts: Geist Sans and Geist Mono loaded via `next/font/google` in `src/app/layout.tsx`
-
-**Next.js (`next.config.ts`):**
-- Currently default/empty -- no custom configuration
-- No `images.remotePatterns` configured (will need this for provider logos)
-- No `cacheComponents` enabled yet
-- No React Compiler enabled yet
+- `strict: true` — all strict sub-flags active: `strictNullChecks`, `noImplicitAny`, etc.
+- `target: ES2017`, `module: esnext`, `moduleResolution: bundler`
+- Path alias: `@/*` → `./src/*`
+- Incremental compilation enabled (`tsconfig.tsbuildinfo` present)
+- Next.js plugin registered under `plugins`
 
 **ESLint (`eslint.config.mjs`):**
 - Flat config format (ESLint 9)
-- Extends Next.js core-web-vitals and TypeScript presets
-- Global ignores: `.next/`, `out/`, `build/`, `next-env.d.ts`
+- Extends `eslint-config-next/core-web-vitals` and `eslint-config-next/typescript`
+- Global ignores: `.next/**`, `out/**`, `build/**`, `next-env.d.ts`
+- Run with: `npx eslint .` (not `next lint` — removed in Next.js 16)
 
 **PostCSS (`postcss.config.mjs`):**
 - Single plugin: `@tailwindcss/postcss`
 
-**Prisma (`prisma.config.ts`):**
-- Schema location: `prisma/schema.prisma`
+**Tailwind (`src/app/globals.css`):**
+- Imported via `@import "tailwindcss"` (v4 syntax, not `@tailwind` directives)
+- Custom CSS variables for brand colors (`--color-primary-*`, `--color-accent-*`) in `@theme` block
+- Custom design tokens: `--shadow-card`, `--radius-card`, `--color-star`, etc.
+- Dark mode: `prefers-color-scheme` media query (system preference, not class-based)
+- Fonts: Geist Sans and Geist Mono via `next/font/google` in `src/app/layout.tsx`, applied as CSS variables
+
+**Next.js (`next.config.ts`):**
+- `images.remotePatterns` configured for: `images.unsplash.com`, `**.cloudinary.com`, `**.amazonaws.com`, `cdn.jsdelivr.net`, `*.imgix.net`, `logo.clearbit.com`, `img.logo.dev`
+- No `cacheComponents` or React Compiler enabled
+
+**Prisma (`prisma.config.ts`, `prisma/schema.prisma`):**
+- Schema: `prisma/schema.prisma`
 - Migrations path: `prisma/migrations`
 - Datasource URL from `DATABASE_URL` environment variable
-- Loads env via `import "dotenv/config"`
+- Client output: `src/generated/prisma/` (git-ignored)
+- Seed: `tsx prisma/seed.ts`
+- `pg` adapter (not the default Prisma engine) — uses `PrismaPg` from `@prisma/adapter-pg`
 
-**Environment:**
-- `.env` file present (contains database connection configuration)
-- `.env*` files are gitignored
-- No `.env.example` file to document required variables
-
-## Database
-
-**Provider:** Neon PostgreSQL (serverless)
-**ORM:** Prisma 7.5.0
-**Connection:** Via `@prisma/adapter-pg` (PrismaPg adapter with direct connection string)
-
-**Client singleton:** `src/lib/db.ts`
-- Uses global variable pattern to prevent multiple instances in development
-- Exports `prisma` as the single client instance
-- All database access must go through this import
-
-**Schema models (9 total):**
-- `Provider` - Core entity (food box services)
-- `Plan` - Pricing plans per provider
-- `ProviderDietaryTag` - Many-to-many dietary tag associations
-- `Review` - User reviews with moderation status
-- `ProviderFaq` - FAQ entries per provider
-- `BlogPost` - Editorial blog content
-- `Collection` - Curated "best of" lists
-- `CollectionItem` - Junction table for Collection-Provider
-- `AffiliateClick` - Click tracking analytics
-
-**Enums (6):** `CategoryType`, `DietaryTag`, `PlanFrequency`, `ReviewStatus`, `ContentStatus`
-
-**Schema sync approach:** `npx prisma db push` (no migration files)
-**Client generation:** `npx prisma generate` (runs automatically in `build` script)
-**Seed script:** `prisma/seed.ts` (convention, not yet created)
+**Environment variables required:**
+- `DATABASE_URL` — Neon PostgreSQL connection string
+- `ADMIN_SECRET` — Admin cookie token (compared in `src/proxy.ts`)
+- `NEXT_PUBLIC_BASE_URL` — Production base URL (defaults to `https://foodboxfinder.com`)
+- `NEXT_PUBLIC_SITE_URL` — Used in structured data URLs in `src/app/[category]/page.tsx`
+- `NODE_ENV` — Standard Node.js environment flag
 
 ## Build & Scripts
 
-**Available npm scripts:**
-```bash
-npm run dev          # next dev (development server)
-npm run build        # prisma generate && next build (production build)
-npm run start        # next start (production server)
-npm run lint         # eslint (linting)
-```
+| Script | Command | Notes |
+|--------|---------|-------|
+| `dev` | `next dev` | Development server |
+| `build` | `prisma generate && next build` | Regenerates Prisma client before every build |
+| `start` | `next start` | Production server |
+| `lint` | `eslint` | Runs ESLint flat config |
 
-**Database commands:**
+**Seed:**
 ```bash
-npx prisma db push       # Sync schema to Neon (no migrations)
-npx prisma generate      # Regenerate client after schema changes
-npx tsx prisma/seed.ts   # Run seed script (when created)
-npx prisma studio        # Visual database browser
+npx tsx prisma/seed.ts       # Seed database
+npx prisma db push           # Sync schema to Neon (no migration files)
+npx prisma generate          # Regenerate client after schema changes
 ```
 
 ## Platform Requirements
 
 **Development:**
-- Node.js 24.x (current local version)
+- Node.js 24.x
 - PostgreSQL database (Neon serverless)
-- `DATABASE_URL` environment variable
+- `DATABASE_URL` and `ADMIN_SECRET` env vars
 
 **Production:**
-- Vercel hosting (`.vercel/` directory present, project initialized as `foodboxfinder`)
+- Vercel hosting (project: `foodboxfinder`, org configured in `.vercel/project.json`)
 - Vercel Node.js 24.x runtime
-- Neon PostgreSQL (serverless, connection pooling)
-- No Docker, no CI/CD pipeline configured
-- No pre-commit hooks (no Husky, no lint-staged)
+- Neon PostgreSQL (serverless, connection pooling via `pg` driver)
+- No Docker, no CI/CD pipeline, no pre-commit hooks (no Husky or lint-staged)
 
 ---
 
-*Stack analysis: 2026-03-20*
+*Stack analysis: 2026-03-21*
