@@ -9,12 +9,13 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminProvidersPage(props: {
-  searchParams: Promise<{ q?: string; category?: string; status?: string }>;
+  searchParams: Promise<{ q?: string; category?: string; status?: string; sort?: string }>;
 }) {
   const searchParams = await props.searchParams;
   const query = searchParams.q ?? "";
   const categoryFilter = searchParams.category ?? "";
   const statusFilter = searchParams.status ?? "";
+  const sortParam = searchParams.sort ?? "updated";
 
   const where = {
     ...(query && {
@@ -24,14 +25,25 @@ export default async function AdminProvidersPage(props: {
       ],
     }),
     ...(categoryFilter && { category: categoryFilter as CategoryType }),
-    ...(statusFilter === "active" && { status: "ACTIVE" as const }),
-    ...(statusFilter === "inactive" && { status: { not: "ACTIVE" as const } }),
+    ...(statusFilter === "ACTIVE" && { status: "ACTIVE" as const }),
+    ...(statusFilter === "HYBRID" && { status: "HYBRID" as const }),
+    ...(statusFilter === "UNCLEAR" && { status: "UNCLEAR" as const }),
+    ...(statusFilter === "DISCONTINUED" && { status: "DISCONTINUED" as const }),
     ...(statusFilter === "featured" && { featured: true }),
   };
 
+  const orderByMap: Record<string, object> = {
+    updated: { updatedAt: "desc" as const },
+    name_asc: { name: "asc" as const },
+    name_desc: { name: "desc" as const },
+    rating: { averageRating: "desc" as const },
+    created: { createdAt: "desc" as const },
+  };
+  const orderBy = orderByMap[sortParam] ?? orderByMap.updated;
+
   const providers = await prisma.provider.findMany({
     where,
-    orderBy: { updatedAt: "desc" },
+    orderBy,
     include: {
       _count: { select: { reviews: true, plans: true } },
     },
@@ -92,9 +104,28 @@ export default async function AdminProvidersPage(props: {
               className="block rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
               <option value="">All</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+              <option value="ACTIVE">Active</option>
+              <option value="HYBRID">Hybrid</option>
+              <option value="UNCLEAR">Unclear</option>
+              <option value="DISCONTINUED">Discontinued</option>
               <option value="featured">Featured</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="sort" className="block text-xs font-medium text-gray-500 mb-1">
+              Sort
+            </label>
+            <select
+              id="sort"
+              name="sort"
+              defaultValue={sortParam}
+              className="block rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            >
+              <option value="updated">Last Updated</option>
+              <option value="name_asc">Name A-Z</option>
+              <option value="name_desc">Name Z-A</option>
+              <option value="rating">Highest Rating</option>
+              <option value="created">Newest First</option>
             </select>
           </div>
           <button
