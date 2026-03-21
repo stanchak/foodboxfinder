@@ -17,10 +17,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Provider Logos
 
-- [ ] **LOGO-01**: Reusable ProviderLogo component renders logo from manifest path with Next.js Image optimization
-- [ ] **LOGO-02**: Fallback SVG placeholder shown when provider logo is missing or fails to load
-- [ ] **LOGO-03**: Configure next.config.ts images.remotePatterns if any external logo URLs are used
-- [ ] **LOGO-04**: Logos display consistently on provider cards, detail pages, and comparison headers
+- [x] **LOGO-01**: Reusable ProviderLogo component renders logo from manifest path with Next.js Image optimization
+- [x] **LOGO-02**: Fallback SVG placeholder shown when provider logo is missing or fails to load
+- [x] **LOGO-03**: Configure next.config.ts images.remotePatterns if any external logo URLs are used
+- [x] **LOGO-04**: Logos display consistently on provider cards, detail pages, and comparison headers
 
 ### Homepage
 
@@ -175,10 +175,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DATA-03 | Phase 1 | Complete |
 | DATA-04 | Phase 1 | Complete |
 | DATA-05 | Phase 1 | Complete |
-| LOGO-01 | Phase 3 | Pending |
-| LOGO-02 | Phase 3 | Pending |
-| LOGO-03 | Phase 3 | Pending |
-| LOGO-04 | Phase 3 | Pending |
+| LOGO-01 | Phase 3 | Complete |
+| LOGO-02 | Phase 3 | Complete |
+| LOGO-03 | Phase 3 | Complete |
+| LOGO-04 | Phase 3 | Complete |
 | HOME-01 | Phase 6 | Pending |
 | HOME-02 | Phase 6 | Pending |
 | HOME-03 | Phase 6 | Pending |
