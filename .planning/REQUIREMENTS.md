@@ -65,9 +65,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Search
 
-- [ ] **SEARCH-01**: Server-side search across provider names, descriptions, and categories
-- [ ] **SEARCH-02**: Search results page with provider cards
-- [ ] **SEARCH-03**: Debounced search input with expandable search bar in header
+- [x] **SEARCH-01**: Server-side search across provider names, descriptions, and categories
+- [x] **SEARCH-02**: Search results page with provider cards
+- [x] **SEARCH-03**: Debounced search input with expandable search bar in header
 
 ### Side-by-Side Comparison
 
@@ -208,9 +208,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FILTER-11 | Phase 5 | Complete |
 | FILTER-12 | Phase 5 | Complete |
 | FILTER-13 | Phase 5 | Complete |
-| SEARCH-01 | Phase 8 | Pending |
-| SEARCH-02 | Phase 8 | Pending |
-| SEARCH-03 | Phase 8 | Pending |
+| SEARCH-01 | Phase 8 | Complete |
+| SEARCH-02 | Phase 8 | Complete |
+| SEARCH-03 | Phase 8 | Complete |
 | COMP-01 | Phase 7 | Complete |
 | COMP-02 | Phase 7 | Complete |
 | COMP-03 | Phase 7 | Complete |

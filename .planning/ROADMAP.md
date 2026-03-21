@@ -145,7 +145,7 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 08-01-PLAN.md -- Expand searchProviders query with category label and shortDescription matching; fix search page JSON-LD XSS safety
+- [x] 08-01-PLAN.md -- Expand searchProviders query with category label and shortDescription matching; fix search page JSON-LD XSS safety
 
 ### Phase 9: SEO and Collections
 **Goal**: Every public page has verified SEO metadata, the site has a sitemap, and curated "Best for X" collection pages provide editorial value
