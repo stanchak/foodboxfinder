@@ -129,11 +129,10 @@ Plans:
   3. Rows where all compared providers have N/A values are hidden automatically
   4. A floating comparison tray at the bottom of the viewport lets users add/remove providers (max 3) and navigate to the comparison page
   5. The comparison page has appropriate metadata and JSON-LD structured data
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 07-01: TBD
-- [ ] 07-02: TBD
+- [ ] 07-01-PLAN.md -- Expand comparison query with new fields, add N/A row hiding to ComparisonTable, enforce canonical slug ordering via redirect, fix JSON-LD XSS safety
 
 ### Phase 8: Search
 **Goal**: Users can find providers by typing a query and see matching results
@@ -209,7 +208,7 @@ Note: Phase 3 and Phase 10 can run in parallel with their neighbors (3 depends o
 | 4. Provider Detail Pages | 0/1 | Not started | - |
 | 5. Category Browsing and Filtering | 0/2 | Not started | - |
 | 6. Homepage | 0/1 | Not started | - |
-| 7. Side-by-Side Comparison | 0/2 | Not started | - |
+| 7. Side-by-Side Comparison | 0/1 | Not started | - |
 | 8. Search | 0/1 | Not started | - |
 | 9. SEO and Collections | 0/2 | Not started | - |
 | 10. Admin | 0/2 | Not started | - |
