@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ProviderLogo from "@/components/ProviderLogo";
-import type { DietaryTag } from "@/generated/prisma/client";
+import type { DietaryTag, ProviderStatus } from "@/generated/prisma/client";
 import {
   getProviderBySlug,
   getRelatedProviders,
@@ -42,6 +42,23 @@ function parseJsonArray(value: unknown): string[] {
   }
   if (Array.isArray(value)) return value.filter((item): item is string => typeof item === "string");
   return [];
+}
+
+function formatFieldLabel(value: string): string {
+  return value
+    .replace(/[-_]/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+const statusStyleMap: Record<ProviderStatus, string> = {
+  ACTIVE: "bg-green-50 text-green-700 ring-green-600/20",
+  HYBRID: "bg-blue-50 text-blue-700 ring-blue-600/20",
+  UNCLEAR: "bg-yellow-50 text-yellow-700 ring-yellow-600/20",
+  DISCONTINUED: "bg-red-50 text-red-700 ring-red-600/20",
+};
+
+function getStatusStyle(status: ProviderStatus): string {
+  return statusStyleMap[status] ?? statusStyleMap.ACTIVE;
 }
 
 // -- Metadata --
@@ -180,8 +197,13 @@ export default async function ProviderDetailPage({
   };
 
   // Navigation anchors
+  const hasKeyDetails = !!(provider.prepStyle || provider.valueTier || provider.modelType || provider.householdFit || provider.geography);
+  const hasFlexShipping = !!(provider.flexibility || provider.shippingNotes);
+
   const navSections = [
     { id: "overview", label: "Overview" },
+    ...(hasKeyDetails ? [{ id: "key-details", label: "Key Details" }] : []),
+    ...(hasFlexShipping ? [{ id: "flex-shipping", label: "Flexibility" }] : []),
     { id: "plans", label: "Plans & Pricing" },
     { id: "reviews", label: "Reviews" },
     ...(provider.faqs.length > 0 ? [{ id: "faq", label: "FAQ" }] : []),
@@ -220,6 +242,13 @@ export default async function ProviderDetailPage({
               )}
               {provider.freeShipping && (
                 <Badge color="dietary">Free Shipping</Badge>
+              )}
+              {provider.status !== "ACTIVE" && (
+                <span
+                  className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${getStatusStyle(provider.status)}`}
+                >
+                  {provider.status.charAt(0) + provider.status.slice(1).toLowerCase()}
+                </span>
               )}
             </div>
 
@@ -454,6 +483,66 @@ export default async function ProviderDetailPage({
             </div>
           )}
         </section>
+
+        {/* Key Details */}
+        {hasKeyDetails && (
+          <section id="key-details" className="mt-10 scroll-mt-16">
+            <h2 className="text-2xl font-bold text-gray-900">Key Details</h2>
+            <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {provider.prepStyle && (
+                <div className="rounded-lg border border-gray-200 p-4">
+                  <dt className="text-sm font-medium text-gray-500">Prep Style</dt>
+                  <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.prepStyle)}</dd>
+                </div>
+              )}
+              {provider.valueTier && (
+                <div className="rounded-lg border border-gray-200 p-4">
+                  <dt className="text-sm font-medium text-gray-500">Value Tier</dt>
+                  <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.valueTier)}</dd>
+                </div>
+              )}
+              {provider.modelType && (
+                <div className="rounded-lg border border-gray-200 p-4">
+                  <dt className="text-sm font-medium text-gray-500">Model</dt>
+                  <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.modelType)}</dd>
+                </div>
+              )}
+              {provider.householdFit && (
+                <div className="rounded-lg border border-gray-200 p-4">
+                  <dt className="text-sm font-medium text-gray-500">Best For</dt>
+                  <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.householdFit)}</dd>
+                </div>
+              )}
+              {provider.geography && (
+                <div className="rounded-lg border border-gray-200 p-4">
+                  <dt className="text-sm font-medium text-gray-500">Delivery Area</dt>
+                  <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.geography)}</dd>
+                </div>
+              )}
+            </dl>
+          </section>
+        )}
+
+        {/* Flexibility & Shipping */}
+        {hasFlexShipping && (
+          <section id="flex-shipping" className="mt-10 scroll-mt-16">
+            <h2 className="text-2xl font-bold text-gray-900">Flexibility & Shipping</h2>
+            <div className="mt-4 grid gap-6 sm:grid-cols-2">
+              {provider.flexibility && (
+                <div className="rounded-xl border border-primary-200 bg-primary-50/30 p-5">
+                  <h3 className="text-sm font-semibold text-primary-800 uppercase tracking-wide">Flexibility Policy</h3>
+                  <p className="mt-2 text-sm text-gray-700 leading-relaxed">{provider.flexibility}</p>
+                </div>
+              )}
+              {provider.shippingNotes && (
+                <div className="rounded-xl border border-gray-200 bg-gray-50/30 p-5">
+                  <h3 className="text-sm font-semibold text-gray-800 uppercase tracking-wide">Shipping Details</h3>
+                  <p className="mt-2 text-sm text-gray-700 leading-relaxed">{provider.shippingNotes}</p>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
 
         {/* Plans & Pricing Section */}
         <section id="plans" className="mt-14 scroll-mt-16">
