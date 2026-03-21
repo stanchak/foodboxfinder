@@ -54,7 +54,7 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md -- Create filter parsing module (src/lib/filters.ts) with typed ProviderFilters, known value groups, and parseProviderFilters; split queries.ts into domain files (providers, content, admin) with barrel re-export
+- [x] 02-01-PLAN.md -- Create filter parsing module (src/lib/filters.ts) with typed ProviderFilters, known value groups, and parseProviderFilters; split queries.ts into domain files (providers, content, admin) with barrel re-export
 - [ ] 02-02-PLAN.md -- Add getFilteredProviders query with 9-dimension null-aware filtering using ProviderFilters type and Prisma AND composition
 
 ### Phase 3: Provider Logos

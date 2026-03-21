@@ -49,7 +49,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Multi-Criteria Filtering
 
-- [ ] **FILTER-01**: Centralized filter parsing module (src/lib/filters.ts) with typed, validated filter objects and safe defaults
+- [x] **FILTER-01**: Centralized filter parsing module (src/lib/filters.ts) with typed, validated filter objects and safe defaults
 - [ ] **FILTER-02**: Filter by category (meal kits, prepared meals, protein boxes, produce boxes, specialty)
 - [ ] **FILTER-03**: Filter by dietary tags (16 diet tag values)
 - [ ] **FILTER-04**: Filter by prep style (cook-it-yourself, prepared fresh, prepared frozen, raw, snacks)
@@ -120,9 +120,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Query Layer
 
-- [ ] **QUERY-01**: Centralized query layer in src/lib/queries.ts with React.cache() wrapped functions
+- [x] **QUERY-01**: Centralized query layer in src/lib/queries.ts with React.cache() wrapped functions
 - [ ] **QUERY-02**: Query functions for: listings with filters, provider detail by slug, comparison by slugs, search, admin stats, featured providers, category counts
-- [ ] **QUERY-03**: Split queries.ts if exceeding 300 lines
+- [x] **QUERY-03**: Split queries.ts if exceeding 300 lines
 
 ## v2 Requirements
 
@@ -195,7 +195,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DETAIL-05 | Phase 4 | Pending |
 | DETAIL-06 | Phase 4 | Pending |
 | DETAIL-07 | Phase 4 | Pending |
-| FILTER-01 | Phase 2 | Pending |
+| FILTER-01 | Phase 2 | Complete |
 | FILTER-02 | Phase 5 | Pending |
 | FILTER-03 | Phase 5 | Pending |
 | FILTER-04 | Phase 5 | Pending |
@@ -239,9 +239,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UX-03 | Phase 11 | Pending |
 | UX-04 | Phase 11 | Pending |
 | UX-05 | Phase 11 | Pending |
-| QUERY-01 | Phase 2 | Pending |
+| QUERY-01 | Phase 2 | Complete |
 | QUERY-02 | Phase 2 | Pending |
-| QUERY-03 | Phase 2 | Pending |
+| QUERY-03 | Phase 2 | Complete |
 
 **Coverage:**
 - v1 requirements: 72 total
