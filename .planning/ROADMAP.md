@@ -142,10 +142,10 @@ Plans:
   1. Server-side search matches against provider names, descriptions, and categories
   2. A search results page displays matching providers as provider cards
   3. A debounced, expandable search bar in the site header lets users initiate searches from any page
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 08-01: TBD
+- [ ] 08-01-PLAN.md -- Expand searchProviders query with category label and shortDescription matching; fix search page JSON-LD XSS safety
 
 ### Phase 9: SEO and Collections
 **Goal**: Every public page has verified SEO metadata, the site has a sitemap, and curated "Best for X" collection pages provide editorial value
