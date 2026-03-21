@@ -80,9 +80,15 @@ model Provider {
   averageRating  Float    @default(0)
   reviewCount    Int      @default(0)
 
+  // Denormalized price fields (pre-computed from Plans)
+  minPricePerServingCents Int?      // Denormalized: cheapest active plan's per-serving price in cents
+  maxPricePerServingCents Int?      // Denormalized: most expensive active plan's per-serving price in cents
+  freeShipping            Boolean @default(false)  // Denormalized: any plan offers free shipping
+  lastVerifiedAt          DateTime?  // When pricing data was last verified
+
   // Editorial content
-  prosJson       String?  @db.Text  // JSON array of strings
-  consJson       String?  @db.Text  // JSON array of strings
+  prosJson       Json?    // JSON array of strings e.g. ["Pro 1", "Pro 2"]
+  consJson       Json?    // JSON array of strings e.g. ["Con 1", "Con 2"]
   editorNote     String?  @db.Text
 
   // Flags
@@ -97,8 +103,9 @@ model Provider {
   updatedAt DateTime @updatedAt
 
   // Relations
-  category     CategoryType
-  dietaryTags  ProviderDietaryTag[]
+  category          CategoryType
+  secondaryCategory CategoryType?
+  dietaryTags       ProviderDietaryTag[]
   plans        Plan[]
   reviews      Review[]
   faqs         ProviderFaq[]
@@ -106,6 +113,9 @@ model Provider {
   collectionItems CollectionItem[]
 
   @@index([category])
+  @@index([secondaryCategory])
+  @@index([minPricePerServingCents])
+  @@index([category, active, averageRating])
   @@index([featured])
   @@index([active])
   @@index([averageRating])
@@ -117,12 +127,13 @@ model Plan {
   name        String
   description String?  @db.Text
 
-  // Pricing
-  pricePerServing Float?
-  pricePerWeek    Float?
-  pricePerBox     Float?
-  shippingCost    Float   @default(0)
-  shippingNote    String?
+  // Pricing (all values in cents: $7.99 = 799)
+  pricePerServingCents Int?    // Price in cents: $7.99 = 799
+  pricePerWeekCents    Int?    // Price in cents
+  pricePerBoxCents     Int?    // Price in cents
+  shippingCostCents    Int     @default(0)  // Shipping in cents: $9.99 = 999, free = 0
+  shippingNote         String?
+  introOfferNote       String?  // e.g. "60% off first box"
 
   // Plan details
   servingsPerMeal Int?
@@ -145,7 +156,7 @@ model Plan {
   provider Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
 
   @@index([providerId])
-  @@index([pricePerServing])
+  @@index([pricePerServingCents])
 }
 
 model ProviderDietaryTag {
