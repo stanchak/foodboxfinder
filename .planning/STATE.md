@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 10-01-PLAN.md
-last_updated: "2026-03-21T03:02:32.251Z"
+stopped_at: Completed 10-03-PLAN.md
+last_updated: "2026-03-21T03:06:40.889Z"
 progress:
   total_phases: 12
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Project State
@@ -19,11 +19,11 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-20)
 
 **Core value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences
-**Current focus:** Phase 10 — Database & Foundation
+**Current focus:** Phase 10 — Database Seed Data & Queries
 
 ## Current Position
 
-Phase: 10 (Database & Foundation) — EXECUTING
+Phase: 10 (Database Seed Data & Queries) — EXECUTING
 Plan: 2 of 3
 
 ## Performance Metrics
@@ -47,6 +47,7 @@ Plan: 2 of 3
 
 *Updated after each plan completion*
 | Phase 10 P01 | 3min | 3 tasks | 4 files |
+| Phase 10 P03 | 2min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -60,6 +61,8 @@ Recent decisions affecting current work:
 - [Init]: React.cache() deduplication in query layer, on-demand revalidation from admin actions
 - [Phase 10]: All pricing fields use integer cents (Int) instead of Float to avoid IEEE 754 precision bugs
 - [Phase 10]: prosJson/consJson changed from String to Prisma Json type (PostgreSQL JSONB) for database-level validation
+- [Phase 10]: Used integer cents field names (minPricePerServingCents) in query layer matching actual schema
+- [Phase 10]: getProviderBySlug does not filter by active:true to allow admin preview of inactive providers
 
 ### Pending Todos
 
@@ -73,6 +76,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T03:02:32.249Z
-Stopped at: Completed 10-01-PLAN.md
+Last session: 2026-03-21T03:06:40.886Z
+Stopped at: Completed 10-03-PLAN.md
 Resume file: None
