@@ -121,7 +121,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Query Layer
 
 - [x] **QUERY-01**: Centralized query layer in src/lib/queries.ts with React.cache() wrapped functions
-- [ ] **QUERY-02**: Query functions for: listings with filters, provider detail by slug, comparison by slugs, search, admin stats, featured providers, category counts
+- [x] **QUERY-02**: Query functions for: listings with filters, provider detail by slug, comparison by slugs, search, admin stats, featured providers, category counts
 - [x] **QUERY-03**: Split queries.ts if exceeding 300 lines
 
 ## v2 Requirements
@@ -240,7 +240,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UX-04 | Phase 11 | Pending |
 | UX-05 | Phase 11 | Pending |
 | QUERY-01 | Phase 2 | Complete |
-| QUERY-02 | Phase 2 | Pending |
+| QUERY-02 | Phase 2 | Complete |
 | QUERY-03 | Phase 2 | Complete |
 
 **Coverage:**
