@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #111827;
 }
 
 @theme inline {
@@ -12,15 +12,50 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  /* Primary: Green (food-fresh, appetizing) */
+  --color-primary-50: oklch(0.982 0.018 155.826);
+  --color-primary-100: oklch(0.962 0.044 156.743);
+  --color-primary-200: oklch(0.925 0.084 155.995);
+  --color-primary-300: oklch(0.871 0.15 154.449);
+  --color-primary-400: oklch(0.792 0.209 151.711);
+  --color-primary-500: oklch(0.723 0.219 149.579);
+  --color-primary-600: oklch(0.627 0.194 149.214);
+  --color-primary-700: oklch(0.527 0.154 150.069);
+  --color-primary-800: oklch(0.448 0.119 151.328);
+  --color-primary-900: oklch(0.393 0.095 152.535);
+  --color-primary-950: oklch(0.266 0.065 152.934);
+
+  /* Accent: Coral/Orange (CTAs, attention) */
+  --color-accent-50: oklch(0.98 0.016 73.684);
+  --color-accent-100: oklch(0.954 0.038 75.164);
+  --color-accent-200: oklch(0.901 0.076 70.697);
+  --color-accent-300: oklch(0.837 0.128 66.29);
+  --color-accent-400: oklch(0.75 0.183 55.934);
+  --color-accent-500: oklch(0.705 0.213 47.604);
+  --color-accent-600: oklch(0.646 0.222 41.116);
+  --color-accent-700: oklch(0.553 0.195 38.402);
+  --color-accent-800: oklch(0.47 0.157 37.304);
+  --color-accent-900: oklch(0.408 0.123 38.172);
+  --color-accent-950: oklch(0.266 0.079 36.259);
+
+  /* Amber for rating stars */
+  --color-star: oklch(0.769 0.188 70.08);
+  --color-star-empty: oklch(0.872 0.01 258.338);
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-card-hover: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-header: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+
+  /* Border radius */
+  --radius-card: 0.75rem;
+  --radius-button: 0.5rem;
+  --radius-badge: 9999px;
+  --radius-input: 0.5rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
