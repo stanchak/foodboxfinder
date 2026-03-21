@@ -21,7 +21,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 7: Side-by-Side Comparison** - Comparison page with field matrix, floating tray, and shareable canonical URLs
 - [ ] **Phase 8: Search** - Server-side provider search with results page and debounced search bar
 - [ ] **Phase 9: SEO and Collections** - Cross-site SEO verification, sitemap, canonical URLs, and curated "Best for X" collection pages
-- [ ] **Phase 10: Admin** - Admin dashboard with stats, provider CRUD for new fields, and on-demand revalidation
+- [x] **Phase 10: Admin** - Admin dashboard with stats, provider CRUD for new fields, and on-demand revalidation (completed 2026-03-21)
 - [ ] **Phase 11: UX Polish** - Error boundaries, 404 pages, loading states, mobile responsiveness, and sticky header
 
 ## Phase Details
@@ -172,10 +172,10 @@ Plans:
   2. Admins can create, read, update, and delete providers with all schema fields (including modelType, prepStyle, valueTier, householdFit, geography, flexibility)
   3. The admin provider list supports search, sort, and status filtering
   4. Saving a provider in admin triggers revalidation of the affected public pages
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
-- [ ] 10-01-PLAN.md -- Add 8 dataset fields to ProviderForm and server actions; improve revalidation to cover category pages
+- [x] 10-01-PLAN.md -- Add 8 dataset fields to ProviderForm and server actions; improve revalidation to cover category pages
 - [x] 10-02-PLAN.md -- Add category breakdown to dashboard; add sort and granular status filter to provider list
 
 ### Phase 11: UX Polish
@@ -211,5 +211,5 @@ Note: Phase 3 and Phase 10 can run in parallel with their neighbors (3 depends o
 | 7. Side-by-Side Comparison | 0/1 | Not started | - |
 | 8. Search | 0/1 | Not started | - |
 | 9. SEO and Collections | 0/2 | Not started | - |
-| 10. Admin | 1/2 | In Progress|  |
+| 10. Admin | 2/2 | Complete   | 2026-03-21 |
 | 11. UX Polish | 0/2 | Not started | - |
