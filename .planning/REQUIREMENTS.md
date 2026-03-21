@@ -94,9 +94,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Collections
 
-- [ ] **COLL-01**: "Best for X" collection pages at /best/[slug] showing curated provider lists
-- [ ] **COLL-02**: Collection pages with editorial intro, ranked provider list with editorial notes
-- [ ] **COLL-03**: Collection page metadata and JSON-LD structured data
+- [x] **COLL-01**: "Best for X" collection pages at /best/[slug] showing curated provider lists
+- [x] **COLL-02**: Collection pages with editorial intro, ranked provider list with editorial notes
+- [x] **COLL-03**: Collection page metadata and JSON-LD structured data
 
 ### Admin
 
@@ -225,9 +225,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEO-03 | Phase 9 | Pending |
 | SEO-04 | Phase 9 | Pending |
 | SEO-05 | Phase 9 | Pending |
-| COLL-01 | Phase 9 | Pending |
-| COLL-02 | Phase 9 | Pending |
-| COLL-03 | Phase 9 | Pending |
+| COLL-01 | Phase 9 | Complete |
+| COLL-02 | Phase 9 | Complete |
+| COLL-03 | Phase 9 | Complete |
 | ADMIN-01 | Phase 10 | Pending |
 | ADMIN-02 | Phase 10 | Pending |
 | ADMIN-03 | Phase 10 | Pending |

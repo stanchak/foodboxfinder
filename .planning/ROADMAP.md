@@ -161,7 +161,7 @@ Plans:
 
 Plans:
 - [ ] 09-01-PLAN.md -- Fix XSS-safe JSON-LD on 5 remaining pages and add canonical URLs to all indexable public pages
-- [ ] 09-02-PLAN.md -- Verify collection pages work end-to-end (detail, index, seed data, sitemap)
+- [x] 09-02-PLAN.md -- Verify collection pages work end-to-end (detail, index, seed data, sitemap)
 
 ### Phase 10: Admin
 **Goal**: Site operators can manage providers (including all new fields), view site statistics, and trigger page revalidation
