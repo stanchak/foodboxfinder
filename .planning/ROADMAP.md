@@ -98,12 +98,11 @@ Plans:
   5. The filter UI collapses to a drawer/sheet on mobile screens
   6. Filtered pages include a noindex meta tag to prevent SEO duplicate content
   7. Category pages have correct metadata and ItemList + BreadcrumbList JSON-LD
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
-- [ ] 05-03: TBD
+- [ ] 05-01-PLAN.md -- Rewrite CategoryFilters with all 9 filter dimensions, active filter chips, mobile drawer, and updated sort options
+- [ ] 05-02-PLAN.md -- Rewrite category page to use getFilteredProviders, add editorial intros, breadcrumbs, noindex, XSS-safe JSON-LD, and value tier on ProviderCard
 
 ### Phase 6: Homepage
 **Goal**: Users landing on the site immediately understand its purpose and can navigate to category pages or featured providers
@@ -208,7 +207,7 @@ Note: Phase 3 and Phase 10 can run in parallel with their neighbors (3 depends o
 | 2. Query Layer and Filter Infrastructure | 0/2 | Not started | - |
 | 3. Provider Logos | 1/1 | Complete   | 2026-03-21 |
 | 4. Provider Detail Pages | 0/1 | Not started | - |
-| 5. Category Browsing and Filtering | 0/3 | Not started | - |
+| 5. Category Browsing and Filtering | 0/2 | Not started | - |
 | 6. Homepage | 0/1 | Not started | - |
 | 7. Side-by-Side Comparison | 0/2 | Not started | - |
 | 8. Search | 0/1 | Not started | - |
