@@ -29,20 +29,20 @@ re_verification: false
 
 | Artifact | Expected | Status | Details |
 |----------|----------|--------|---------|
-| `src/app/globals.css` | Theme tokens for primary, accent, star, shadows, radii | VERIFIED | 22 color tokens, 2 star colors, 3 shadows, 4 radii via `@theme` block. No dark mode. |
-| `src/lib/categories.ts` | CategoryType to slug/label mapping | VERIFIED | Exports CATEGORY_MAP (5 entries), getCategoryBySlug, getSlugByCategory, CATEGORY_NAV_ITEMS. Imports CategoryType from generated Prisma. |
-| `src/app/page.tsx` | Clean placeholder homepage | VERIFIED | Renders "FoodBoxFinder" with text-primary-700. No dark: classes. No Image import. |
-| `src/app/layout.tsx` | Root layout with Header, main, Footer | VERIFIED | Imports Header and Footer. Renders `<Header /> <main className="flex-1">{children}</main> <Footer />`. Metadata with title template. bg-white text-gray-900 font-sans on body. |
-| `src/components/Header.tsx` | Sticky header with logo, nav, MobileNav island | VERIFIED | sticky top-0 z-40, CATEGORY_NAV_ITEMS nav, search Link, MobileNav import. Server Component. |
-| `src/components/MobileNav.tsx` | Client Component with hamburger and drawer | VERIFIED | "use client", useState, aria-label, aria-expanded, slide-out drawer, close-on-navigate. |
-| `src/components/Footer.tsx` | 4-column footer | VERIFIED | Categories, Resources, Legal, Brand columns. CATEGORY_NAV_ITEMS. Copyright. Server Component. |
-| `src/components/Button.tsx` | Button with primary/secondary/ghost variants | VERIFIED | 3 variants, 3 sizes, rounded-lg, disabled states, spread props. |
-| `src/components/Card.tsx` | Card with shadow and hover elevation | VERIFIED | shadow-card, hover:shadow-card-hover, rounded-xl, optional href Link mode. |
-| `src/components/Badge.tsx` | Pill badge with color variants | VERIFIED | dietary/category/default colors, rounded-full, ring-1 ring-inset. |
-| `src/components/Input.tsx` | Labeled input with focus ring | VERIFIED | label htmlFor, focus:border-primary-500, focus:ring-primary-500/20. |
-| `src/components/Select.tsx` | Labeled select with options | VERIFIED | label, placeholder option, options mapping, focus ring. |
-| `src/components/RatingStars.tsx` | SVG star rating with half-star support | VERIFIED | fill-star/fill-star-empty, linearGradient for half stars, 3 sizes, aria-label, role="img". |
-| `src/components/Skeleton.tsx` | Pulse-animated skeleton placeholders | VERIFIED | 8 variants (text, title, avatar, card, rating, badge, image, button), animate-pulse, aria-hidden="true". |
+| `src/app/globals.css` | Theme tokens for primary, accent, star, shadows, radii | VERIFIED | 62 lines; 22 color tokens, 2 star colors, 3 shadows, 4 radii via `@theme` block. No dark mode. |
+| `src/lib/categories.ts` | CategoryType to slug/label mapping | VERIFIED | 24 lines; exports CATEGORY_MAP (5 entries), getCategoryBySlug, getSlugByCategory, CATEGORY_NAV_ITEMS. Imports CategoryType from generated Prisma. |
+| `src/app/page.tsx` | Clean placeholder homepage | VERIFIED | 10 lines; renders "FoodBoxFinder" with text-primary-700. No dark: classes. No Image import. |
+| `src/app/layout.tsx` | Root layout with Header, main, Footer | VERIFIED | 43 lines; imports Header and Footer. Renders Header + main + Footer. Metadata with title template. bg-white text-gray-900 font-sans on body. |
+| `src/components/Header.tsx` | Sticky header with logo, nav, MobileNav island | VERIFIED | 54 lines; sticky top-0 z-40, CATEGORY_NAV_ITEMS nav, search Link, MobileNav import. Server Component. |
+| `src/components/MobileNav.tsx` | Client Component with hamburger and drawer | VERIFIED | 121 lines; "use client", useState, aria-label, aria-expanded, slide-out drawer, close-on-navigate. |
+| `src/components/Footer.tsx` | 4-column footer | VERIFIED | 102 lines; Categories, Resources, Legal, Brand columns. CATEGORY_NAV_ITEMS. Copyright. Server Component. |
+| `src/components/Button.tsx` | Button with primary/secondary/ghost variants | VERIFIED | 33 lines; 3 variants, 3 sizes, rounded-lg, disabled states, spread props. |
+| `src/components/Card.tsx` | Card with shadow and hover elevation | VERIFIED | 29 lines; shadow-card, hover:shadow-card-hover, rounded-xl, optional href Link mode. |
+| `src/components/Badge.tsx` | Pill badge with color variants | VERIFIED | 23 lines; dietary/category/default colors, rounded-full, ring-1 ring-inset. |
+| `src/components/Input.tsx` | Labeled input with focus ring | VERIFIED | 23 lines; label htmlFor, focus:border-primary-500, focus:ring-primary-500/20. |
+| `src/components/Select.tsx` | Labeled select with options | VERIFIED | 34 lines; label, placeholder option, options mapping, focus ring. |
+| `src/components/RatingStars.tsx` | SVG star rating with half-star support | VERIFIED | 85 lines; fill-star/fill-star-empty, linearGradient for half stars, 3 sizes, aria-label, role="img". |
+| `src/components/Skeleton.tsx` | Pulse-animated skeleton placeholders | VERIFIED | 25 lines; 8 variants (text, title, avatar, card, rating, badge, image, button), animate-pulse, aria-hidden="true". |
 
 ### Key Link Verification
 
