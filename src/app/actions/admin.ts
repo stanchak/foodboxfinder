@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/generated/prisma/client";
-import type { CategoryType, DietaryTag, PlanFrequency, ContentStatus } from "@/generated/prisma/client";
+import type { CategoryType, DietaryTag, PlanFrequency, ContentStatus, ProviderStatus } from "@/generated/prisma/client";
 
 // -- Types --
 
@@ -88,6 +88,13 @@ const VALID_CONTENT_STATUSES: ContentStatus[] = [
   "ARCHIVED",
 ];
 
+const VALID_PROVIDER_STATUSES: ProviderStatus[] = [
+  "ACTIVE",
+  "HYBRID",
+  "UNCLEAR",
+  "DISCONTINUED",
+];
+
 const VALID_PLAN_FREQUENCIES: PlanFrequency[] = [
   "WEEKLY",
   "BIWEEKLY",
@@ -105,6 +112,10 @@ function isValidDietaryTag(value: string): value is DietaryTag {
 
 function isValidContentStatus(value: string): value is ContentStatus {
   return VALID_CONTENT_STATUSES.includes(value as ContentStatus);
+}
+
+function isValidProviderStatus(value: string): value is ProviderStatus {
+  return VALID_PROVIDER_STATUSES.includes(value as ProviderStatus);
 }
 
 function isValidPlanFrequency(value: string): value is PlanFrequency {
@@ -179,7 +190,7 @@ export async function createProvider(
   const category = getString(formData, "category");
   const secondaryCategory = getOptionalString(formData, "secondaryCategory");
   const featured = getBoolean(formData, "featured");
-  const active = getBoolean(formData, "active");
+  const status = getString(formData, "status") || "ACTIVE";
   const freeShipping = getBoolean(formData, "freeShipping");
   const dietaryTags = getStringArray(formData, "dietaryTags");
 
@@ -198,6 +209,7 @@ export async function createProvider(
   if (secondaryCategory && !isValidCategory(secondaryCategory)) {
     errors.secondaryCategory = "Invalid secondary category.";
   }
+  if (!isValidProviderStatus(status)) errors.status = "Invalid status value.";
 
   for (const tag of dietaryTags) {
     if (!isValidDietaryTag(tag)) {
@@ -240,7 +252,7 @@ export async function createProvider(
         category: category as CategoryType,
         secondaryCategory: secondaryCategory as CategoryType | null,
         featured,
-        active,
+        status: status as ProviderStatus,
         freeShipping,
         prosJson: pros.length > 0 ? pros : undefined,
         consJson: cons.length > 0 ? cons : undefined,
@@ -290,7 +302,7 @@ export async function updateProvider(
   const category = getString(formData, "category");
   const secondaryCategory = getOptionalString(formData, "secondaryCategory");
   const featured = getBoolean(formData, "featured");
-  const active = getBoolean(formData, "active");
+  const status = getString(formData, "status") || "ACTIVE";
   const freeShipping = getBoolean(formData, "freeShipping");
   const dietaryTags = getStringArray(formData, "dietaryTags");
   const minPricePerServingCents = getOptionalInt(formData, "minPricePerServingCents");
@@ -311,6 +323,7 @@ export async function updateProvider(
   if (secondaryCategory && !isValidCategory(secondaryCategory)) {
     errors.secondaryCategory = "Invalid secondary category.";
   }
+  if (!isValidProviderStatus(status)) errors.status = "Invalid status value.";
 
   for (const tag of dietaryTags) {
     if (!isValidDietaryTag(tag)) {
@@ -357,7 +370,7 @@ export async function updateProvider(
         category: category as CategoryType,
         secondaryCategory: secondaryCategory as CategoryType | null,
         featured,
-        active,
+        status: status as ProviderStatus,
         freeShipping,
         minPricePerServingCents,
         maxPricePerServingCents,

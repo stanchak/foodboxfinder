@@ -27,7 +27,7 @@ export default async function EditCollectionPage(props: {
       },
     }),
     prisma.provider.findMany({
-      where: { active: true },
+      where: { status: "ACTIVE" },
       select: { id: true, name: true },
       orderBy: { name: "asc" },
     }),

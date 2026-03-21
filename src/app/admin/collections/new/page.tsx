@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default async function NewCollectionPage() {
   const providers = await prisma.provider.findMany({
-    where: { active: true },
+    where: { status: "ACTIVE" },
     select: { id: true, name: true },
     orderBy: { name: "asc" },
   });

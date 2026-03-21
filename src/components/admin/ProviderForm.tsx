@@ -51,7 +51,7 @@ interface ProviderData {
   category: string;
   secondaryCategory: string | null;
   featured: boolean;
-  active: boolean;
+  status: string;
   freeShipping: boolean;
   minPricePerServingCents: number | null;
   maxPricePerServingCents: number | null;
@@ -481,39 +481,51 @@ export default function ProviderForm({
       {/* Flags */}
       <fieldset className="space-y-4">
         <legend className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
-          Status
+          Status & Flags
         </legend>
 
-        <div className="flex flex-wrap gap-6">
-          <label className="flex items-center gap-2 text-sm text-gray-700">
-            <input
-              type="checkbox"
-              name="active"
-              defaultChecked={provider?.active ?? true}
-              className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
-            />
-            Active
-          </label>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
+              Status
+            </label>
+            <select
+              id="status"
+              name="status"
+              defaultValue={provider?.status ?? "ACTIVE"}
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            >
+              <option value="ACTIVE">Active</option>
+              <option value="HYBRID">Hybrid</option>
+              <option value="UNCLEAR">Unclear</option>
+              <option value="DISCONTINUED">Discontinued</option>
+            </select>
+            {state.errors.status && (
+              <p className="mt-1 text-sm text-red-600">{state.errors.status}</p>
+            )}
+          </div>
 
-          <label className="flex items-center gap-2 text-sm text-gray-700">
-            <input
-              type="checkbox"
-              name="featured"
-              defaultChecked={provider?.featured ?? false}
-              className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
-            />
-            Featured
-          </label>
+          <div className="flex items-end gap-6">
+            <label className="flex items-center gap-2 text-sm text-gray-700">
+              <input
+                type="checkbox"
+                name="featured"
+                defaultChecked={provider?.featured ?? false}
+                className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+              />
+              Featured
+            </label>
 
-          <label className="flex items-center gap-2 text-sm text-gray-700">
-            <input
-              type="checkbox"
-              name="freeShipping"
-              defaultChecked={provider?.freeShipping ?? false}
-              className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
-            />
-            Free Shipping
-          </label>
+            <label className="flex items-center gap-2 text-sm text-gray-700">
+              <input
+                type="checkbox"
+                name="freeShipping"
+                defaultChecked={provider?.freeShipping ?? false}
+                className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+              />
+              Free Shipping
+            </label>
+          </div>
         </div>
       </fieldset>
 

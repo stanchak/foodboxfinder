@@ -28,7 +28,7 @@ export const getProvidersByCategory = cache(
     } = options;
 
     const where = {
-      active: true as const,
+      status: "ACTIVE" as const,
       OR: [{ category }, { secondaryCategory: category }],
       ...(dietaryTags?.length && {
         dietaryTags: { some: { tag: { in: dietaryTags } } },
@@ -94,7 +94,7 @@ export const getProviderBySlug = cache(async (slug: string) => {
 
 export const getProvidersForComparison = cache(async (slugs: string[]) => {
   return prisma.provider.findMany({
-    where: { slug: { in: slugs }, active: true },
+    where: { slug: { in: slugs }, status: "ACTIVE" },
     include: {
       plans: { where: { active: true }, orderBy: { sortOrder: "asc" } },
       dietaryTags: true,
@@ -106,7 +106,7 @@ export const getProvidersForComparison = cache(async (slugs: string[]) => {
 
 export const getFeaturedProviders = cache(async () => {
   return prisma.provider.findMany({
-    where: { active: true, featured: true },
+    where: { status: "ACTIVE", featured: true },
     include: { dietaryTags: true },
     orderBy: { averageRating: "desc" },
     take: 8,
@@ -116,7 +116,7 @@ export const getFeaturedProviders = cache(async () => {
 export const getCategoryCounts = cache(async () => {
   return prisma.provider.groupBy({
     by: ["category"],
-    where: { active: true },
+    where: { status: "ACTIVE" },
     _count: true,
   });
 });
@@ -126,7 +126,7 @@ export const getCategoryCounts = cache(async () => {
 export const searchProviders = cache(async (query: string) => {
   return prisma.provider.findMany({
     where: {
-      active: true,
+      status: "ACTIVE",
       OR: [
         { name: { contains: query, mode: "insensitive" } },
         { description: { contains: query, mode: "insensitive" } },
@@ -184,7 +184,7 @@ export const searchCollections = cache(async (query: string) => {
 
 export const getAllProviderSlugs = cache(async () => {
   return prisma.provider.findMany({
-    where: { active: true },
+    where: { status: "ACTIVE" },
     select: { slug: true },
   });
 });
@@ -195,7 +195,7 @@ export const getRelatedProviders = cache(
   async (slug: string, category: CategoryType, limit: number = 4) => {
     return prisma.provider.findMany({
       where: {
-        active: true,
+        status: "ACTIVE",
         slug: { not: slug },
         OR: [{ category }, { secondaryCategory: category }],
       },

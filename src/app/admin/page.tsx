@@ -27,7 +27,7 @@ export default async function AdminDashboardPage() {
     topProviders,
   ] = await Promise.all([
     prisma.provider.count(),
-    prisma.provider.count({ where: { active: true } }),
+    prisma.provider.count({ where: { status: "ACTIVE" } }),
     prisma.review.count(),
     prisma.review.count({ where: { status: "PENDING" } }),
     prisma.blogPost.count(),

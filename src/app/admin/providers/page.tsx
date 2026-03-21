@@ -24,8 +24,8 @@ export default async function AdminProvidersPage(props: {
       ],
     }),
     ...(categoryFilter && { category: categoryFilter as CategoryType }),
-    ...(statusFilter === "active" && { active: true }),
-    ...(statusFilter === "inactive" && { active: false }),
+    ...(statusFilter === "active" && { status: "ACTIVE" as const }),
+    ...(statusFilter === "inactive" && { status: { not: "ACTIVE" as const } }),
     ...(statusFilter === "featured" && { featured: true }),
   };
 
@@ -142,13 +142,13 @@ export default async function AdminProvidersPage(props: {
                     </td>
                     <td className="px-4 py-3 text-center">
                       <div className="flex items-center justify-center gap-1.5">
-                        {provider.active ? (
+                        {provider.status === "ACTIVE" ? (
                           <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
                             Active
                           </span>
                         ) : (
                           <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
-                            Inactive
+                            {provider.status.charAt(0) + provider.status.slice(1).toLowerCase()}
                           </span>
                         )}
                         {provider.featured && (
