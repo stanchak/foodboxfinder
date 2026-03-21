@@ -10,7 +10,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Database & Foundation
 
 - [x] **DB-01**: Database schema deployed to Neon with all models (Provider, Plan, Review, BlogPost, Collection, etc.)
-- [ ] **DB-02**: Seed script populates 18 real food box providers across 5 categories with realistic plans, pricing, dietary tags, FAQs, and reviews
+- [x] **DB-02**: Seed script populates 18 real food box providers across 5 categories with realistic plans, pricing, dietary tags, FAQs, and reviews
 - [x] **DB-03**: Query utility functions support all downstream page data needs (listings, detail, comparison, search, admin)
 - [x] **DB-04**: Denormalized price fields (minPricePerServing, maxPricePerServing) on Provider for filter performance
 
@@ -158,7 +158,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | DB-01 | Phase 10 | Complete |
-| DB-02 | Phase 10 | Pending |
+| DB-02 | Phase 10 | Complete |
 | DB-03 | Phase 10 | Complete |
 | DB-04 | Phase 10 | Complete |
 | DS-01 | Phase 20 | Pending |
