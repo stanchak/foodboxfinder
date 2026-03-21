@@ -9,11 +9,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Data Foundation
 
-- [ ] **DATA-01**: Extend Provider schema with dataset fields: modelType, prepStyle, householdFit, valueTier, geography, shippingNotes, flexibility, pricingSignal, secondaryTags, affiliateSignal, sourceUrls, sourceFiles, notes
-- [ ] **DATA-02**: Add status enum (ACTIVE, HYBRID, UNCLEAR, DISCONTINUED) to replace boolean active field on Provider
+- [x] **DATA-01**: Extend Provider schema with dataset fields: modelType, prepStyle, householdFit, valueTier, geography, shippingNotes, flexibility, pricingSignal, secondaryTags, affiliateSignal, sourceUrls, sourceFiles, notes
+- [x] **DATA-02**: Add status enum (ACTIVE, HYBRID, UNCLEAR, DISCONTINUED) to replace boolean active field on Provider
 - [ ] **DATA-03**: Seed script imports all 95 providers from food-box-companies.json into database with field mapping
 - [ ] **DATA-04**: Seed script maps provider logo paths from manifest.json to Provider logoUrl field
-- [ ] **DATA-05**: Convert 5 .ico logo files to .png format before seeding (Blue Apron, Farm Fresh to You, Farmbox Delivery, Full Circle, Crowd Cow)
+- [x] **DATA-05**: Convert 5 .ico logo files to .png format before seeding (Blue Apron, Farm Fresh to You, Farmbox Delivery, Full Circle, Crowd Cow)
 
 ### Provider Logos
 
@@ -170,11 +170,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DATA-01 | Phase 1 | Pending |
-| DATA-02 | Phase 1 | Pending |
+| DATA-01 | Phase 1 | Complete |
+| DATA-02 | Phase 1 | Complete |
 | DATA-03 | Phase 1 | Pending |
 | DATA-04 | Phase 1 | Pending |
-| DATA-05 | Phase 1 | Pending |
+| DATA-05 | Phase 1 | Complete |
 | LOGO-01 | Phase 3 | Pending |
 | LOGO-02 | Phase 3 | Pending |
 | LOGO-03 | Phase 3 | Pending |

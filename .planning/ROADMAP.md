@@ -39,7 +39,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Extend Prisma schema with ProviderStatus/ValueTier enums and 13 new fields; convert 5 .ico logos to .png and update manifest
+- [x] 01-01-PLAN.md -- Extend Prisma schema with ProviderStatus/ValueTier enums and 13 new fields; convert 5 .ico logos to .png and update manifest
 - [ ] 01-02-PLAN.md -- Update seed script to import 95 providers with merge strategy; migrate codebase from Provider.active to Provider.status
 
 ### Phase 2: Query Layer and Filter Infrastructure
