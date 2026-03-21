@@ -58,6 +58,20 @@ enum ContentStatus {
   ARCHIVED
 }
 
+enum ProviderStatus {
+  ACTIVE
+  HYBRID
+  UNCLEAR
+  DISCONTINUED
+}
+
+enum ValueTier {
+  BUDGET
+  MID
+  PREMIUM
+  LUXURY
+}
+
 // ─── Core Models ────────────────────────────────────────────────────────────
 
 model Provider {
@@ -93,7 +107,22 @@ model Provider {
 
   // Flags
   featured       Boolean  @default(false)
-  active         Boolean  @default(true)
+  status         ProviderStatus @default(ACTIVE)
+
+  // --- Dataset Fields ---
+  modelType       String?
+  prepStyle       String?
+  valueTier       ValueTier?
+  householdFit    String?
+  geography       String?
+  shippingNotes   String?  @db.Text
+  flexibility     String?  @db.Text
+  pricingSignal   String?  @db.Text
+  secondaryTags   String?  @db.Text
+  affiliateSignal String?  @db.Text
+  sourceUrls      String?  @db.Text
+  sourceFiles     String?  @db.Text
+  notes           String?  @db.Text
 
   // SEO
   metaTitle       String?  @db.VarChar(70)
@@ -115,9 +144,9 @@ model Provider {
   @@index([category])
   @@index([secondaryCategory])
   @@index([minPricePerServingCents])
-  @@index([category, active, averageRating])
+  @@index([category, status, averageRating])
   @@index([featured])
-  @@index([active])
+  @@index([status])
   @@index([averageRating])
 }
 
