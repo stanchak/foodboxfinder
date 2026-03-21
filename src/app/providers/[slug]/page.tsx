@@ -141,6 +141,13 @@ export default async function ProviderDetailPage({
           "@type": "Brand",
           name: provider.name,
         },
+        ...(provider.prepStyle && { category: formatFieldLabel(provider.prepStyle) }),
+        ...(provider.geography && {
+          areaServed: {
+            "@type": "Country",
+            name: provider.geography === "national-us" ? "United States" : formatFieldLabel(provider.geography),
+          },
+        }),
         ...(provider.reviewCount > 0 && {
           aggregateRating: {
             "@type": "AggregateRating",
@@ -213,7 +220,9 @@ export default async function ProviderDetailPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
       />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
