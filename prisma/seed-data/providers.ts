@@ -1,6 +1,4 @@
-import type { Prisma } from "../../src/generated/prisma/client";
-
-const providers: Prisma.ProviderCreateInput[] = [
+const providers = [
   // ─── MEAL_KIT (4) ──────────────────────────────────────────────────────────
 
   {
@@ -18,7 +16,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.2,
     reviewCount: 5,
     featured: true,
-    active: true,
+    status: "ACTIVE" as const,
     category: "MEAL_KIT",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -172,7 +170,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.0,
     reviewCount: 5,
     featured: true,
-    active: true,
+    status: "ACTIVE" as const,
     category: "MEAL_KIT",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -306,7 +304,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.1,
     reviewCount: 4,
     featured: false,
-    active: true,
+    status: "ACTIVE" as const,
     category: "MEAL_KIT",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -433,7 +431,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 3.8,
     reviewCount: 4,
     featured: false,
-    active: true,
+    status: "ACTIVE" as const,
     category: "MEAL_KIT",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -538,7 +536,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.3,
     reviewCount: 5,
     featured: true,
-    active: true,
+    status: "ACTIVE" as const,
     category: "PREPARED_MEAL",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -677,7 +675,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.4,
     reviewCount: 4,
     featured: true,
-    active: true,
+    status: "ACTIVE" as const,
     category: "PREPARED_MEAL",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -808,7 +806,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 3.8,
     reviewCount: 4,
     featured: false,
-    active: true,
+    status: "ACTIVE" as const,
     category: "PREPARED_MEAL",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -929,7 +927,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.0,
     reviewCount: 4,
     featured: false,
-    active: true,
+    status: "ACTIVE" as const,
     category: "PREPARED_MEAL",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -1051,7 +1049,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.3,
     reviewCount: 5,
     featured: true,
-    active: true,
+    status: "ACTIVE" as const,
     category: "PROTEIN_BOX",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -1181,7 +1179,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.1,
     reviewCount: 3,
     featured: false,
-    active: true,
+    status: "ACTIVE" as const,
     category: "PROTEIN_BOX",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -1276,7 +1274,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.2,
     reviewCount: 4,
     featured: false,
-    active: true,
+    status: "ACTIVE" as const,
     category: "PROTEIN_BOX",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -1393,7 +1391,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.4,
     reviewCount: 5,
     featured: true,
-    active: true,
+    status: "ACTIVE" as const,
     category: "PRODUCE_BOX",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -1511,7 +1509,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.1,
     reviewCount: 5,
     featured: true,
-    active: true,
+    status: "ACTIVE" as const,
     category: "PRODUCE_BOX",
     secondaryCategory: "MEAL_KIT",
     lastVerifiedAt: new Date("2026-03-20"),
@@ -1638,21 +1636,21 @@ const providers: Prisma.ProviderCreateInput[] = [
   },
 
   {
-    name: "Farmbox Direct",
-    slug: "farmbox-direct",
+    name: "Farmbox Delivery",
+    slug: "farmbox-delivery",
     description:
-      "Farmbox Direct delivers curated boxes of organic and natural produce sourced from farms across the US, with a focus on seasonal variety at accessible prices. They offer a simpler, more traditional produce box experience compared to the grocery-marketplace approach of Misfits Market, appealing to households that want a weekly produce delivery without the need to shop and select individual items.",
+      "Farmbox Delivery delivers curated boxes of organic and natural produce sourced from farms across the US, with a focus on seasonal variety at accessible prices. They offer a simpler, more traditional produce box experience compared to the grocery-marketplace approach of Misfits Market, appealing to households that want a weekly produce delivery without the need to shop and select individual items.",
     shortDescription:
       "Curated organic and natural produce boxes delivered weekly with seasonal farm-fresh variety.",
-    website: "https://www.farmboxdirect.com",
-    affiliateUrl: "https://www.farmboxdirect.com/?ref=foodboxfinder",
+    website: "https://www.farmboxdelivery.com",
+    affiliateUrl: "https://www.farmboxdelivery.com/?ref=foodboxfinder",
     foundedYear: 2014,
     headquarters: "New York, NY",
     deliveryAreaDescription: "Delivers to the contiguous 48 US states.",
     averageRating: 3.5,
     reviewCount: 3,
     featured: false,
-    active: true,
+    status: "ACTIVE" as const,
     category: "PRODUCE_BOX",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [
@@ -1764,7 +1762,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.5,
     reviewCount: 5,
     featured: true,
-    active: true,
+    status: "ACTIVE" as const,
     category: "SPECIALTY",
     secondaryCategory: "MEAL_KIT",
     lastVerifiedAt: new Date("2026-03-20"),
@@ -1906,7 +1904,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.3,
     reviewCount: 5,
     featured: false,
-    active: true,
+    status: "ACTIVE" as const,
     category: "SPECIALTY",
     secondaryCategory: "MEAL_KIT",
     lastVerifiedAt: new Date("2026-03-20"),
@@ -2047,7 +2045,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 4.2,
     reviewCount: 4,
     featured: false,
-    active: true,
+    status: "ACTIVE" as const,
     category: "SPECIALTY",
     secondaryCategory: "MEAL_KIT",
     lastVerifiedAt: new Date("2026-03-20"),
@@ -2161,8 +2159,8 @@ const providers: Prisma.ProviderCreateInput[] = [
   },
 
   {
-    name: "Trifecta",
-    slug: "trifecta",
+    name: "Trifecta Nutrition",
+    slug: "trifecta-nutrition",
     description:
       "Trifecta Nutrition delivers macro-counted prepared meals and bulk proteins designed for serious athletes, bodybuilders, and fitness competitors. Their approach prioritizes precise nutritional data and clean organic ingredients over culinary creativity, serving as functional fuel for structured training programs and competition prep.",
     shortDescription:
@@ -2175,7 +2173,7 @@ const providers: Prisma.ProviderCreateInput[] = [
     averageRating: 3.5,
     reviewCount: 3,
     featured: false,
-    active: true,
+    status: "ACTIVE" as const,
     category: "SPECIALTY",
     lastVerifiedAt: new Date("2026-03-20"),
     prosJson: [

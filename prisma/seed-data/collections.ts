@@ -79,7 +79,7 @@ const collections: CollectionDef[] = [
           "Green Chef offers a dedicated Keto + Paleo plan with USDA-certified organic ingredients. If you enjoy cooking but want the carb counting done for you, their pre-measured keto meal kits are hard to beat.",
       },
       {
-        providerSlug: "trifecta",
+        providerSlug: "trifecta-nutrition",
         sortOrder: 2,
         note:
           "Trifecta is built for performance-focused eaters. Their keto meals are macro-optimized with clean ingredients, organic produce, and no added sugar — ideal for athletes following a ketogenic protocol.",
@@ -111,10 +111,10 @@ const collections: CollectionDef[] = [
           "EveryPlate is the undisputed budget champion at $5.99 per serving. Their no-frills approach — simpler recipes, less packaging — keeps costs down without sacrificing flavor or portion size.",
       },
       {
-        providerSlug: "farmbox-direct",
+        providerSlug: "farmbox-delivery",
         sortOrder: 1,
         note:
-          "Farmbox Direct delivers organic and natural produce boxes starting at competitive prices. Their smaller box options make it easy to supplement your grocery shopping without overcommitting.",
+          "Farmbox Delivery delivers organic and natural produce boxes starting at competitive prices. Their smaller box options make it easy to supplement your grocery shopping without overcommitting.",
       },
       {
         providerSlug: "misfits-market",
