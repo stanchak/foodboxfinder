@@ -2,6 +2,9 @@ import "server-only";
 import { cache } from "react";
 import { prisma } from "@/lib/db";
 import type { CategoryType, DietaryTag } from "@/generated/prisma/client";
+import { Prisma } from "@/generated/prisma/client";
+import type { ProviderFilters, SortOption } from "@/lib/filters";
+import { nullAwareStringFilter, nullAwareEnumFilter } from "@/lib/filters";
 
 // -- Category Listing (Phase 40) --
 
@@ -146,3 +149,82 @@ export const getRelatedProviders = cache(
     });
   }
 );
+
+// -- Filtered Listing (Phase 02 Plan 02) --
+
+/**
+ * Multi-dimension filtered provider listing with null-aware handling for sparse fields.
+ * Uses Prisma AND array to compose multiple null-aware OR clauses without key collision.
+ * Returns paginated results with total count for pagination UI.
+ */
+export const getFilteredProviders = cache(async (filters: ProviderFilters) => {
+  // CRITICAL: Use Prisma AND array to compose multiple null-aware filters.
+  // Each null-aware filter produces its own OR clause. Spreading multiple OR keys
+  // into a single object would cause later ones to overwrite earlier ones.
+  // Instead, each condition is an element of the AND array.
+
+  const conditions: Prisma.ProviderWhereInput[] = [
+    // Status filter (always applied)
+    { status: { in: filters.status } },
+  ];
+
+  // Category filter (optional -- omitted on cross-category pages)
+  if (filters.category) {
+    conditions.push({
+      OR: [
+        { category: filters.category },
+        { secondaryCategory: filters.category },
+      ],
+    });
+  }
+
+  // Dietary tags (enum via join table -- not null-aware, providers without tags just don't match)
+  if (filters.dietaryTags.length > 0) {
+    conditions.push({
+      dietaryTags: { some: { tag: { in: filters.dietaryTags } } },
+    });
+  }
+
+  // Null-aware string filters (providers with null/empty values pass through)
+  const prepStyleFilter = nullAwareStringFilter("prepStyle", filters.prepStyle);
+  if (Object.keys(prepStyleFilter).length > 0) conditions.push(prepStyleFilter);
+
+  const householdFitFilter = nullAwareStringFilter("householdFit", filters.householdFit);
+  if (Object.keys(householdFitFilter).length > 0) conditions.push(householdFitFilter);
+
+  const modelTypeFilter = nullAwareStringFilter("modelType", filters.modelType);
+  if (Object.keys(modelTypeFilter).length > 0) conditions.push(modelTypeFilter);
+
+  const geoFilter = nullAwareStringFilter("geography", filters.geography);
+  if (Object.keys(geoFilter).length > 0) conditions.push(geoFilter);
+
+  // Null-aware enum filter (valueTier)
+  const valueTierFilter = nullAwareEnumFilter("valueTier", filters.valueTier);
+  if (Object.keys(valueTierFilter).length > 0) conditions.push(valueTierFilter);
+
+  const where: Prisma.ProviderWhereInput = { AND: conditions };
+
+  // Sort mapping
+  const orderByMap: Record<SortOption, Prisma.ProviderOrderByWithRelationInput> = {
+    featured: { featured: "desc" },
+    rating: { averageRating: "desc" },
+    "name-asc": { name: "asc" },
+    "value-tier": { valueTier: "asc" },
+  };
+
+  const [providers, total] = await Promise.all([
+    prisma.provider.findMany({
+      where,
+      include: {
+        dietaryTags: true,
+        plans: { where: { active: true, featured: true }, take: 1 },
+      },
+      orderBy: orderByMap[filters.sortBy],
+      skip: (filters.page - 1) * filters.pageSize,
+      take: filters.pageSize,
+    }),
+    prisma.provider.count({ where }),
+  ]);
+
+  return { providers, total, page: filters.page, pageSize: filters.pageSize };
+});

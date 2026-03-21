@@ -9,6 +9,7 @@ export {
   getCategoryCounts,
   getAllProviderSlugs,
   getRelatedProviders,
+  getFilteredProviders,
 } from "./providers";
 
 export {
