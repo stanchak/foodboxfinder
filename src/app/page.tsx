@@ -230,7 +230,7 @@ function WebsiteJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
     />
   );
 }
@@ -249,7 +249,7 @@ function OrganizationJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
     />
   );
 }
@@ -557,7 +557,7 @@ export default async function HomePage() {
                 description: "Curated food box services",
               },
               {
-                value: `${totalReviews > 0 ? totalReviews : 500}+`,
+                value: `${totalReviews}`,
                 label: "Reviews",
                 description: "From real customers",
               },
