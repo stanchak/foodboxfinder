@@ -157,11 +157,11 @@ Plans:
   3. A generated sitemap includes all public pages (providers, categories, collections, homepage)
   4. Canonical URLs are set on all pages to prevent duplicate content
   5. "Best for X" collection pages at /best/[slug] show curated, ranked provider lists with editorial notes
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 09-01: TBD
-- [ ] 09-02: TBD
+- [ ] 09-01-PLAN.md -- Fix XSS-safe JSON-LD on 5 remaining pages and add canonical URLs to all indexable public pages
+- [ ] 09-02-PLAN.md -- Verify collection pages work end-to-end (detail, index, seed data, sitemap)
 
 ### Phase 10: Admin
 **Goal**: Site operators can manage providers (including all new fields), view site statistics, and trigger page revalidation
