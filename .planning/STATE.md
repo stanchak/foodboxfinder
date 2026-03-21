@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-21T22:10:13.113Z"
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-03-21T23:03:01.504Z"
 progress:
   total_phases: 11
   completed_phases: 4
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 8
+  completed_plans: 7
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-21)
 
 **Core value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences -- with transparent criteria and visual brand identity.
-**Current focus:** Phase 04 — Provider Detail Pages
+**Current focus:** Phase 05 — Category Browsing and Filtering
 
 ## Current Position
 
-Phase: 5
-Plan: Not started
+Phase: 05 (Category Browsing and Filtering) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -52,6 +52,7 @@ Plan: Not started
 | Phase 02 P02 | 1min | 1 tasks | 2 files |
 | Phase 03 P01 | 2min | 2 tasks | 4 files |
 | Phase 04 P01 | 3min | 2 tasks | 2 files |
+| Phase 05 P02 | 2min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -74,6 +75,8 @@ Recent decisions affecting current work:
 - [Phase 03]: No next.config.ts changes needed -- all 95 logos are local files
 - [Phase 04]: Show status badge only for non-ACTIVE providers to reduce visual noise
 - [Phase 04]: XSS-safe JSON-LD pattern: .replace(/</g, '\u003c') after JSON.stringify
+- [Phase 05]: Passed category slug as search param to parseProviderFilters -- unifies filter parsing in one call
+- [Phase 05]: ActiveFilterChips added as named export in CategoryFilters.tsx -- shares URL-driven state pattern
 
 ### Pending Todos
 
@@ -87,6 +90,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T22:09:33.958Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-03-21T23:03:01.502Z
+Stopped at: Completed 05-02-PLAN.md
 Resume file: None

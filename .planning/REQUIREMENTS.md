@@ -32,10 +32,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Category Browsing
 
-- [ ] **CAT-01**: Category hub page for each of 5 categories with editorial intro and provider listing
-- [ ] **CAT-02**: Provider cards in listings showing logo, name, category badge, value tier, summary, and CTA
-- [ ] **CAT-03**: Category pages have metadata and ItemList JSON-LD structured data
-- [ ] **CAT-04**: Breadcrumb navigation on category pages with BreadcrumbList JSON-LD
+- [x] **CAT-01**: Category hub page for each of 5 categories with editorial intro and provider listing
+- [x] **CAT-02**: Provider cards in listings showing logo, name, category badge, value tier, summary, and CTA
+- [x] **CAT-03**: Category pages have metadata and ItemList JSON-LD structured data
+- [x] **CAT-04**: Breadcrumb navigation on category pages with BreadcrumbList JSON-LD
 
 ### Provider Detail
 
@@ -57,11 +57,11 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **FILTER-06**: Filter by household fit (single-serve, couples, family, freezer-stocking, gifting)
 - [ ] **FILTER-07**: Filter by model type (subscription-first, store-first, marketplace, gift-club, hybrid)
 - [ ] **FILTER-08**: Filter by geography (national-us, regional, multi-market)
-- [ ] **FILTER-09**: All filters composable -- URL search params encode all active filters (shareable URLs)
-- [ ] **FILTER-10**: Null-aware filtering -- providers with empty filter fields pass through rather than being excluded
-- [ ] **FILTER-11**: Sort options: featured/editorial order, rating, name A-Z, value tier
+- [x] **FILTER-09**: All filters composable -- URL search params encode all active filters (shareable URLs)
+- [x] **FILTER-10**: Null-aware filtering -- providers with empty filter fields pass through rather than being excluded
+- [x] **FILTER-11**: Sort options: featured/editorial order, rating, name A-Z, value tier
 - [ ] **FILTER-12**: Filter UI collapses to drawer/sheet on mobile
-- [ ] **FILTER-13**: noindex meta tag on filtered pages to prevent SEO duplicate content
+- [x] **FILTER-13**: noindex meta tag on filtered pages to prevent SEO duplicate content
 
 ### Search
 
@@ -184,10 +184,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HOME-03 | Phase 6 | Pending |
 | HOME-04 | Phase 6 | Pending |
 | HOME-05 | Phase 6 | Pending |
-| CAT-01 | Phase 5 | Pending |
-| CAT-02 | Phase 5 | Pending |
-| CAT-03 | Phase 5 | Pending |
-| CAT-04 | Phase 5 | Pending |
+| CAT-01 | Phase 5 | Complete |
+| CAT-02 | Phase 5 | Complete |
+| CAT-03 | Phase 5 | Complete |
+| CAT-04 | Phase 5 | Complete |
 | DETAIL-01 | Phase 4 | Complete |
 | DETAIL-02 | Phase 4 | Complete |
 | DETAIL-03 | Phase 4 | Complete |
@@ -203,11 +203,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FILTER-06 | Phase 5 | Pending |
 | FILTER-07 | Phase 5 | Pending |
 | FILTER-08 | Phase 5 | Pending |
-| FILTER-09 | Phase 5 | Pending |
-| FILTER-10 | Phase 5 | Pending |
-| FILTER-11 | Phase 5 | Pending |
+| FILTER-09 | Phase 5 | Complete |
+| FILTER-10 | Phase 5 | Complete |
+| FILTER-11 | Phase 5 | Complete |
 | FILTER-12 | Phase 5 | Pending |
-| FILTER-13 | Phase 5 | Pending |
+| FILTER-13 | Phase 5 | Complete |
 | SEARCH-01 | Phase 8 | Pending |
 | SEARCH-02 | Phase 8 | Pending |
 | SEARCH-03 | Phase 8 | Pending |

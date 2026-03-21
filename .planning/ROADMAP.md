@@ -102,7 +102,7 @@ Plans:
 
 Plans:
 - [ ] 05-01-PLAN.md -- Rewrite CategoryFilters with all 9 filter dimensions, active filter chips, mobile drawer, and updated sort options
-- [ ] 05-02-PLAN.md -- Rewrite category page to use getFilteredProviders, add editorial intros, breadcrumbs, noindex, XSS-safe JSON-LD, and value tier on ProviderCard
+- [x] 05-02-PLAN.md -- Rewrite category page to use getFilteredProviders, add editorial intros, breadcrumbs, noindex, XSS-safe JSON-LD, and value tier on ProviderCard
 
 ### Phase 6: Homepage
 **Goal**: Users landing on the site immediately understand its purpose and can navigate to category pages or featured providers
