@@ -13,6 +13,13 @@ const CATEGORY_OPTIONS = [
   { value: "SPECIALTY", label: "Specialty" },
 ];
 
+const VALUE_TIER_OPTIONS = [
+  { value: "BUDGET", label: "Budget" },
+  { value: "MID", label: "Mid" },
+  { value: "PREMIUM", label: "Premium" },
+  { value: "LUXURY", label: "Luxury" },
+];
+
 const DIETARY_TAG_OPTIONS = [
   { value: "VEGAN", label: "Vegan" },
   { value: "VEGETARIAN", label: "Vegetarian" },
@@ -58,6 +65,14 @@ interface ProviderData {
   prosJson: unknown;
   consJson: unknown;
   dietaryTags: Array<{ tag: string }>;
+  modelType: string | null;
+  prepStyle: string | null;
+  valueTier: string | null;
+  householdFit: string | null;
+  geography: string | null;
+  flexibility: string | null;
+  shippingNotes: string | null;
+  pricingSignal: string | null;
 }
 
 const initialState: AdminFormState = {
@@ -265,6 +280,134 @@ export default function ProviderForm({
           {state.errors.dietaryTags && (
             <p className="mt-1 text-sm text-red-600">{state.errors.dietaryTags}</p>
           )}
+        </div>
+      </fieldset>
+
+      {/* Provider Characteristics */}
+      <fieldset className="space-y-4">
+        <legend className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+          Provider Characteristics
+        </legend>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label htmlFor="valueTier" className="block text-sm font-medium text-gray-700 mb-1">
+              Value Tier
+            </label>
+            <select
+              id="valueTier"
+              name="valueTier"
+              defaultValue={provider?.valueTier ?? ""}
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            >
+              <option value="">Not set</option>
+              {VALUE_TIER_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="modelType" className="block text-sm font-medium text-gray-700 mb-1">
+              Model Type
+            </label>
+            <input
+              type="text"
+              id="modelType"
+              name="modelType"
+              placeholder="e.g. Traditional, Marketplace"
+              defaultValue={provider?.modelType ?? ""}
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="prepStyle" className="block text-sm font-medium text-gray-700 mb-1">
+              Prep Style
+            </label>
+            <input
+              type="text"
+              id="prepStyle"
+              name="prepStyle"
+              placeholder="e.g. Cook from scratch, Heat and eat"
+              defaultValue={provider?.prepStyle ?? ""}
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label htmlFor="householdFit" className="block text-sm font-medium text-gray-700 mb-1">
+              Household Fit
+            </label>
+            <input
+              type="text"
+              id="householdFit"
+              name="householdFit"
+              placeholder="e.g. Couples, Families, Singles"
+              defaultValue={provider?.householdFit ?? ""}
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="geography" className="block text-sm font-medium text-gray-700 mb-1">
+              Geography
+            </label>
+            <input
+              type="text"
+              id="geography"
+              name="geography"
+              placeholder="e.g. Nationwide, Regional (West Coast)"
+              defaultValue={provider?.geography ?? ""}
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="pricingSignal" className="block text-sm font-medium text-gray-700 mb-1">
+              Pricing Signal
+            </label>
+            <input
+              type="text"
+              id="pricingSignal"
+              name="pricingSignal"
+              placeholder="e.g. $8-12/serving"
+              defaultValue={provider?.pricingSignal ?? ""}
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="shippingNotes" className="block text-sm font-medium text-gray-700 mb-1">
+              Shipping Notes
+            </label>
+            <textarea
+              id="shippingNotes"
+              name="shippingNotes"
+              rows={2}
+              placeholder="Shipping details..."
+              defaultValue={provider?.shippingNotes ?? ""}
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="flexibility" className="block text-sm font-medium text-gray-700 mb-1">
+              Flexibility
+            </label>
+            <textarea
+              id="flexibility"
+              name="flexibility"
+              rows={2}
+              placeholder="Skip, pause, cancel policies..."
+              defaultValue={provider?.flexibility ?? ""}
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            />
+          </div>
         </div>
       </fieldset>
 
