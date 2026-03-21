@@ -2,110 +2,22 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getCategoryBySlug, CATEGORY_MAP } from "@/lib/categories";
-import { getProvidersByCategory } from "@/lib/queries";
+import { getFilteredProviders } from "@/lib/queries";
+import { parseProviderFilters } from "@/lib/filters";
 import ProviderCard from "@/components/ProviderCard";
 import Pagination from "@/components/Pagination";
-import CategoryFilters from "@/components/CategoryFilters";
-import type { DietaryTag } from "@/generated/prisma/client";
+import CategoryFilters, { ActiveFilterChips } from "@/components/CategoryFilters";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
-// --- Types ---
+// --- Editorial Intro Content ---
 
-type SortOption = "rating" | "price-asc" | "price-desc" | "reviews" | "newest";
-
-const VALID_SORT_VALUES = new Set<string>([
-  "rating",
-  "price-asc",
-  "price-desc",
-  "reviews",
-  "newest",
-]);
-
-const VALID_DIETARY_TAGS = new Set<string>([
-  "VEGAN",
-  "VEGETARIAN",
-  "PESCATARIAN",
-  "KETO",
-  "PALEO",
-  "GLUTEN_FREE",
-  "DAIRY_FREE",
-  "NUT_FREE",
-  "LOW_CARB",
-  "LOW_SODIUM",
-  "ORGANIC",
-  "HALAL",
-  "KOSHER",
-  "DIABETIC_FRIENDLY",
-  "WHOLE30",
-  "MEDITERRANEAN",
-]);
-
-// --- Helpers ---
-
-function parseSearchParams(raw: Record<string, string | string[] | undefined>) {
-  // Diet
-  const dietRaw = typeof raw.diet === "string" ? raw.diet : undefined;
-  const dietaryTags: DietaryTag[] = dietRaw
-    ? dietRaw
-        .split(",")
-        .filter((t) => VALID_DIETARY_TAGS.has(t))
-        .map((t) => t as DietaryTag)
-    : [];
-
-  // Price
-  const minPriceRaw = typeof raw.minPrice === "string" ? raw.minPrice : undefined;
-  const maxPriceRaw = typeof raw.maxPrice === "string" ? raw.maxPrice : undefined;
-  const minPrice =
-    minPriceRaw && !isNaN(Number(minPriceRaw)) ? Number(minPriceRaw) : undefined;
-  const maxPrice =
-    maxPriceRaw && !isNaN(Number(maxPriceRaw)) ? Number(maxPriceRaw) : undefined;
-
-  // Rating
-  const ratingRaw = typeof raw.rating === "string" ? raw.rating : undefined;
-  const minRating =
-    ratingRaw && !isNaN(Number(ratingRaw))
-      ? Math.max(1, Math.min(5, Number(ratingRaw)))
-      : undefined;
-
-  // Sort
-  const sortRaw = typeof raw.sort === "string" ? raw.sort : undefined;
-  const sortBy: SortOption =
-    sortRaw && VALID_SORT_VALUES.has(sortRaw)
-      ? (sortRaw as SortOption)
-      : "rating";
-
-  // Page
-  const pageRaw = typeof raw.page === "string" ? raw.page : undefined;
-  const page =
-    pageRaw && !isNaN(Number(pageRaw)) ? Math.max(1, Math.floor(Number(pageRaw))) : 1;
-
-  return { dietaryTags, minPrice, maxPrice, minRating, sortBy, page };
-}
-
-function countActiveFilters(raw: Record<string, string | string[] | undefined>): number {
-  let count = 0;
-  if (typeof raw.diet === "string" && raw.diet.length > 0) {
-    count += raw.diet.split(",").filter((t) => VALID_DIETARY_TAGS.has(t)).length;
-  }
-  if (typeof raw.minPrice === "string" && raw.minPrice.length > 0) count++;
-  if (typeof raw.maxPrice === "string" && raw.maxPrice.length > 0) count++;
-  if (typeof raw.rating === "string" && raw.rating.length > 0) count++;
-  if (typeof raw.sort === "string" && raw.sort !== "rating" && raw.sort.length > 0) count++;
-  return count;
-}
-
-function buildSearchParamsRecord(
-  raw: Record<string, string | string[] | undefined>,
-): Record<string, string> {
-  const result: Record<string, string> = {};
-  for (const [key, value] of Object.entries(raw)) {
-    if (typeof value === "string" && value.length > 0) {
-      result[key] = value;
-    }
-  }
-  // Remove page -- Pagination handles it
-  delete result.page;
-  return result;
-}
+const CATEGORY_INTROS: Record<string, string> = {
+  "meal-kits": "Meal kit subscriptions deliver pre-portioned ingredients and step-by-step recipes to your door, making home cooking accessible and exciting. Compare top meal kit services to find the perfect fit for your cooking style, dietary needs, and budget.",
+  "prepared-meals": "Skip the cooking entirely with prepared meal delivery services that bring chef-crafted, ready-to-eat meals straight to your table. Whether you need quick weeknight dinners or specialized nutrition plans, find the service that matches your lifestyle.",
+  "protein-boxes": "From grass-fed beef to wild-caught seafood, protein box subscriptions deliver premium meats and protein sources direct from farms and fisheries. Compare quality, sourcing, and value across the top protein delivery services.",
+  "produce-boxes": "Farm-fresh fruits and vegetables delivered to your doorstep -- produce box subscriptions connect you directly with local and organic farms. Discover seasonal variety, CSA-style boxes, and curated produce selections.",
+  "specialty": "Explore unique food subscription experiences from artisanal snack boxes to international cuisine kits. Specialty food boxes make perfect gifts and offer a curated journey through flavors you won't find at your local grocery store.",
+};
 
 // --- Static Generation ---
 
@@ -119,10 +31,13 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ category: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }): Promise<Metadata> {
   const { category: slug } = await params;
+  const rawSearchParams = await searchParams;
   const categoryInfo = getCategoryBySlug(slug);
 
   if (!categoryInfo) {
@@ -131,6 +46,11 @@ export async function generateMetadata({
 
   const title = `Best ${categoryInfo.label} Subscriptions (2026)`;
   const description = `Compare the best ${categoryInfo.label.toLowerCase()} subscription services. ${categoryInfo.description}. Read reviews, compare prices, and find the perfect fit.`;
+
+  // Detect active filters beyond just "page"
+  const hasFilters = Object.keys(rawSearchParams).some(
+    (key) => key !== "page" && rawSearchParams[key] !== undefined && rawSearchParams[key] !== ""
+  );
 
   return {
     title,
@@ -143,6 +63,7 @@ export async function generateMetadata({
     alternates: {
       canonical: `/${slug}`,
     },
+    ...(hasFilters && { robots: { index: false, follow: true } }),
   };
 }
 
@@ -164,24 +85,24 @@ export default async function CategoryPage({
     notFound();
   }
 
-  // Parse filter/sort/page from URL
-  const { dietaryTags, minPrice, maxPrice, minRating, sortBy, page } =
-    parseSearchParams(rawSearchParams);
+  // Parse filters using Phase 2 infrastructure (pass category slug as search param)
+  const filters = parseProviderFilters({ ...rawSearchParams, category: slug });
 
-  // Fetch data
-  const { providers, total, pageSize } = await getProvidersByCategory({
-    category: categoryInfo.key,
-    dietaryTags: dietaryTags.length > 0 ? dietaryTags : undefined,
-    minPrice,
-    maxPrice,
-    minRating,
-    sortBy,
-    page,
-  });
+  // Fetch data using multi-dimension filtered query
+  const { providers, total, pageSize } = await getFilteredProviders(filters);
 
   const totalPages = Math.ceil(total / pageSize);
-  const activeFilterCount = countActiveFilters(rawSearchParams);
-  const paginationSearchParams = buildSearchParamsRecord(rawSearchParams);
+
+  // Build pagination search params (remove page, keep all other string params)
+  const paginationSearchParams: Record<string, string> = {};
+  for (const [key, value] of Object.entries(rawSearchParams)) {
+    if (typeof value === "string" && value.length > 0 && key !== "page") {
+      paginationSearchParams[key] = value;
+    }
+  }
+
+  // Editorial intro for this category
+  const editorialIntro = CATEGORY_INTROS[slug] ?? "";
 
   // JSON-LD structured data
   const jsonLd = {
@@ -192,7 +113,7 @@ export default async function CategoryPage({
     numberOfItems: total,
     itemListElement: providers.map((provider, index) => ({
       "@type": "ListItem",
-      position: (page - 1) * pageSize + index + 1,
+      position: (filters.page - 1) * pageSize + index + 1,
       item: {
         "@type": "Product",
         name: provider.name,
@@ -223,29 +144,45 @@ export default async function CategoryPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        {/* Breadcrumbs */}
+        <Breadcrumbs items={[
+          { label: "Home", href: "/" },
+          { label: categoryInfo.label, href: `/${slug}` },
+        ]} />
+
         {/* Page header */}
-        <header className="mb-8">
+        <header className="mb-8 mt-4">
           <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
             {categoryInfo.label}
           </h1>
           <p className="mt-2 text-lg text-gray-600">
             {categoryInfo.description}
           </p>
+          {editorialIntro && (
+            <p className="mt-3 text-base text-gray-500 max-w-3xl">
+              {editorialIntro}
+            </p>
+          )}
         </header>
 
         {/* Main content area: sidebar + results */}
         <div className="lg:flex lg:gap-8">
           {/* Desktop sidebar filters (hidden on mobile) */}
           <Suspense fallback={null}>
-            <CategoryFilters activeFilterCount={activeFilterCount} />
+            <CategoryFilters activeFilterCount={0} />
           </Suspense>
 
           {/* Results column */}
           <div className="flex-1 min-w-0">
+            {/* Active filter chips */}
+            <Suspense fallback={null}>
+              <ActiveFilterChips />
+            </Suspense>
+
             {/* Results header with mobile filter trigger */}
             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
               <p className="text-sm text-gray-600">
@@ -255,11 +192,11 @@ export default async function CategoryPage({
                   <>
                     Showing{" "}
                     <span className="font-medium text-gray-900">
-                      {(page - 1) * pageSize + 1}
+                      {(filters.page - 1) * pageSize + 1}
                     </span>
                     {" - "}
                     <span className="font-medium text-gray-900">
-                      {Math.min(page * pageSize, total)}
+                      {Math.min(filters.page * pageSize, total)}
                     </span>{" "}
                     of{" "}
                     <span className="font-medium text-gray-900">{total}</span>{" "}
@@ -308,7 +245,7 @@ export default async function CategoryPage({
             {totalPages > 1 && (
               <div className="mt-10">
                 <Pagination
-                  currentPage={page}
+                  currentPage={filters.page}
                   totalPages={totalPages}
                   basePath={`/${slug}`}
                   searchParams={paginationSearchParams}

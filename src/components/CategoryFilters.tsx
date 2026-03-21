@@ -38,6 +38,117 @@ const RATING_OPTIONS: Array<{ value: string; label: string }> = [
   { value: "2", label: "2+ Stars" },
 ];
 
+// --- Active Filter Chips ---
+
+const FILTER_LABELS: Record<string, string> = {
+  diet: "Diet",
+  minPrice: "Min Price",
+  maxPrice: "Max Price",
+  rating: "Min Rating",
+  sort: "Sort",
+  prep: "Prep Style",
+  valueTier: "Value Tier",
+  household: "Household",
+  model: "Model",
+  geo: "Geography",
+  status: "Status",
+};
+
+export function ActiveFilterChips() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [, startTransition] = useTransition();
+
+  // Collect active filters (skip page/pageSize)
+  const activeFilters: Array<{ key: string; label: string; value: string }> = [];
+  searchParams.forEach((value, key) => {
+    if (key === "page" || key === "pageSize") return;
+    const label = FILTER_LABELS[key] ?? key;
+    if (key === "diet") {
+      // Split comma-separated diet tags into individual chips
+      const tags = value.split(",").filter(Boolean);
+      for (const tag of tags) {
+        const tagLabel = DIETARY_TAG_OPTIONS.find((o) => o.value === tag)?.label ?? tag;
+        activeFilters.push({ key, label: tagLabel, value: tag });
+      }
+    } else {
+      activeFilters.push({ key, label: `${label}: ${value}`, value });
+    }
+  });
+
+  if (activeFilters.length === 0) return null;
+
+  function removeFilter(key: string, value: string) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (key === "diet") {
+      const current = params.get("diet");
+      if (current) {
+        const tags = current.split(",").filter((t) => t !== value);
+        if (tags.length > 0) {
+          params.set("diet", tags.join(","));
+        } else {
+          params.delete("diet");
+        }
+      }
+    } else {
+      params.delete(key);
+    }
+    params.delete("page");
+    const qs = params.toString();
+    const url = qs ? `${pathname}?${qs}` : pathname;
+    startTransition(() => {
+      router.push(url, { scroll: false });
+    });
+  }
+
+  function clearAll() {
+    startTransition(() => {
+      router.push(pathname, { scroll: false });
+    });
+  }
+
+  return (
+    <div className="flex flex-wrap items-center gap-2 mb-4">
+      {activeFilters.map((filter, i) => (
+        <button
+          key={`${filter.key}-${filter.value}-${i}`}
+          type="button"
+          onClick={() => removeFilter(filter.key, filter.value)}
+          className="inline-flex items-center gap-1 rounded-full bg-primary-50 text-primary-700 px-3 py-1 text-xs font-medium hover:bg-primary-100 transition-colors"
+          aria-label={`Remove filter: ${filter.label}`}
+        >
+          {filter.label}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      ))}
+      <button
+        type="button"
+        onClick={clearAll}
+        className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline"
+      >
+        Clear all
+      </button>
+    </div>
+  );
+}
+
+// --- Category Filters Sidebar ---
+
 export default function CategoryFilters({
   activeFilterCount,
 }: Readonly<{
