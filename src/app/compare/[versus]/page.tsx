@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import { getProvidersForComparison } from "@/lib/queries";
 import { formatPriceRange } from "@/lib/format";
@@ -75,6 +75,12 @@ export default async function VersusPage({
     notFound();
   }
 
+  // Enforce canonical alphabetical slug order
+  const [slugA, slugB] = parsed;
+  if (slugA.localeCompare(slugB) > 0) {
+    permanentRedirect(`/compare/${slugB}-vs-${slugA}`);
+  }
+
   const providers = await getProvidersForComparison(parsed);
 
   // Preserve order from URL
@@ -116,7 +122,7 @@ export default async function VersusPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
