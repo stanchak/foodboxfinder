@@ -36,11 +36,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. The 5 .ico logo files have been converted to .png and render correctly
   4. Provider status field uses the new enum (ACTIVE, HYBRID, UNCLEAR, DISCONTINUED) instead of a boolean
   5. Running `npx prisma db push` succeeds with the extended schema against Neon
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md -- Extend Prisma schema with ProviderStatus/ValueTier enums and 13 new fields; convert 5 .ico logos to .png and update manifest
+- [ ] 01-02-PLAN.md -- Update seed script to import 95 providers with merge strategy; migrate codebase from Provider.active to Provider.status
 
 ### Phase 2: Query Layer and Filter Infrastructure
 **Goal**: All database access flows through cached, typed query functions and a centralized filter parser handles all URL search param dimensions
