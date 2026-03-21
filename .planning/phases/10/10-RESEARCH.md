@@ -1,558 +1,109 @@
 # Phase 10: Database & Foundation - Research
 
 **Researched:** 2026-03-20
-**Domain:** Prisma 7.5 + Neon PostgreSQL schema, seed data, and query utilities for a food box comparison site
+**Domain:** Prisma 7.5 + Neon PostgreSQL schema deployment, seed data, query utilities
 **Confidence:** HIGH
 
 ## Summary
 
-Phase 10 is the foundation layer that all 11 downstream phases depend on. The work divides into four areas: (1) schema enhancements to fix known issues before any data exists, (2) a seed script populating 18 real food box providers with editorial-quality data, (3) query utility functions that serve every downstream page type, and (4) infrastructure setup (prisma.config.ts seed command, env validation, remotePatterns).
+Phase 10 establishes the data foundation that all 11 downstream phases depend on. The Prisma schema already exists with 10 models and 5 enums, the PrismaClient singleton is configured at `src/lib/db.ts` with the `@prisma/adapter-pg` driver adapter for Neon PostgreSQL, and the client is generated to `src/generated/prisma/`. This phase needs to: (1) enhance the schema with denormalized price fields, (2) push the schema to Neon, (3) create a comprehensive seed script with 18 real food box providers, and (4) build a query utility layer serving every downstream phase.
 
-The most critical decision is **how to store money**. The current schema uses `Float` for all pricing fields, which causes IEEE 754 precision errors that corrupt price comparisons -- the core value proposition of the site. The recommended approach is **integer cents** (`Int` type, store $7.99 as 799) rather than Prisma `Decimal`, because `Decimal` returns `Decimal.js` objects that cannot be serialized across the Next.js Server Component boundary without manual conversion on every query. Integer cents are natively serializable, trivially sortable, and used by Stripe and industry leaders.
+Three Prisma 7 breaking changes directly affect this phase's implementation. First, **seeding is configured in `prisma.config.ts`** (not `package.json`) under `migrations.seed`. The existing `prisma.config.ts` needs this field added. Second, **driver adapters are mandatory** -- the seed script must create its own PrismaClient with `PrismaPg` since it runs outside Next.js via `tsx`. Third, **enums are generated as `const` objects with type aliases** (not TypeScript `enum` declarations), which affects import patterns in the query layer and seed data.
 
-The second critical decision is the single-category model. Research confirms at least 4 of the planned 18 providers span multiple categories (Hungryroot, Sunbasket, Green Chef, Purple Carrot). A `secondaryCategory` field is the pragmatic fix -- simpler than a junction table, sufficient for MVP where no provider needs more than 2 categories.
+The existing schema uses `Float` for all pricing fields. The prior domain research (PITFALLS.md Pitfall #4) strongly recommends changing to integer cents before any data is seeded, since IEEE 754 precision errors break price sorting and filtering -- the core value proposition. However, the existing PLAN.md uses `Float`. This research documents both approaches so the planner can make an informed decision.
 
-**Primary recommendation:** Convert all pricing to integer cents, add `secondaryCategory` to Provider, change `prosJson`/`consJson` to `Json` type, add `lastVerifiedAt` and denormalized price fields -- then seed with meticulously researched real-world provider data using editorial-quality prose.
+**Primary recommendation:** Add denormalized price fields to Provider, configure seeding in `prisma.config.ts`, create the seed script with a standalone PrismaClient instance using relative imports, and wrap all query functions with `React.cache()` for render-pass deduplication.
 
 <phase_requirements>
 ## Phase Requirements
 
 | ID | Description | Research Support |
 |----|-------------|------------------|
-| DB-01 | Database schema deployed to Neon with all models | Schema enhancement patterns documented: Decimal->Int cents, Json type, secondaryCategory, denormalized price fields, composite indexes |
-| DB-02 | Seed script populates 18 real providers across 5 categories with realistic plans, pricing, dietary tags, FAQs, and reviews | All 18 providers researched with verified 2026 pricing, category assignments, dietary tags, and editorial content guidelines |
-| DB-03 | Query utility functions support all downstream page data needs | React.cache() deduplication pattern, unstable_cache for ISR, function signatures for listing/detail/comparison/search/admin documented |
-| DB-04 | Denormalized price fields (minPricePerServing, maxPricePerServing) on Provider for filter performance | Integer cents approach, recalculation utility pattern, composite index strategy documented |
+| DB-01 | Database schema deployed to Neon with all models (Provider, Plan, Review, BlogPost, Collection, etc.) | Schema exists. Add `minPricePerServing Float?` and `maxPricePerServing Float?` to Provider with indexes. Use `npx prisma db push` to deploy. Optional: CHECK constraints via `$executeRawUnsafe`. |
+| DB-02 | Seed script populates 18 real food box providers across 5 categories with realistic plans, pricing, dietary tags, FAQs, and reviews | Seed command in `prisma.config.ts` (Prisma 7 change). Script needs standalone PrismaClient with PrismaPg adapter. One file per provider. deleteAll + sequential create strategy. |
+| DB-03 | Query utility functions support all downstream page data needs (listings, detail, comparison, search, admin) | Single `src/lib/queries.ts` with ~15-20 `React.cache()`-wrapped async functions. Covers homepage, category listing, provider detail, comparison, collections, blog, search, reviews, admin, and SEO. |
+| DB-04 | Denormalized price fields (minPricePerServing, maxPricePerServing) on Provider for filter performance | Add Float? fields with `@@index`. Pre-compute from Plan data during seeding. Used by category listing price range filters (Phase 40). |
 </phase_requirements>
 
 ## Standard Stack
 
 ### Core (Already Installed)
-
-| Library | Version | Purpose | Status |
-|---------|---------|---------|--------|
-| prisma | 7.5.0 | ORM + schema management | Installed |
-| @prisma/client | 7.5.0 | Database client | Installed |
-| @prisma/adapter-pg | 7.5.0 | Neon PostgreSQL adapter | Installed |
-| dotenv | 17.3.1 | Environment variable loading | Installed |
+| Library | Version | Purpose | Why Standard |
+|---------|---------|---------|--------------|
+| prisma | 7.5.0 | Schema management, db push, seeding CLI | Already installed. Drives schema-to-DB sync. |
+| @prisma/client | 7.5.0 | Type-safe database client | Already installed. Generated to `src/generated/prisma/`. |
+| @prisma/adapter-pg | 7.5.0 | PostgreSQL driver adapter for Neon | Already installed. Required by Prisma 7 for all PrismaClient instances. |
+| react | 19.2.4 | `React.cache()` for query deduplication | Already installed. Deduplicates Prisma calls within a render pass. |
+| dotenv | 17.3.1 | Environment variable loading | Already installed. Used by `prisma.config.ts` for DATABASE_URL. |
 
 ### Phase 10 Additions
-
 | Library | Version | Purpose | When to Use |
 |---------|---------|---------|-------------|
-| tsx | 4.21.0 | Run TypeScript seed script directly | `npx tsx prisma/seed.ts` -- dev dependency |
-| server-only | 0.0.1 | Prevent query utilities from being imported in client components | `import 'server-only'` at top of `src/lib/queries.ts` |
+| tsx | 4.21.0 | TypeScript execution for seed script | `npx tsx prisma/seed.ts` -- add to devDependencies |
 
 ### Alternatives Considered
-
 | Instead of | Could Use | Tradeoff |
 |------------|-----------|----------|
-| Integer cents (Int) | Prisma Decimal | Decimal returns Decimal.js objects that fail RSC serialization. Every query would need `.toNumber()` conversion. Integer cents are natively serializable. |
-| Integer cents (Int) | Float (current) | Float causes IEEE 754 precision errors: `$7.99 + $0.01 != $8.00`. Breaks price sorting and filtering -- the site's core feature. |
-| `secondaryCategory` field | ProviderCategory junction table | Junction table is more flexible but adds query complexity. Only 4 of 18 providers need dual categories. secondaryCategory is sufficient for MVP. |
-| `Json` type for pros/cons | String @db.Text (current) | Json maps to PostgreSQL JSONB with database-level validation. String allows malformed JSON that crashes page rendering. |
+| tsx | ts-node | tsx is faster (esbuild-based), zero config, handles ESM natively. ts-node requires tsconfig adjustments for ESM. |
+| deleteAll + create | Prisma upsert | deleteAll gives clean state, simpler logic. Upsert is better for production but adds complexity. Project decision: deleteAll + create (see PROJECT.md Key Decisions). |
+| React.cache() | unstable_cache | React.cache() deduplicates within a render pass (request-scoped). unstable_cache adds cross-request caching with tags/revalidation. Phase 10 starts with React.cache() only; cross-request caching added in later phases. |
+| Float for prices | Integer cents (Int) | Integer cents avoids IEEE 754 errors ($7.99 + $0.01 != $8.00). However, the existing schema uses Float and the PLAN.md uses Float. Integer cents is the industry standard (Stripe, Shopify) but requires renaming all price fields. |
 
 **Installation:**
 ```bash
-npm install -D tsx
-npm install server-only
+npm install --save-dev tsx
 ```
 
-**Version verification:** Confirmed via `npm view` on 2026-03-20:
-- tsx: 4.21.0
-- server-only: 0.0.1
+**Version verification:** Confirmed 2026-03-20:
+- prisma: 7.5.0 (installed, verified via `npx prisma --version`)
+- @prisma/client: 7.5.0 (installed)
+- tsx: 4.21.0 (latest on npm, to be installed)
 
 ## Architecture Patterns
 
 ### Recommended Project Structure
 ```
 prisma/
-  schema.prisma          # Enhanced schema (Decimal->Int, Json, denormalized fields)
-  seed.ts                # Main seed script orchestrator
+  schema.prisma              # Existing schema + denormalized price fields
+  seed.ts                    # Main seed runner (standalone PrismaClient)
   seed-data/
-    providers.ts         # 18 provider definitions with all nested data
-    collections.ts       # 5-8 "best of" collection seeds
-    blog-posts.ts        # 3-5 blog post seeds
-    helpers.ts           # Price conversion, shared utilities
+    index.ts                 # Barrel export
+    types.ts                 # Typed seed data interfaces
+    providers/
+      index.ts               # Barrel export all 18 providers
+      hellofresh.ts          # One file per provider (MEAL_KIT)
+      blue-apron.ts
+      home-chef.ts
+      everyplate.ts
+      factor.ts              # PREPARED_MEAL
+      cookunity.ts
+      mosaic-foods.ts
+      snap-kitchen.ts
+      butcherbox.ts          # PROTEIN_BOX
+      crowd-cow.ts
+      good-chop.ts
+      misfits-market.ts      # PRODUCE_BOX
+      hungryroot.ts
+      farmbox-direct.ts
+      purple-carrot.ts       # SPECIALTY
+      green-chef.ts
+      sunbasket.ts
+      trifecta.ts
+    collections.ts           # 5-8 "Best Of" collections
+    blog-posts.ts            # 3-5 blog posts
 src/
   lib/
-    db.ts                # Prisma singleton (existing)
-    queries.ts           # All query functions with React.cache() deduplication
-    format.ts            # Price formatting, rating display utilities
-    env.ts               # Environment variable validation (optional, recommended)
+    db.ts                    # Existing Prisma singleton (no changes)
+    queries.ts               # All query functions with React.cache()
+    categories.ts            # Slug <-> CategoryType enum mapping
 ```
 
-### Pattern 1: Integer Cents for All Pricing
-**What:** Store all monetary values as integers representing cents. `$7.99/serving` is stored as `799`.
-**When to use:** Every pricing field in the schema.
-**Why:** Prisma's `Decimal` type returns `Decimal.js` objects that are NOT serializable in React Server Components. Passing a query result containing `Decimal` fields from a Server Component to a Client Component throws: `"Error serializing props: object ("[object Decimal]") cannot be serialized as JSON"`. Integer cents avoid this entirely while maintaining exact precision.
-
+### Pattern 1: Seed Configuration in prisma.config.ts (Prisma 7 Breaking Change)
+**What:** In Prisma 7, the seed command is configured in `prisma.config.ts` under `migrations.seed`, NOT in `package.json`'s `"prisma"` key. The old package.json approach is silently ignored.
+**When to use:** Always for Prisma 7 projects.
+**Example:**
 ```typescript
-// prisma/schema.prisma
-model Plan {
-  pricePerServingCents Int?     // $7.99 = 799
-  pricePerWeekCents    Int?     // $59.94 = 5994
-  pricePerBoxCents     Int?     // $69.92 = 6992
-  shippingCostCents    Int  @default(0)  // $9.99 = 999, free = 0
-}
-
-model Provider {
-  minPricePerServingCents Int?  // Denormalized: cheapest plan
-  maxPricePerServingCents Int?  // Denormalized: most expensive plan
-}
-
-// src/lib/format.ts
-export function formatPrice(cents: number | null): string {
-  if (cents === null) return "N/A";
-  return `$${(cents / 100).toFixed(2)}`;
-}
-
-export function formatPriceRange(minCents: number | null, maxCents: number | null): string {
-  if (minCents === null || maxCents === null) return "Contact for pricing";
-  if (minCents === maxCents) return formatPrice(minCents);
-  return `${formatPrice(minCents)} - ${formatPrice(maxCents)}`;
-}
-
-// Seed data example:
-{ pricePerServingCents: 799 }  // $7.99
-{ pricePerServingCents: 1149 } // $11.49
-```
-
-**Source:** Industry standard (Stripe, PayPal, Shopify all use integer cents). Prisma Decimal serialization issue confirmed in prisma/prisma#9170, prisma/prisma Discussion #19983, and multiple community reports through January 2026.
-
-### Pattern 2: React.cache() Query Deduplication
-**What:** Wrap all Prisma queries with `React.cache()` to deduplicate within a single render pass. Combine with `unstable_cache` for ISR on read-heavy pages.
-**When to use:** Every query function in `src/lib/queries.ts`.
-
-```typescript
-// src/lib/queries.ts
-import 'server-only';
-import { cache } from 'react';
-import { unstable_cache } from 'next/cache';
-import { prisma } from '@/lib/db';
-
-// React.cache deduplicates within a single request/render
-export const getProviderBySlug = cache(async (slug: string) => {
-  return prisma.provider.findUnique({
-    where: { slug },
-    include: {
-      plans: { where: { active: true }, orderBy: { sortOrder: 'asc' } },
-      dietaryTags: true,
-      faqs: { orderBy: { sortOrder: 'asc' } },
-      reviews: {
-        where: { status: 'APPROVED' },
-        orderBy: { createdAt: 'desc' },
-        take: 10,
-      },
-    },
-  });
-});
-
-// unstable_cache adds ISR-style time-based caching
-export const getCachedProviderBySlug = unstable_cache(
-  async (slug: string) => {
-    return getProviderBySlug(slug);
-  },
-  ['provider-detail'],
-  { tags: ['provider'], revalidate: 3600 }
-);
-```
-
-**Source:** Next.js 16 official docs (`node_modules/next/dist/docs/01-app/02-guides/caching-without-cache-components.md`) -- verified locally.
-
-### Pattern 3: Prisma 7 Seed Script with Nested Creates
-**What:** Use `prisma.provider.create()` with nested `plans`, `dietaryTags`, `faqs`, and `reviews` creates. Idempotent via deleteAll-then-create pattern.
-**When to use:** The seed script.
-
-```typescript
-// prisma/seed.ts
-import 'dotenv/config';
-import { PrismaClient } from '../src/generated/prisma/client';
-import { PrismaPg } from '@prisma/adapter-pg';
-
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
-const prisma = new PrismaClient({ adapter });
-
-async function main() {
-  // Clean slate: delete in dependency order (children first via cascade)
-  await prisma.affiliateClick.deleteMany();
-  await prisma.collectionItem.deleteMany();
-  await prisma.collection.deleteMany();
-  await prisma.blogPost.deleteMany();
-  await prisma.review.deleteMany();
-  await prisma.providerFaq.deleteMany();
-  await prisma.providerDietaryTag.deleteMany();
-  await prisma.plan.deleteMany();
-  await prisma.provider.deleteMany();
-
-  // Create providers with all nested data
-  const hellofresh = await prisma.provider.create({
-    data: {
-      name: 'HelloFresh',
-      slug: 'hellofresh',
-      description: '...editorial content...',
-      website: 'https://www.hellofresh.com',
-      affiliateUrl: 'https://www.hellofresh.com/?ref=foodboxfinder',
-      category: 'MEAL_KIT',
-      averageRating: 4.2,
-      reviewCount: 5,
-      minPricePerServingCents: 799,
-      maxPricePerServingCents: 1299,
-      prosJson: ['Wide variety of 60+ weekly recipes', ...],
-      consJson: ['Recipe instructions can be overly prescriptive', ...],
-      plans: {
-        create: [
-          {
-            name: 'Meat & Veggies',
-            pricePerServingCents: 899,
-            pricePerBoxCents: 7192,
-            shippingCostCents: 1099,
-            servingsPerMeal: 2,
-            mealsPerWeek: 4,
-            canSkip: true,
-            canCancel: true,
-          },
-        ],
-      },
-      dietaryTags: {
-        create: [
-          { tag: 'VEGETARIAN' },
-          { tag: 'LOW_CARB' },
-          { tag: 'PESCATARIAN' },
-        ],
-      },
-      faqs: {
-        create: [
-          { question: 'How does HelloFresh work?', answer: '...' },
-        ],
-      },
-      reviews: {
-        create: [
-          {
-            authorName: 'Sarah M.',
-            rating: 4,
-            title: 'Great for weeknight dinners',
-            body: '...',
-            status: 'APPROVED',
-          },
-        ],
-      },
-    },
-  });
-
-  console.log(`Seeded provider: ${hellofresh.name}`);
-  // ... repeat for all 18 providers
-}
-
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
-```
-
-**Source:** Prisma 7 seeding docs (prisma.io/docs/orm/prisma-migrate/workflows/seeding). PROJECT.md key decision: "deleteAll + create for seed idempotency."
-
-### Pattern 4: Denormalized Price Recalculation
-**What:** After seeding all plans, recalculate `minPricePerServingCents` and `maxPricePerServingCents` on each Provider.
-**When to use:** End of seed script, and in every Server Action that modifies plans.
-
-```typescript
-// src/lib/queries.ts or prisma/seed-data/helpers.ts
-export async function recalculateProviderPricing(
-  prisma: PrismaClient,
-  providerId: string
-) {
-  const plans = await prisma.plan.findMany({
-    where: { providerId, active: true, pricePerServingCents: { not: null } },
-    select: { pricePerServingCents: true },
-  });
-
-  const prices = plans
-    .map((p) => p.pricePerServingCents)
-    .filter((p): p is number => p !== null);
-
-  await prisma.provider.update({
-    where: { id: providerId },
-    data: {
-      minPricePerServingCents: prices.length ? Math.min(...prices) : null,
-      maxPricePerServingCents: prices.length ? Math.max(...prices) : null,
-    },
-  });
-}
-```
-
-### Anti-Patterns to Avoid
-- **Using `Float` for money:** IEEE 754 causes `$7.99 != $7.99` in comparisons. Never use Float for financial data.
-- **Using `Decimal` with RSC:** Prisma `Decimal` returns `Decimal.js` objects that break React Server Component serialization. Use integer cents instead.
-- **Creating a separate PrismaClient in the seed script:** The seed script needs its OWN PrismaClient instance (not the app singleton) because it runs outside the Next.js process. This is correct and expected.
-- **Forgetting to close the connection:** Seed scripts must call `prisma.$disconnect()` in both success and error paths, or the process hangs.
-- **Promotional pricing as primary:** Always seed regular (non-promotional) pricing. Promos are marketing data, not comparison data.
-
-## Don't Hand-Roll
-
-| Problem | Don't Build | Use Instead | Why |
-|---------|-------------|-------------|-----|
-| JSON serialization of pros/cons | Custom String parsing with try/catch | Prisma `Json` type (PostgreSQL JSONB) | Database-level validation rejects malformed writes. No runtime parsing errors. |
-| Price formatting | Inline `(price / 100).toFixed(2)` everywhere | Shared `formatPrice()` utility | Centralized formatting prevents inconsistencies. Single source of truth for currency display. |
-| Query deduplication | Multiple identical Prisma calls hoping for cache | `React.cache()` wrapper | React deduplicates within a render pass. Without it, a layout and page querying the same provider make two DB calls. |
-| Seed data provider research | Made-up fake providers | Real 2026 provider data | E-E-A-T compliance requires editorial-quality, factually accurate seed data from day one. Fake data hides UI problems. |
-| Env validation | `process.env.X!` non-null assertion | Runtime check or Zod schema | Non-null assertion produces cryptic errors when env var is missing. Clear error message saves debugging time. |
-
-## Common Pitfalls
-
-### Pitfall 1: Prisma Decimal Serialization Failure in RSC
-**What goes wrong:** Using Prisma `Decimal` type for price fields causes every Server Component that renders price data to throw: `"Error serializing: object ("[object Decimal]") cannot be serialized as JSON"`.
-**Why it happens:** Prisma returns `Decimal.js` instances, not native JavaScript numbers. React Server Components can only serialize plain objects, arrays, strings, numbers, booleans, null, and undefined.
-**How to avoid:** Use integer cents (`Int` type) for all monetary values. Native `number` type serializes without issues.
-**Warning signs:** Build passes but pages crash at runtime with serialization errors when rendering any price field.
-
-### Pitfall 2: Float Pricing Breaks Sort and Filter
-**What goes wrong:** `$7.99` stored as Float becomes `7.990000000000001`. Sorting "price low to high" produces incorrect ordering. Filtering "under $8.00" excludes items at exactly $8.00.
-**Why it happens:** IEEE 754 binary representation cannot exactly represent most decimal fractions.
-**How to avoid:** Integer cents. `799 < 800` is always true. No precision issues.
-**Warning signs:** Prices display with more than 2 decimal places. Two identical prices sort differently.
-
-### Pitfall 3: Seed Data Too Generic for E-E-A-T
-**What goes wrong:** Seed descriptions read like marketing copy: "HelloFresh delivers fresh ingredients to your door." Google's December 2025 Core Update demoted 71% of affiliate sites with thin content. Generic seed data becomes the real data if nobody rewrites it.
-**Why it happens:** Speed pressure leads to placeholder descriptions that never get replaced.
-**How to avoid:** Write editorial-quality, opinionated descriptions during seeding. Each provider needs specific, differentiated pros/cons that could only be written by someone who used the service.
-**Warning signs:** Can you swap the description between two providers and nobody notices? It's too generic.
-
-### Pitfall 4: Promotional vs. Regular Pricing Confusion
-**What goes wrong:** Nearly every meal kit advertises a promotional introductory price ("First box 50% off!"). If the seed script uses promo prices, the entire comparison is meaningless.
-**Why it happens:** Promotional pricing is the most prominent number on provider websites.
-**How to avoid:** Always seed the REGULAR (non-promotional) price as `pricePerServingCents`. Document this convention in seed data comments. Optionally add `introOfferNote String?` to Plan for displaying promo info separately.
-**Warning signs:** All providers seem suspiciously cheap ($3-5/serving) when regular prices are $8-13/serving.
-
-### Pitfall 5: Multi-Category Providers Forced into Single Category
-**What goes wrong:** Hungryroot is both a meal kit and produce/grocery service. Sunbasket offers both meal kits and prepared meals. Forcing them into one category means users searching the other category won't find them.
-**Why it happens:** The schema uses a single `CategoryType` enum on Provider.
-**How to avoid:** Add `secondaryCategory CategoryType?` to Provider. Query functions must include both `category` and `secondaryCategory` matches when listing providers for a category.
-**Warning signs:** During seed data creation, the team debates which single category a provider belongs to more than twice.
-
-### Pitfall 6: Stale Prisma Client After Schema Changes
-**What goes wrong:** Schema changes (adding new fields) are pushed to Neon with `prisma db push`, but the TypeScript client is not regenerated. Code compiles with old types and fails at runtime.
-**Why it happens:** Two-step process: `prisma db push` + `prisma generate`. Forgetting the second step.
-**How to avoid:** Always run both: `npx prisma db push && npx prisma generate`. The CONCERNS.md already flags this.
-**Warning signs:** TypeScript errors about missing properties on Prisma models.
-
-## Code Examples
-
-### Schema Enhancement: Provider Model with Integer Cents and New Fields
-```typescript
-// prisma/schema.prisma (relevant changes to Provider model)
-model Provider {
-  // ... existing fields ...
-
-  // Category (enhanced)
-  category          CategoryType
-  secondaryCategory CategoryType?      // NEW: for multi-category providers
-
-  // Pricing (denormalized, integer cents)
-  minPricePerServingCents Int?          // NEW: cheapest active plan
-  maxPricePerServingCents Int?          // NEW: most expensive active plan
-  freeShipping            Boolean @default(false)  // NEW: any plan has free shipping
-
-  // Data freshness
-  lastVerifiedAt DateTime?              // NEW: when pricing was last verified
-
-  // Editorial (JSON type for validation)
-  prosJson       Json?                  // CHANGED: String -> Json (JSONB)
-  consJson       Json?                  // CHANGED: String -> Json (JSONB)
-
-  // ... rest unchanged ...
-
-  @@index([category])
-  @@index([secondaryCategory])          // NEW
-  @@index([minPricePerServingCents])     // NEW: for price range filtering
-  @@index([averageRating])
-}
-```
-
-### Schema Enhancement: Plan Model with Integer Cents
-```typescript
-model Plan {
-  // ... existing fields ...
-
-  // Pricing (integer cents)
-  pricePerServingCents Int?             // CHANGED: Float -> Int
-  pricePerWeekCents    Int?             // CHANGED: Float -> Int
-  pricePerBoxCents     Int?             // CHANGED: Float -> Int
-  shippingCostCents    Int  @default(0) // CHANGED: Float -> Int
-
-  // Optional promo tracking
-  introOfferNote       String?          // NEW: e.g., "60% off first box"
-
-  // ... rest unchanged ...
-}
-```
-
-### Query Functions: Core Patterns
-```typescript
-// src/lib/queries.ts
-import 'server-only';
-import { cache } from 'react';
-import { prisma } from '@/lib/db';
-import type { CategoryType, DietaryTag } from '@/generated/prisma/client';
-
-// === Provider Listing (for category pages) ===
-export const getProvidersByCategory = cache(
-  async (options: {
-    category: CategoryType;
-    dietaryTags?: DietaryTag[];
-    minPrice?: number;       // cents
-    maxPrice?: number;       // cents
-    minRating?: number;
-    sortBy?: 'rating' | 'price-asc' | 'price-desc' | 'reviews' | 'newest';
-    page?: number;
-    pageSize?: number;
-  }) => {
-    const {
-      category,
-      dietaryTags,
-      minPrice,
-      maxPrice,
-      minRating,
-      sortBy = 'rating',
-      page = 1,
-      pageSize = 12,
-    } = options;
-
-    const where = {
-      active: true,
-      OR: [
-        { category },
-        { secondaryCategory: category },
-      ],
-      ...(minPrice !== undefined && {
-        minPricePerServingCents: { gte: minPrice },
-      }),
-      ...(maxPrice !== undefined && {
-        maxPricePerServingCents: { lte: maxPrice },
-      }),
-      ...(minRating !== undefined && {
-        averageRating: { gte: minRating },
-      }),
-      ...(dietaryTags?.length && {
-        dietaryTags: {
-          some: { tag: { in: dietaryTags } },
-        },
-      }),
-    };
-
-    const orderBy = {
-      'rating': { averageRating: 'desc' as const },
-      'price-asc': { minPricePerServingCents: 'asc' as const },
-      'price-desc': { maxPricePerServingCents: 'desc' as const },
-      'reviews': { reviewCount: 'desc' as const },
-      'newest': { createdAt: 'desc' as const },
-    }[sortBy];
-
-    const [providers, total] = await Promise.all([
-      prisma.provider.findMany({
-        where,
-        orderBy,
-        skip: (page - 1) * pageSize,
-        take: pageSize,
-        include: {
-          dietaryTags: true,
-          plans: {
-            where: { active: true, featured: true },
-            take: 1,
-          },
-        },
-      }),
-      prisma.provider.count({ where }),
-    ]);
-
-    return { providers, total, page, pageSize };
-  }
-);
-
-// === Provider Detail ===
-export const getProviderBySlug = cache(async (slug: string) => {
-  return prisma.provider.findUnique({
-    where: { slug },
-    include: {
-      plans: {
-        where: { active: true },
-        orderBy: { sortOrder: 'asc' },
-      },
-      dietaryTags: true,
-      faqs: { orderBy: { sortOrder: 'asc' } },
-      reviews: {
-        where: { status: 'APPROVED' },
-        orderBy: [{ helpful: 'desc' }, { createdAt: 'desc' }],
-        take: 10,
-      },
-    },
-  });
-});
-
-// === Comparison ===
-export const getProvidersForComparison = cache(
-  async (slugs: string[]) => {
-    return prisma.provider.findMany({
-      where: { slug: { in: slugs }, active: true },
-      include: {
-        plans: { where: { active: true }, orderBy: { sortOrder: 'asc' } },
-        dietaryTags: true,
-      },
-    });
-  }
-);
-
-// === Homepage ===
-export const getFeaturedProviders = cache(async () => {
-  return prisma.provider.findMany({
-    where: { active: true, featured: true },
-    include: { dietaryTags: true },
-    orderBy: { averageRating: 'desc' },
-    take: 8,
-  });
-});
-
-export const getCategoryCounts = cache(async () => {
-  const counts = await prisma.provider.groupBy({
-    by: ['category'],
-    where: { active: true },
-    _count: true,
-  });
-  return counts;
-});
-
-// === Search (basic LIKE for MVP, tsvector in Phase 80) ===
-export const searchProviders = cache(async (query: string) => {
-  return prisma.provider.findMany({
-    where: {
-      active: true,
-      OR: [
-        { name: { contains: query, mode: 'insensitive' } },
-        { description: { contains: query, mode: 'insensitive' } },
-      ],
-    },
-    include: { dietaryTags: true },
-    take: 20,
-  });
-});
-
-// === All Providers (for generateStaticParams, sitemap) ===
-export const getAllProviderSlugs = cache(async () => {
-  return prisma.provider.findMany({
-    where: { active: true },
-    select: { slug: true },
-  });
-});
-```
-
-### prisma.config.ts Update (Seed Command)
-```typescript
-// prisma.config.ts
+// prisma.config.ts (existing file, add migrations.seed)
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
@@ -560,183 +111,706 @@ export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
-    seed: "tsx prisma/seed.ts",  // ADD THIS
+    seed: "npx tsx prisma/seed.ts",   // ADD THIS LINE
   },
   datasource: {
     url: process.env["DATABASE_URL"],
   },
 });
 ```
+**Source:** Prisma 7 seeding docs -- verified via WebFetch (prisma.io/docs/orm/prisma-migrate/workflows/seeding). Key quote: "In Prisma ORM v7, seeding is only triggered explicitly by running `npx prisma db seed`. Automatic seeding during `prisma migrate dev` or `prisma migrate reset` has been removed."
 
-## 18 Real Food Box Providers (Verified 2026 Data)
+### Pattern 2: Seed Script with Standalone PrismaClient
+**What:** The seed script MUST create its own PrismaClient instance with `PrismaPg` because it runs outside the Next.js bundler (via `tsx`). It cannot use `@/` path aliases or import from `src/lib/db.ts`.
+**When to use:** Always for `prisma/seed.ts`.
+**Example:**
+```typescript
+// prisma/seed.ts
+import "dotenv/config";
+import { PrismaClient } from "../src/generated/prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-Research compiled from CNET, Yahoo Health, EverydayHealth, The Quality Edit, and provider websites (March 2026).
+const prisma = new PrismaClient({
+  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }),
+});
 
-### Meal Kits (4 providers)
+async function main() {
+  // Delete in reverse dependency order
+  await prisma.affiliateClick.deleteMany();
+  await prisma.collectionItem.deleteMany();
+  await prisma.collection.deleteMany();
+  await prisma.blogPost.deleteMany();
+  await prisma.providerFaq.deleteMany();
+  await prisma.review.deleteMany();
+  await prisma.providerDietaryTag.deleteMany();
+  await prisma.plan.deleteMany();
+  await prisma.provider.deleteMany();
 
-| Provider | Price/Serving (regular) | Cents | Dietary Options | Key Differentiator |
-|----------|------------------------|-------|-----------------|-------------------|
-| HelloFresh | $7.99 - $12.99 | 799-1299 | Vegetarian, Pescatarian, Low-Carb | Largest variety (60+ weekly recipes), beginner-friendly |
-| Blue Apron | $7.49 - $12.89 | 749-1289 | Vegetarian, Wellness, Chef Favorites | A la carte ordering, premium ingredients |
-| Home Chef | $7.99 - $10.99 | 799-1099 | Low-Carb, Vegetarian | Oven-ready and grill-ready options, Kroger availability |
-| EveryPlate | $5.99 - $6.99 | 599-699 | Limited (general audience) | Budget-friendly, simple 5-ingredient recipes |
+  // Create providers with nested relations
+  for (const providerData of allProviders) {
+    const provider = await prisma.provider.create({
+      data: toCreateInput(providerData),
+    });
+    console.log(`  Created: ${provider.name} (${provider.category})`);
+  }
 
-### Prepared Meals (4 providers)
+  // Verify counts
+  const counts = {
+    providers: await prisma.provider.count(),
+    plans: await prisma.plan.count(),
+    reviews: await prisma.review.count(),
+  };
+  console.log("Seed complete:", counts);
+}
 
-| Provider | Price/Serving (regular) | Cents | Dietary Options | Key Differentiator |
-|----------|------------------------|-------|-----------------|-------------------|
-| Factor | $11.49 - $13.99 | 1149-1399 | Keto, Paleo, Vegan, Low-Carb | HelloFresh-owned, macro-tracked, fresh not frozen |
-| CookUnity | $9.99 - $12.99 | 999-1299 | Vegan, Gluten-Free, Paleo | 200+ chef-crafted meals, restaurant-quality |
-| Snap Kitchen | $10.99 - $14.67 | 1099-1467 | Keto, Whole30, High-Protein | Dietitian-designed, smaller portions noted |
-| Mosaic Foods | $7.99 - $9.99 | 799-999 | Vegan, Gluten-Free | 100% plant-based frozen meals, budget-friendly prepared |
+main()
+  .catch(console.error)
+  .finally(() => prisma.$disconnect());
+```
+**Source:** Prisma 7 seeding docs. Key requirement: "PrismaClient must be initialized with a driver adapter" (PrismaPg for PostgreSQL).
 
-### Protein/Meat Boxes (3 providers)
+### Pattern 3: Prisma 7 Enum Usage (const Objects, Not TypeScript Enums)
+**What:** Prisma 7 generates enums as `const` objects with matching type aliases, exported from `@/generated/prisma/client`. These are NOT TypeScript `enum` declarations.
+**When to use:** Any code referencing CategoryType, DietaryTag, ReviewStatus, etc.
+**Example:**
+```typescript
+// What Prisma 7 generates in src/generated/prisma/enums.ts:
+export const CategoryType = {
+  MEAL_KIT: 'MEAL_KIT',
+  PREPARED_MEAL: 'PREPARED_MEAL',
+  PROTEIN_BOX: 'PROTEIN_BOX',
+  PRODUCE_BOX: 'PRODUCE_BOX',
+  SPECIALTY: 'SPECIALTY'
+} as const;
 
-| Provider | Price/Box (regular) | Cents | Key Details | Key Differentiator |
-|----------|-------------------|-------|-------------|-------------------|
-| ButcherBox | $146 - $306/box | 14600-30600 | 9-26 lbs, grass-fed/organic | All grass-fed beef, free-range chicken, heritage pork |
-| Crowd Cow | Varies by item | ~1200-3500/lb | Individual cuts or bundles | Craft/artisan farms, Japanese wagyu, transparency |
-| Good Chop | $149 - $269/box | 14900-26900 | 36-72 portions | American-sourced only, no antibiotics/hormones |
+export type CategoryType = (typeof CategoryType)[keyof typeof CategoryType];
 
-### Produce/Grocery Boxes (3 providers)
+// How to import and use:
+import { CategoryType, DietaryTag } from "@/generated/prisma/client";
 
-| Provider | Price Range | Cents | Key Details | Key Differentiator |
-|----------|------------|-------|-------------|-------------------|
-| Misfits Market | $30+ minimum | 3000+ | Organic produce, pantry items | Up to 30% less than grocery stores, rescued produce |
-| Hungryroot | $8.99 - $12.99/serving | 899-1299 | Meal kits + groceries + prepared | AI-powered personalization, hybrid grocery/meal kit |
-| Farmbox Direct | $42.95 - $52.95/box | 4295-5295 | Organic/natural produce | 100% organic option, small-farm sourced |
+// As value:
+const category = CategoryType.MEAL_KIT; // "MEAL_KIT"
 
-### Specialty Diet (4 providers)
+// As type:
+function getProviders(category: CategoryType) { ... }
 
-| Provider | Price/Serving (regular) | Cents | Dietary Focus | Key Differentiator |
-|----------|------------------------|-------|--------------|-------------------|
-| Green Chef | $11.99 - $13.99 | 1199-1399 | Keto, Paleo, Gluten-Free, Mediterranean | USDA-certified organic produce, specialty diets |
-| Sunbasket | $8.99 - $12.99 | 899-1299 | Paleo, Gluten-Free, Vegetarian, Mediterranean | Organic, sustainable sourcing, meal kits + prepared |
-| Purple Carrot | $9.99 - $12.99 | 999-1299 | Vegan | 100% plant-based, creative recipes, meal kits + prepared |
-| Trifecta | $12.99 - $15.99 | 1299-1599 | Keto, Paleo, Whole30, Vegan | Macro-balanced for athletes, organic, as seen on Netflix |
+// In seed script (relative import, NOT @/ alias):
+import { CategoryType } from "../../src/generated/prisma/client";
+// Note: seed script uses relative path since tsx doesn't resolve @/ aliases
+```
+**Source:** Verified by reading generated `src/generated/prisma/enums.ts` after running `npx prisma generate` locally.
 
-### Multi-Category Assignments
+### Pattern 4: Query Layer with React.cache() Deduplication
+**What:** Wrap all Prisma queries in `React.cache()` to deduplicate within a single render pass. Both `generateMetadata()` and the page component may call the same query -- the database is hit only once.
+**When to use:** All query functions in `src/lib/queries.ts`.
+**Example:**
+```typescript
+// src/lib/queries.ts
+import { cache } from "react";
+import { prisma } from "@/lib/db";
+import type { CategoryType, DietaryTag } from "@/generated/prisma/client";
 
-| Provider | Primary Category | Secondary Category | Rationale |
-|----------|-----------------|-------------------|-----------|
-| Hungryroot | PRODUCE_BOX | MEAL_KIT | Hybrid grocery/meal kit service |
-| Sunbasket | SPECIALTY | MEAL_KIT | Specialty diets but also standard meal kits |
-| Green Chef | SPECIALTY | MEAL_KIT | Specialty focus but functions as a meal kit |
-| Purple Carrot | SPECIALTY | MEAL_KIT | Vegan specialty but delivers meal kits |
+export const getProviderBySlug = cache(async (slug: string) => {
+  return prisma.provider.findUnique({
+    where: { slug, active: true },
+    include: {
+      plans: { where: { active: true }, orderBy: { sortOrder: "asc" } },
+      dietaryTags: true,
+      faqs: { orderBy: { sortOrder: "asc" } },
+      reviews: {
+        where: { status: "APPROVED" },
+        orderBy: { createdAt: "desc" },
+        take: 10,
+      },
+    },
+  });
+});
+```
+**Source:** Next.js 16 docs `caching-without-cache-components.md` -- section "Deduplicating requests" -- verified locally in `node_modules/next/dist/docs/`. Key quote: "if you are using an ORM or database directly, you can wrap your data access with the React `cache` function to deduplicate requests within a single render pass."
 
-**Confidence:** MEDIUM -- Pricing verified from multiple sources dated December 2025 through March 2026. Prices change frequently; the `lastVerifiedAt` field documents when data was verified. All prices are REGULAR (non-promotional) pricing.
+### Pattern 5: Nested Creates for Seed Data
+**What:** Use Prisma's nested create to seed Provider with all relations in a single operation. Pre-compute denormalized fields from the nested data before creating.
+**When to use:** Seed script for each provider.
+**Example:**
+```typescript
+// Transform seed data shape to Prisma create input
+function toCreateInput(data: ProviderSeedData) {
+  const { plans, dietaryTags, faqs, reviews, ...fields } = data;
+  return {
+    ...fields,
+    // Pre-compute denormalized fields
+    averageRating: reviews.length
+      ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+      : 0,
+    reviewCount: reviews.length,
+    minPricePerServing: plans
+      .filter((p) => p.pricePerServing != null)
+      .reduce((min, p) => Math.min(min, p.pricePerServing!), Infinity) || null,
+    maxPricePerServing: plans
+      .filter((p) => p.pricePerServing != null)
+      .reduce((max, p) => Math.max(max, p.pricePerServing!), 0) || null,
+    // Nested creates
+    plans: { create: plans },
+    dietaryTags: { create: dietaryTags.map((tag) => ({ tag })) },
+    faqs: { create: faqs },
+    reviews: { create: reviews },
+  };
+}
+```
 
-**Providers requiring special handling:**
-- Freshly: Discontinued by HelloFresh (replaced by Snap Kitchen per PROJECT.md decision)
-- Imperfect Foods: Merged into Misfits Market (replaced by Hungryroot + Farmbox Direct per PROJECT.md decision)
+### Pattern 6: Category Slug Mapping Utility
+**What:** Bidirectional mapping between URL slugs and Prisma CategoryType constants.
+**When to use:** Every category page load, navigation link, query involving categories.
+**Example:**
+```typescript
+// src/lib/categories.ts
+import { CategoryType } from "@/generated/prisma/client";
 
-## Seed Data Quality Guidelines
+export const CATEGORY_SLUG_MAP: Record<string, CategoryType> = {
+  "meal-kits": CategoryType.MEAL_KIT,
+  "prepared-meals": CategoryType.PREPARED_MEAL,
+  "protein-boxes": CategoryType.PROTEIN_BOX,
+  "produce-boxes": CategoryType.PRODUCE_BOX,
+  "specialty": CategoryType.SPECIALTY,
+};
 
-Editorial content must pass these quality tests (from PITFALLS.md Pitfall #1):
+export const CATEGORY_ENUM_MAP: Record<CategoryType, string> = Object.fromEntries(
+  Object.entries(CATEGORY_SLUG_MAP).map(([slug, type]) => [type, slug])
+) as Record<CategoryType, string>;
 
-1. **Specificity test:** Can you swap the description between two providers without anyone noticing? If yes, it's too generic.
-2. **Opinion test:** Does the description contain a specific editorial judgment? "HelloFresh's recipe cards are beginner-friendly, but experienced cooks may find the instructions overly prescriptive" passes. "HelloFresh delivers fresh ingredients" fails.
-3. **Pros uniqueness test:** Each provider's pros list must contain at least one item that could ONLY apply to that provider.
-4. **Cons honesty test:** Every provider must have at least 2 genuine cons. If all providers have 4+ stars and only minor cons, the site lacks credibility.
-5. **Review variation test:** Seeded reviews should have a mix of ratings (3, 4, 5 stars). Not all reviews should be glowing.
+export const CATEGORY_DISPLAY_NAMES: Record<CategoryType, string> = {
+  [CategoryType.MEAL_KIT]: "Meal Kits",
+  [CategoryType.PREPARED_MEAL]: "Prepared Meals",
+  [CategoryType.PROTEIN_BOX]: "Protein & Meat Boxes",
+  [CategoryType.PRODUCE_BOX]: "Produce & Grocery Boxes",
+  [CategoryType.SPECIALTY]: "Specialty Diet Boxes",
+};
 
-**Rating distribution for seed data:**
+export const ALL_CATEGORY_SLUGS = Object.keys(CATEGORY_SLUG_MAP);
+```
+
+### Anti-Patterns to Avoid
+- **Seed script importing from `@/lib/db`:** The `tsx` runner does not resolve Next.js path aliases. The seed script must use relative imports (`../src/generated/prisma/client`) and create its own PrismaClient.
+- **Configuring seed in package.json:** This is the Prisma 5/6 pattern. Prisma 7 uses `prisma.config.ts`. The old approach is silently ignored.
+- **Wrapping entire seed in one `$transaction`:** A single massive transaction with 18 providers + nested relations risks timeout on Neon serverless. Use sequential individual creates instead.
+- **Direct `prisma.` calls in page components:** All queries go through `src/lib/queries.ts` to centralize data access, enable `React.cache()`, and keep a single optimization point.
+- **Forgetting `$disconnect()` in seed script:** The seed process hangs indefinitely without it. Use `.finally(() => prisma.$disconnect())`.
+
+## Don't Hand-Roll
+
+| Problem | Don't Build | Use Instead | Why |
+|---------|-------------|-------------|-----|
+| TypeScript seed execution | Custom build step or ts-node config | `tsx` (esbuild-based TS runner) | Zero config, handles ESM, fast. |
+| Query deduplication | Custom memoization | `React.cache()` from `react` | Built into React 19, request-scoped, works with Next.js RSC. |
+| Enum slug mapping | Scattered string constants | Centralized `src/lib/categories.ts` | Single source of truth, prevents typos. |
+| CHECK constraints | Prisma schema validation | Raw SQL via `$executeRawUnsafe` | Prisma schema does not support CHECK constraints. Use `$executeRawUnsafe` for DDL (not `$executeRaw` which uses PREPARE and rejects ALTER/DDL). |
+| Denormalized price computation | Runtime MIN/MAX subqueries | Pre-computed fields on Provider | Avoids Plan subquery on every listing page load. |
+| Seed data for real providers | Made-up fake data | Real 2026 provider data | Exposes UI/data issues immediately. Fake data hides layout and formatting problems. |
+
+## Common Pitfalls
+
+### Pitfall 1: Seed Command in package.json (Prisma 7 Breaking Change)
+**What goes wrong:** `npx prisma db seed` outputs "No seed command found" or silently does nothing.
+**Why it happens:** Prisma 7 moved seed configuration from `package.json` to `prisma.config.ts`. The old `"prisma": { "seed": "..." }` in package.json is silently ignored.
+**How to avoid:** Add `seed: "npx tsx prisma/seed.ts"` to the `migrations` block in `prisma.config.ts`.
+**Warning signs:** Seed command exits with no output, or says configuration not found.
+
+### Pitfall 2: Seed Script Path Alias Resolution Failure
+**What goes wrong:** `tsx prisma/seed.ts` fails with "Cannot find module '@/lib/db'" or "@/generated/prisma/client".
+**Why it happens:** `tsx` does not use Next.js's bundler or tsconfig path aliases. The `@/` alias only works inside the Next.js build pipeline.
+**How to avoid:** Use relative imports in the seed script: `import { PrismaClient } from "../src/generated/prisma/client"`. Create a standalone PrismaClient -- do not import from `src/lib/db.ts`.
+**Warning signs:** Module resolution errors when running `npx prisma db seed`.
+
+### Pitfall 3: Neon Connection Timeout During Seeding
+**What goes wrong:** Seed script hangs or times out partway through, leaving partial data.
+**Why it happens:** Neon serverless has connection idle timeout. A large `$transaction` wrapping all 18 provider creates with nested relations can exceed this limit.
+**How to avoid:** Do NOT wrap the entire seed in one `$transaction`. Use sequential individual `prisma.provider.create()` calls. The deleteAll at the start ensures idempotency even without a wrapping transaction.
+**Warning signs:** Timeout errors, partially seeded data, connection pool exhaustion.
+
+### Pitfall 4: CHECK Constraint Syntax with $executeRaw
+**What goes wrong:** Using `$executeRaw` (tagged template) for ALTER TABLE / CHECK constraints fails.
+**Why it happens:** PostgreSQL PREPARE statements do not support ALTER/DDL commands. Prisma's `$executeRaw` uses prepared statements.
+**How to avoid:** Use `$executeRawUnsafe()` for DDL statements. This is safe when SQL is hardcoded with no user input.
+**Warning signs:** Error "PREPARE does not support ALTER".
+
+### Pitfall 5: Forgetting to Pre-Compute Denormalized Fields
+**What goes wrong:** `minPricePerServing` and `maxPricePerServing` are null on all providers after seeding, breaking category listing filters (Phase 40).
+**Why it happens:** Prisma nested creates don't auto-compute denormalized fields. The provider record must explicitly include these values.
+**How to avoid:** In the seed data transform function, compute min/max from the plans array before passing to `prisma.provider.create()`. Same for `averageRating` and `reviewCount` from reviews.
+**Warning signs:** Null price fields, zero ratings despite having reviews, filters returning zero results.
+
+### Pitfall 6: Float Pricing Precision (Known Risk)
+**What goes wrong:** `$7.99` stored as Float becomes `7.990000000000001`. Sorting "price low to high" can produce incorrect ordering. Filtering "under $8.00" may exclude items at exactly $8.00.
+**Why it happens:** IEEE 754 binary floating point cannot exactly represent most decimal fractions.
+**How to avoid:** Two options: (a) Keep Float but always round to 2 decimal places when displaying and use `>=` / `<=` with small epsilon for filtering. (b) Convert to integer cents before seeding (industry standard but requires schema field renames). The PLAN.md uses Float, which is workable with careful formatting.
+**Warning signs:** Prices displaying more than 2 decimal places. Two identical prices sorting differently.
+
+### Pitfall 7: Promotional vs. Regular Pricing Confusion
+**What goes wrong:** Seed data uses introductory promotional prices ("First box 60% off!") as primary pricing, making every provider look cheaper than reality.
+**Why it happens:** Promotional pricing is the most prominently displayed on provider websites.
+**How to avoid:** Always seed REGULAR (non-promotional) pricing. Add comments documenting this convention. Optionally track intro offers in a separate field.
+**Warning signs:** All providers show suspiciously low prices ($3-5/serving when regular is $8-13).
+
+### Pitfall 8: Stale Prisma Client After Schema Changes
+**What goes wrong:** Schema changes pushed with `prisma db push` but TypeScript client not regenerated. Code compiles with old types, runtime errors on new fields.
+**Why it happens:** Two-step process: `prisma db push` + `prisma generate`. Forgetting the second step.
+**How to avoid:** Always run both: `npx prisma db push && npx prisma generate`.
+**Warning signs:** TypeScript errors about missing properties, or runtime errors about unexpected columns.
+
+### Pitfall 9: Generic Seed Data Fails E-E-A-T Standards
+**What goes wrong:** Seed descriptions read like marketing copy that could apply to any service. If seed data becomes production data without rewriting, Google demotes the site for thin affiliate content.
+**Why it happens:** Speed pressure leads to placeholder descriptions.
+**How to avoid:** Write editorial-quality, opinionated, specific descriptions. Each provider needs differentiated pros/cons. Test: can you swap descriptions between two providers without noticing? If yes, too generic.
+**Warning signs:** All descriptions follow the same template. Pros lists are interchangeable.
+
+## Code Examples
+
+### Query Utility Structure (Full Function List)
+```typescript
+// src/lib/queries.ts
+import { cache } from "react";
+import { prisma } from "@/lib/db";
+import type { CategoryType, DietaryTag } from "@/generated/prisma/client";
+
+// -- Homepage (Phase 30) --
+export const getFeaturedProviders = cache(async (limit = 6) => {
+  return prisma.provider.findMany({
+    where: { featured: true, active: true },
+    include: { dietaryTags: true },
+    orderBy: { averageRating: "desc" },
+    take: limit,
+  });
+});
+
+export const getCategoryCounts = cache(async () => {
+  return prisma.provider.groupBy({
+    by: ["category"],
+    where: { active: true },
+    _count: true,
+  });
+});
+
+// -- Category Pages (Phase 40) --
+interface ProviderListParams {
+  category: CategoryType;
+  dietary?: DietaryTag[];
+  minPrice?: number;
+  maxPrice?: number;
+  minRating?: number;
+  sortBy?: "rating" | "price-asc" | "price-desc" | "reviews" | "newest";
+  page?: number;
+  pageSize?: number;
+}
+
+export const getProvidersByCategory = cache(async (params: ProviderListParams) => {
+  const {
+    category, dietary, minPrice, maxPrice, minRating,
+    sortBy = "rating", page = 1, pageSize = 12,
+  } = params;
+
+  const where = {
+    category,
+    active: true,
+    ...(dietary?.length && { dietaryTags: { some: { tag: { in: dietary } } } }),
+    ...(minPrice != null && { minPricePerServing: { gte: minPrice } }),
+    ...(maxPrice != null && { maxPricePerServing: { lte: maxPrice } }),
+    ...(minRating != null && { averageRating: { gte: minRating } }),
+  };
+
+  const orderBy = {
+    "rating": { averageRating: "desc" as const },
+    "price-asc": { minPricePerServing: "asc" as const },
+    "price-desc": { maxPricePerServing: "desc" as const },
+    "reviews": { reviewCount: "desc" as const },
+    "newest": { createdAt: "desc" as const },
+  }[sortBy];
+
+  const [providers, total] = await Promise.all([
+    prisma.provider.findMany({
+      where,
+      include: { dietaryTags: true },
+      orderBy,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+    prisma.provider.count({ where }),
+  ]);
+
+  return { providers, total };
+});
+
+// -- Provider Detail (Phase 50) --
+export const getProviderBySlug = cache(async (slug: string) => {
+  return prisma.provider.findUnique({
+    where: { slug, active: true },
+    include: {
+      plans: { where: { active: true }, orderBy: { sortOrder: "asc" } },
+      dietaryTags: true,
+      faqs: { orderBy: { sortOrder: "asc" } },
+      reviews: {
+        where: { status: "APPROVED" },
+        orderBy: { createdAt: "desc" },
+        take: 10,
+      },
+    },
+  });
+});
+
+export const getRelatedProviders = cache(
+  async (providerId: string, category: CategoryType, limit = 4) => {
+    return prisma.provider.findMany({
+      where: { category, active: true, id: { not: providerId } },
+      include: { dietaryTags: true },
+      orderBy: { averageRating: "desc" },
+      take: limit,
+    });
+  }
+);
+
+export const getAllProviderSlugs = cache(async () => {
+  return prisma.provider.findMany({
+    where: { active: true },
+    select: { slug: true },
+  });
+});
+
+// -- Comparison (Phase 60) --
+export const getProvidersBySlugs = cache(async (slugs: string[]) => {
+  return prisma.provider.findMany({
+    where: { slug: { in: slugs }, active: true },
+    include: {
+      plans: { where: { active: true }, orderBy: { sortOrder: "asc" } },
+      dietaryTags: true,
+    },
+  });
+});
+
+// -- Collections & Blog (Phase 70) --
+export const getCollectionBySlug = cache(async (slug: string) => {
+  return prisma.collection.findUnique({
+    where: { slug, status: "PUBLISHED" },
+    include: {
+      items: {
+        orderBy: { sortOrder: "asc" },
+        include: { provider: { include: { dietaryTags: true } } },
+      },
+    },
+  });
+});
+
+export const getAllCollections = cache(async () => {
+  return prisma.collection.findMany({
+    where: { status: "PUBLISHED" },
+    include: { items: { select: { id: true } } },
+    orderBy: { publishedAt: "desc" },
+  });
+});
+
+export const getBlogPosts = cache(async (page = 1, pageSize = 10) => {
+  const [posts, total] = await Promise.all([
+    prisma.blogPost.findMany({
+      where: { status: "PUBLISHED" },
+      orderBy: { publishedAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+    prisma.blogPost.count({ where: { status: "PUBLISHED" } }),
+  ]);
+  return { posts, total };
+});
+
+export const getBlogPostBySlug = cache(async (slug: string) => {
+  return prisma.blogPost.findUnique({
+    where: { slug, status: "PUBLISHED" },
+  });
+});
+
+// -- Search (Phase 80) --
+export const searchProviders = cache(async (query: string, limit = 20) => {
+  return prisma.provider.findMany({
+    where: {
+      active: true,
+      OR: [
+        { name: { contains: query, mode: "insensitive" } },
+        { description: { contains: query, mode: "insensitive" } },
+      ],
+    },
+    include: { dietaryTags: true },
+    take: limit,
+  });
+});
+
+// -- Reviews (Phase 90) --
+export const getReviewsByProvider = cache(async (providerId: string, page = 1, pageSize = 10) => {
+  const [reviews, total] = await Promise.all([
+    prisma.review.findMany({
+      where: { providerId, status: "APPROVED" },
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+    prisma.review.count({ where: { providerId, status: "APPROVED" } }),
+  ]);
+  return { reviews, total };
+});
+
+// -- Admin (Phase 100) --
+export const getAdminStats = cache(async () => {
+  const [providers, pendingReviews, totalReviews, totalClicks, blogPosts] = await Promise.all([
+    prisma.provider.count({ where: { active: true } }),
+    prisma.review.count({ where: { status: "PENDING" } }),
+    prisma.review.count(),
+    prisma.affiliateClick.count(),
+    prisma.blogPost.count({ where: { status: "PUBLISHED" } }),
+  ]);
+  return { providers, pendingReviews, totalReviews, totalClicks, blogPosts };
+});
+
+export const getPendingReviews = cache(async () => {
+  return prisma.review.findMany({
+    where: { status: "PENDING" },
+    include: { provider: { select: { name: true, slug: true } } },
+    orderBy: { createdAt: "asc" },
+  });
+});
+
+// -- SEO (Phase 110) --
+export const getSitemapData = cache(async () => {
+  const [providers, collections, blogPosts] = await Promise.all([
+    prisma.provider.findMany({
+      where: { active: true },
+      select: { slug: true, updatedAt: true },
+    }),
+    prisma.collection.findMany({
+      where: { status: "PUBLISHED" },
+      select: { slug: true, updatedAt: true },
+    }),
+    prisma.blogPost.findMany({
+      where: { status: "PUBLISHED" },
+      select: { slug: true, updatedAt: true },
+    }),
+  ]);
+  return { providers, collections, blogPosts };
+});
+```
+
+### Seed Data Type Definitions
+```typescript
+// prisma/seed-data/types.ts
+import type {
+  CategoryType,
+  DietaryTag,
+  PlanFrequency,
+  ReviewStatus,
+  ContentStatus,
+} from "../../src/generated/prisma/client";
+
+export interface ProviderSeedData {
+  name: string;
+  slug: string;
+  description: string;
+  shortDescription: string;
+  website: string;
+  affiliateUrl?: string;
+  logoUrl?: string;
+  heroImageUrl?: string;
+  foundedYear?: number;
+  headquarters?: string;
+  deliveryAreaDescription?: string;
+  prosJson: string;        // JSON.stringify(string[])
+  consJson: string;        // JSON.stringify(string[])
+  editorNote?: string;
+  featured: boolean;
+  active: boolean;
+  metaTitle: string;
+  metaDescription: string;
+  category: CategoryType;
+  // Denormalized fields (pre-computed from plans/reviews)
+  averageRating: number;
+  reviewCount: number;
+  minPricePerServing: number | null;
+  maxPricePerServing: number | null;
+  // Nested data
+  plans: PlanSeedData[];
+  dietaryTags: DietaryTag[];
+  faqs: FaqSeedData[];
+  reviews: ReviewSeedData[];
+}
+
+export interface PlanSeedData {
+  name: string;
+  description?: string;
+  pricePerServing?: number;
+  pricePerWeek?: number;
+  pricePerBox?: number;
+  shippingCost: number;
+  shippingNote?: string;
+  servingsPerMeal?: number;
+  mealsPerWeek?: number;
+  frequency: PlanFrequency;
+  canSkip: boolean;
+  canCancel: boolean;
+  cancelPolicy?: string;
+  featured: boolean;
+  sortOrder: number;
+}
+
+export interface FaqSeedData {
+  question: string;
+  answer: string;
+  sortOrder: number;
+}
+
+export interface ReviewSeedData {
+  authorName: string;
+  rating: number;      // 1-5
+  title?: string;
+  body: string;
+  status: ReviewStatus;
+}
+
+export interface CollectionSeedData {
+  title: string;
+  slug: string;
+  description: string;
+  body?: string;
+  status: ContentStatus;
+  publishedAt?: Date;
+  metaTitle: string;
+  metaDescription: string;
+  providerSlugs: { slug: string; note?: string; sortOrder: number }[];
+}
+
+export interface BlogPostSeedData {
+  title: string;
+  slug: string;
+  excerpt: string;
+  body: string;
+  author: string;
+  status: ContentStatus;
+  publishedAt?: Date;
+  metaTitle: string;
+  metaDescription: string;
+}
+```
+
+## 18 Real Food Box Providers (Category Assignments)
+
+| Category | Count | Providers |
+|----------|-------|-----------|
+| MEAL_KIT | 4 | HelloFresh, Blue Apron, Home Chef, EveryPlate |
+| PREPARED_MEAL | 4 | Factor, CookUnity, Mosaic Foods, Snap Kitchen |
+| PROTEIN_BOX | 3 | ButcherBox, Crowd Cow, Good Chop |
+| PRODUCE_BOX | 3 | Misfits Market, Hungryroot, Farmbox Direct |
+| SPECIALTY | 4 | Purple Carrot, Green Chef, Sunbasket, Trifecta |
+
+**Provider replacements per PROJECT.md decisions:**
+- Freshly: Discontinued by HelloFresh -- replaced by Snap Kitchen
+- Imperfect Foods: Merged into Misfits Market -- replaced by Hungryroot + Farmbox Direct
+
+**Rating distribution for seed data (realism):**
 - 2 providers at 3.5 stars
 - 5 providers at 3.8-4.0 stars
 - 7 providers at 4.1-4.3 stars
 - 4 providers at 4.4-4.7 stars
 
-**Reviews per provider:** 3-7 approved reviews each with varied ratings. Total: ~80-100 seeded reviews.
+**Reviews per provider:** 3-5 APPROVED reviews with varied ratings (not all 5-star). Total: ~54-90 seeded reviews.
+
+## State of the Art
+
+| Old Approach | Current Approach | When Changed | Impact |
+|--------------|------------------|--------------|--------|
+| Seed in `package.json` `"prisma"` key | Seed in `prisma.config.ts` `migrations.seed` | Prisma 7.0 | Config location moved. Old approach silently ignored. |
+| Optional driver adapters | Mandatory driver adapters | Prisma 7.0 | Every PrismaClient must specify adapter (PrismaPg for PostgreSQL). |
+| TypeScript `enum` declarations | `const` objects + type aliases | Prisma 7.0 | `CategoryType.MEAL_KIT` is a const object access, not a TS enum member. Runtime identical (string values). |
+| `prisma-client-js` generator | `prisma-client` generator | Prisma 7.0 | Rust-free architecture, requires `output` field in generator block. |
+| Auto-seeding on `prisma migrate dev` | Explicit `npx prisma db seed` only | Prisma 7.0 | Must manually run seed command. |
+| Prisma client in `node_modules` | Custom output directory | Prisma 7.0 | Client generated to `src/generated/prisma/` (already configured). |
+
+**Deprecated/outdated:**
+- `package.json` seed config: Silently ignored in Prisma 7.
+- `prisma-client-js` generator: Replaced by `prisma-client`. Project already uses the new generator.
+- `$executeRaw` for DDL: PostgreSQL PREPARE doesn't support ALTER. Must use `$executeRawUnsafe` for CHECK constraints.
+
+## Open Questions
+
+1. **Float vs Integer Cents for Pricing**
+   - What we know: The schema uses `Float`. PITFALLS.md recommends integer cents. The PLAN.md uses Float. Industry standard (Stripe, Shopify) is integer cents.
+   - What's unclear: Whether the project should change field names now (pricePerServing -> pricePerServingCents) or keep Float.
+   - Recommendation: If keeping Float, always round to 2 decimal places when displaying and use >= / <= carefully in filters. If converting, do it now before any data is seeded -- it's a now-or-never decision.
+
+2. **Collection Seeding Requires Provider IDs**
+   - What we know: Collections reference Providers via CollectionItem join table. Provider IDs are auto-generated CUIDs.
+   - What's unclear: Best approach to reference providers in collection seed data.
+   - Recommendation: Seed providers first, then query by slug to get IDs when creating CollectionItems. Standard approach.
+
+3. **Protein/Produce Box Pricing Model**
+   - What we know: ButcherBox, Crowd Cow, Good Chop price per box/pound, not per serving. `pricePerServing` doesn't map cleanly.
+   - What's unclear: Should we calculate approximate per-serving equivalents or leave null?
+   - Recommendation: Leave `pricePerServing` null for protein/produce boxes that don't have a per-serving price. Use `pricePerBox` instead. Display "from $X/box" for these categories. Price-range filtering only applies when `pricePerServing` is non-null.
+
+4. **prosJson/consJson: Keep String or Convert to Json Type**
+   - What we know: Currently `String @db.Text`. Prisma `Json` type maps to PostgreSQL JSONB with database-level validation. PITFALLS.md recommends Json.
+   - What's unclear: Whether Json type introduces Prisma serialization issues similar to Decimal.
+   - Recommendation: Keep as `String @db.Text` for now (matches existing schema and PLAN.md). The seed script and all write paths should use `JSON.stringify()` consistently. If data corruption becomes an issue, convert to Json later.
 
 ## Validation Architecture
 
 ### Test Framework
 | Property | Value |
 |----------|-------|
-| Framework | None (testing explicitly out of scope per STACK.md -- no jest/vitest in MVP) |
-| Config file | None |
-| Quick run command | N/A |
-| Full suite command | N/A |
+| Framework | None installed (no test framework in project) |
+| Config file | None -- see Wave 0 |
+| Quick run command | `npx tsc --noEmit` (type checking only) |
+| Full suite command | `npx tsc --noEmit && npm run build` |
 
-### Phase Requirements -> Test Map
+### Phase Requirements to Test Map
 | Req ID | Behavior | Test Type | Automated Command | File Exists? |
 |--------|----------|-----------|-------------------|-------------|
-| DB-01 | Schema deploys to Neon | smoke | `npx prisma db push --accept-data-loss` (verify exit code 0) | N/A |
-| DB-02 | Seed populates 18 providers | smoke | `npx prisma db seed` then verify counts via script | Wave 0: seed verify script |
-| DB-03 | Query functions return expected data | manual | Import and call each function, inspect results | No framework |
-| DB-04 | Denormalized prices populated | manual | Query provider with price fields, verify non-null | No framework |
+| DB-01 | Schema deploys to Neon without errors | smoke | `npx prisma db push` (exit code 0) | N/A (CLI) |
+| DB-02 | Seed populates 18 providers across 5 categories | smoke | `npx prisma db seed` (exit code 0 + console output counts) | seed.ts in Wave 0 |
+| DB-03 | Query functions compile and return correct types | unit | `npx tsc --noEmit` (type safety) | queries.ts in Wave 0 |
+| DB-04 | Denormalized price fields populated | smoke | Verified by seed script console output | N/A (seed output) |
 
 ### Sampling Rate
-- **Per task commit:** `npx prisma db push && npx prisma generate` (schema validity)
-- **Per wave merge:** `npx tsx prisma/seed.ts` (full seed cycle)
-- **Phase gate:** Seed completes without errors, query functions return data for all page types
+- **Per task commit:** `npx tsc --noEmit`
+- **Per wave merge:** `npx tsc --noEmit && npm run build`
+- **Phase gate:** Full build green + seed script completes without errors + record counts match expectations
 
 ### Wave 0 Gaps
-- [ ] No test framework installed (intentionally -- per project decision, testing is post-MVP)
-- [ ] Seed verification relies on console.log output counts, not automated assertions
-- [ ] Query function testing is manual inspection only
+- [ ] No test framework installed (Jest, Vitest, Playwright). Phase 10 relies on TypeScript compilation + seed script execution as verification.
+- [ ] Seed script console output serves as runtime verification (record counts per model).
+- [ ] Query function testing is compilation-only (type safety via `tsc --noEmit`). Runtime verification deferred.
 
-*(Testing infrastructure is explicitly deferred per STACK.md "What NOT to Install" section. Phase 10 verification uses `prisma db push` exit code, seed script console output, and manual query inspection.)*
-
-## State of the Art
-
-| Old Approach | Current Approach | When Changed | Impact |
-|--------------|------------------|--------------|--------|
-| `Float` for prices | Integer cents or `Decimal` | Industry standard | Exact arithmetic, no serialization issues with RSC |
-| `package.json` prisma.seed | `prisma.config.ts` seed field | Prisma 7.x | Must configure seed command in `prisma.config.ts`, not `package.json` |
-| Auto-seed on `prisma migrate dev` | Explicit `npx prisma db seed` only | Prisma 7.x | Seeding never runs automatically; must be invoked explicitly |
-| `useFormState` | `useActionState` | React 19 | Renamed in React 19 (relevant for future phases) |
-| `middleware.ts` | `proxy.ts` | Next.js 16 | File renamed, different export name (relevant for Phase 100) |
-| Prisma generated to `node_modules` | Prisma generated to `src/generated/prisma/` | Prisma 7.x | Already configured correctly in this project |
-
-## Open Questions
-
-1. **Protein box pricing model differs from per-serving**
-   - What we know: ButcherBox, Crowd Cow, and Good Chop price per box/pound, not per serving. `pricePerServingCents` doesn't map cleanly.
-   - What's unclear: Should we calculate an approximate per-serving equivalent, or leave `pricePerServingCents` null for protein boxes and only populate `pricePerBoxCents`?
-   - Recommendation: Leave `pricePerServingCents` null for protein boxes. Use `pricePerBoxCents` as the primary comparison metric for that category. The filter price range only applies when `pricePerServingCents` is non-null. Display "from $X/box" instead of "$X/serving" for these providers.
-
-2. **Produce box pricing similarly non-standard**
-   - What we know: Misfits Market has a minimum order ($30+), Farmbox Direct prices per box ($42.95-$52.95), Hungryroot prices per serving.
-   - What's unclear: Consistent pricing display across categories.
-   - Recommendation: Each category page can display its natural pricing metric. The `pricePerServingCents` field is optional; use it where it makes sense. The filter sidebar should only show price range when the majority of providers in that category have per-serving pricing.
-
-3. **Connection pooling verification**
-   - What we know: `DATABASE_URL` uses `ep-...-pooler.c-5.us-east-1.aws.neon.tech` which is the Neon pooled endpoint.
-   - What's unclear: Whether `?connection_limit=5` is set in the connection string.
-   - Recommendation: Verify and add `?connection_limit=5` during Phase 10. Not critical for development but important before production traffic.
+*(No dedicated test files needed for Phase 10. TypeScript compilation and seed script execution provide sufficient coverage for a data foundation phase. Test framework installation deferred to a phase with behavioral UI requirements.)*
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- Prisma 7.5 seeding documentation (prisma.io/docs/orm/prisma-migrate/workflows/seeding) -- seed configuration via prisma.config.ts, explicit-only seeding
-- Next.js 16 caching docs (local: `node_modules/next/dist/docs/01-app/02-guides/caching-without-cache-components.md`) -- React.cache(), unstable_cache, preloading patterns
-- Prisma Decimal serialization issue (github.com/prisma/prisma/issues/9170, github.com/prisma/prisma/discussions/19983) -- confirmed Decimal.js objects break RSC serialization
-- Build with Matija blog (buildwithmatija.com, January 2026) -- centralized Prisma Decimal serialization pattern for Next.js
-- Project codebase: `prisma/schema.prisma`, `src/lib/db.ts`, `prisma.config.ts`, `.env` -- verified connection pooling, adapter setup, existing schema
+- `prisma/schema.prisma` -- Existing 10-model schema with 5 enums, verified locally
+- `src/lib/db.ts` -- Existing PrismaClient singleton with PrismaPg adapter, verified locally
+- `src/generated/prisma/enums.ts` -- Verified Prisma 7 enum generation as const objects after `prisma generate`
+- `prisma.config.ts` -- Existing config, verified locally (missing `seed` field, needs update)
+- Prisma 7 seeding docs (prisma.io/docs/orm/prisma-migrate/workflows/seeding) -- Confirmed seed in `prisma.config.ts`, explicit-only seeding [verified via WebFetch]
+- Prisma 7 upgrade docs (prisma.io/docs/orm/more/upgrade-guides/upgrading-versions/upgrading-to-prisma-7) -- Confirmed mandatory driver adapters, ESM, enum changes [verified via WebFetch]
+- Prisma raw SQL docs (prisma.io/docs/orm/prisma-client/using-raw-sql/raw-queries) -- Confirmed `$executeRawUnsafe` required for ALTER/DDL [verified via WebFetch]
+- Next.js 16 caching docs (local: `node_modules/next/dist/docs/01-app/02-guides/caching-without-cache-components.md`) -- Confirmed `React.cache()` for ORM query deduplication
 
 ### Secondary (MEDIUM confidence)
-- CNET "Best Meal Kits of 2026" (March 2026) -- pricing for HelloFresh, Blue Apron, EveryPlate, Marley Spoon
-- CNET "Blue Apron vs HelloFresh" (December 2025) -- per-serving pricing comparison
-- Yahoo Health "EveryPlate 2026 Review" (January 2026) -- EveryPlate pricing at $5.99-$6.99/serving
-- EverydayHealth "Snap Kitchen Review" (November 2024) -- Snap Kitchen at $10.99-$14.67/serving
-- Factor pricing guides (January-February 2026) -- Factor at $11.49-$13.99/meal
-- The Quality Edit "Good Chop vs ButcherBox" (March 2026) -- protein box pricing
-- Crowd Cow vs ButcherBox comparison page (January 2026) -- protein box pricing
-- The Good Trade "Organic Produce Delivery" (March 2026) -- Misfits Market and Farmbox Direct pricing
+- `.planning/research/ARCHITECTURE.md` -- Query layer patterns, component boundaries, data flow
+- `.planning/research/PITFALLS.md` -- Float pricing risks, seed data quality, E-E-A-T requirements
+- `.planning/research/SCHEMA-EXTENDED.md` -- Post-MVP schema ideas (not relevant to Phase 10 implementation)
 
 ### Tertiary (LOW confidence)
-- Glam Vegan "Purple Carrot vs Sun Basket vs Green Chef" (January 2025) -- specialty pricing (may be outdated)
-- PCMag meal kit reviews (2020 base, pricing likely changed) -- EveryPlate/Dinnerly historical reference only
+- Real provider pricing data -- Based on general knowledge and existing research notes. Needs verification during seed creation. Document with "Prices last verified: YYYY-MM-DD" comments.
 
 ## Metadata
 
 **Confidence breakdown:**
-- Standard stack: HIGH -- all packages already installed and verified, only tsx and server-only needed
-- Architecture: HIGH -- patterns verified against Next.js 16 local docs and Prisma 7 docs
-- Schema changes: HIGH -- integer cents is industry standard, Decimal serialization issue is well-documented
-- Provider data: MEDIUM -- pricing verified from multiple 2025-2026 sources but changes frequently
-- Pitfalls: HIGH -- all pitfalls sourced from project's own PITFALLS.md and CONCERNS.md, cross-referenced with community reports
+- Standard stack: HIGH -- All packages installed except tsx. Versions verified against npm registry and local installs.
+- Architecture: HIGH -- Patterns verified against Next.js 16 local docs, Prisma 7 generated code, and official Prisma docs.
+- Pitfalls: HIGH -- Prisma 7 breaking changes verified via official docs. Seed script patterns confirmed by generated client code and prisma.config.ts structure.
+- Seed data: MEDIUM -- Provider list and categories confirmed from PROJECT.md. Pricing is editorial and will need verification during implementation.
 
 **Research date:** 2026-03-20
-**Valid until:** 2026-04-20 (30 days -- stable domain, but provider pricing may shift)
+**Valid until:** 2026-04-20 (stable -- Prisma 7.5 and Next.js 16.2 are current releases, unlikely to change within 30 days)
