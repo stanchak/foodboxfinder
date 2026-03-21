@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 05-02-PLAN.md
-last_updated: "2026-03-21T23:03:01.504Z"
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-21T23:04:14.637Z"
 progress:
   total_phases: 11
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 8
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Project State
@@ -53,6 +53,7 @@ Plan: 2 of 2
 | Phase 03 P01 | 2min | 2 tasks | 4 files |
 | Phase 04 P01 | 3min | 2 tasks | 2 files |
 | Phase 05 P02 | 2min | 2 tasks | 3 files |
+| Phase 05 P01 | 4min | 1 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,7 @@ Recent decisions affecting current work:
 - [Phase 04]: XSS-safe JSON-LD pattern: .replace(/</g, '\u003c') after JSON.stringify
 - [Phase 05]: Passed category slug as search param to parseProviderFilters -- unifies filter parsing in one call
 - [Phase 05]: ActiveFilterChips added as named export in CategoryFilters.tsx -- shares URL-driven state pattern
+- [Phase 05]: Extracted client-safe filter constants to filter-constants.ts to avoid server-only guard
 
 ### Pending Todos
 
@@ -90,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T23:03:01.502Z
-Stopped at: Completed 05-02-PLAN.md
+Last session: 2026-03-21T23:04:14.635Z
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None

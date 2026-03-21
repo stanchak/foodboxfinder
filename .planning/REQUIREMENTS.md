@@ -50,17 +50,17 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Multi-Criteria Filtering
 
 - [x] **FILTER-01**: Centralized filter parsing module (src/lib/filters.ts) with typed, validated filter objects and safe defaults
-- [ ] **FILTER-02**: Filter by category (meal kits, prepared meals, protein boxes, produce boxes, specialty)
-- [ ] **FILTER-03**: Filter by dietary tags (16 diet tag values)
-- [ ] **FILTER-04**: Filter by prep style (cook-it-yourself, prepared fresh, prepared frozen, raw, snacks)
-- [ ] **FILTER-05**: Filter by value tier (budget, mid, premium, luxury)
-- [ ] **FILTER-06**: Filter by household fit (single-serve, couples, family, freezer-stocking, gifting)
-- [ ] **FILTER-07**: Filter by model type (subscription-first, store-first, marketplace, gift-club, hybrid)
-- [ ] **FILTER-08**: Filter by geography (national-us, regional, multi-market)
+- [x] **FILTER-02**: Filter by category (meal kits, prepared meals, protein boxes, produce boxes, specialty)
+- [x] **FILTER-03**: Filter by dietary tags (16 diet tag values)
+- [x] **FILTER-04**: Filter by prep style (cook-it-yourself, prepared fresh, prepared frozen, raw, snacks)
+- [x] **FILTER-05**: Filter by value tier (budget, mid, premium, luxury)
+- [x] **FILTER-06**: Filter by household fit (single-serve, couples, family, freezer-stocking, gifting)
+- [x] **FILTER-07**: Filter by model type (subscription-first, store-first, marketplace, gift-club, hybrid)
+- [x] **FILTER-08**: Filter by geography (national-us, regional, multi-market)
 - [x] **FILTER-09**: All filters composable -- URL search params encode all active filters (shareable URLs)
 - [x] **FILTER-10**: Null-aware filtering -- providers with empty filter fields pass through rather than being excluded
 - [x] **FILTER-11**: Sort options: featured/editorial order, rating, name A-Z, value tier
-- [ ] **FILTER-12**: Filter UI collapses to drawer/sheet on mobile
+- [x] **FILTER-12**: Filter UI collapses to drawer/sheet on mobile
 - [x] **FILTER-13**: noindex meta tag on filtered pages to prevent SEO duplicate content
 
 ### Search
@@ -196,17 +196,17 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DETAIL-06 | Phase 4 | Complete |
 | DETAIL-07 | Phase 4 | Complete |
 | FILTER-01 | Phase 2 | Complete |
-| FILTER-02 | Phase 5 | Pending |
-| FILTER-03 | Phase 5 | Pending |
-| FILTER-04 | Phase 5 | Pending |
-| FILTER-05 | Phase 5 | Pending |
-| FILTER-06 | Phase 5 | Pending |
-| FILTER-07 | Phase 5 | Pending |
-| FILTER-08 | Phase 5 | Pending |
+| FILTER-02 | Phase 5 | Complete |
+| FILTER-03 | Phase 5 | Complete |
+| FILTER-04 | Phase 5 | Complete |
+| FILTER-05 | Phase 5 | Complete |
+| FILTER-06 | Phase 5 | Complete |
+| FILTER-07 | Phase 5 | Complete |
+| FILTER-08 | Phase 5 | Complete |
 | FILTER-09 | Phase 5 | Complete |
 | FILTER-10 | Phase 5 | Complete |
 | FILTER-11 | Phase 5 | Complete |
-| FILTER-12 | Phase 5 | Pending |
+| FILTER-12 | Phase 5 | Complete |
 | FILTER-13 | Phase 5 | Complete |
 | SEARCH-01 | Phase 8 | Pending |
 | SEARCH-02 | Phase 8 | Pending |

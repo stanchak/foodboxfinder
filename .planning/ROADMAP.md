@@ -101,7 +101,7 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 05-01-PLAN.md -- Rewrite CategoryFilters with all 9 filter dimensions, active filter chips, mobile drawer, and updated sort options
+- [x] 05-01-PLAN.md -- Rewrite CategoryFilters with all 9 filter dimensions, active filter chips, mobile drawer, and updated sort options
 - [x] 05-02-PLAN.md -- Rewrite category page to use getFilteredProviders, add editorial intros, breadcrumbs, noindex, XSS-safe JSON-LD, and value tier on ProviderCard
 
 ### Phase 6: Homepage
