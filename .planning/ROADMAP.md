@@ -172,11 +172,11 @@ Plans:
   2. Admins can create, read, update, and delete providers with all schema fields (including modelType, prepStyle, valueTier, householdFit, geography, flexibility)
   3. The admin provider list supports search, sort, and status filtering
   4. Saving a provider in admin triggers revalidation of the affected public pages
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 10-01: TBD
-- [ ] 10-02: TBD
+- [ ] 10-01-PLAN.md -- Add 8 dataset fields to ProviderForm and server actions; improve revalidation to cover category pages
+- [ ] 10-02-PLAN.md -- Add category breakdown to dashboard; add sort and granular status filter to provider list
 
 ### Phase 11: UX Polish
 **Goal**: The site handles errors gracefully, loads smoothly, and works well on all screen sizes with consistent navigation
