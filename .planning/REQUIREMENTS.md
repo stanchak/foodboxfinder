@@ -1,7 +1,7 @@
 # Requirements: FoodBoxFinder
 
 **Defined:** 2026-03-21
-**Core Value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences — with transparent criteria and visual brand identity.
+**Core Value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences -- with transparent criteria and visual brand identity.
 
 ## v1 Requirements
 
@@ -57,8 +57,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **FILTER-06**: Filter by household fit (single-serve, couples, family, freezer-stocking, gifting)
 - [ ] **FILTER-07**: Filter by model type (subscription-first, store-first, marketplace, gift-club, hybrid)
 - [ ] **FILTER-08**: Filter by geography (national-us, regional, multi-market)
-- [ ] **FILTER-09**: All filters composable — URL search params encode all active filters (shareable URLs)
-- [ ] **FILTER-10**: Null-aware filtering — providers with empty filter fields pass through rather than being excluded
+- [ ] **FILTER-09**: All filters composable -- URL search params encode all active filters (shareable URLs)
+- [ ] **FILTER-10**: Null-aware filtering -- providers with empty filter fields pass through rather than being excluded
 - [ ] **FILTER-11**: Sort options: featured/editorial order, rating, name A-Z, value tier
 - [ ] **FILTER-12**: Filter UI collapses to drawer/sheet on mobile
 - [ ] **FILTER-13**: noindex meta tag on filtered pages to prevent SEO duplicate content
@@ -160,7 +160,7 @@ Explicitly excluded. Documented to prevent scope creep.
 | Social features (favorites, wishlists) | Requires user identity, low engagement on comparison sites |
 | Notification/alert system | Requires real-time infrastructure, premature |
 | WYSIWYG blog editor | Engineering effort for low initial ROI |
-| Provider self-service portal | Requires auth, permissions, moderation — premature at 95 providers |
+| Provider self-service portal | Requires auth, permissions, moderation -- premature at 95 providers |
 | Price comparison charts/graphs | Implies precision that manually-updated data cannot deliver |
 | Real-time chat/support | Not relevant for discovery product |
 
@@ -170,84 +170,84 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DATA-01 | TBD | Pending |
-| DATA-02 | TBD | Pending |
-| DATA-03 | TBD | Pending |
-| DATA-04 | TBD | Pending |
-| DATA-05 | TBD | Pending |
-| LOGO-01 | TBD | Pending |
-| LOGO-02 | TBD | Pending |
-| LOGO-03 | TBD | Pending |
-| LOGO-04 | TBD | Pending |
-| HOME-01 | TBD | Pending |
-| HOME-02 | TBD | Pending |
-| HOME-03 | TBD | Pending |
-| HOME-04 | TBD | Pending |
-| HOME-05 | TBD | Pending |
-| CAT-01 | TBD | Pending |
-| CAT-02 | TBD | Pending |
-| CAT-03 | TBD | Pending |
-| CAT-04 | TBD | Pending |
-| DETAIL-01 | TBD | Pending |
-| DETAIL-02 | TBD | Pending |
-| DETAIL-03 | TBD | Pending |
-| DETAIL-04 | TBD | Pending |
-| DETAIL-05 | TBD | Pending |
-| DETAIL-06 | TBD | Pending |
-| DETAIL-07 | TBD | Pending |
-| FILTER-01 | TBD | Pending |
-| FILTER-02 | TBD | Pending |
-| FILTER-03 | TBD | Pending |
-| FILTER-04 | TBD | Pending |
-| FILTER-05 | TBD | Pending |
-| FILTER-06 | TBD | Pending |
-| FILTER-07 | TBD | Pending |
-| FILTER-08 | TBD | Pending |
-| FILTER-09 | TBD | Pending |
-| FILTER-10 | TBD | Pending |
-| FILTER-11 | TBD | Pending |
-| FILTER-12 | TBD | Pending |
-| FILTER-13 | TBD | Pending |
-| SEARCH-01 | TBD | Pending |
-| SEARCH-02 | TBD | Pending |
-| SEARCH-03 | TBD | Pending |
-| COMP-01 | TBD | Pending |
-| COMP-02 | TBD | Pending |
-| COMP-03 | TBD | Pending |
-| COMP-04 | TBD | Pending |
-| COMP-05 | TBD | Pending |
-| TRAY-01 | TBD | Pending |
-| TRAY-02 | TBD | Pending |
-| TRAY-03 | TBD | Pending |
-| TRAY-04 | TBD | Pending |
-| SEO-01 | TBD | Pending |
-| SEO-02 | TBD | Pending |
-| SEO-03 | TBD | Pending |
-| SEO-04 | TBD | Pending |
-| SEO-05 | TBD | Pending |
-| COLL-01 | TBD | Pending |
-| COLL-02 | TBD | Pending |
-| COLL-03 | TBD | Pending |
-| ADMIN-01 | TBD | Pending |
-| ADMIN-02 | TBD | Pending |
-| ADMIN-03 | TBD | Pending |
-| ADMIN-04 | TBD | Pending |
-| AFF-01 | TBD | Pending |
-| AFF-02 | TBD | Pending |
-| UX-01 | TBD | Pending |
-| UX-02 | TBD | Pending |
-| UX-03 | TBD | Pending |
-| UX-04 | TBD | Pending |
-| UX-05 | TBD | Pending |
-| QUERY-01 | TBD | Pending |
-| QUERY-02 | TBD | Pending |
-| QUERY-03 | TBD | Pending |
+| DATA-01 | Phase 1 | Pending |
+| DATA-02 | Phase 1 | Pending |
+| DATA-03 | Phase 1 | Pending |
+| DATA-04 | Phase 1 | Pending |
+| DATA-05 | Phase 1 | Pending |
+| LOGO-01 | Phase 3 | Pending |
+| LOGO-02 | Phase 3 | Pending |
+| LOGO-03 | Phase 3 | Pending |
+| LOGO-04 | Phase 3 | Pending |
+| HOME-01 | Phase 6 | Pending |
+| HOME-02 | Phase 6 | Pending |
+| HOME-03 | Phase 6 | Pending |
+| HOME-04 | Phase 6 | Pending |
+| HOME-05 | Phase 6 | Pending |
+| CAT-01 | Phase 5 | Pending |
+| CAT-02 | Phase 5 | Pending |
+| CAT-03 | Phase 5 | Pending |
+| CAT-04 | Phase 5 | Pending |
+| DETAIL-01 | Phase 4 | Pending |
+| DETAIL-02 | Phase 4 | Pending |
+| DETAIL-03 | Phase 4 | Pending |
+| DETAIL-04 | Phase 4 | Pending |
+| DETAIL-05 | Phase 4 | Pending |
+| DETAIL-06 | Phase 4 | Pending |
+| DETAIL-07 | Phase 4 | Pending |
+| FILTER-01 | Phase 2 | Pending |
+| FILTER-02 | Phase 5 | Pending |
+| FILTER-03 | Phase 5 | Pending |
+| FILTER-04 | Phase 5 | Pending |
+| FILTER-05 | Phase 5 | Pending |
+| FILTER-06 | Phase 5 | Pending |
+| FILTER-07 | Phase 5 | Pending |
+| FILTER-08 | Phase 5 | Pending |
+| FILTER-09 | Phase 5 | Pending |
+| FILTER-10 | Phase 5 | Pending |
+| FILTER-11 | Phase 5 | Pending |
+| FILTER-12 | Phase 5 | Pending |
+| FILTER-13 | Phase 5 | Pending |
+| SEARCH-01 | Phase 8 | Pending |
+| SEARCH-02 | Phase 8 | Pending |
+| SEARCH-03 | Phase 8 | Pending |
+| COMP-01 | Phase 7 | Pending |
+| COMP-02 | Phase 7 | Pending |
+| COMP-03 | Phase 7 | Pending |
+| COMP-04 | Phase 7 | Pending |
+| COMP-05 | Phase 7 | Pending |
+| TRAY-01 | Phase 7 | Pending |
+| TRAY-02 | Phase 7 | Pending |
+| TRAY-03 | Phase 7 | Pending |
+| TRAY-04 | Phase 7 | Pending |
+| SEO-01 | Phase 9 | Pending |
+| SEO-02 | Phase 9 | Pending |
+| SEO-03 | Phase 9 | Pending |
+| SEO-04 | Phase 9 | Pending |
+| SEO-05 | Phase 9 | Pending |
+| COLL-01 | Phase 9 | Pending |
+| COLL-02 | Phase 9 | Pending |
+| COLL-03 | Phase 9 | Pending |
+| ADMIN-01 | Phase 10 | Pending |
+| ADMIN-02 | Phase 10 | Pending |
+| ADMIN-03 | Phase 10 | Pending |
+| ADMIN-04 | Phase 10 | Pending |
+| AFF-01 | Phase 4 | Pending |
+| AFF-02 | Phase 4 | Pending |
+| UX-01 | Phase 11 | Pending |
+| UX-02 | Phase 11 | Pending |
+| UX-03 | Phase 11 | Pending |
+| UX-04 | Phase 11 | Pending |
+| UX-05 | Phase 11 | Pending |
+| QUERY-01 | Phase 2 | Pending |
+| QUERY-02 | Phase 2 | Pending |
+| QUERY-03 | Phase 2 | Pending |
 
 **Coverage:**
-- v1 requirements: 66 total
-- Mapped to phases: 0
-- Unmapped: 66
+- v1 requirements: 72 total
+- Mapped to phases: 72
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-21*
-*Last updated: 2026-03-21 after initial definition*
+*Last updated: 2026-03-21 after roadmap creation*

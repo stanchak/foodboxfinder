@@ -38,18 +38,19 @@ When working on this project, delegate to specialist agents:
 
 **FoodBoxFinder**
 
-A live discovery, comparison, and directory website for food box subscription services. Consumers can find and compare meal kits, prepared meals, protein boxes, produce boxes, and specialty food subscriptions through mobile-first UX, comprehensive filtering, side-by-side comparisons, and SEO-optimized content. Includes an internal admin interface for content management and affiliate click tracking for revenue.
+A Kayak-like discovery and comparison website for food box subscription services. Consumers can browse 95+ providers across meal kits, prepared meals, protein boxes, produce boxes, and specialty subscriptions — filtering by many criteria (diet, prep style, value tier, household fit, flexibility, geography) and comparing 2-3 providers side-by-side. Built on Next.js 16 with a Prisma/Neon PostgreSQL backend, deployed on Vercel.
 
-**Core Value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences — with trustworthy reviews and transparent pricing.
+**Core Value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences — with transparent criteria and visual brand identity.
 
 ### Constraints
 
 - **Tech Stack**: Next.js 16.2, React 19, Tailwind CSS 4, Prisma 7.5, Neon PostgreSQL — already configured, no changes
-- **Hosting**: Vercel — serverless, ISR support, no deploy yet
-- **Next.js 16 Breaking Changes**: `params`/`searchParams` are Promises (must await), `proxy.ts` replaces `middleware.ts`, async `cookies()`/`headers()`/`draftMode()`
-- **No Auth**: Admin protected by `proxy.ts` + `ADMIN_SECRET` env var only. No user accounts.
-- **Images**: Provider logos stored as URLs in database. Next.js Image with `remotePatterns`.
+- **Hosting**: Vercel free tier — serverless, ISR support
+- **Next.js 16 Breaking Changes**: params/searchParams are Promises (must await), proxy.ts replaces middleware.ts, async cookies()/headers()/draftMode()
+- **No Auth**: Admin protected by proxy.ts + ADMIN_SECRET env var only. No user accounts.
+- **Images**: Provider logos in public/assets/providers/ with manifest.json. Next.js Image with remotePatterns for any external images.
 - **Budget**: Minimal — no paid APIs, no premium services beyond Neon and Vercel free tiers
+- **Data source**: food-box-companies.json is the source of truth for initial provider data. Many fields are sparsely populated (conservative defaults from research).
 <!-- GSD:project-end -->
 
 <!-- GSD:stack-start source:codebase/STACK.md -->
@@ -58,388 +59,319 @@ A live discovery, comparison, and directory website for food box subscription se
 ## Languages
 - TypeScript 5.9.3 - All application code, configuration files, and Prisma seed scripts. Strict mode enabled in `tsconfig.json`.
 - CSS - Tailwind CSS 4 utility classes via `@import "tailwindcss"` in `src/app/globals.css`
-- SQL - PostgreSQL via Prisma ORM (no raw SQL written)
+- SQL - PostgreSQL via Prisma ORM (no raw SQL written by hand)
 ## Runtime
-- Node.js v24.9.0 (no `.nvmrc` or `.node-version` pinning file)
-- Vercel production target uses Node.js 24.x (configured in `.vercel/project.json`)
+- Node.js 24.9.0 (local); 24.x on Vercel production (configured in `.vercel/project.json`)
+- No `.nvmrc` or `.node-version` pinning file present
 - npm 11.6.0
 - Lockfile: `package-lock.json` (present)
 ## Frameworks
-- Next.js 16.2.0 - Full-stack React framework (App Router, Server Components)
+- Next.js 16.2.0 - Full-stack React framework (App Router, Server Components, ISR)
 - React 19.2.4 - UI library
-- React DOM 19.2.4
-- Prisma 7.5.0 - Database ORM and schema management
-- Tailwind CSS 4.2.2 - Utility-first CSS, configured via PostCSS
-- Not configured (no test framework installed)
-- TypeScript 5.9.3 - Type checking (strict mode)
-- ESLint 9.39.4 - Linting (flat config format)
-- PostCSS - CSS processing via `postcss.config.mjs`
+- React DOM 19.2.4 - DOM rendering
+- Prisma 7.5.0 - Database ORM, schema management, and client generation
+- Tailwind CSS 4.2.2 - Utility-first CSS, configured via PostCSS (`postcss.config.mjs`)
+- Not configured. No Jest, Vitest, or Playwright installed.
+- TypeScript 5.9.3 - Type checking (tsc, strict mode)
+- ESLint 9.39.4 - Linting (flat config format at `eslint.config.mjs`)
+- PostCSS - CSS processing via `@tailwindcss/postcss` plugin
+- tsx 4.21.0 - TypeScript execution for seed scripts (`npx tsx prisma/seed.ts`)
 ## Key Dependencies
-- `next` 16.2.0 - Application framework
-- `react` 19.2.4 - UI rendering
-- `react-dom` 19.2.4 - DOM rendering
-- `@prisma/client` 7.5.0 - Database client (generated into `src/generated/prisma/`)
-- `@prisma/adapter-pg` 7.5.0 - PostgreSQL adapter for Prisma (uses `pg` driver directly)
-- `dotenv` 17.3.1 - Environment variable loading (used by `prisma.config.ts`)
-- `prisma` 7.5.0 - Prisma CLI (schema management, generation)
-- `tailwindcss` 4.2.2 - CSS utility framework
-- `@tailwindcss/postcss` 4.x - PostCSS integration for Tailwind
+- `next` 16.2.0 - Application framework (`package.json`)
+- `react` 19.2.4 - UI rendering (`package.json`)
+- `react-dom` 19.2.4 - DOM rendering (`package.json`)
+- `@prisma/client` 7.5.0 - Database client, generated into `src/generated/prisma/` (`package.json`)
+- `@prisma/adapter-pg` 7.5.0 - PostgreSQL adapter for Prisma using the `pg` driver directly (`src/lib/db.ts`)
+- `server-only` 0.0.1 - Prevents query modules from being imported in client components (`src/lib/queries.ts` line 1)
+- `pg` 8.20.0 - PostgreSQL driver (transitive dep of `@prisma/adapter-pg`)
+- `dotenv` 17.3.1 - Environment variable loading for `prisma.config.ts`
+- `prisma` 7.5.0 - Prisma CLI (schema management, codegen)
+- `tailwindcss` 4.2.2 - CSS framework (devDependency)
+- `@tailwindcss/postcss` 4.2.2 - PostCSS integration for Tailwind
 - `typescript` 5.9.3 - TypeScript compiler
 - `eslint` 9.39.4 - Linter
-- `eslint-config-next` 16.2.0 - Next.js ESLint rules
-- `@types/node` 20.x - Node.js type definitions
-- `@types/react` 19.x - React type definitions
-- `@types/react-dom` 19.x - React DOM type definitions
-- No test runner (Jest, Vitest, or Playwright)
-- No markdown rendering library (needed for Phase 70 blog)
-- No rate limiting library (needed for Phase 90 reviews)
-- No image processing beyond Next.js built-in Image component
-- No formatter (Prettier, Biome) -- no `.prettierrc` or `biome.json` present
+- `eslint-config-next` 16.2.0 - Next.js ESLint rules (extends `core-web-vitals` and `typescript`)
+- `tsx` 4.21.0 - Script runner for seed and one-off scripts
+- No test runner (Jest, Vitest, Playwright)
+- No formatter (Prettier, Biome)
+- No markdown rendering library (needed for blog body content)
+- No rate limiting library (needed for review submissions)
+- No image processing beyond Next.js built-in `<Image>`
 ## Configuration
-- `strict: true` - Full strict mode
-- `target: ES2017`
-- `module: esnext` with `moduleResolution: bundler`
-- Path alias: `@/*` maps to `./src/*`
-- Incremental compilation enabled
-- Next.js plugin registered
-- Imports via `@import "tailwindcss"`
-- Custom CSS variables: `--background`, `--foreground`, `--font-sans`, `--font-mono`
-- Dark mode: `prefers-color-scheme` media query (system preference)
-- Fonts: Geist Sans and Geist Mono loaded via `next/font/google` in `src/app/layout.tsx`
-- Currently default/empty -- no custom configuration
-- No `images.remotePatterns` configured (will need this for provider logos)
-- No `cacheComponents` enabled yet
-- No React Compiler enabled yet
+- `strict: true` — all strict sub-flags active: `strictNullChecks`, `noImplicitAny`, etc.
+- `target: ES2017`, `module: esnext`, `moduleResolution: bundler`
+- Path alias: `@/*` → `./src/*`
+- Incremental compilation enabled (`tsconfig.tsbuildinfo` present)
+- Next.js plugin registered under `plugins`
 - Flat config format (ESLint 9)
-- Extends Next.js core-web-vitals and TypeScript presets
-- Global ignores: `.next/`, `out/`, `build/`, `next-env.d.ts`
+- Extends `eslint-config-next/core-web-vitals` and `eslint-config-next/typescript`
+- Global ignores: `.next/**`, `out/**`, `build/**`, `next-env.d.ts`
+- Run with: `npx eslint .` (not `next lint` — removed in Next.js 16)
 - Single plugin: `@tailwindcss/postcss`
-- Schema location: `prisma/schema.prisma`
+- Imported via `@import "tailwindcss"` (v4 syntax, not `@tailwind` directives)
+- Custom CSS variables for brand colors (`--color-primary-*`, `--color-accent-*`) in `@theme` block
+- Custom design tokens: `--shadow-card`, `--radius-card`, `--color-star`, etc.
+- Dark mode: `prefers-color-scheme` media query (system preference, not class-based)
+- Fonts: Geist Sans and Geist Mono via `next/font/google` in `src/app/layout.tsx`, applied as CSS variables
+- `images.remotePatterns` configured for: `images.unsplash.com`, `**.cloudinary.com`, `**.amazonaws.com`, `cdn.jsdelivr.net`, `*.imgix.net`, `logo.clearbit.com`, `img.logo.dev`
+- No `cacheComponents` or React Compiler enabled
+- Schema: `prisma/schema.prisma`
 - Migrations path: `prisma/migrations`
 - Datasource URL from `DATABASE_URL` environment variable
-- Loads env via `import "dotenv/config"`
-- `.env` file present (contains database connection configuration)
-- `.env*` files are gitignored
-- No `.env.example` file to document required variables
-## Database
-- Uses global variable pattern to prevent multiple instances in development
-- Exports `prisma` as the single client instance
-- All database access must go through this import
-- `Provider` - Core entity (food box services)
-- `Plan` - Pricing plans per provider
-- `ProviderDietaryTag` - Many-to-many dietary tag associations
-- `Review` - User reviews with moderation status
-- `ProviderFaq` - FAQ entries per provider
-- `BlogPost` - Editorial blog content
-- `Collection` - Curated "best of" lists
-- `CollectionItem` - Junction table for Collection-Provider
-- `AffiliateClick` - Click tracking analytics
+- Client output: `src/generated/prisma/` (git-ignored)
+- Seed: `tsx prisma/seed.ts`
+- `pg` adapter (not the default Prisma engine) — uses `PrismaPg` from `@prisma/adapter-pg`
+- `DATABASE_URL` — Neon PostgreSQL connection string
+- `ADMIN_SECRET` — Admin cookie token (compared in `src/proxy.ts`)
+- `NEXT_PUBLIC_BASE_URL` — Production base URL (defaults to `https://foodboxfinder.com`)
+- `NEXT_PUBLIC_SITE_URL` — Used in structured data URLs in `src/app/[category]/page.tsx`
+- `NODE_ENV` — Standard Node.js environment flag
 ## Build & Scripts
+| Script | Command | Notes |
+|--------|---------|-------|
+| `dev` | `next dev` | Development server |
+| `build` | `prisma generate && next build` | Regenerates Prisma client before every build |
+| `start` | `next start` | Production server |
+| `lint` | `eslint` | Runs ESLint flat config |
 ## Platform Requirements
-- Node.js 24.x (current local version)
+- Node.js 24.x
 - PostgreSQL database (Neon serverless)
-- `DATABASE_URL` environment variable
-- Vercel hosting (`.vercel/` directory present, project initialized as `foodboxfinder`)
+- `DATABASE_URL` and `ADMIN_SECRET` env vars
+- Vercel hosting (project: `foodboxfinder`, org configured in `.vercel/project.json`)
 - Vercel Node.js 24.x runtime
-- Neon PostgreSQL (serverless, connection pooling)
-- No Docker, no CI/CD pipeline configured
-- No pre-commit hooks (no Husky, no lint-staged)
+- Neon PostgreSQL (serverless, connection pooling via `pg` driver)
+- No Docker, no CI/CD pipeline, no pre-commit hooks (no Husky or lint-staged)
 <!-- GSD:stack-end -->
 
 <!-- GSD:conventions-start source:CONVENTIONS.md -->
 ## Conventions
 
 ## Naming Patterns
-- Page components: `page.tsx` (Next.js App Router convention)
-- Layout components: `layout.tsx` (Next.js App Router convention)
-- Utility modules: `camelCase.ts` (e.g., `db.ts`)
-- Config files: `camelCase.config.ts` or `camelCase.config.mjs` (e.g., `next.config.ts`, `eslint.config.mjs`, `postcss.config.mjs`, `prisma.config.ts`)
-- Global styles: `globals.css` in `src/app/`
-- Prisma schema: `schema.prisma` in `prisma/`
-- Future components: `PascalCase.tsx` (e.g., `ProviderCard.tsx`, `FilterSidebar.tsx`)
-- Future Server Actions: `camelCase.ts` in `src/app/actions/` (e.g., `reviews.ts`)
-- React components: `PascalCase` function declarations (not arrow functions):
-- Utility functions: `camelCase` (e.g., `getProviders`, `formatPrice`)
-- Server Actions: `camelCase` with verb prefix (e.g., `submitReview`, `updateProvider`)
-- Local variables: `camelCase` (e.g., `geistSans`, `geistMono`, `globalForPrisma`)
-- Config objects: `camelCase` (e.g., `nextConfig`, `eslintConfig`)
-- Constants: `camelCase` (same as variables, no UPPER_CASE for JS constants)
-- Environment variables: `UPPER_SNAKE_CASE` (e.g., `DATABASE_URL`, `NODE_ENV`)
-- Type/interface names: `PascalCase`
-- Use `import type` for type-only imports:
-- Prisma-generated types: import from `@/generated/prisma/client`
-- Inline prop types with `Readonly<{}>` wrapper (no separate interface files for simple props)
-- Models: `PascalCase` (e.g., `Provider`, `Plan`, `BlogPost`, `ProviderDietaryTag`)
+- Next.js App Router pages: `page.tsx` (e.g., `src/app/providers/[slug]/page.tsx`)
+- Next.js layouts: `layout.tsx` (e.g., `src/app/admin/layout.tsx`)
+- Next.js special files: `error.tsx`, `not-found.tsx`, `loading.tsx`, `global-error.tsx`
+- Shared components: `PascalCase.tsx` (e.g., `ProviderCard.tsx`, `ReviewForm.tsx`, `CompareBar.tsx`)
+- Admin-specific components: colocated in `src/components/admin/` subdirectory (e.g., `ProviderForm.tsx`, `PlanManager.tsx`)
+- Server Actions files: `camelCase.ts` in `src/app/actions/` (e.g., `reviews.ts`, `admin.ts`)
+- Library/utility modules: `camelCase.ts` (e.g., `db.ts`, `format.ts`, `categories.ts`, `queries.ts`)
+- Config files: `camelCase.config.ts` or `camelCase.config.mjs` (e.g., `next.config.ts`, `eslint.config.mjs`, `prisma.config.ts`)
+- React components: `PascalCase` function declarations (not arrow functions): `export default function ProviderCard(...)`
+- Utility/helper functions: `camelCase` (e.g., `formatPrice`, `getCategoryBySlug`, `parseSearchParams`)
+- Server Actions: `camelCase` with action verb prefix (e.g., `submitReview`, `createProvider`, `updateBlogPost`, `deleteCollection`)
+- Custom hooks: `camelCase` with `use` prefix (e.g., `useCompare`)
+- Local variables and constants: `camelCase` (e.g., `geistSans`, `featuredProviders`, `orderByMap`)
+- Environment variables: `UPPER_SNAKE_CASE` (e.g., `DATABASE_URL`, `ADMIN_SECRET`, `NODE_ENV`)
+- Module-level constants: `UPPER_SNAKE_CASE` for semantic sets (e.g., `CATEGORY_MAP`, `VALID_SORT_VALUES`, `MAX_COMPARE`, `STORAGE_KEY`)
+- Interface names: `PascalCase` (e.g., `ReviewFormErrors`, `ReviewFormState`, `AdminFormState`, `CompareEntry`, `CompareContextValue`, `ProviderCardData`)
+- Type aliases: `PascalCase` (e.g., `SortOption`)
+- Prisma-generated types imported from `@/generated/prisma/client`
+- Models: `PascalCase` (e.g., `Provider`, `Plan`, `BlogPost`)
 - Fields: `camelCase` (e.g., `providerId`, `averageRating`, `pricePerServing`)
 - Enum type names: `PascalCase` (e.g., `CategoryType`, `DietaryTag`, `PlanFrequency`)
 - Enum values: `UPPER_SNAKE_CASE` (e.g., `MEAL_KIT`, `GLUTEN_FREE`, `WEEKLY`)
-- ID fields: `cuid()` default (not UUID)
-- Section dividers: `// --- Section Name ---` style comments
 ## Code Style
-- No dedicated formatter (Prettier/Biome) is configured
+- No formatter (Prettier or Biome) configured
 - 2-space indentation in all files
-- Double quotes for all strings (imports, JSX attributes, values)
+- Double quotes for all strings (imports, JSX attributes, string values)
 - Semicolons at end of statements
-- Trailing commas in multi-line objects, arrays, and function parameters
-- ESLint 9 with flat config: `eslint.config.mjs`
+- Trailing commas in multi-line objects, arrays, function parameters
+- Template literals for dynamic class composition in JSX
+- ESLint 9 flat config: `eslint.config.mjs`
 - Extends `eslint-config-next/core-web-vitals` and `eslint-config-next/typescript`
-- Run with: `npx eslint .` (NOT `next lint` -- removed in Next.js 16)
+- Run with: `npx eslint .` (NOT `next lint` — removed in Next.js 16)
 - Global ignores: `.next/**`, `out/**`, `build/**`, `next-env.d.ts`
-- Strict mode enabled in `tsconfig.json` (`"strict": true`)
-- All strict sub-flags active: `strictNullChecks`, `strictFunctionTypes`, `strictBindCallApply`, `strictPropertyInitialization`, `noImplicitAny`, `noImplicitThis`, `alwaysStrict`
-- No `any` types allowed (enforced by project rules in `AGENTS.md`)
-- No `@ts-ignore` allowed (enforced by project rules in `AGENTS.md`)
-- Target: `ES2017`, Module: `esnext`, Module resolution: `bundler`
-- Incremental compilation enabled
-- Next.js compiler plugin active
+- Strict mode enabled (`"strict": true` in `tsconfig.json`)
+- No `any` types allowed
+- No `@ts-ignore` allowed
+- Use type narrowing with type predicates (e.g., `(item): item is string => typeof item === "string"`)
+- Non-null assertion (`!`) only for required env vars: `process.env.DATABASE_URL!`
 ## Import Organization
 - `@/*` maps to `./src/*` (configured in `tsconfig.json`)
-- Use `@/generated/prisma/client` for Prisma client types
-- Use `@/lib/db` for the database singleton
-- Use `@/components/` for shared components
-- Use `@/app/actions/` for Server Actions
-- Always use `import type` for type-only imports. This is enforced consistently.
+- `@/generated/prisma/client` — Prisma client types and enums
+- `@/lib/db` — database singleton
+- `@/lib/queries` — all query functions
+- `@/lib/categories` — slug/enum mapping utilities
+- `@/lib/format` — price formatting utilities
+- `@/components/` — shared components
+- Always use `import type` for type-only imports: `import type { Metadata } from "next"`
+- Use `import type { CategoryType, DietaryTag } from "@/generated/prisma/client"`
+- Mix type and value imports with `import { cache } from "react"` and `import type { ... }` on separate lines
+- `src/lib/queries.ts` starts with `import "server-only"` to prevent client-side import
+- Never import `@/lib/db` or `@/lib/queries` in client components
 ## Component Patterns
-- All pages and layouts are Server Components unless they need interactivity
-- Data fetching happens directly in Server Components via Prisma
-- Export `metadata` or `generateMetadata()` from every public page
-- Include JSON-LD structured data on every public page
-- Add `"use client"` directive ONLY for: browser APIs, event handlers, `useState`, `useEffect`, or other React hooks
-- Never import Prisma in client components
-- Use `useActionState` (NOT `useFormState` -- renamed in React 19)
-- Inline destructured props with `Readonly<{}>` wrapper:
-- `params` and `searchParams` are Promises -- always `await` them:
-- `cookies()`, `headers()`, `draftMode()` must be awaited
-- Use `proxy.ts` (NOT `middleware.ts`) -- renamed in Next.js 16
-- Export `proxy` function (not `middleware`)
-- Runs on Node.js runtime only (NOT Edge)
-- Admin routes under `/admin/` are protected via `proxy.ts`
+- Always wrap props in `Readonly<{}>`: `Readonly<{ children: React.ReactNode; color?: keyof typeof colorMap }>`
+- Inline prop types — no separate interface files for component props
+- Export named interface only when the type is shared across files (e.g., `export interface ProviderCardData`)
+- Define as a function returning a `<script>` tag: `function WebsiteJsonLd() { ... }`
+- Use `dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}`
+- Required on every public page
 ## Styling
-- Config: `postcss.config.mjs` with `@tailwindcss/postcss` plugin
-- Global import: `@import "tailwindcss"` in `src/app/globals.css` (Tailwind v4 syntax, NOT `@tailwind` directives)
+- Import in `src/app/globals.css`: `@import "tailwindcss"` (NOT `@tailwind` directives)
+- Custom theme tokens defined in `@theme` blocks in `globals.css`:
+- Font variables: `--font-sans` (Geist Sans), `--font-mono` (Geist Mono) loaded via `next/font/google`
 - No CSS modules, no styled-components, no component libraries
-- Uses `prefers-color-scheme` media query (system preference, not class-based toggle)
-- Dark mode is deprioritized for launch (Out of Scope per `PROJECT.md`)
-- Dark values set in `@media (prefers-color-scheme: dark)` block in `src/app/globals.css`
-- Geist Sans and Geist Mono loaded via `next/font/google` in `src/app/layout.tsx`
-- Applied as CSS variables on `<html>`: `--font-geist-sans`, `--font-geist-mono`
-- Referenced in `@theme inline` block as `--font-sans` and `--font-mono`
-- Tailwind utility classes directly in JSX `className`
-- Template literals to compose dynamic classes:
-- Use semantic HTML elements with Tailwind classes (`<main>`, `<nav>`, `<article>`, `<section>`, `<aside>`)
-## Database Access
-- Uses Neon PostgreSQL adapter (`@prisma/adapter-pg`)
-- Hot-reload safe via `globalThis` caching pattern
-- Import as: `import { prisma } from "@/lib/db"`
-- All models use `cuid()` for primary keys (`@id @default(cuid())`)
-- Timestamps: `createdAt DateTime @default(now())`, `updatedAt DateTime @updatedAt`
-- Slugs are `@unique` and used as canonical URL identifiers
-- Denormalized fields for performance (e.g., `averageRating`, `reviewCount` on `Provider`)
-- JSON stored as `String @db.Text` with `*Json` suffix (e.g., `prosJson`, `consJson`)
-- SEO fields on content models: `metaTitle @db.VarChar(70)`, `metaDescription @db.VarChar(160)`
-- Indexes on: foreign keys, filter columns, sort columns
-- Cascade deletes on all child relations (`onDelete: Cascade`)
-- Section dividers with comments: `// --- Section Name ---`
-- Client generated to `src/generated/prisma/` (git-ignored)
-- Build script runs `prisma generate` before `next build`:
+- Utility classes applied directly in JSX `className`
+- Template literals for conditional classes: `` `inline-flex ... ${variants[variant]} ${sizes[size]} ${className ?? ""}` ``
+- Variant/size maps as `const` objects with `as const` assertions (see `Button.tsx`, `Badge.tsx`)
+- Responsive modifiers: `sm:`, `lg:`, `xl:` prefixes used consistently
+- Interactive states: `hover:`, `focus-visible:`, `disabled:` with transitions: `transition-colors`
+- Semantic HTML elements: `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<header>`
+- Accessibility: `aria-hidden="true"` on decorative SVGs, `aria-label` on icon-only buttons, `role="alert"` on error messages, `role="status"` on success messages
 ## Error Handling
-- No error handling patterns established yet (early-stage scaffolded project)
-- Non-null assertion (`!`) used for required env vars: `process.env.DATABASE_URL!`
-- No `error.tsx`, `not-found.tsx`, or `loading.tsx` files exist
-- Add `error.tsx` boundary files at route segment levels for graceful error recovery
-- Add `not-found.tsx` for custom 404 pages
-- Add `loading.tsx` for Suspense boundaries / loading states
-- Use `notFound()` from `next/navigation` when a resource is not found by slug
-- Validate environment variables at startup rather than using `!` assertions
-- In Server Actions: use try/catch and return typed result objects (not throw)
-- Never expose raw database errors to the client
+- Return `{ success: boolean, message: string, errors: Record<string, string> }` — never throw exceptions to the client
+- Validate all inputs before database operations
+- Use try/catch wrapping database calls
+- `redirect()` in Next.js 16 throws a special error — always rethrow it:
+- Silent failure pattern for non-critical operations (click tracking, delete cleanups): `} catch { // Silently fail }`
+- Call `notFound()` from `next/navigation` when a resource is not found by slug
+- `error.tsx` (client component) at route segment level with `reset` callback
+- `not-found.tsx` with search bar and category suggestions
+- `global-error.tsx` for unrecoverable errors (uses inline styles, not Tailwind, since CSS may not load)
+- `getString(formData, key)` — trims string, returns `""`
+- `getOptionalString(formData, key)` — returns `null` if empty
+- `getOptionalInt(formData, key)` — parses int, returns `null` if empty/NaN
+- `getBoolean(formData, key)` — handles `"on"` (checkbox) and `"true"`
+- `getStringArray(formData, key)` — uses `formData.getAll()`, filters non-strings
 ## Logging
-- No structured logging library installed
-- No monitoring/error tracking service integrated
 ## Comments
-- Prisma schema: section separator comments (`// --- Section Name ---`)
-- Prisma schema: inline field documentation (`// JSON array of strings`, `// 1-5`, `// hashed IP for dedup, never store raw IP`)
-- Source code: minimal comments, prefer self-documenting code
-- Config files: brief inline comments where helpful (`/* config options here */`)
-- Not used in application code
-- Prisma-generated code includes JSDoc (auto-generated, do not edit)
 ## Function Design
 ## Module Design
-- Pages/layouts: `export default function` (required by Next.js)
-- Metadata: `export const metadata` (named export)
-- Prisma singleton: named export `export const prisma` from `src/lib/db.ts`
-- Utilities: named exports (no default exports for non-page modules)
-- Not used in application code
-- Prisma-generated code uses barrel exports in `src/generated/prisma/`
-- Server Actions: `src/app/actions/` or colocated with the form
-- Shared components: `src/components/` (flat structure unless a group needs isolation)
-- Library code: `src/lib/`
-- Query helpers: `src/lib/queries.ts` (single file for MVP, split when exceeding 300 lines per `PROJECT.md`)
-- Generated code: `src/generated/` (git-ignored)
-## URL Conventions
-- URL search params drive filter/sort state on listing pages
-- Keep URLs shareable and bookmarkable
-- Filters update URL and results synchronously
+- Pages/layouts: `export default function` (Next.js requirement)
+- Named exports for everything else: `export const`, `export function`, `export interface`
+- No barrel files in application code — import directly from source files
+- Prisma-generated code uses barrel exports (do not edit)
+- URL search params are the source of truth for filter/sort state
+- Parse with `await searchParams` (Promise in Next.js 16), then call a local `parseSearchParams()` helper
+- Invalid values silently fall back to defaults (server is the authority on valid values)
 <!-- GSD:conventions-end -->
 
 <!-- GSD:architecture-start source:ARCHITECTURE.md -->
 ## Architecture
 
 ## Pattern Overview
-- Server Components by default; Client Components only for interactive UI (filters, forms, comparison tray, search bar)
-- Central entity is `Provider`, which radiates to category listings, detail pages, comparisons, collections, and blog content
-- All consumer-facing data fetching happens server-side via Prisma through a centralized query layer
-- URL search params are the shared state contract between Server and Client Components (no global state store)
-- Admin subsystem is isolated under `/admin` and protected by `proxy.ts` authentication
-- On-demand revalidation from admin mutations keeps pages cached but fresh
-- SEO-first: every public page requires metadata exports and JSON-LD structured data
+- Server Components are the default for all pages; Client Components used only for interactive UI (filters, comparison tray, search inputs, review form, mobile nav)
+- `Provider` is the central domain entity — all consumer-facing routes radiate from it
+- URL search params are the sole shared state contract for filter/sort on listing pages (no global client state for data)
+- `src/lib/queries.ts` is the single gateway to the database — all Server Components go through it
+- Admin subsystem is fully isolated under `/admin` with its own layout, protected by `src/proxy.ts`
+- SEO-first: every public page exports `metadata`/`generateMetadata()` and renders JSON-LD structured data inline
 ## Layers
-- Purpose: Render HTML via Server Components, define routes and metadata, export JSON-LD structured data
+- Purpose: Render HTML via Server Components, define routes and metadata, output JSON-LD structured data
 - Location: `src/app/`
-- Contains: Page components (`page.tsx`), layouts (`layout.tsx`), loading states (`loading.tsx`), error boundaries (`error.tsx`), not-found pages (`not-found.tsx`)
-- Depends on: Query Layer for data, Component Layer for UI
+- Contains: `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, `global-error.tsx`, `sitemap.ts`, `robots.ts`
+- Depends on: Query Layer for data, Component Layer for UI primitives
 - Used by: Next.js router (browser requests)
-- Rule: All pages are Server Components. Always `await params` and `await searchParams` (Promises in Next.js 16). Always export `metadata` or `generateMetadata()`.
-- Purpose: Reusable UI building blocks, both Server and Client Components
-- Location: `src/components/` (planned, does not exist yet)
-- Contains: Domain components (ProviderCard, ComparisonTable, FilterPanel) and UI primitives in `ui/` subdirectory (Button, Card, Badge, Input, Select, Skeleton)
+- Rule: Always `await params` and `await searchParams` (Promises in Next.js 16). Always export `metadata` or `generateMetadata()`. Call `notFound()` on missing slugs.
+- Purpose: Reusable UI building blocks — both Server and Client Components
+- Location: `src/components/` (flat structure with `admin/` subdirectory)
+- Contains: Domain components (`ProviderCard.tsx`, `ComparisonTable.tsx`, `CategoryFilters.tsx`, `ReviewForm.tsx`, `FaqAccordion.tsx`, `PricingTable.tsx`, `ReviewCard.tsx`, `RatingBreakdown.tsx`, `RatingStars.tsx`, `Breadcrumbs.tsx`, `Badge.tsx`, `Pagination.tsx`, `AffiliateLink.tsx`, `Header.tsx`, `Footer.tsx`, `MobileNav.tsx`, `HeaderSearchForm.tsx`), UI primitives (`Button.tsx`, `Card.tsx`, `Input.tsx`, `Select.tsx`, `Skeleton.tsx`), and comparison state management (`CompareProvider.tsx`, `CompareBar.tsx`, `AddToCompareButton.tsx`)
+- Admin components: `src/components/admin/` — `ProviderForm.tsx`, `PlanForm.tsx`, `PlanManager.tsx`, `BlogPostForm.tsx`, `CollectionForm.tsx`, `LoginForm.tsx`
 - Depends on: Tailwind CSS 4 for styling, props from Presentation Layer
 - Used by: Pages and layouts in `src/app/`
-- Rule: Flat structure unless a component group needs isolation. Server Components by default; add `"use client"` only when browser APIs, event handlers, or React hooks are needed.
 - Purpose: Handle browser interactivity requiring state, effects, or event handlers
 - Location: `src/components/` (files with `"use client"` directive)
-- Contains: FilterPanel (URL-driven filters), ComparisonTray (floating bar), SearchBar (expandable input), ReviewForm (star rating + text), mobile navigation
-- Depends on: URL search params (for filter state), props from Server Components
-- Used by: Composed as children of Server Components
-- Rule: NEVER import Prisma or `@/lib/db`. NEVER fetch data directly. Receive all data as props or interact via Server Actions and URL params.
-- Purpose: All database queries, centralized data access, React.cache() deduplication
-- Location: `src/lib/queries.ts` (single file for MVP, split when exceeding 300 lines)
-- Contains: ~20 named async functions for every data need (listings, detail, comparison, search, admin stats)
-- Depends on: Database Layer (Prisma Client via `src/lib/db.ts`)
+- Contains: `CategoryFilters.tsx` (URL-driven filter sidebar + mobile drawer), `CompareProvider.tsx` (sessionStorage-backed context), `CompareBar.tsx` (floating bar), `SearchInput.tsx` (controlled input), `ReviewForm.tsx` (star rating + validation), `StarRatingInput.tsx`, `MobileNav.tsx`, `HeaderSearchForm.tsx`, `AddToCompareButton.tsx`
+- Depends on: URL search params (for filter state), `useRouter`/`useSearchParams`/`usePathname`
+- Rule: NEVER import Prisma or `@/lib/db`. NEVER fetch data directly. Use `useActionState` (React 19, not `useFormState`).
+- Purpose: All database queries, centralized data access, `React.cache()` deduplication
+- Location: `src/lib/queries.ts` (single file, 336 lines)
+- Contains: Named async functions for every data need — `getFeaturedProviders`, `getCategoryCounts`, `getProvidersByCategory`, `getProviderBySlug`, `getProvidersForComparison`, `getRelatedProviders`, `searchProviders`, `searchBlogPosts`, `searchCollections`, `getAllProviderSlugs`, `getAllCollectionSlugs`, `getAllBlogPostSlugs`, `getPublishedCollections`, `getCollectionBySlug`, `getPublishedBlogPosts`, `getBlogPostBySlug`, `getAdminStats`, `getTopAffiliateProviders`, `getProviderReviewStats`
+- Depends on: Database Layer (`@/lib/db`), Prisma types from `@/generated/prisma/client`
 - Used by: Server Components in Presentation Layer, Server Actions
-- Rule: Wrap all functions in `React.cache()` for request-level deduplication. Export named functions. Use Prisma's type-safe API (no raw SQL in MVP). All functions are `async`.
-- Purpose: Type-safe database client with connection pooling via Neon adapter
+- Rule: All functions wrapped in `cache()` from React for request-level deduplication. Marked `"server-only"`.
+- Purpose: Type-safe Prisma client with Neon PostgreSQL via `@prisma/adapter-pg`
 - Location: `src/lib/db.ts` (singleton), `prisma/schema.prisma` (schema definition)
-- Contains: PrismaClient instance configured with `@prisma/adapter-pg` (PrismaPg) for Neon PostgreSQL
-- Depends on: `DATABASE_URL` environment variable, generated types in `src/generated/prisma/`
-- Used by: Query Layer exclusively (never imported directly in pages or client components)
-- Rule: Always import `prisma` from `@/lib/db`. Never instantiate PrismaClient elsewhere. Singleton cached on `globalThis` in development to survive HMR.
+- Contains: PrismaClient instance cached on `globalThis` to survive dev HMR
+- Depends on: `DATABASE_URL` env var, generated types in `src/generated/prisma/`
+- Used by: Query Layer exclusively (never imported in pages or client components)
+- Rule: Always import `prisma` from `@/lib/db`. Never instantiate PrismaClient elsewhere.
 - Purpose: Handle mutations (review submission, admin CRUD) with validation
-- Location: `src/app/actions/` for global actions, or colocated with forms
-- Contains: `"use server"` functions for form submissions and admin operations
-- Depends on: Database Layer, Query Layer for reads, validation logic
-- Used by: Client Components via `action={serverAction}` on forms
-- Rule: Mark with `"use server"` directive. Return `{ success: boolean, errors?: Record<string, string[]> }` -- never throw exceptions to the client. Call `revalidatePath()` after mutations.
-- Purpose: Protect admin routes from unauthorized access
-- Location: `src/proxy.ts` (Next.js 16 replaces `middleware.ts` with `proxy.ts`)
-- Contains: Request interception checking `ADMIN_SECRET` env var against request headers/cookies
-- Depends on: `ADMIN_SECRET` environment variable
-- Used by: Next.js runtime (intercepts all requests; gates `/admin/*` routes)
-- Rule: Uses Node.js runtime only (NOT Edge). Export `proxy` function (NOT `middleware`).
-- Purpose: Shared helpers, type mappings, filter parsing, formatting
+- Location: `src/app/actions/reviews.ts`, `src/app/actions/admin.ts`
+- Contains: `submitReview` (review submission with honeypot + rate limiting), `loginAction`, `logoutAction`, `createProvider`, `updateProvider`, `deleteProvider`, `savePlan`, `deletePlan`, `approveReview`, `rejectReview`, `createBlogPost`, `updateBlogPost`, `deleteBlogPost`, `createCollection`, `updateCollection`, `deleteCollection`
+- Depends on: Database Layer directly, `revalidatePath()` for cache busting
+- Used by: Client Components via form `action=` prop
+- Rule: Marked `"use server"`. Return `{ success: boolean, message: string, errors: Record<string, string> }`. Never throw exceptions to client. Call `revalidatePath()` after mutations.
+- Purpose: Shared helpers, type mappings, formatting
 - Location: `src/lib/`
-- Contains: `categories.ts` (slug-to-enum bidirectional mapping), `filters.ts` (searchParams parser with validation), `utils.ts` (formatPrice, etc.)
-- Depends on: Generated Prisma enums from `@/generated/prisma/enums`
+- Contains: `categories.ts` (bidirectional `CategoryType` enum ↔ URL slug mapping with `CATEGORY_MAP`, `getCategoryBySlug`, `getSlugByCategory`, `CATEGORY_NAV_ITEMS`), `format.ts` (price formatting: `formatPrice`, `formatPriceRange`, `formatPriceLabel`, `dollarsToCents`), `db.ts` (Prisma singleton), `queries.ts` (data access)
+- Depends on: Generated Prisma enums from `@/generated/prisma/client`
 - Used by: All server-side layers
+- Purpose: Protect admin routes from unauthorized access
+- Location: `src/proxy.ts`
+- Contains: `proxy` function checking `admin_token` cookie against `ADMIN_SECRET` env var; gates all `/admin/*` routes except `/admin/login`
+- Rule: Uses Node.js runtime (not Edge). Exports `proxy` function (not `middleware`).
+- Purpose: Server-side API endpoint for affiliate click tracking
+- Location: `src/app/api/affiliate/[providerId]/route.ts`
+- Contains: `GET` handler that resolves provider, logs `AffiliateClick` (fire-and-forget), and redirects to `affiliateUrl` or `website`
 - Purpose: Auto-generated TypeScript types and Prisma client runtime
 - Location: `src/generated/prisma/`
-- Contains: PrismaClient class (`client.ts`), model types (`models.ts`), enum types (`enums.ts`), input types (`commonInputTypes.ts`), internal runtime (`internal/`)
-- Generated by: `npx prisma generate` (output configured in `prisma/schema.prisma` line 6-7)
-- Rule: Never edit directly. Regenerate after any `prisma/schema.prisma` change. Gitignored.
+- Generated by: `npx prisma generate` (output configured in `prisma/schema.prisma`)
+- Rule: Never edit. Gitignored. Regenerate after any schema change.
 ## Data Flow
-- No global state library (no Redux, Zustand, or Context for application data)
-- URL search params are the single source of truth for filter/sort state on listing pages
-- Comparison selection uses React state in a layout-level Client Component (ComparisonTray), transfers to URL params when navigating to comparison page
-- Server Actions return structured result objects for form state management via `useActionState` (React 19)
+- No global state library (no Redux, Zustand, or React Context for application data)
+- URL search params: sole source of truth for filter/sort state on category listing pages
+- `sessionStorage`: comparison selection (up to 4 providers), managed by `CompareProvider` using `useSyncExternalStore`
+- Server Actions: form state management via `useActionState` (React 19)
 ## Key Abstractions
-- Purpose: Represents a food box subscription service; the hub of all consumer-facing content
-- Schema: `prisma/schema.prisma` lines 63-112
-- Relations: has many Plans, ProviderDietaryTags, Reviews, ProviderFaqs, AffiliateClicks, CollectionItems
-- Pattern: Denormalized fields (`averageRating`, `reviewCount`, planned: `minPricePerServing`, `maxPricePerServing`, `freeShipping`) for listing query performance. Slug is the canonical URL identifier.
-- Purpose: Classifies providers into 5 fixed categories
-- Schema: `prisma/schema.prisma` lines 15-21
-- Values: MEAL_KIT, PREPARED_MEAL, PROTEIN_BOX, PRODUCE_BOX, SPECIALTY
-- Pattern: Mapped to URL slugs via bidirectional utility in `src/lib/categories.ts`: `"meal-kits"` <-> `CategoryType.MEAL_KIT`. Only 5 values, so an enum is simpler than a model.
-- Purpose: Represents a specific subscription plan within a provider
-- Schema: `prisma/schema.prisma` lines 114-149
-- Pattern: Multiple plans per provider; `sortOrder` for display ordering; `pricePerServing` as primary comparison metric; includes flexibility data (`canSkip`, `canCancel`, `cancelPolicy`)
-- Purpose: "Best of" content grouping providers with ranked order and editorial notes
-- Schema: `prisma/schema.prisma` lines 223-258
-- Pattern: Many-to-many with Provider through CollectionItem join model (with `sortOrder` and editorial `note` per item)
-- Purpose: Named, typed, cached query functions as the sole interface to the database
-- Pattern: All wrapped in `React.cache()` for deduplication within a single render pass (prevents duplicate Prisma calls when both `generateMetadata()` and page component need the same data)
-- Example functions: `getFeaturedProviders()`, `getProviderBySlug()`, `getProvidersByCategory()`, `getProvidersBySlugs()`, `searchProviders()`, `getAdminStats()`
-- Purpose: Parse untrusted URL search params into typed, validated filter objects with safe defaults
-- Pattern: Returns typed `ProviderFilters` object; invalid values silently fall back to defaults; server is the authority on valid filter values
+- Purpose: Represents a food box subscription service; hub of all consumer content
+- Schema: `prisma/schema.prisma` line 63
+- Relations: has many `Plan`, `ProviderDietaryTag`, `Review`, `ProviderFaq`, `AffiliateClick`, `CollectionItem`
+- Pattern: Denormalized fields (`averageRating`, `reviewCount`, `minPricePerServingCents`, `maxPricePerServingCents`, `freeShipping`) updated by Server Actions on review approve/reject and plan save/delete. `slug` is the canonical URL identifier.
+- Purpose: 5 fixed categories mapping between Prisma enum values and URL slugs
+- Enum values: `MEAL_KIT`, `PREPARED_MEAL`, `PROTEIN_BOX`, `PRODUCE_BOX`, `SPECIALTY`
+- Slug mapping: `src/lib/categories.ts` — bidirectional (`"meal-kits"` ↔ `CategoryType.MEAL_KIT`)
+- Used by: Category pages, sitemap, navigation, filter parsing
+- Purpose: Deduplicate Prisma calls within a single render pass
+- Pattern: Every function in `src/lib/queries.ts` is wrapped in `cache()` — both `generateMetadata()` and the page component can call `getProviderBySlug()` for the same slug and only one DB round-trip happens
+- File marked `"server-only"` to prevent accidental client imports
+- Purpose: Client-side comparison selection state across the entire app
+- Location: `src/components/CompareProvider.tsx`
+- Pattern: `useSyncExternalStore` backed by `sessionStorage` for SSR-safe hydration; stable snapshot caching prevents infinite render loops; max 4 providers; exports `useCompare()` hook for child components
+- Purpose: Typed result objects for form state
+- Pattern: `{ success: boolean, message: string, errors: Record<string, string> }` from admin actions; `{ success: boolean, message: string, errors: ReviewFormErrors }` from review submission. Never throw to client.
 ## Entry Points
 - Location: `src/app/layout.tsx`
-- Triggers: Every page request (wraps all routes)
-- Responsibilities: HTML shell (`<html>`, `<body>`), Geist Sans and Geist Mono font loading via `next/font/google`, global CSS import (`globals.css`), antialiased text, flex column body for sticky footer pattern
+- Triggers: Every page request
+- Responsibilities: HTML shell, Geist Sans/Mono font loading, global CSS import, `CompareProvider` context wrapper, `Header`, `Footer`, `CompareBar`
 - Location: `src/app/page.tsx`
 - Triggers: Request to `/`
-- Responsibilities: Currently renders default Next.js create-next-app template. Will become homepage with hero section, featured providers, category cards, social proof, WebSite/Organization JSON-LD.
+- Responsibilities: Hero section, featured providers grid, category cards with counts, "How It Works", social proof stats, WebSite + Organization JSON-LD. Fetches `getFeaturedProviders()` and `getCategoryCounts()` in parallel.
+- Location: `src/app/[category]/page.tsx`
+- Triggers: Requests to `/{category-slug}` (e.g., `/meal-kits`, `/protein-boxes`)
+- Responsibilities: Filter parsing from URL, `getProvidersByCategory()`, provider grid, `CategoryFilters` sidebar, pagination, `ItemList` JSON-LD. Statically generated for all 5 category slugs.
+- Location: `src/app/providers/[slug]/page.tsx`
+- Triggers: Requests to `/providers/{slug}`
+- Responsibilities: Full provider page — hero, pricing table, dietary badges, pros/cons, reviews with rating breakdown, FAQ accordion, related providers, review form, affiliate link, `Product` JSON-LD. Statically generated for all active provider slugs.
+- Location: `src/app/compare/[versus]/page.tsx`
+- Triggers: Requests to `/compare/{slug-a}-vs-{slug-b}` (canonical, indexable)
+- Responsibilities: Two-provider comparison with structured URL, `ComparisonTable`, JSON-LD
+- Location: `src/app/compare/page.tsx`
+- Triggers: Requests to `/compare?providers=slug1,slug2,...`
+- Responsibilities: 2-4 provider comparison driven by search params, `noindex` robots directive
+- Location: `src/app/admin/page.tsx`
+- Triggers: Authenticated requests to `/admin`
+- Responsibilities: Stats overview (provider/review/blog/collection counts, affiliate click count, top affiliate providers by click volume)
 - Location: `src/lib/db.ts`
 - Triggers: First import in any server-side module
-- Responsibilities: Creates and caches PrismaClient with `PrismaPg` adapter connected to Neon via `DATABASE_URL`. Cached on `globalThis` in development to survive hot module replacement.
-- Location: `package.json` `"build"` script
-- Command: `prisma generate && next build`
-- Ensures Prisma client is regenerated before every production build
+- Responsibilities: Creates and caches `PrismaClient` with `PrismaPg` adapter for Neon. `globalThis` caching survives HMR in development.
 - Location: `src/proxy.ts`
 - Triggers: All incoming requests (Next.js 16 request interception)
-- Responsibilities: Check `ADMIN_SECRET` for `/admin/*` routes; pass through all other requests. Node.js runtime only.
+- Responsibilities: Passes through non-admin routes immediately. For `/admin/*` (except `/admin/login`), checks `admin_token` cookie equals `ADMIN_SECRET`. Redirects to `/admin/login` on mismatch.
+- Location: `src/app/api/affiliate/[providerId]/route.ts`
+- Triggers: GET requests to `/api/affiliate/{providerId}`
+- Responsibilities: Looks up provider, logs `AffiliateClick` asynchronously (fire-and-forget), redirects browser to `affiliateUrl` or `website`
+- Location: `src/app/sitemap.ts`
+- Triggers: `GET /sitemap.xml`
+- Responsibilities: Generates sitemap entries for all public routes (static pages, 5 category pages, all active provider slugs, all published collection slugs, all published blog post slugs)
 ## Error Handling
-- Call `notFound()` from `next/navigation` before any Suspense boundary for missing providers/content (ensures HTTP 404 status code)
-- `error.tsx` error boundaries on all route segments (must use `"use client"`)
-- `loading.tsx` streaming loading states with skeleton components
-- `not-found.tsx` with search bar and category suggestions
-- `global-error.tsx` for unrecoverable application errors
-- Server Actions return `{ success, errors }` objects -- never throw exceptions to the client
-- JSON-LD XSS prevention: `.replace(/</g, "\\u003c")` on all `JSON.stringify` output in structured data
+- `src/app/error.tsx`: Root-level error boundary (must be Client Component) with "Try again" / "Go to homepage" actions
+- `src/app/global-error.tsx`: Unrecoverable application error fallback
+- `src/app/not-found.tsx`: Custom 404 with search input and category links
+- `notFound()` from `next/navigation`: Called in page components when a slug returns `null` from the Query Layer — triggers HTTP 404 and renders `not-found.tsx`
+- Server Actions: Return `{ success: false, errors }` — never throw raw database errors to the client
+- Affiliate route: Falls back to homepage redirect if provider not found
+- Admin actions: Silently catch errors on delete operations (entity may already be deleted); rethrow `NEXT_REDIRECT` exceptions
 ## Cross-Cutting Concerns
-## Database Schema
-| Model | Purpose | Location in Schema |
-|-------|---------|-------------------|
-| `Provider` | Central entity: food box subscription service with slug, category, ratings, editorial content, SEO fields | `prisma/schema.prisma` line 63 |
-| `Plan` | Pricing plan per Provider with per-serving/per-week/per-box pricing, frequency, skip/cancel policies | `prisma/schema.prisma` line 114 |
-| `ProviderDietaryTag` | Join: Provider to DietaryTag enum. Unique on `[providerId, tag]` | `prisma/schema.prisma` line 151 |
-| `Review` | User-submitted review with 1-5 rating, moderation status (PENDING/APPROVED/REJECTED) | `prisma/schema.prisma` line 162 |
-| `ProviderFaq` | FAQ entries per provider with sortOrder | `prisma/schema.prisma` line 183 |
-| Model | Purpose | Location in Schema |
-|-------|---------|-------------------|
-| `BlogPost` | Editorial content with slug, body, status (DRAFT/PUBLISHED/ARCHIVED), SEO fields | `prisma/schema.prisma` line 200 |
-| `Collection` | Curated "best of" lists with editorial body content | `prisma/schema.prisma` line 223 |
-| `CollectionItem` | Join: Collection to Provider with sortOrder and editorial note | `prisma/schema.prisma` line 246 |
-| Model | Purpose | Location in Schema |
-|-------|---------|-------------------|
-| `AffiliateClick` | Tracks affiliate link clicks with source, referrer, hashed IP for dedup | `prisma/schema.prisma` line 262 |
-- `CategoryType`: MEAL_KIT, PREPARED_MEAL, PROTEIN_BOX, PRODUCE_BOX, SPECIALTY
-- `DietaryTag`: 16 values (VEGAN, VEGETARIAN, PESCATARIAN, KETO, PALEO, GLUTEN_FREE, DAIRY_FREE, NUT_FREE, LOW_CARB, LOW_SODIUM, ORGANIC, HALAL, KOSHER, DIABETIC_FRIENDLY, WHOLE30, MEDITERRANEAN)
-- `PlanFrequency`: WEEKLY, BIWEEKLY, MONTHLY, FLEXIBLE
-- `ReviewStatus`: PENDING, APPROVED, REJECTED
-- `ContentStatus`: DRAFT, PUBLISHED, ARCHIVED
-- `Provider`: `[category]`, `[featured]`, `[active]`, `[averageRating]` (planned composite: `[category, active, averageRating]`)
-- `Plan`: `[providerId]`, `[pricePerServing]`
-- `Review`: `[providerId]`, `[status]`, `[rating]`
-- `BlogPost`: `[status]`, `[publishedAt]`
-- `ProviderDietaryTag`: `[tag]`, unique `[providerId, tag]`
-- `AffiliateClick`: `[providerId]`, `[createdAt]`
-- `Collection`: `[status]`
-- `CollectionItem`: `[collectionId]`, unique `[collectionId, providerId]`
-## Planned Route Structure
-```
-```
-## Caching Strategy
-| Page Type | Strategy | Revalidation Trigger |
-|-----------|----------|---------------------|
-| Homepage | `revalidate = 3600` (1 hour) + on-demand | `revalidatePath("/")` from admin actions |
-| Category Listing | `revalidate = 3600` + on-demand | `revalidatePath("/${category}")` from admin actions |
-| Provider Detail | `generateStaticParams` + on-demand | `revalidatePath("/providers/${slug}")` from admin actions |
-| Collection/Best-Of | `generateStaticParams` + on-demand | `revalidatePath("/best/${slug}")` from admin actions |
-| Blog Post | `generateStaticParams` + on-demand | `revalidatePath("/blog/${slug}")` from admin actions |
-| SEO Comparison | `generateStaticParams` + on-demand | `revalidatePath("/compare/${slugs}")` from admin actions |
-| Flexible Comparison | Dynamic (noindex, unique per request) | No caching needed |
-| Search | Dynamic (depends on query) | No caching needed |
-| Admin pages | Dynamic (always fresh) | No caching needed |
 <!-- GSD:architecture-end -->
 
 <!-- GSD:workflow-start source:GSD defaults -->
