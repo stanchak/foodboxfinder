@@ -100,9 +100,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Admin
 
-- [ ] **ADMIN-01**: Admin dashboard showing provider count, category breakdown, review stats, click stats
+- [x] **ADMIN-01**: Admin dashboard showing provider count, category breakdown, review stats, click stats
 - [ ] **ADMIN-02**: Admin CRUD for providers including new schema fields (modelType, prepStyle, valueTier, etc.)
-- [ ] **ADMIN-03**: Admin provider list with search, sort, and status filtering
+- [x] **ADMIN-03**: Admin provider list with search, sort, and status filtering
 - [ ] **ADMIN-04**: On-demand revalidation from admin mutations (revalidatePath for affected pages)
 
 ### Affiliate Tracking
@@ -228,9 +228,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COLL-01 | Phase 9 | Complete |
 | COLL-02 | Phase 9 | Complete |
 | COLL-03 | Phase 9 | Complete |
-| ADMIN-01 | Phase 10 | Pending |
+| ADMIN-01 | Phase 10 | Complete |
 | ADMIN-02 | Phase 10 | Pending |
-| ADMIN-03 | Phase 10 | Pending |
+| ADMIN-03 | Phase 10 | Complete |
 | ADMIN-04 | Phase 10 | Pending |
 | AFF-01 | Phase 4 | Complete |
 | AFF-02 | Phase 4 | Complete |
