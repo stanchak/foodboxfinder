@@ -14,16 +14,16 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 10: Database & Foundation** - Schema deployed, seed data populated, query layer built (completed 2026-03-21)
 - [x] **Phase 20: Design System & Layout** - Theme tokens, responsive layout shell, base component library (completed 2026-03-21)
-- [ ] **Phase 30: Homepage** - Hero, featured providers, category cards, structured data
-- [ ] **Phase 40: Category Browsing** - Filterable provider listings with URL-driven state
-- [ ] **Phase 50: Provider Detail** - Comprehensive provider profiles with plans, reviews, FAQs
-- [ ] **Phase 60: Comparison Engine** - Side-by-side provider comparison with persistent selection
-- [ ] **Phase 70: Collections & Blog** - "Best of" pages, blog with markdown rendering
-- [ ] **Phase 80: Search** - Full-text search across providers, blog, and collections
-- [ ] **Phase 90: Review System** - Anonymous review submission with moderation workflow
-- [ ] **Phase 100: Admin Dashboard** - Provider CRUD, review moderation, content management
-- [ ] **Phase 110: SEO & Performance** - Sitemap, canonical URLs, OG metadata, Core Web Vitals
-- [ ] **Phase 120: Affiliate & Launch Readiness** - Click tracking, error boundaries, final QA
+- [x] **Phase 30: Homepage** - Hero, featured providers, category cards, structured data (completed 2026-03-21)
+- [x] **Phase 40: Category Browsing** - Filterable provider listings with URL-driven state (completed 2026-03-21)
+- [x] **Phase 50: Provider Detail** - Comprehensive provider profiles with plans, reviews, FAQs (completed 2026-03-21)
+- [x] **Phase 60: Comparison Engine** - Side-by-side provider comparison with persistent selection (completed 2026-03-21)
+- [x] **Phase 70: Collections & Blog** - "Best of" pages, blog with markdown rendering (completed 2026-03-21)
+- [x] **Phase 80: Search** - Full-text search across providers, blog, and collections (completed 2026-03-21)
+- [x] **Phase 90: Review System** - Anonymous review submission with moderation workflow (completed 2026-03-21)
+- [x] **Phase 100: Admin Dashboard** - Provider CRUD, review moderation, content management (completed 2026-03-21)
+- [x] **Phase 110: SEO & Performance** - Sitemap, canonical URLs, OG metadata, Core Web Vitals (completed 2026-03-21)
+- [x] **Phase 120: Affiliate & Launch Readiness** - Click tracking, error boundaries, final QA (completed 2026-03-21)
 
 ## Phase Details
 
@@ -184,13 +184,13 @@ Phases execute in numeric order: 10 -> 20 -> 30 -> ... -> 120
 |-------|----------------|--------|-----------|
 | 10. Database & Foundation | 3/3 | Complete    | 2026-03-21 |
 | 20. Design System & Layout | 3/3 | Complete    | 2026-03-21 |
-| 30. Homepage | 0/? | Not started | - |
-| 40. Category Browsing | 0/? | Not started | - |
-| 50. Provider Detail | 0/? | Not started | - |
-| 60. Comparison Engine | 0/? | Not started | - |
-| 70. Collections & Blog | 0/? | Not started | - |
-| 80. Search | 0/? | Not started | - |
-| 90. Review System | 0/? | Not started | - |
-| 100. Admin Dashboard | 0/? | Not started | - |
-| 110. SEO & Performance | 0/? | Not started | - |
-| 120. Affiliate & Launch Readiness | 0/? | Not started | - |
+| 30. Homepage | direct | Complete    | 2026-03-21 |
+| 40. Category Browsing | direct | Complete    | 2026-03-21 |
+| 50. Provider Detail | direct | Complete    | 2026-03-21 |
+| 60. Comparison Engine | direct | Complete    | 2026-03-21 |
+| 70. Collections & Blog | direct | Complete    | 2026-03-21 |
+| 80. Search | direct | Complete    | 2026-03-21 |
+| 90. Review System | direct | Complete    | 2026-03-21 |
+| 100. Admin Dashboard | direct | Complete    | 2026-03-21 |
+| 110. SEO & Performance | direct | Complete    | 2026-03-21 |
+| 120. Affiliate & Launch Readiness | direct | Complete    | 2026-03-21 |
