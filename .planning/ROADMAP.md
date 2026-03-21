@@ -51,11 +51,11 @@ Plans:
   2. The filter parsing module (src/lib/filters.ts) accepts raw URL search params and returns a typed, validated filter object with safe defaults for all 9 filter dimensions
   3. Invalid or malicious filter values silently fall back to defaults without errors
   4. The queries module is split into logical files if it exceeds 300 lines
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md -- Create filter parsing module (src/lib/filters.ts) with typed ProviderFilters, known value groups, and parseProviderFilters; split queries.ts into domain files (providers, content, admin) with barrel re-export
+- [ ] 02-02-PLAN.md -- Add getFilteredProviders query with 9-dimension null-aware filtering using ProviderFilters type and Prisma AND composition
 
 ### Phase 3: Provider Logos
 **Goal**: Provider logos render consistently with appropriate fallbacks everywhere a provider is displayed
