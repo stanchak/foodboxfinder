@@ -1,6 +1,6 @@
 ---
 phase: 20-design-system-layout
-verified: 2026-03-21T04:30:00Z
+verified: 2026-03-21T04:45:00Z
 status: passed
 score: 3/3 must-haves verified
 re_verification: false
@@ -9,7 +9,7 @@ re_verification: false
 # Phase 20: Design System & Layout Verification Report
 
 **Phase Goal:** Every subsequent page can be built with consistent, responsive components inside a complete layout shell
-**Verified:** 2026-03-21T04:30:00Z
+**Verified:** 2026-03-21T04:45:00Z
 **Status:** passed
 **Re-verification:** No -- initial verification
 
@@ -21,7 +21,7 @@ re_verification: false
 |---|-------|--------|----------|
 | 1 | A branded Tailwind theme with defined colors, typography scale, and spacing tokens is applied site-wide | VERIFIED | `globals.css` contains `@theme` block with primary-50 through primary-950 (11 stops), accent-50 through accent-950 (11 stops), star/star-empty colors, 3 shadows, 4 radii. OKLCH color space. `@theme inline` maps fonts. `:root` sets background/foreground. No dark mode media query. No Arial font override. `page.tsx` uses `text-primary-700` proving theme tokens generate valid utilities. |
 | 2 | The root layout renders a responsive header (logo, navigation, mobile hamburger) and footer from 375px through 1440px | VERIFIED | `layout.tsx` imports and renders `<Header />` + `<main className="flex-1">{children}</main>` + `<Footer />`. Header has sticky positioning, logo link, 5 category nav links (desktop via `hidden lg:flex`), search placeholder, and `<MobileNav />` client island. MobileNav has hamburger (`lg:hidden`), slide-out drawer with backdrop, aria-label, aria-expanded. Footer has 4-column grid (`grid-cols-2 md:grid-cols-4`). All use `max-w-7xl` with responsive padding. |
-| 3 | Base components (Button, Card, Badge, Input, Select, Rating stars, loading skeletons) render correctly and are importable from `src/components/` | VERIFIED | All 7 files exist: Button.tsx (3 variants, 3 sizes, rounded-lg, disabled states), Card.tsx (shadow-card, hover:shadow-card-hover, optional href Link), Badge.tsx (3 color variants, rounded-full, ring-inset), Input.tsx (label, focus ring, primary-500 focus), Select.tsx (label, options, placeholder), RatingStars.tsx (SVG stars with full/half/empty, linearGradient, aria-label, role="img"), Skeleton.tsx (8 variants, animate-pulse, aria-hidden). All are Server Components (only MobileNav has "use client"). All use Readonly<{}> prop pattern. |
+| 3 | Base components (Button, Card, Badge, Input, Select, Rating stars, loading skeletons) render correctly and are importable from `src/components/` | VERIFIED | All 7 files exist: Button.tsx (3 variants, 3 sizes, rounded-lg, disabled states), Card.tsx (shadow-card, hover:shadow-card-hover, optional href Link), Badge.tsx (3 color variants, rounded-full, ring-inset), Input.tsx (label, focus ring, primary-500 focus), Select.tsx (label, options, placeholder), RatingStars.tsx (SVG stars with full/half/empty, linearGradient, aria-label, role="img"), Skeleton.tsx (8 variants, animate-pulse, aria-hidden). All are Server Components (only MobileNav has "use client"). All use Readonly props pattern. |
 
 **Score:** 3/3 truths verified
 
@@ -64,8 +64,8 @@ re_verification: false
 
 | Requirement | Source Plan | Description | Status | Evidence |
 |-------------|------------|-------------|--------|----------|
-| DS-01 | 20-01-PLAN | Tailwind CSS 4 theme with brand colors, typography scale, and spacing tokens | SATISFIED | `globals.css` has complete `@theme` block with 22 color tokens (primary 50-950, accent 50-950), star colors, 3 shadows, 4 radii, and font tokens. OKLCH color space. |
-| DS-02 | 20-02-PLAN | Responsive root layout with header (logo, nav, mobile hamburger) and footer | SATISFIED | `layout.tsx` renders Header + main + Footer. Header is sticky with desktop nav and MobileNav. Footer has 4 columns. Responsive from 375px (mobile) to 1440px (desktop). |
+| DS-01 | 20-01-PLAN | Tailwind CSS 4 theme with brand colors, typography scale, and spacing tokens | SATISFIED | `globals.css` has complete `@theme` block with 22 color tokens (primary 50-950, accent 50-950), star colors, 3 shadows, 4 radii, and font tokens via `@theme inline`. OKLCH color space. |
+| DS-02 | 20-02-PLAN | Responsive root layout with header (logo, nav, mobile hamburger) and footer | SATISFIED | `layout.tsx` renders Header + main + Footer. Header is sticky with desktop nav (5 categories) and MobileNav client island (hamburger + drawer). Footer has 4 columns. Responsive from 375px to 1440px. |
 | DS-03 | 20-03-PLAN | Base component library: Button, Card, Badge, Input, Select, Rating stars, loading skeletons | SATISFIED | All 7 components exist in `src/components/` with typed props, theme token usage, and variant support. All are Server Components. |
 
 No orphaned requirements found -- REQUIREMENTS.md maps DS-01, DS-02, DS-03 to Phase 20, and all three are claimed by plans 20-01, 20-02, 20-03 respectively.
@@ -88,7 +88,7 @@ No anti-patterns detected. No TODO/FIXME/HACK comments. No empty implementations
 
 #### 2. Mobile Navigation Drawer Behavior
 
-**Test:** At mobile width, tap hamburger icon to open drawer, tap a nav link
+**Test:** At mobile width, tap hamburger icon to open drawer, then tap a nav link
 **Expected:** Drawer slides in from right with backdrop overlay. Tapping a link closes drawer and navigates. Tapping backdrop closes drawer. Close button works.
 **Why human:** Interactive state behavior (useState toggle, CSS transitions, click handlers) requires runtime testing.
 
@@ -106,11 +106,17 @@ No anti-patterns detected. No TODO/FIXME/HACK comments. No empty implementations
 
 ### Gaps Summary
 
-No gaps found. All 3 success criteria verified. All 14 artifacts exist and are substantive. All 11 key links are wired. All 3 requirements (DS-01, DS-02, DS-03) are satisfied. No anti-patterns detected. All 6 commit hashes from summaries verified in git log.
+No gaps found. All 3 success criteria from the ROADMAP are verified:
 
-The 7 base components (Button, Card, Badge, Input, Select, RatingStars, Skeleton) are not imported by any page yet -- this is by design. They are a component library built for consumption starting in Phase 30 (homepage) and subsequent phases.
+1. Branded Tailwind theme with complete color palettes, shadows, and radii is defined and generates valid utility classes.
+2. Root layout renders responsive header (sticky, logo, 5 category nav links desktop, hamburger mobile) and footer (4-column grid) wrapping every page.
+3. All 7 base components exist with substantive implementations, typed props, theme token usage, and are importable from `src/components/`.
+
+All 6 commit hashes from summaries verified in git log (88e5092, 1676a18, cc3c2ca, ce72e59, cb37b2b, 153c1cf). All 14 artifacts pass existence, substance, and wiring checks. All 3 requirements (DS-01, DS-02, DS-03) satisfied. No orphaned requirements.
+
+The 7 base components (Button, Card, Badge, Input, Select, RatingStars, Skeleton) are not imported by any page yet -- this is by design. They are a component library built for consumption starting in Phase 30 (Homepage) and subsequent phases.
 
 ---
 
-_Verified: 2026-03-21T04:30:00Z_
+_Verified: 2026-03-21T04:45:00Z_
 _Verifier: Claude (gsd-verifier)_
