@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-21T23:05:05.174Z"
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-03-21T23:13:10.390Z"
 progress:
   total_phases: 11
-  completed_phases: 5
-  total_plans: 8
-  completed_plans: 8
+  completed_phases: 6
+  total_plans: 9
+  completed_plans: 9
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-21)
 
 **Core value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences -- with transparent criteria and visual brand identity.
-**Current focus:** Phase 05 — Category Browsing and Filtering
+**Current focus:** Phase 06 — Homepage
 
 ## Current Position
 
-Phase: 6
-Plan: Not started
+Phase: 06 (Homepage) — EXECUTING
+Plan: 1 of 1
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Plan: Not started
 | Phase 04 P01 | 3min | 2 tasks | 2 files |
 | Phase 05 P02 | 2min | 2 tasks | 3 files |
 | Phase 05 P01 | 4min | 1 tasks | 4 files |
+| Phase 06 P01 | 1min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,8 @@ Recent decisions affecting current work:
 - [Phase 05]: Passed category slug as search param to parseProviderFilters -- unifies filter parsing in one call
 - [Phase 05]: ActiveFilterChips added as named export in CategoryFilters.tsx -- shares URL-driven state pattern
 - [Phase 05]: Extracted client-safe filter constants to filter-constants.ts to avoid server-only guard
+- [Phase 06]: Show real review count (0) instead of misleading 500+ fallback -- honesty over impression
+- [Phase 06]: XSS-safe JSON-LD pattern (.replace(/</g, '\u003c')) now consistent across all public pages
 
 ### Pending Todos
 
@@ -92,6 +95,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T23:04:14.635Z
-Stopped at: Completed 05-01-PLAN.md
+Last session: 2026-03-21T23:13:10.388Z
+Stopped at: Completed 06-01-PLAN.md
 Resume file: None

@@ -117,7 +117,7 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 06-01-PLAN.md -- Fix XSS-unsafe JSON-LD and misleading social proof stats; verify homepage renders correctly with seeded data
+- [x] 06-01-PLAN.md -- Fix XSS-unsafe JSON-LD and misleading social proof stats; verify homepage renders correctly with seeded data
 
 ### Phase 7: Side-by-Side Comparison
 **Goal**: Users can select 2-3 providers and compare them side-by-side with all relevant attributes in a shareable URL

@@ -24,11 +24,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Homepage
 
-- [ ] **HOME-01**: Homepage with hero section communicating the value proposition
-- [ ] **HOME-02**: Featured providers section showing editorially-selected providers with cards
-- [ ] **HOME-03**: Category cards linking to each of 5 category hub pages
-- [ ] **HOME-04**: Social proof / trust signals section
-- [ ] **HOME-05**: Homepage metadata (title, description) and WebSite + Organization JSON-LD
+- [x] **HOME-01**: Homepage with hero section communicating the value proposition
+- [x] **HOME-02**: Featured providers section showing editorially-selected providers with cards
+- [x] **HOME-03**: Category cards linking to each of 5 category hub pages
+- [x] **HOME-04**: Social proof / trust signals section
+- [x] **HOME-05**: Homepage metadata (title, description) and WebSite + Organization JSON-LD
 
 ### Category Browsing
 
@@ -179,11 +179,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LOGO-02 | Phase 3 | Complete |
 | LOGO-03 | Phase 3 | Complete |
 | LOGO-04 | Phase 3 | Complete |
-| HOME-01 | Phase 6 | Pending |
-| HOME-02 | Phase 6 | Pending |
-| HOME-03 | Phase 6 | Pending |
-| HOME-04 | Phase 6 | Pending |
-| HOME-05 | Phase 6 | Pending |
+| HOME-01 | Phase 6 | Complete |
+| HOME-02 | Phase 6 | Complete |
+| HOME-03 | Phase 6 | Complete |
+| HOME-04 | Phase 6 | Complete |
+| HOME-05 | Phase 6 | Complete |
 | CAT-01 | Phase 5 | Complete |
 | CAT-02 | Phase 5 | Complete |
 | CAT-03 | Phase 5 | Complete |
