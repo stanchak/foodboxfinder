@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CATEGORY_NAV_ITEMS } from "@/lib/categories";
 import MobileNav from "@/components/MobileNav";
+import HeaderSearchForm from "@/components/HeaderSearchForm";
 
 export default function Header() {
   return (
@@ -23,27 +24,10 @@ export default function Header() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
-            <Link
-              href="/search"
-              className="hidden sm:flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-              Search...
-            </Link>
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:block">
+              <HeaderSearchForm />
+            </div>
 
             <MobileNav />
           </div>

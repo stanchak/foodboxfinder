@@ -3,6 +3,8 @@ import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import providers from "./seed-data/providers";
 import { recalculateProviderPricing } from "./seed-data/helpers";
+import { seedCollections } from "./seed-data/collections";
+import { seedBlogPosts } from "./seed-data/blog-posts";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter });
@@ -40,12 +42,23 @@ async function main() {
   }
   console.log("");
 
+  // Seed collections (must run after providers exist)
+  await seedCollections(prisma);
+  console.log("");
+
+  // Seed blog posts
+  await seedBlogPosts(prisma);
+  console.log("");
+
   // Print summary stats
   const providerCount = await prisma.provider.count();
   const planCount = await prisma.plan.count();
   const reviewCount = await prisma.review.count();
   const tagCount = await prisma.providerDietaryTag.count();
   const faqCount = await prisma.providerFaq.count();
+  const collectionCount = await prisma.collection.count();
+  const collectionItemCount = await prisma.collectionItem.count();
+  const blogPostCount = await prisma.blogPost.count();
 
   const categoryCounts = await prisma.provider.groupBy({
     by: ["category"],
@@ -58,6 +71,8 @@ async function main() {
   console.log(`Reviews: ${reviewCount}`);
   console.log(`Dietary Tags: ${tagCount}`);
   console.log(`FAQs: ${faqCount}`);
+  console.log(`Collections: ${collectionCount} (${collectionItemCount} items)`);
+  console.log(`Blog Posts: ${blogPostCount}`);
   console.log("\nProviders per category:");
   for (const group of categoryCounts) {
     console.log(`  ${group.category}: ${group._count}`);

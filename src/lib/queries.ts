@@ -137,6 +137,49 @@ export const searchProviders = cache(async (query: string) => {
   });
 });
 
+export const searchBlogPosts = cache(async (query: string) => {
+  return prisma.blogPost.findMany({
+    where: {
+      status: "PUBLISHED",
+      OR: [
+        { title: { contains: query, mode: "insensitive" } },
+        { excerpt: { contains: query, mode: "insensitive" } },
+      ],
+    },
+    select: {
+      title: true,
+      slug: true,
+      excerpt: true,
+      publishedAt: true,
+      coverImageUrl: true,
+      author: true,
+    },
+    orderBy: { publishedAt: "desc" },
+    take: 10,
+  });
+});
+
+export const searchCollections = cache(async (query: string) => {
+  return prisma.collection.findMany({
+    where: {
+      status: "PUBLISHED",
+      OR: [
+        { title: { contains: query, mode: "insensitive" } },
+        { description: { contains: query, mode: "insensitive" } },
+      ],
+    },
+    select: {
+      title: true,
+      slug: true,
+      description: true,
+      coverImageUrl: true,
+      _count: { select: { items: true } },
+    },
+    orderBy: { publishedAt: "desc" },
+    take: 10,
+  });
+});
+
 // -- SEO / Static Generation --
 
 export const getAllProviderSlugs = cache(async () => {
@@ -177,6 +220,39 @@ export const getAdminStats = cache(async () => {
   return { providerCount, reviewCount, pendingReviewCount, affiliateClickCount };
 });
 
+// -- Affiliate Analytics --
+
+export const getTopAffiliateProviders = cache(
+  async (days: number = 30, limit: number = 5) => {
+    const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+
+    const clickGroups = await prisma.affiliateClick.groupBy({
+      by: ["providerId"],
+      where: { createdAt: { gte: since } },
+      _count: { id: true },
+      orderBy: { _count: { id: "desc" } },
+      take: limit,
+    });
+
+    if (clickGroups.length === 0) return [];
+
+    const providerIds = clickGroups.map((g) => g.providerId);
+
+    const providers = await prisma.provider.findMany({
+      where: { id: { in: providerIds } },
+      select: { id: true, name: true, slug: true, logoUrl: true },
+    });
+
+    const providerMap = new Map(providers.map((p) => [p.id, p]));
+
+    return clickGroups.map((group) => ({
+      providerId: group.providerId,
+      clickCount: group._count.id,
+      provider: providerMap.get(group.providerId) ?? null,
+    }));
+  },
+);
+
 // -- Review Stats (Phase 90) --
 
 export const getProviderReviewStats = cache(async (providerId: string) => {
@@ -184,5 +260,76 @@ export const getProviderReviewStats = cache(async (providerId: string) => {
     by: ["rating"],
     where: { providerId, status: "APPROVED" },
     _count: true,
+  });
+});
+
+// -- Collections (Phase 70) --
+
+export const getPublishedCollections = cache(async () => {
+  return prisma.collection.findMany({
+    where: { status: "PUBLISHED" },
+    orderBy: { publishedAt: "desc" },
+    include: {
+      _count: { select: { items: true } },
+    },
+  });
+});
+
+export const getCollectionBySlug = cache(async (slug: string) => {
+  return prisma.collection.findUnique({
+    where: { slug, status: "PUBLISHED" },
+    include: {
+      items: {
+        orderBy: { sortOrder: "asc" },
+        include: {
+          provider: {
+            include: {
+              dietaryTags: true,
+              plans: { where: { active: true, featured: true }, take: 1 },
+            },
+          },
+        },
+      },
+    },
+  });
+});
+
+export const getAllCollectionSlugs = cache(async () => {
+  return prisma.collection.findMany({
+    where: { status: "PUBLISHED" },
+    select: { slug: true },
+  });
+});
+
+// -- Blog (Phase 70) --
+
+export const getPublishedBlogPosts = cache(
+  async (page: number = 1, pageSize: number = 12) => {
+    const where = { status: "PUBLISHED" as const };
+
+    const [posts, total] = await Promise.all([
+      prisma.blogPost.findMany({
+        where,
+        orderBy: { publishedAt: "desc" },
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+      }),
+      prisma.blogPost.count({ where }),
+    ]);
+
+    return { posts, total, page, pageSize };
+  },
+);
+
+export const getBlogPostBySlug = cache(async (slug: string) => {
+  return prisma.blogPost.findUnique({
+    where: { slug, status: "PUBLISHED" },
+  });
+});
+
+export const getAllBlogPostSlugs = cache(async () => {
+  return prisma.blogPost.findMany({
+    where: { status: "PUBLISHED" },
+    select: { slug: true },
   });
 });
