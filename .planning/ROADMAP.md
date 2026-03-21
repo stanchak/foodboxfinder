@@ -50,7 +50,11 @@ Plans:
   1. A branded Tailwind theme with defined colors, typography scale, and spacing tokens is applied site-wide
   2. The root layout renders a responsive header (logo, navigation, mobile hamburger) and footer from 375px through 1440px
   3. Base components (Button, Card, Badge, Input, Select, Rating stars, loading skeletons) render correctly and are importable from `src/components/`
-**Plans**: TBD
+**Plans:** 3 plans
+Plans:
+- [ ] 20-01-PLAN.md -- Tailwind CSS 4 theme tokens (brand colors, shadows, radii), category mapping utility, dark mode cleanup
+- [ ] 20-02-PLAN.md -- Responsive layout shell (Header, MobileNav, Footer) and root layout refactor
+- [ ] 20-03-PLAN.md -- Base component library (Button, Card, Badge, Input, Select, RatingStars, Skeleton)
 
 ### Phase 30: Homepage
 **Goal**: A visitor landing on the site immediately understands the value proposition and can navigate to any category or featured provider
@@ -179,7 +183,7 @@ Phases execute in numeric order: 10 -> 20 -> 30 -> ... -> 120
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 10. Database & Foundation | 3/3 | Complete    | 2026-03-21 |
-| 20. Design System & Layout | 0/? | Not started | - |
+| 20. Design System & Layout | 0/3 | Planned | - |
 | 30. Homepage | 0/? | Not started | - |
 | 40. Category Browsing | 0/? | Not started | - |
 | 50. Provider Detail | 0/? | Not started | - |
