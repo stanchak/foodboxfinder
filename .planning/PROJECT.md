@@ -25,7 +25,6 @@ Consumers can quickly discover and compare food box subscriptions that match the
 ### Active
 
 - [ ] Beautiful, responsive homepage with hero, featured providers, category cards
-- [ ] Beautiful, responsive homepage with hero, featured providers, category cards
 - [ ] Filterable category listing pages with URL-driven state (5 categories)
 - [ ] Comprehensive provider detail pages with plans, pricing, reviews, FAQs
 - [ ] Side-by-side comparison tool for 2-4 providers
