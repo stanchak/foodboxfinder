@@ -84,7 +84,7 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 04-01-PLAN.md -- Add new provider field sections (prepStyle, valueTier, householdFit, modelType, geography, flexibility, shippingNotes, status badge) and fix JSON-LD XSS safety on detail page and Breadcrumbs
+- [x] 04-01-PLAN.md -- Add new provider field sections (prepStyle, valueTier, householdFit, modelType, geography, flexibility, shippingNotes, status badge) and fix JSON-LD XSS safety on detail page and Breadcrumbs
 
 ### Phase 5: Category Browsing and Filtering
 **Goal**: Users can browse providers by category and narrow results using composable multi-criteria filters with shareable URLs

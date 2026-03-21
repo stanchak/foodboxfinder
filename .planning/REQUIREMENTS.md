@@ -39,13 +39,13 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Provider Detail
 
-- [ ] **DETAIL-01**: Provider detail page at /providers/[slug] with full provider information
-- [ ] **DETAIL-02**: Detail page shows: logo, name, summary, pros/cons, dietary tags, prep style, value tier, flexibility, shipping info, geography
-- [ ] **DETAIL-03**: Plans/pricing section showing available plans with per-serving and per-box pricing
-- [ ] **DETAIL-04**: FAQ section on detail page rendered from ProviderFaq model
-- [ ] **DETAIL-05**: "Visit Site" CTA button with affiliate click tracking
-- [ ] **DETAIL-06**: Detail page metadata (title, description) and Product JSON-LD structured data
-- [ ] **DETAIL-07**: Breadcrumb navigation on detail pages
+- [x] **DETAIL-01**: Provider detail page at /providers/[slug] with full provider information
+- [x] **DETAIL-02**: Detail page shows: logo, name, summary, pros/cons, dietary tags, prep style, value tier, flexibility, shipping info, geography
+- [x] **DETAIL-03**: Plans/pricing section showing available plans with per-serving and per-box pricing
+- [x] **DETAIL-04**: FAQ section on detail page rendered from ProviderFaq model
+- [x] **DETAIL-05**: "Visit Site" CTA button with affiliate click tracking
+- [x] **DETAIL-06**: Detail page metadata (title, description) and Product JSON-LD structured data
+- [x] **DETAIL-07**: Breadcrumb navigation on detail pages
 
 ### Multi-Criteria Filtering
 
@@ -107,8 +107,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Affiliate Tracking
 
-- [ ] **AFF-01**: Affiliate click tracking on all outbound provider links (record to AffiliateClick model)
-- [ ] **AFF-02**: Click tracking captures: providerId, source page, referrer, hashed IP for dedup
+- [x] **AFF-01**: Affiliate click tracking on all outbound provider links (record to AffiliateClick model)
+- [x] **AFF-02**: Click tracking captures: providerId, source page, referrer, hashed IP for dedup
 
 ### Error Handling and UX
 
@@ -188,13 +188,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CAT-02 | Phase 5 | Pending |
 | CAT-03 | Phase 5 | Pending |
 | CAT-04 | Phase 5 | Pending |
-| DETAIL-01 | Phase 4 | Pending |
-| DETAIL-02 | Phase 4 | Pending |
-| DETAIL-03 | Phase 4 | Pending |
-| DETAIL-04 | Phase 4 | Pending |
-| DETAIL-05 | Phase 4 | Pending |
-| DETAIL-06 | Phase 4 | Pending |
-| DETAIL-07 | Phase 4 | Pending |
+| DETAIL-01 | Phase 4 | Complete |
+| DETAIL-02 | Phase 4 | Complete |
+| DETAIL-03 | Phase 4 | Complete |
+| DETAIL-04 | Phase 4 | Complete |
+| DETAIL-05 | Phase 4 | Complete |
+| DETAIL-06 | Phase 4 | Complete |
+| DETAIL-07 | Phase 4 | Complete |
 | FILTER-01 | Phase 2 | Complete |
 | FILTER-02 | Phase 5 | Pending |
 | FILTER-03 | Phase 5 | Pending |
@@ -232,8 +232,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ADMIN-02 | Phase 10 | Pending |
 | ADMIN-03 | Phase 10 | Pending |
 | ADMIN-04 | Phase 10 | Pending |
-| AFF-01 | Phase 4 | Pending |
-| AFF-02 | Phase 4 | Pending |
+| AFF-01 | Phase 4 | Complete |
+| AFF-02 | Phase 4 | Complete |
 | UX-01 | Phase 11 | Pending |
 | UX-02 | Phase 11 | Pending |
 | UX-03 | Phase 11 | Pending |
