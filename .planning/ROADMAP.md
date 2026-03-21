@@ -114,10 +114,10 @@ Plans:
   3. Category cards for all 5 categories link to their respective hub pages
   4. A social proof / trust signals section establishes credibility
   5. The page has title/description metadata and WebSite + Organization JSON-LD
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 06-01: TBD
+- [ ] 06-01-PLAN.md -- Fix XSS-unsafe JSON-LD and misleading social proof stats; verify homepage renders correctly with seeded data
 
 ### Phase 7: Side-by-Side Comparison
 **Goal**: Users can select 2-3 providers and compare them side-by-side with all relevant attributes in a shareable URL
