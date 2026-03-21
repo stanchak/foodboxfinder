@@ -17,8 +17,16 @@ export interface ProviderCardData {
   maxPricePerServingCents: number | null;
   freeShipping: boolean;
   category: CategoryType;
+  valueTier: string | null;
   dietaryTags: Array<{ tag: DietaryTag }>;
 }
+
+const VALUE_TIER_LABELS: Record<string, string> = {
+  BUDGET: "Budget",
+  MID: "Mid-Range",
+  PREMIUM: "Premium",
+  LUXURY: "Luxury",
+};
 
 function formatDietaryLabel(tag: DietaryTag): string {
   return tag
@@ -57,10 +65,17 @@ export default function ProviderCard({
 
         {/* Content */}
         <div className="p-4">
-          {/* Category badge */}
-          <Badge color="category" className="mb-2">
-            {categoryInfo.label}
-          </Badge>
+          {/* Category and value tier badges */}
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            <Badge color="category">
+              {categoryInfo.label}
+            </Badge>
+            {provider.valueTier && VALUE_TIER_LABELS[provider.valueTier] && (
+              <Badge color="default">
+                {VALUE_TIER_LABELS[provider.valueTier]}
+              </Badge>
+            )}
+          </div>
 
           {/* Provider name */}
           <h3 className="text-lg font-semibold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-1">
