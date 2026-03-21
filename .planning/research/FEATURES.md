@@ -1,212 +1,197 @@
 # Feature Landscape
 
-**Domain:** Food box subscription comparison/discovery site
-**Researched:** 2026-03-20
-**Overall confidence:** MEDIUM (based on training data knowledge of competitor sites: MealFinds, Top10, Wirecutter, CNET, AllRecipes, MSN Food, and niche comparison sites; cross-referenced with project's existing UX-STRATEGY.md, SEO-STRATEGY.md, and ROADMAP.md; no live competitor scraping performed)
+**Domain:** Food subscription discovery and comparison platform (Kayak-like model)
+**Researched:** 2026-03-21
+**Overall confidence:** MEDIUM (grounded in project research corpus + training data knowledge of comparison platforms; web search and web fetch were unavailable for live competitor verification)
 
----
+## Reference Platforms Analyzed
+
+The feature analysis draws from these platform archetypes:
+
+- **Kayak / Google Flights** -- multi-criteria filtering, instant sort/filter, compare shortlist, shareable URLs, price signals
+- **NerdWallet** -- category hubs, editorial reviews, side-by-side comparison tables, "best of" curated lists, recommendation quizzes, star ratings, pros/cons
+- **WireCutter (NYT)** -- opinionated editorial picks, "best for X" structure, detailed reviews with structured data, transparent methodology
+- **MealFinds** -- meal kit directory, category filtering, coupon/deal aggregation, provider detail pages
+- **Top10.com** -- numbered ranked lists, quick comparison tables, brief reviews, strong SEO structure
+- **The Points Guy** -- card comparison tables, editorial scoring, affiliate-first design, category landing pages
 
 ## Table Stakes
 
-Features users expect on any food subscription comparison site. Missing any of these and the site feels incomplete, untrustworthy, or unusable. Users will bounce.
+Features users expect. Missing any of these and the product feels incomplete or untrustworthy for a comparison/discovery site.
 
 | Feature | Why Expected | Complexity | Notes |
 |---------|--------------|------------|-------|
-| **Category browsing** | Users arrive with a category in mind ("meal kits" or "prepared meals") | Low | 5 fixed categories per PROJECT.md. URL-driven: `/meal-kits`, `/prepared-meals`, etc. |
-| **Provider detail pages** | Users need comprehensive info before clicking affiliate links | Medium | Logo, description, pricing plans, pros/cons, ratings, FAQs. The money page for affiliate revenue. |
-| **Price per serving display** | Price is the #1 decision factor for 60%+ of meal kit shoppers | Low | Denormalized on Provider model already. Show range across plans. |
-| **Dietary filter/tags** | 25%+ of users have specific dietary needs (keto, vegan, gluten-free) | Medium | 16 dietary tags in schema. Multi-select filtering on category pages. |
-| **Star ratings** | Social proof is non-negotiable for comparison sites; users distrust sites without ratings | Low | 1-5 scale with half-star display. Schema has `averageRating` and `reviewCount`. |
-| **Side-by-side comparison** | Core value prop of a "comparison" site. Users expect to compare 2-4 providers | High | Comparison table, sticky tray for selections, shareable URLs. Most complex interactive feature. |
-| **Mobile-responsive design** | 60-70% of food content traffic is mobile | Medium | Already planned in UX-STRATEGY.md. Mobile-first with drawer filters, swipeable comparison cards. |
-| **Affiliate CTA buttons** | Users expect clear "Visit Site" or "Get Started" actions; this is also the revenue model | Low | Track clicks, redirect to affiliate URL. Every provider card and detail page. |
-| **Pricing tables per provider** | Users need to compare a provider's own plans (2-person vs 4-person, etc.) | Medium | Plan model already supports this. Display as feature matrix on detail pages. |
-| **Editorial content (pros/cons)** | Users want expert opinion, not just data. Differentiates from provider's own marketing | Low | `prosJson`/`consJson` + `editorNote` on Provider model. |
-| **Search** | Users arriving from Google may search for a specific brand name or dietary term | Medium | PostgreSQL full-text search. Header search bar. Results grouped by type. |
-| **Breadcrumb navigation** | Supports SEO and user orientation, especially for deep pages | Low | On all interior pages. JSON-LD BreadcrumbList schema. |
-| **Structured data (JSON-LD)** | Google rich results drive organic traffic. Without it, you lose SERP features | Medium | Product, AggregateRating, Review, FAQ, ItemList, Article schemas per page type. |
-| **Responsive images** | Logo quality, page speed. Broken/slow images destroy trust | Low | Next.js Image with `remotePatterns`. Provider logos stored as URLs. |
-| **Shipping info display** | Shipping cost is a hidden dealbreaker; users resent finding it out late | Low | `shippingCost` and `shippingNote` on Plan model. Display prominently. |
-| **FAQ sections** | Users have common questions per provider. Also generates FAQ rich snippets in Google | Low | ProviderFaq model with JSON-LD FAQPage schema. |
-
----
+| Category browsing | Users think in categories: "meal kits" vs "prepared meals" vs "protein boxes." Every comparison site organizes by category. | Low | 5 categories already defined in schema. Need hub pages per category. |
+| Provider detail pages | Users need a single page per provider with comprehensive info. This is the core content unit. WireCutter, NerdWallet, and every directory have them. | Medium | Slug-based routes. Must show: name, logo, summary, pros/cons, plans/pricing, dietary tags, flexibility, shipping, editorial note, FAQ. |
+| Multi-criteria filtering | Kayak's defining feature. Users filter by diet, price tier, prep style, household size, etc. Without this, it is just a blog. | High | URL-param driven. Must support: category, prep style, diet tags, value tier, household fit, geography, flexibility, model type. All filters composable. |
+| Side-by-side comparison | The core decision-making tool. NerdWallet, Kayak, and every serious comparison platform offer 2-3 item comparison tables. Users explicitly asked for this in the PRD acceptance criteria. | High | Compare 2-3 providers. Field matrix showing all comparison axes. Shareable URL. |
+| Provider logos/branding | Visual identity is critical for trust and scannability. Users recognize brands by logo. NerdWallet and every card comparison site shows logos prominently. | Low | 95 logo assets already exist. Need fallback SVG for missing. Display on cards, detail, compare headers. |
+| Sort options | Users expect to sort by relevance, rating, price, name. Kayak defaults to "best" sort. NerdWallet sorts by recommendation. | Low | Default: editorial/featured order. Options: rating, price (low-high, high-low), name A-Z. |
+| Mobile-responsive design | 60%+ of comparison site traffic is mobile. Non-negotiable for a consumer product. | Medium | Filters must collapse to a drawer/sheet on mobile. Comparison table must scroll horizontally or stack. |
+| SEO metadata + structured data | Discovery sites live or die by organic search. NerdWallet and WireCutter invest heavily in structured data. Without this, no traffic. | Medium | Every page needs: title, description, JSON-LD (Product, ItemList, FAQPage, BreadcrumbList as appropriate). |
+| Provider cards in listings | The primary browse surface. Every comparison site uses cards with: logo, name, category badge, price signal, rating, and a primary CTA. | Medium | Must be scannable. Key info visible without clicking through. |
+| Pros/cons per provider | WireCutter and NerdWallet both show structured pros/cons. Users expect a quick "should I or shouldn't I" summary. | Low | Already in schema as prosJson/consJson. Render as bullet lists. |
+| Search | Users type a brand name to find it. Even basic text search is table stakes for 95+ providers. | Medium | Server-side search across provider names, descriptions, categories. Debounced input. Search results page. |
+| Breadcrumb navigation | Standard for SEO and UX on any site with category hierarchy. Google uses breadcrumbs in search results. | Low | Home > Category > Provider. Implement with JSON-LD BreadcrumbList. |
+| Loading states + error boundaries | Users expect visual feedback during navigation. Broken pages destroy trust. | Low | loading.tsx skeletons, error.tsx boundaries, not-found.tsx for 404s. |
+| External links to provider sites | The entire business model depends on sending users to provider websites. Must be prominent and trackable. | Low | Affiliate URLs with click tracking. Clear "Visit Site" or "Get Started" CTAs. |
+| Price signal display | Users need to see approximate pricing without visiting each provider site. Kayak shows prices prominently. WireCutter mentions price ranges. | Low | Display min/max price per serving. Use "starting at $X.XX/serving" format. Already in schema. |
 
 ## Differentiators
 
-Features that set FoodBoxFinder apart from competitors. Not strictly expected, but valued. These create competitive advantage.
+Features that set FoodBoxFinder apart from existing "best meal kits" blog posts and affiliate roundup articles. Not expected by users walking in, but create competitive advantage.
 
 | Feature | Value Proposition | Complexity | Notes |
 |---------|-------------------|------------|-------|
-| **"Best of" collection pages** | Curated editorial lists ("Best Keto Meal Kits", "Best Meal Kits for Families") target high-intent long-tail keywords | Medium | Collection + CollectionItem models. Ranked lists with editorial notes. SEO goldmine: these pages rank for "best X" queries. |
-| **SEO comparison pages** (`/compare/slug-vs-slug`) | Pre-built "vs" pages for common brand comparisons target mid-funnel keywords (e.g., "HelloFresh vs Blue Apron") | Medium | Alphabetical slug ordering with 301 redirects for canonical. Distinct from the flexible comparison tool. Most competitor sites only do one or the other. |
-| **URL-driven filter state** | Shareable, bookmarkable filtered views. Most competitor sites lose filter state on refresh | Low | `searchParams` drive all filtering. Enables linking to "all keto meal kits under $10/serving" directly. |
-| **Cancellation policy transparency** | Competitor sites bury this. Being upfront about skip/cancel policies builds trust | Low | `canSkip`, `canCancel`, `cancelPolicy` on Plan model. Display prominently as a comparison dimension. |
-| **Blog content engine** | Informational content ("How to Choose a Meal Kit", "Meal Kit Promo Codes") supports top-of-funnel SEO and E-E-A-T | Medium | BlogPost model with markdown rendering. Drives organic traffic that category pages alone cannot capture. |
-| **Methodology page** | "/methodology" explains how providers are rated. Critical for Google E-E-A-T trust signals | Low | Static content page. Competitors that have this rank better. Most small comparison sites skip it. |
-| **Review submission with moderation** | User-generated reviews add E-E-A-T signals, fresh content, and long-tail keyword variety | Medium | Anonymous submission (no accounts needed), PENDING by default, admin moderation queue. Lowers barrier vs requiring signup. |
-| **Fast, accessible UI** | Most competitor meal kit comparison sites have terrible performance (heavy ads, slow loads, CLS jumps). A fast, clean site is a genuine differentiator | Medium | Server Components by default, minimal client JS, Lighthouse >= 90 target. No ads cluttering the experience. |
-| **Multi-provider flexible comparison** | Most sites only offer 2-provider comparison. Supporting 3-4 providers in a flexible tool (vs just pre-built pages) is uncommon | High | `/compare?providers=a,b,c` with noindex. Distinct from SEO comparison pages. |
-| **Helpful vote on reviews** | Surfaces the most useful reviews to the top. Simple engagement signal | Low | `helpful` field on Review model. Single upvote button per review. No downvotes needed. |
-| **Related/similar providers** | Cross-selling within the site increases pageviews and comparison usage | Low | "Similar Services" section on provider detail pages. 3-5 related providers from same category or overlapping dietary tags. |
-| **Admin dashboard with click analytics** | Most affiliate sites use only third-party tracking. In-house click analytics gives immediate feedback on what converts | Medium | AffiliateClick model with source page, timestamp. Admin dashboard visualization. |
-| **Category-level SEO metadata** | Per-category meta titles, descriptions, and hero content for SEO depth | Low | Currently hardcoded (enum). Can be enhanced to a model post-MVP per SCHEMA-EXTENDED.md. For MVP, use generateMetadata with category-specific templates. |
-
----
+| Comparison tray (floating bar) | Kayak-like "add to compare" interaction. Users select providers while browsing and compare later. No existing meal kit site does this well. | High | Floating bar at bottom of viewport. Shows 0-3 selected providers with logos. "Compare Now" button navigates to compare page. State managed client-side, transfers to URL params. |
+| Shareable comparison URLs | Users can share a comparison link with a partner/roommate. Kayak and NerdWallet support this. Meal kit blogs do not. | Medium | Encode provider slugs in URL: /compare/hellofresh-vs-home-chef. Bookmarkable and shareable. |
+| Cross-category discovery | Most sites only cover meal kits. FoodBoxFinder spans 5 categories + 95 providers. The breadth IS the differentiator. Users shopping for "food delivery" can discover protein boxes or produce boxes they did not know existed. | Low (data exists) | The research corpus and dataset already provide this breadth. Taxonomy and category hubs make it navigable. |
+| "Best for X" curated collections | WireCutter's signature pattern. "Best for families," "Best budget," "Best keto." These are high-intent SEO pages and trust builders. | Medium | Collection model already in schema. Need editorial curation and rendering. Map to intent-driven URL slugs: /best/budget-meal-kits. |
+| Flexibility transparency | No competitor surfaces skip/pause/cancel policies clearly. This is a major buying criterion (per the MASTER-LANDSCAPE research). Making it a first-class comparison field builds trust. | Low | Already in dataset. Display on detail pages and in comparison matrix. |
+| Shipping coverage clarity | Regional availability is a real pain point. Surfacing "national," "excludes AK/HI," "regional only" prominently helps users avoid dead ends. | Low | Geography field in dataset. Show as a badge or tag on provider cards. |
+| Diet-tag filtering across categories | Users with dietary needs (keto, vegan, gluten-free) want to discover options across ALL categories, not just meal kits. This cross-cutting filter is rare in existing sites. | Medium | 16 DietaryTag enum values. Filter should work globally and within categories. |
+| Introductory offer display | Users heavily factor in first-box discounts. Surfacing "60% off first box" prominently on cards and detail pages is a conversion driver and differentiator vs. editorial roundups. | Low | introOfferNote field on Plan model. Show as a badge/callout on provider cards. |
+| Transparent editorial methodology | WireCutter publishes their testing methodology. Explaining how providers are evaluated (not just affiliate commission ranking) builds trust and differentiates from affiliate sludge sites. | Low | Static "How We Evaluate" page. Reference in footer and on review pages. |
+| Category hub pages with editorial context | Not just a filtered list, but a page with editorial introduction, market context, and recommended picks per category. Combines WireCutter editorial with Kayak filtering. | Medium | 5 category pages. Each has: editorial intro, featured picks, full filterable provider list, related comparisons. |
+| Quick-glance comparison badges | On listing cards, show small visual indicators for key attributes (free shipping, skip anytime, organic, etc.) so users can scan without clicking. NerdWallet does this with feature checkmarks. | Medium | Badge component rendering key boolean/enum fields. Must not clutter cards. |
 
 ## Anti-Features
 
-Features to explicitly NOT build. These are tempting but would waste time, add complexity, or hurt the product.
+Features to explicitly NOT build. Each would waste time, damage trust, or add complexity without commensurate value.
 
 | Anti-Feature | Why Avoid | What to Do Instead |
 |--------------|-----------|-------------------|
-| **User accounts / authentication** | Massive complexity for minimal value. Users visit comparison sites 1-3 times then choose a provider. Nobody wants another login | Anonymous review submission. Admin-only auth via env var. If user accounts ever become needed, add post-launch. |
-| **Real-time price scraping** | Meal kit prices change frequently but not hourly. API integrations are fragile, expensive, and every provider's API is different (most have none). Accuracy liability | Manual editorial updates. `updatedAt` timestamps so users see data freshness. Mark prices as "starting from" to reduce accuracy pressure. |
-| **Quiz/recommendation engine** | "Take our quiz to find your perfect meal kit!" -- tempting but high-complexity interactive feature that most users skip. Conversion rates on quizzes are low (< 5% completion). | Good filters achieve the same goal faster. Users self-select via category + dietary tags + price range. The filter sidebar IS the recommendation engine. |
-| **Coupon/promo code aggregation** | Promo codes go stale constantly, create user frustration when expired, and require ongoing maintenance. Also creates legal/compliance issues with affiliate networks | Link to provider's current offers page. Note "first box discount available" in editorial content without promising specific amounts. Revisit post-launch if affiliate partners provide reliable promo APIs. |
-| **Price alerts / email notifications** | Requires email infrastructure, user accounts, cron jobs, and ongoing maintenance. Not aligned with MVP's "visit, compare, choose" user journey | Out of scope per PROJECT.md. The site is a comparison tool, not a price tracker. |
-| **Dark mode** | Nice-to-have but doubles CSS testing surface. Not expected for a comparison/discovery site. Low user demand vs effort | Explicitly deprioritized in PROJECT.md. Can add post-launch with Tailwind's dark: variant. |
-| **Social login / OAuth** | Drags in auth complexity for no clear value. Nobody wants to "Log in with Google" to compare meal kits | No user accounts at all. Admin uses shared secret. |
-| **Comment system on blog posts** | Spam magnet, moderation burden, low engagement on niche content sites. Blog comments are a relic | Reviews on provider pages serve the community engagement need. Blog posts are informational, not conversational. |
-| **Price history charts** | Cool-looking but requires long-term data collection, storage, and charting libraries. Meal kit prices change by plan restructuring, not gradual shifts -- charts would be misleading | Show current prices clearly. Note when prices were last verified with `updatedAt`. |
-| **Meal/recipe browsing** | FoodBoxFinder compares providers, not individual meals. Showing specific weekly menus would require scraping, go stale instantly, and confuse the site's purpose | Link to provider's menu page. Note "X meals per week to choose from" as a data point. |
-| **Video reviews / embedded video** | Heavy performance cost, production cost, and most comparison site visitors prefer scanning text/tables over watching videos | Focus on scannable text, comparison tables, and clear data presentation. Link to YouTube reviews if relevant. |
-| **Mobile app** | Web-first responsive design covers mobile use case. Comparison shopping is not a daily-use app scenario | Out of scope per PROJECT.md. PWA could be a post-launch experiment if needed. |
-
----
+| User accounts / login | Adds authentication complexity, cookie consent, GDPR concerns. No user personalization needed for a discovery site. NerdWallet does not require login to compare. | Admin-only auth via proxy.ts + ADMIN_SECRET. Users browse anonymously. |
+| Live price scraping | Provider pricing changes constantly and sites actively block scrapers. Maintaining accuracy is a full-time operation. Wrong prices destroy trust faster than no prices. | Manual price updates via admin UI. Show "starting at" ranges with "last verified" dates. |
+| Recommendation quiz/wizard | Tempting (NerdWallet has one for credit cards), but premature. Requires deep understanding of user preferences and provider matching logic. High effort, low initial payoff. | Instead, use clear category hubs and "best for X" collections as guided discovery. Consider quiz as a v2 feature. |
+| User reviews (UI for now) | Review moderation is a significant operational burden. Fake reviews are rampant. The schema exists but launching without review UI is correct. | Keep Review model in schema for future use. Use editorial pros/cons as the trust signal initially. |
+| Coupon/deal aggregation | Coupon sites are a race to the bottom. They attract low-quality traffic and create a "deal hunter" brand perception. MealFinds does this and it cheapens the experience. | Show introductory offer notes where they exist, but do not build a coupon engine. Link to provider sites directly. |
+| Blog authoring UI | Building a CMS is a significant engineering effort for low initial ROI. Content can be managed via admin or directly in the database. | Keep BlogPost schema. Author content via admin CRUD or database seeds. No WYSIWYG editor needed. |
+| Notification/alert system | "Alert me when price drops" adds real-time infrastructure complexity (queues, email service, user accounts). Premature for a discovery site. | Omit entirely. Users visit when they are ready to decide. |
+| Social features (sharing, wishlists, favorites) | Requires user identity, adds state management complexity, and comparison sites rarely see engagement with social features. | Shareable comparison URLs cover the core sharing use case. No wishlists/favorites. |
+| Provider self-service portal | Letting providers update their own listings requires authentication, permissions, content moderation, and dispute resolution. Premature. | Admin manages all provider data. Consider provider portal only at significant scale (500+ providers). |
+| Dark mode | Styling complexity doubles. Not a priority for a content-heavy SEO discovery site. The project spec explicitly defers this. | System preference detection exists in CSS but do not invest in dark mode polish. |
+| Infinite scroll | Feels modern but hurts SEO (Google needs paginated or single-page content), makes it harder to share "I was looking at something on page 3," and complicates loading states. | Show all providers in category (95 max is fine for a single page). If lists grow past 200, add traditional pagination. |
+| Real-time chat/support | Not relevant for a discovery/comparison product. Users are reading, not conversing. | Omit entirely. Add a simple contact form or email link if needed. |
+| Price comparison charts/graphs | Visually appealing but misleading when prices change and data is manually maintained. Charts imply precision that manually-updated data cannot deliver. | Show simple price ranges and "starting at" figures. Let comparison tables handle side-by-side pricing. |
 
 ## Feature Dependencies
 
-Understanding what depends on what is critical for phase ordering.
-
 ```
-Database Schema + Seed Data
-  |
-  +---> Provider Detail Pages
-  |       |
-  |       +---> Review Submission (needs provider pages to attach to)
-  |       +---> Affiliate Click Tracking (needs provider CTAs)
-  |       +---> FAQ Sections (needs provider pages)
-  |
-  +---> Category Pages + Filtering
-  |       |
-  |       +---> Comparison Tray (needs provider cards with compare checkboxes)
-  |               |
-  |               +---> Comparison Engine (needs tray + comparison page)
-  |                       |
-  |                       +---> SEO Comparison Pages (needs comparison engine working)
-  |
-  +---> Design System / Layout Shell (independent of data, but needed by all pages)
-  |       |
-  |       +---> Homepage (needs layout + provider data)
-  |       +---> All page types depend on base components
-  |
-  +---> Blog Engine (depends only on schema + layout)
-  |       |
-  |       +---> "Best Of" Collections (blog-like engine + provider references)
-  |
-  +---> Search (depends on all content existing to search across)
-  |
-  +---> Admin Dashboard (depends on all models existing, builds CRUD for each)
-  |
-  +---> SEO Layer (depends on all pages existing to add metadata/structured data)
-        |
-        +---> Sitemap (needs all routes finalized)
-        +---> JSON-LD (needs page-specific data)
-        +---> Open Graph Images (needs page content)
-```
+Provider Data Import (seed) ──> Provider Detail Pages
+                            ──> Provider Cards in Listings
+                            ──> Category Hub Pages
+                            ──> Side-by-Side Comparison
 
----
+Provider Logos (manifest)   ──> Provider Cards
+                            ──> Provider Detail Pages
+                            ──> Comparison Headers
+                            ──> Comparison Tray
+
+Category Hub Pages          ──> Multi-Criteria Filtering (filters live on category pages)
+                            ──> "Best for X" Collections (linked from hubs)
+
+Multi-Criteria Filtering    ──> URL Search Param State (filters encoded in URL)
+                            ──> Sort Options (sort is a filter dimension)
+
+Side-by-Side Comparison     ──> Comparison Tray (selection mechanism)
+                            ──> Shareable Comparison URLs (state in URL)
+
+Provider Detail Pages       ──> Pros/Cons Display
+                            ──> Plan/Pricing Display
+                            ──> FAQ Display
+                            ──> Affiliate Click Tracking (outbound links)
+
+Search                      ──> Provider Data (search target)
+
+SEO Metadata                ──> Every public page (parallel concern, not sequential)
+
+Error Boundaries            ──> Every route segment (parallel concern)
+
+Admin CRUD                  ──> Provider Data (management after import)
+                            ──> Admin Dashboard (stats overview)
+```
 
 ## MVP Recommendation
 
-### Must Build (launches are incomplete without these)
+### Phase 1: Data Foundation + Core Browsing
+Prioritize getting providers into the database and onto category listing pages with cards:
+1. **Provider data import** (seed from dataset) -- everything depends on this
+2. **Provider logos** rendering with fallback -- visual trust
+3. **Category hub pages** with provider cards -- the primary browse surface
+4. **Provider detail pages** with full info -- the core content unit
 
-1. **Category browsing with filtering** -- the core discovery mechanism. Users land on category pages from SEO, filter to their needs, click through to providers.
-2. **Provider detail pages** -- the conversion page. Comprehensive info, pricing plans, pros/cons, CTA buttons. This is where affiliate revenue happens.
-3. **Side-by-side comparison** -- the core "comparison" value proposition. Without it, the site is just a directory, not a comparison tool.
-4. **"Best of" collection pages** -- SEO traffic driver. "Best keto meal kits" pages are the highest-intent long-tail keywords in this space. Build early to start indexing.
-5. **Search** -- users arriving from Google expect to search by brand name. Without search, they bounce.
-6. **Admin dashboard** -- content management is essential for maintaining data freshness. Without admin tooling, updating provider data requires database access.
+### Phase 2: Discovery + Filtering
+Turn the directory into a discovery engine:
+5. **Multi-criteria filtering** with URL params -- the Kayak differentiator
+6. **Sort options** -- natural extension of filtering
+7. **Search** -- users expect to find by name
 
-### Build But Can Be Basic at Launch
+### Phase 3: Comparison + Decision Support
+Enable the decision-making workflow:
+8. **Side-by-side comparison** with field matrix -- the highest-value decision tool
+9. **Comparison tray** (floating bar) -- the selection mechanism
+10. **Shareable comparison URLs** -- viral and utility value
 
-7. **Review submission** -- launches can work with seeded editorial reviews. User-submitted reviews add value over time but aren't day-one critical.
-8. **Blog** -- seed with 3-5 posts for SEO. Not a launch-day traffic driver but builds E-E-A-T over time.
-9. **Affiliate click tracking** -- even basic logging is fine. Advanced analytics dashboards can wait.
+### Phase 4: Content + SEO
+Layer on editorial content and SEO optimization:
+11. **"Best for X" collections** -- high-intent SEO pages
+12. **SEO metadata + JSON-LD** on all pages -- organic traffic driver
+13. **Transparent methodology page** -- trust builder
 
-### Defer Post-Launch
+### Phase 5: Admin + Operations
+Enable ongoing content management:
+14. **Admin CRUD** for providers -- manage data post-launch
+15. **Admin dashboard** with stats -- operational visibility
+16. **Affiliate click tracking** -- revenue measurement
 
-- **Autocomplete search suggestions** -- nice UX but not a launch requirement
-- **Review sub-ratings** (value, variety, quality dimensions) -- adds complexity to review form and display
-- **Provider image gallery** -- single logo/hero is sufficient for launch
-- **Promo code display** -- requires reliable data source; revisit when affiliate partnerships are established
-- **RSS feed for blog** -- minimal traffic impact for a new site
+### Defer to Post-Launch
 
----
+- **User reviews UI**: Keep schema, defer UI. Use editorial pros/cons initially.
+- **Blog authoring**: Keep schema, defer UI. Content via admin/database.
+- **Collection curation UI**: Keep schema, populate via admin CRUD.
+- **Recommendation quiz**: Consider for v2 after understanding user behavior.
 
-## Competitor Feature Matrix
+## Data Field Coverage Assessment
 
-How FoodBoxFinder's planned features compare to known competitors (based on training data knowledge -- MEDIUM confidence).
+The following fields are needed for the feature set above. Mapping against the existing schema and dataset:
 
-| Feature | MealFinds | Top10/Meal-Kits | Wirecutter | CNET | **FoodBoxFinder (planned)** |
-|---------|-----------|-----------------|------------|------|----------------------------|
-| Category browsing | Yes | Yes | Limited | Limited | Yes (5 categories) |
-| Dietary filtering | Basic | Basic | No | No | Advanced (16 tags, multi-select) |
-| Price filtering | No | No | No | No | Yes (range slider) |
-| Side-by-side comparison | Basic (2) | Yes (2-3) | No | No | Yes (2-4 providers) |
-| SEO "vs" pages | Some | Yes | No | No | Yes (canonical slug-based) |
-| "Best of" lists | Yes | Yes | Yes | Yes | Yes (Collection model) |
-| User reviews | No | No | No | No | Yes (moderated) |
-| Blog content | Yes | Limited | N/A | N/A | Yes (full blog engine) |
-| Quiz/recommendation | Some have | Yes | No | No | No (intentionally) |
-| Promo codes | Yes | Yes | No | No | No (intentionally) |
-| Plan comparison within provider | Some | Some | Yes | Yes | Yes (Plan model) |
-| Cancellation transparency | Rare | Rare | Yes | Yes | Yes (prominent) |
-| Fast performance | Poor (ad-heavy) | Poor (ad-heavy) | Good | Good | Target: Lighthouse >= 90 |
-| Mobile UX | Mediocre | Mediocre | Good | Good | Target: Mobile-first |
-| Methodology page | Rare | Some | Yes | No | Yes |
+| Field | In Schema | In Dataset | Gap |
+|-------|-----------|------------|-----|
+| name, slug, website | Yes | Yes | None |
+| category (primary) | Yes (enum) | Yes | None |
+| secondary category/tags | Partial (secondaryCategory enum) | Yes (pipe-delimited) | May need richer secondary tag support |
+| model_type | No | Yes | Need schema field |
+| prep_style | No | Yes | Need schema field |
+| diet_tags | Yes (ProviderDietaryTag) | Sparse | Need better data population |
+| household_fit | No | Yes | Need schema field |
+| value_tier | No | Yes | Need schema field |
+| geography | No | Yes | Need schema field |
+| shipping_notes | Partial (deliveryAreaDescription) | Yes | Map to existing field |
+| flexibility | No (canSkip/canCancel on Plan) | Yes | Provider-level flexibility field needed |
+| pricing_signal | Partial (min/maxPricePerServingCents) | Sparse | Adequate for display |
+| affiliate_signal | Partial (affiliateUrl) | Yes | Adequate |
+| status (active/inactive) | Yes (active boolean) | Yes (richer enum) | May need enum instead of boolean |
+| summary/description | Yes | Yes | None |
+| pros/cons | Yes (prosJson/consJson) | No | Need editorial content creation |
+| logo | Yes (logoUrl) | Yes (manifest) | Need to map manifest paths |
+| intro offers | Yes (introOfferNote on Plan) | No | Need data population |
+| FAQs | Yes (ProviderFaq model) | No | Need content creation |
 
-### Key Competitive Gaps FoodBoxFinder Exploits
+## Confidence Notes
 
-1. **Advanced filtering** -- Most competitor sites have no or basic filtering. Multi-dimensional filtering (dietary + price + servings) is genuinely uncommon.
-2. **Performance** -- Ad-heavy affiliate sites (MealFinds, Top10) have terrible Core Web Vitals. A fast, clean site is a real differentiator for both users and Google rankings.
-3. **Flexible comparison** -- Most cap at 2 providers. Supporting 2-4 with both SEO pages and a flexible tool covers both use cases.
-4. **User reviews** -- Most meal kit comparison sites rely only on editorial reviews. User-generated reviews add authenticity and fresh content.
-5. **Cancellation transparency** -- A pain point users care about deeply but comparison sites typically bury.
-
----
-
-## Feature Sizing Estimates
-
-Rough complexity/effort estimates to inform phase planning.
-
-| Feature Group | Complexity | Estimated Effort | Phase (from ROADMAP) |
-|---------------|------------|------------------|----------------------|
-| Database + seed data | Medium | 1-2 days | Phase 10 |
-| Design system + layout | Medium | 1-2 days | Phase 20 |
-| Homepage | Low-Medium | 0.5-1 day | Phase 30 |
-| Category pages + filtering | High | 1-2 days | Phase 40 |
-| Provider detail pages | High | 1-2 days | Phase 50 |
-| Comparison engine | High | 1-2 days | Phase 60 |
-| Collections + blog | Medium | 1-1.5 days | Phase 70 |
-| Search | Medium | 0.5-1 day | Phase 80 |
-| Review system | Medium | 0.5-1 day | Phase 90 |
-| Admin dashboard | High | 2-3 days | Phase 100 |
-| SEO optimization | Medium | 0.5-1 day | Phase 110 |
-| Affiliate tracking + polish | Low-Medium | 0.5-1 day | Phase 120 |
-
-**Total estimated effort:** 10-17 days for a single developer.
-
----
+- **Table stakes features**: HIGH confidence. These are universal across NerdWallet, WireCutter, Kayak, and every comparison platform. Omitting any would be a clear gap.
+- **Differentiator features**: MEDIUM confidence. The comparison tray and cross-category discovery are genuinely differentiating based on the project's research finding that "there is no obvious single consumer clearing house for the full food-subscription universe." Could not verify current competitor feature sets via live web research.
+- **Anti-features**: HIGH confidence. Each anti-feature has clear rationale grounded in the project spec's explicit out-of-scope items and practical engineering constraints.
+- **Feature dependencies**: HIGH confidence. Based on schema analysis and standard web application architecture patterns.
+- **MVP phasing**: MEDIUM confidence. Phase ordering follows natural data-dependency chains but could not be validated against real user behavior data.
 
 ## Sources
 
-- FoodBoxFinder PROJECT.md (project requirements and constraints)
-- FoodBoxFinder UX-STRATEGY.md (personas, component specs, layout strategy)
-- FoodBoxFinder SEO-STRATEGY.md (URL structure, metadata, keyword targets)
-- FoodBoxFinder SCHEMA-EXTENDED.md (future schema enhancements)
-- FoodBoxFinder ROADMAP.md (phase structure and deliverables)
-- FoodBoxFinder Prisma schema (data model capabilities)
-- Training data knowledge of competitor sites: MealFinds, Top10, Wirecutter meal kit reviews, CNET meal delivery comparisons, AllRecipes meal kit rankings (MEDIUM confidence -- not live-verified)
-
-**Note:** WebSearch and WebFetch were unavailable during this research session. Competitor analysis is based on training data knowledge (cutoff ~early 2025) rather than live site inspection. Live competitor audits would increase confidence from MEDIUM to HIGH. The feature recommendations are still well-grounded because: (1) the project's own research files are comprehensive, (2) the food box comparison space is mature and features are well-established, and (3) the PROJECT.md already reflects thoughtful domain analysis.
+- Project research corpus: `temp/plandocs/MASTER-LANDSCAPE.md` (competitive landscape and market gaps)
+- Project taxonomy: `temp/plandocs/TAXONOMY-RUBRIC.md` (filter dimensions and ranking criteria)
+- Project PRD: `temp/plandocs/PLATFORM-GAP-BRIDGE-PRD.md` (explicit acceptance criteria)
+- Project dataset: `temp/plandocs/food-box-companies.json` (95 providers, field coverage)
+- Project spec: `.planning/PROJECT.md` (requirements, constraints, out-of-scope decisions)
+- Prisma schema: `prisma/schema.prisma` (existing data model)
+- Training data knowledge of: Kayak, NerdWallet, WireCutter, The Points Guy, MealFinds, Top10.com comparison platform patterns (MEDIUM confidence -- could not verify against live sites)

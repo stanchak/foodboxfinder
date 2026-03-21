@@ -1,655 +1,453 @@
 # Architecture Patterns
 
-**Domain:** Food box subscription discovery/comparison site
-**Researched:** 2026-03-20
-**Overall confidence:** HIGH (stack is decided, patterns verified against Next.js 16 docs)
+**Domain:** Food subscription discovery/comparison platform
+**Researched:** 2026-03-21
+**Confidence:** HIGH (based on direct codebase analysis + established Next.js App Router patterns)
 
-## Recommended Architecture
+## Current Architecture State
 
-A **hub-and-spoke content site** built on Next.js 16 App Router with Server Components as the rendering backbone. The central entity (Provider) radiates outward to category listings, detail pages, comparisons, collections, and blog content. All consumer-facing pages are Server Components that fetch data directly via Prisma. A thin Client Component layer handles interactive UI (filters, comparison tray, forms). An isolated admin subsystem manages content behind `proxy.ts` authentication.
+The codebase already has a well-established layered architecture built across v1.0. This research documents the existing patterns, identifies what needs to change for the next milestone (schema extension, expanded filtering, provider logo rendering, SEO pages for 95 providers), and recommends architectural decisions for the new work.
 
-### Architecture Diagram
+### What Exists Today
 
-```
-                          +------------------+
-                          |    proxy.ts      |  (admin auth gate)
-                          +--------+---------+
-                                   |
-                    +--------------+--------------+
-                    |                             |
-            +-------+--------+           +-------+--------+
-            |  Public Routes |           |  Admin Routes  |
-            |  (Server Comp) |           |  (Admin Shell) |
-            +-------+--------+           +-------+--------+
-                    |                             |
-          +---------+---------+                   |
-          |         |         |                   |
-    +-----+--+ +---+----+ +--+-----+     +------+------+
-    |Homepage| |Category | |Provider|     |Admin CRUD   |
-    |        | |Listing  | |Detail  |     |Server Actions|
-    +--------+ +---+-----+ +--+-----+     +------+------+
-                   |           |                  |
-             +-----+-----+    |           +------+------+
-             |FilterPanel | +--+-----+    |revalidatePath|
-             |(Client)    | |Compare |    |revalidateTag |
-             +-----------+  |Tool    |    +-------------+
-                            +--------+
-                    |           |
-              +-----+-----------+-----+
-              |    Query Layer         |
-              |  src/lib/queries.ts    |
-              +----------+------------+
-                         |
-              +----------+------------+
-              |    Prisma Client      |
-              |    src/lib/db.ts      |
-              +----------+------------+
-                         |
-              +----------+------------+
-              |  Neon PostgreSQL      |
-              |  (10 models, 5 enums)|
-              +-----------------------+
-```
+| Layer | Location | Status |
+|-------|----------|--------|
+| Presentation (Pages) | `src/app/` | 15+ route segments built (home, category, provider detail, compare, search, blog, collections, admin, methodology) |
+| Components | `src/components/` | 28 components (18 consumer, 6 admin, 4 UI primitives) |
+| Query Layer | `src/lib/queries.ts` | 20 cached query functions, 336 lines, `React.cache()` throughout |
+| Database | `src/lib/db.ts` + `prisma/schema.prisma` | 10 models, 6 enums, Neon PostgreSQL adapter |
+| Server Actions | `src/app/actions/` | 2 files (reviews.ts, admin.ts) with 13 mutations |
+| Auth | `src/proxy.ts` | Cookie-based admin protection via Next.js 16 proxy |
+| Utilities | `src/lib/` | 4 files (db, queries, categories, format) |
+
+## Recommended Architecture (Evolving What Exists)
+
+The architecture does not need a rewrite. It needs targeted extensions in three areas: (1) schema fields for the new dataset, (2) expanded filter infrastructure, and (3) provider image rendering from local assets.
 
 ### Component Boundaries
 
-| Component | Responsibility | Communicates With | Render Type |
-|-----------|---------------|-------------------|-------------|
-| **Root Layout** | HTML shell, fonts, global CSS, nav, footer | All pages (wraps everything) | Server Component |
-| **Homepage** | Hero, featured providers, category cards, social proof | Query Layer (getFeaturedProviders, getCategories) | Server Component |
-| **Category Listing** | Provider cards, filter/sort, pagination for one category | Query Layer (getProvidersByCategory), FilterPanel | Server Component (page) + Client (filters) |
-| **Provider Detail** | Full provider profile, plans, reviews, FAQs, affiliate CTA | Query Layer (getProviderBySlug, getRelatedProviders) | Server Component |
-| **Comparison Tool** | Side-by-side provider comparison table | Query Layer (getProvidersBySlug[]), ComparisonTray | Server Component (page) + Client (tray) |
-| **Collections/Best-Of** | Curated ranked lists with editorial content | Query Layer (getCollectionBySlug) | Server Component |
-| **Blog** | Blog index and post pages | Query Layer (getBlogPosts, getBlogPostBySlug) | Server Component |
-| **Search** | Full-text search results grouped by type | Query Layer (search), SearchBar Client Component | Server Component (results) + Client (input) |
-| **Review Form** | Star rating, text inputs, submission | Server Action (submitReview) | Client Component |
-| **Admin Shell** | Admin layout, sidebar nav, dashboard stats | Query Layer (admin queries), Server Actions | Server + Client mix |
-| **FilterPanel** | Dietary tag checkboxes, price range, sort dropdown | URL searchParams via router.push | Client Component |
-| **ComparisonTray** | Floating bottom bar with selected providers | React context/state, URL params | Client Component |
-| **SearchBar** | Expandable search input in header | URL navigation to /search?q= | Client Component |
-| **AffiliateTracker** | API route that logs click and redirects | AffiliateClick model, provider affiliateUrl | Route Handler (API) |
-| **proxy.ts** | Admin route protection | ADMIN_SECRET env var, request headers | Node.js runtime |
-| **Query Layer** | All Prisma queries, centralized data access | Prisma Client singleton | Server-only module |
+| Component / Module | Responsibility | Communicates With | Server/Client |
+|--------------------|---------------|-------------------|---------------|
+| `prisma/schema.prisma` | Data model with new enum fields for model_type, prep_style, value_tier, household_fit, geography, flexibility | Generated types consumed by Query Layer | N/A (schema) |
+| `prisma/seed.ts` | One-time import of 95 providers from `food-box-companies.json` | Prisma Client directly | Server (CLI) |
+| `src/lib/queries.ts` | Extended `getProvidersByCategory` with new filter dimensions; new query for all-provider listing | Database Layer | Server only |
+| `src/lib/filters.ts` (NEW) | Parse and validate URL search params into typed filter objects with safe defaults | Used by category page and any filtered listing | Server only |
+| `src/lib/enums.ts` (NEW) | Bidirectional slug-to-enum maps for new enums (ModelType, PrepStyle, ValueTier, HouseholdFit, Geography, Flexibility) analogous to `categories.ts` | Used by filters, components, URLs | Shared |
+| `src/components/CategoryFilters.tsx` | Extended with new filter sections (prep style, value tier, household fit, model type, flexibility, geography) | URL params via `useRouter` | Client |
+| `src/components/ProviderCard.tsx` | Already complete; needs `logoUrl` path resolution from manifest | Props from Server Components | Server |
+| `src/components/ComparisonTable.tsx` | Already complete; may gain new rows for extended fields | Props from Server Components | Server |
+| `src/components/CompareProvider.tsx` | Comparison tray state (sessionStorage); already complete | `useCompare` context consumed by `AddToCompareButton`, `CompareBar` | Client |
+| `src/components/ProviderLogo.tsx` (NEW) | Encapsulate logo rendering with fallback behavior, consistent sizing, Next.js Image optimization | Props; used by ProviderCard, ComparisonTable, provider detail | Server |
+| `src/app/[category]/page.tsx` | Category listing with extended filtering | Query Layer, filter parser, CategoryFilters | Server |
+| `src/app/providers/[slug]/page.tsx` | Provider detail (already complete) | Query Layer | Server |
+| `src/app/compare/page.tsx` | Flexible comparison (already complete) | Query Layer | Server |
+| `src/app/compare/[versus]/page.tsx` | SEO comparison (already complete) | Query Layer | Server |
+| `next.config.ts` | `images.remotePatterns` or local image path configuration | Next.js Image component | Config |
 
-### Boundary Rules
+### Data Flow
 
-1. **Server Components never import from Client Components.** Data flows down: Server Components fetch data and pass it as props to Client Components.
-2. **Client Components never import Prisma.** The `src/lib/db.ts` and `src/lib/queries.ts` modules are server-only. Client Components receive data as props or interact via Server Actions/URL params.
-3. **The Query Layer is the only code that touches Prisma.** Pages, layouts, and Server Actions all call query functions rather than using `prisma` directly. This provides a single place to add caching, logging, or query optimization.
-4. **URL searchParams are the shared state contract between Server and Client Components.** FilterPanel (Client) writes to the URL; the Category page (Server) reads from the URL. No global state store needed.
-5. **Admin routes are a separate subtree.** Everything under `/admin` is protected by `proxy.ts` and has its own layout. Admin never leaks into public UI.
-
-## Data Flow
-
-### Primary Flow: Server-Rendered Content Page
+#### Extended Filtering Flow (Primary New Architecture)
 
 ```
-Browser Request (e.g., /meal-kits?diet=vegan&sort=rating)
-  |
-  v
-Next.js Router --> matches src/app/[category]/page.tsx
-  |
-  v
-Server Component: await params --> { category: "meal-kits" }
-Server Component: await searchParams --> { diet: "vegan", sort: "rating" }
-  |
-  v
-Query Layer: getProvidersByCategory("meal-kits", { diet: "vegan", sort: "rating" })
-  |
-  v
-Prisma Client --> SQL query to Neon PostgreSQL
-  |
-  v
-Server Component receives typed Provider[] array
-  |
-  v
-Renders: page metadata (generateMetadata), JSON-LD, ProviderCard list
-Passes filter state as props to FilterPanel (Client Component)
-  |
-  v
-HTML streamed to browser
-FilterPanel hydrates for interactivity
+1. User visits /{category-slug}?prep=cook-it-yourself&tier=budget&fit=family&diet=VEGAN
+2. [category]/page.tsx (Server Component):
+   a. await params -> resolve category slug to CategoryType enum
+   b. await searchParams -> pass raw params to parseFilters()
+3. parseFilters() (src/lib/filters.ts):
+   a. Validates each param against known enum values
+   b. Converts URL slugs to Prisma enum values using enum maps
+   c. Returns typed ProviderFilters object with safe defaults
+   d. Invalid values silently fall back to "all" (no error)
+4. getProvidersByCategory(filters) (src/lib/queries.ts):
+   a. Builds Prisma where clause dynamically from filter object
+   b. New enum fields filter directly (no joins needed)
+   c. Dietary tags filter via relation (existing pattern)
+   d. Returns paginated results with total count
+5. Page renders:
+   a. Server: ProviderCard grid, Pagination, JSON-LD
+   b. Client: CategoryFilters reads URL via useSearchParams(),
+      updates URL via useRouter().push() on interaction
+6. URL change -> Next.js re-renders Server Component with new params
 ```
 
-### Filter/Sort Interaction (URL-Driven State)
+#### Provider Logo Resolution Flow (New)
 
 ```
-User clicks "Vegan" checkbox in FilterPanel (Client Component)
-  |
-  v
-FilterPanel calls router.push("/meal-kits?diet=vegan&sort=rating")
-  |
-  v
-Next.js soft navigation --> Server re-renders [category]/page.tsx
-  |
-  v
-Server Component awaits new searchParams, calls query with new filters
-  |
-  v
-Streaming response replaces page content (React reconciliation)
-FilterPanel maintains its visual state (checkbox stays checked)
+1. Provider record has logoUrl field (currently nullable)
+2. Seed script sets logoUrl from manifest.json paths:
+   e.g., "/assets/providers/hellofresh.webp"
+3. ProviderLogo component:
+   a. If logoUrl exists: render Next.js Image with local src
+   b. If logoUrl is null: render fallback (first letter of name
+      or generic food icon SVG)
+   c. Consistent sizing via props (sm/md/lg variants)
+4. No remotePatterns needed — all logos are in public/assets/providers/
 ```
 
-**Why URL state, not React state:** Every filter combination is a unique URL that can be shared, bookmarked, and indexed by search engines. The server always has the authoritative filter state, so there is no client/server state sync problem. This is the standard pattern for e-commerce and comparison sites.
-
-### Comparison Flow (Client + Server Hybrid)
+#### Schema Extension Flow
 
 ```
-User clicks "Compare" checkbox on ProviderCard
-  |
-  v
-ComparisonTray (Client Component, persists in layout)
-  --> adds provider slug to internal React state (max 4)
-  --> renders floating bottom bar showing selected providers
-  |
-  v
-User clicks "Compare Now" button on ComparisonTray
-  |
-  v
-ComparisonTray navigates to /compare?providers=slug1,slug2
-  |
-  v
-compare/page.tsx (Server Component) reads searchParams
-  --> fetches full provider data for comparison table
-  --> renders side-by-side comparison grid
-```
+1. Add new enum types to schema.prisma:
+   - ModelType (SUBSCRIPTION_FIRST, A_LA_CARTE, HYBRID, MARKETPLACE)
+   - PrepStyle (COOK_IT_YOURSELF, HEAT_AND_EAT, READY_TO_EAT, RAW_INGREDIENTS)
+   - ValueTier (BUDGET, MID, PREMIUM, LUXURY)
+   - HouseholdFit (SOLO, COUPLE, FAMILY, FLEXIBLE)
+   - Geography (NATIONWIDE, REGIONAL, LOCAL)
+   - FlexibilityLevel (HIGH, MEDIUM, LOW)
 
-**Comparison state persistence:** The ComparisonTray lives in the root layout so it persists across navigations. When the user navigates to the comparison page, the state transfers to URL params (becoming shareable). For SEO comparison pages (`/compare/slug-vs-slug`), the state is entirely in the URL.
+2. Add fields to Provider model:
+   - modelType ModelType?
+   - prepStyle PrepStyle?
+   - valueTier ValueTier?
+   - householdFit HouseholdFit?
+   - geography Geography?
+   - flexibilityLevel FlexibilityLevel?
+   - shippingNotes String? @db.Text
+   - pricingSignal String?
+   - secondaryTags String? @db.Text  // pipe-delimited, searchable
+   - providerStatus String? @default("active")
 
-### Review Submission Flow (Server Action)
-
-```
-User fills review form on /providers/[slug]
-  |
-  v
-ReviewForm (Client Component) with "use client"
-  --> Star rating input, name, email, title, body fields
-  --> form action={submitReview} (Server Action)
-  |
-  v
-submitReview (Server Action, "use server")
-  --> validates all fields (rating 1-5, required fields)
-  --> prisma.review.create({ status: PENDING })
-  --> returns { success: true } or { success: false, errors: [...] }
-  |
-  v
-ReviewForm shows success toast or inline error messages
-(Review does NOT appear yet -- requires admin approval)
-```
-
-### Affiliate Click Tracking Flow
-
-```
-User clicks "Visit [Provider]" CTA on any page
-  |
-  v
-Link points to /api/track/[providerId] (Route Handler)
-  |
-  v
-Route Handler:
-  --> prisma.affiliateClick.create({
-        providerId, source: referer header, userAgent, ipHash
-      })
-  --> return NextResponse.redirect(provider.affiliateUrl)
-  |
-  v
-User lands on provider's external website
-```
-
-### Admin Mutation Flow (On-Demand Revalidation)
-
-```
-Admin edits a provider in /admin/providers
-  |
-  v
-Admin form calls Server Action (e.g., updateProvider)
-  |
-  v
-Server Action:
-  --> validates input
-  --> prisma.provider.update(...)
-  --> revalidatePath(`/providers/${slug}`)     // detail page
-  --> revalidatePath(`/${categorySlug}`)        // category listing
-  --> revalidatePath('/')                       // homepage (if featured)
-  --> returns { success: true }
-  |
-  v
-Admin sees success feedback
-Public pages regenerate on next request with fresh data
+3. npx prisma db push -> sync to Neon (no migrations for now)
+4. npx prisma generate -> regenerate client types
+5. Seed script maps JSON field values to enum values
 ```
 
 ## Patterns to Follow
 
-### Pattern 1: Query Layer with React Cache Deduplication
+### Pattern 1: URL-Driven Filter State (Established)
 
-**What:** Wrap all Prisma queries in `React.cache()` to deduplicate within a single render pass. Multiple components requesting the same provider data in one page render hit the database only once.
+**What:** All filter/sort state lives in URL search params. Server Components read params, Client Components update params. No client-side data fetching.
 
-**When:** Always, for all query functions.
+**When:** Any listing or filterable page.
 
-**Example:**
-```typescript
-// src/lib/queries.ts
-import { cache } from "react";
-import { prisma } from "@/lib/db";
+**Why this works here:** The codebase already implements this pattern in `[category]/page.tsx` + `CategoryFilters.tsx`. The pattern scales cleanly to new filter dimensions because each new filter is just another URL param parsed server-side.
 
-export const getProviderBySlug = cache(async (slug: string) => {
-  return prisma.provider.findUnique({
-    where: { slug, active: true },
-    include: {
-      plans: { where: { active: true }, orderBy: { sortOrder: "asc" } },
-      dietaryTags: true,
-      faqs: { orderBy: { sortOrder: "asc" } },
-      reviews: {
-        where: { status: "APPROVED" },
-        orderBy: { createdAt: "desc" },
-        take: 10,
-      },
-    },
-  });
-});
-```
-
-**Why:** Both `generateMetadata()` and the page component may need the same provider data. `React.cache()` ensures Prisma is called once per render, not twice.
-
-**Confidence:** HIGH -- verified in Next.js 16 docs (`caching-without-cache-components.md` section on deduplicating requests).
-
-### Pattern 2: Slug-to-Enum Mapping Utility
-
-**What:** A bidirectional mapping between URL slugs and Prisma `CategoryType` enums, centralized in one utility file.
-
-**When:** Every category page load, every category link render, every query involving categories.
-
-**Example:**
-```typescript
-// src/lib/categories.ts
-import { CategoryType } from "@/generated/prisma/enums";
-
-export const CATEGORY_SLUG_MAP: Record<string, CategoryType> = {
-  "meal-kits": CategoryType.MEAL_KIT,
-  "prepared-meals": CategoryType.PREPARED_MEAL,
-  "protein-boxes": CategoryType.PROTEIN_BOX,
-  "produce-boxes": CategoryType.PRODUCE_BOX,
-  "specialty": CategoryType.SPECIALTY,
-};
-
-export const CATEGORY_ENUM_MAP: Record<CategoryType, string> = Object.fromEntries(
-  Object.entries(CATEGORY_SLUG_MAP).map(([slug, type]) => [type, slug])
-) as Record<CategoryType, string>;
-
-export const CATEGORY_DISPLAY_NAMES: Record<CategoryType, string> = {
-  [CategoryType.MEAL_KIT]: "Meal Kits",
-  [CategoryType.PREPARED_MEAL]: "Prepared Meals",
-  [CategoryType.PROTEIN_BOX]: "Protein & Meat Boxes",
-  [CategoryType.PRODUCE_BOX]: "Produce & Grocery Boxes",
-  [CategoryType.SPECIALTY]: "Specialty Diet Boxes",
-};
-```
-
-**Why:** Category is an enum (not a model) for simplicity with only 5 values. The mapping must be consistent everywhere -- URL routing, navigation, queries, display. Centralizing it prevents scattered string literals.
-
-### Pattern 3: SearchParams Parsing and Validation
-
-**What:** A utility that parses and validates URL search params into a typed filter object, with safe defaults for invalid values.
-
-**When:** Every listing page (category, search, comparison).
-
-**Example:**
+**Example of the extension:**
 ```typescript
 // src/lib/filters.ts
-import { DietaryTag } from "@/generated/prisma/enums";
+import type { CategoryType, DietaryTag, ModelType, PrepStyle, ValueTier, HouseholdFit } from "@/generated/prisma/client";
 
-export interface ProviderFilters {
-  diet: DietaryTag[];
-  sort: "rating" | "price-asc" | "price-desc" | "reviews" | "newest";
+interface ProviderFilters {
+  category: CategoryType;
+  dietaryTags: DietaryTag[];
+  modelType?: ModelType;
+  prepStyle?: PrepStyle;
+  valueTier?: ValueTier;
+  householdFit?: HouseholdFit;
+  minPrice?: number;
+  maxPrice?: number;
+  minRating?: number;
+  sortBy: "rating" | "price-asc" | "price-desc" | "reviews" | "newest";
   page: number;
-  perPage: number;
 }
 
-export function parseSearchParams(
-  params: Record<string, string | string[] | undefined>
+export function parseFilters(
+  category: CategoryType,
+  raw: Record<string, string | string[] | undefined>,
 ): ProviderFilters {
-  const diet = (params.diet?.toString().split(",") ?? [])
-    .filter((d): d is DietaryTag => Object.values(DietaryTag).includes(d as DietaryTag));
-
-  const validSorts = ["rating", "price-asc", "price-desc", "reviews", "newest"] as const;
-  const sort = validSorts.includes(params.sort as any)
-    ? (params.sort as ProviderFilters["sort"])
-    : "rating";
-
-  const page = Math.max(1, parseInt(params.page?.toString() ?? "1", 10) || 1);
-
-  return { diet, sort, page, perPage: 12 };
+  // Each param parsed independently, invalid -> undefined (show all)
 }
 ```
 
-**Why:** Search params are untrusted user input. Parsing them once into a typed object prevents bugs from invalid values leaking into queries. The server is the authority on what filter values are valid.
+### Pattern 2: Enum Fields Over Relation Tables for Fixed Taxonomies
 
-### Pattern 4: Granular Suspense Boundaries on Detail Pages
+**What:** Use Prisma enum fields directly on the Provider model for fixed, small-cardinality taxonomies (prep style, value tier, household fit, model type, geography, flexibility). Use relation tables only for many-to-many relationships (dietary tags).
 
-**What:** Use nested `<Suspense>` boundaries to stream provider detail pages progressively: header and core info first, reviews and FAQ later.
+**When:** The taxonomy is fixed (defined by the product, not user-generated), has fewer than ~20 values, and each provider has exactly one value per dimension.
 
-**When:** Provider detail pages and any page with multiple data sections of varying query cost.
+**Why:** Enum fields filter with simple WHERE clauses (no JOINs), index efficiently, and are type-safe at the Prisma level. The dietary tag relation is correct because a provider can have multiple dietary tags (many-to-many).
+
+**Example:**
+```prisma
+model Provider {
+  // Direct enum fields (one value per provider)
+  modelType    ModelType?
+  prepStyle    PrepStyle?
+  valueTier    ValueTier?
+
+  // Relation table (many values per provider)
+  dietaryTags  ProviderDietaryTag[]
+}
+```
+
+### Pattern 3: Centralized Filter Parsing with Validation
+
+**What:** Extract filter parsing from the page component into a dedicated `src/lib/filters.ts` module. Currently the category page has inline `parseSearchParams()` and `countActiveFilters()` functions. As filter dimensions grow from 4 to 9+, this parsing logic should be shared and tested.
+
+**When:** More than one page needs to parse the same filter params, or the parsing logic exceeds ~30 lines.
+
+**Why:** The current inline approach in `[category]/page.tsx` (lines 44-93) works for 4 filters but will become unwieldy with 9+. Centralization enables reuse if an "all providers" listing page is added, and makes the parsing logic independently testable.
+
+### Pattern 4: Enum-to-Slug Bidirectional Mapping
+
+**What:** Each filterable enum needs a mapping between Prisma enum values (COOK_IT_YOURSELF) and URL-friendly slugs (cook-it-yourself), plus human-readable labels.
+
+**When:** Any enum value appears in URLs or in UI labels.
+
+**Why:** The `categories.ts` pattern (CATEGORY_MAP with getCategoryBySlug/getSlugByCategory) is proven and should be replicated for new enums. This keeps URL slugs stable (SEO-safe) even if enum values change.
 
 **Example:**
 ```typescript
-// src/app/providers/[slug]/page.tsx
-import { Suspense } from "react";
-import { notFound } from "next/navigation";
-import { getProviderBySlug } from "@/lib/queries";
+// src/lib/enums.ts
+export const PREP_STYLE_MAP: Record<PrepStyle, { slug: string; label: string }> = {
+  COOK_IT_YOURSELF: { slug: "cook-it-yourself", label: "Cook It Yourself" },
+  HEAT_AND_EAT: { slug: "heat-and-eat", label: "Heat & Eat" },
+  READY_TO_EAT: { slug: "ready-to-eat", label: "Ready to Eat" },
+  RAW_INGREDIENTS: { slug: "raw-ingredients", label: "Raw Ingredients" },
+};
+```
 
-export default async function ProviderPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const provider = await getProviderBySlug(slug);
-  if (!provider) notFound(); // Real 404 before any Suspense
+### Pattern 5: Local Image Serving with Next.js Image
+
+**What:** Provider logos live in `public/assets/providers/` as static files. The `logoUrl` field on Provider stores relative paths like `/assets/providers/hellofresh.webp`. Next.js Image component renders them with automatic optimization.
+
+**When:** All provider logo/graphic rendering across the app.
+
+**Why:** Local assets eliminate external image hosting costs, CORS issues, and `remotePatterns` configuration. The manifest.json in the assets directory confirms all 95 providers have valid paths (93 real images + 2 SVG placeholders). Next.js Image optimizes these at build/request time.
+
+**Key detail:** Since images are in `public/`, they are served statically. The Next.js Image component can optimize local images without `remotePatterns` configuration. The `logoUrl` stored in the database should be the path relative to the public directory (e.g., `/assets/providers/hellofresh.webp`).
+
+### Pattern 6: Reusable ProviderLogo Component
+
+**What:** Encapsulate logo rendering logic (image vs fallback, sizing variants, alt text) in a single component used everywhere a provider logo appears.
+
+**When:** Provider logos appear in: ProviderCard, ComparisonTable headers, provider detail hero, compare page headers, collection items.
+
+**Example:**
+```typescript
+// src/components/ProviderLogo.tsx (Server Component)
+import Image from "next/image";
+
+const SIZES = {
+  sm: { width: 48, height: 48, className: "w-12 h-12" },
+  md: { width: 80, height: 80, className: "w-20 h-20" },
+  lg: { width: 192, height: 192, className: "w-48 h-48" },
+} as const;
+
+export default function ProviderLogo({
+  name,
+  logoUrl,
+  size = "md",
+  priority = false,
+}: Readonly<{
+  name: string;
+  logoUrl: string | null;
+  size?: keyof typeof SIZES;
+  priority?: boolean;
+}>) {
+  const dim = SIZES[size];
+
+  if (logoUrl) {
+    return (
+      <Image
+        src={logoUrl}
+        alt={`${name} logo`}
+        width={dim.width}
+        height={dim.height}
+        className="object-contain"
+        priority={priority}
+      />
+    );
+  }
 
   return (
-    <article>
-      <ProviderHeader provider={provider} />
-      <ProviderPlans plans={provider.plans} />
-      <Suspense fallback={<ReviewsSkeleton />}>
-        <ProviderReviews providerId={provider.id} />
-      </Suspense>
-      <Suspense fallback={<FaqSkeleton />}>
-        <ProviderFaqs faqs={provider.faqs} />
-      </Suspense>
-    </article>
+    <span className="text-2xl font-bold text-gray-300" aria-hidden="true">
+      {name.charAt(0)}
+    </span>
   );
 }
 ```
-
-**Why:** The `notFound()` call before any Suspense boundary ensures a real HTTP 404 status code. The header and pricing render immediately (part of the static shell). Reviews (potentially many) stream in after, keeping LCP fast.
-
-**Confidence:** HIGH -- verified in Next.js 16 streaming docs (the HTTP contract section explicitly recommends this pattern).
-
-### Pattern 5: JSON-LD as Server Component Output
-
-**What:** Render JSON-LD structured data as a `<script type="application/ld+json">` tag directly in Server Components, using `JSON.stringify` with XSS sanitization.
-
-**When:** Every public page.
-
-**Example:**
-```typescript
-function ProviderJsonLd({ provider }: { provider: ProviderWithRelations }) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: provider.name,
-    description: provider.shortDescription ?? provider.description,
-    image: provider.logoUrl,
-    aggregateRating: provider.reviewCount > 0 ? {
-      "@type": "AggregateRating",
-      ratingValue: provider.averageRating,
-      reviewCount: provider.reviewCount,
-    } : undefined,
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-      }}
-    />
-  );
-}
-```
-
-**Why:** JSON-LD must be in the initial HTML for search engines. Server Components guarantee it is there. The `.replace(/</g, "\\u003c")` prevents XSS via script injection in user-provided strings (like provider names).
-
-**Confidence:** HIGH -- pattern directly from Next.js 16 JSON-LD guide.
-
-### Pattern 6: On-Demand Revalidation from Admin Actions
-
-**What:** When admin creates/updates/deletes content, call `revalidatePath()` for all affected routes so public pages reflect changes on the next request.
-
-**When:** Every admin mutation Server Action.
-
-**Example:**
-```typescript
-// src/app/actions/admin.ts
-"use server";
-
-import { revalidatePath } from "next/cache";
-import { prisma } from "@/lib/db";
-import { CATEGORY_ENUM_MAP } from "@/lib/categories";
-
-export async function updateProvider(id: string, data: ProviderUpdateInput) {
-  const provider = await prisma.provider.update({
-    where: { id },
-    data,
-  });
-
-  // Revalidate all pages that display this provider
-  revalidatePath(`/providers/${provider.slug}`);
-  revalidatePath(`/${CATEGORY_ENUM_MAP[provider.category]}`);
-  revalidatePath("/"); // homepage may show featured
-
-  return { success: true };
-}
-```
-
-**Why:** Since data is editorial (updated infrequently by admins), on-demand revalidation is more appropriate than time-based ISR. Pages stay cached until explicitly invalidated, giving excellent performance while ensuring freshness after edits.
-
-**Confidence:** HIGH -- `revalidatePath` is the documented approach for Prisma/ORM-based apps in Next.js 16.
 
 ## Anti-Patterns to Avoid
 
-### Anti-Pattern 1: Fetching Data in Client Components
+### Anti-Pattern 1: Client-Side Data Fetching for Filterable Listings
 
-**What:** Using `useEffect` + `fetch` to load provider data in Client Components.
-**Why bad:** Causes waterfall requests, loses SEO (data not in initial HTML), adds loading spinners to content that should render instantly on the server.
-**Instead:** Fetch all data in Server Components via the Query Layer. Pass results as props to Client Components that need to display data.
+**What:** Using `useEffect` + `fetch()` to load filtered results on the client.
 
-### Anti-Pattern 2: Global State for Filters
+**Why bad:** Breaks SSR/SEO (search engines see empty content), doubles data fetching code (API route + client fetch), loses React.cache() deduplication, creates loading state complexity. The current URL-param-driven Server Component pattern is correct and should not be abandoned.
 
-**What:** Using React Context, Zustand, or Redux to manage filter state across category pages.
-**Why bad:** Filter state becomes invisible to the server, loses URL shareability, breaks SEO for filtered pages, adds unnecessary client JS.
-**Instead:** URL search params are the filter state. Client Components read/write URL params. Server Components read URL params and query accordingly.
+**Instead:** Keep the Server Component pattern where URL param changes trigger full server re-renders. Use `useTransition` in the filter component (already done) to show a pending indicator during navigation.
 
-### Anti-Pattern 3: Awaiting params/searchParams at Layout Level
+### Anti-Pattern 2: Creating New Prisma Relations for Fixed Taxonomies
 
-**What:** Destructuring `await params` or `await searchParams` in a layout component.
-**Why bad:** Makes the entire layout dynamic, preventing the static shell (header, nav, footer) from streaming instantly. Every page under that layout becomes slower.
-**Instead:** Pass the params/searchParams promise down to the component that actually needs it, inside a Suspense boundary. The layout renders as part of the static shell.
+**What:** Creating `ProviderPrepStyle`, `ProviderValueTier`, etc. join tables (like `ProviderDietaryTag`) for single-value fields.
 
-**Confidence:** HIGH -- explicitly documented in Next.js 16 streaming guide ("Push dynamic access down" section).
+**Why bad:** Over-engineering. Join tables are correct for many-to-many (dietary tags) but wasteful for one-to-one relationships. Each query requires an additional JOIN, indexes are more complex, and the seed script has to create join records instead of setting a field.
 
-### Anti-Pattern 4: Direct Prisma Calls in Page Components
+**Instead:** Use enum fields directly on the Provider model. A provider has exactly one prep style, one value tier, one model type, etc.
 
-**What:** Importing `prisma` directly in `page.tsx` files and writing inline queries.
-**Why bad:** Duplicates query logic across pages (category listing, homepage featured, comparison tool all need similar provider queries). Makes it impossible to add caching, logging, or optimization in one place.
-**Instead:** All Prisma queries go through `src/lib/queries.ts`. Pages call named functions like `getProvidersByCategory()`.
+### Anti-Pattern 3: Storing Filter State in React Context or Global Store
 
-### Anti-Pattern 5: Heavy Client Components for Static Content
+**What:** Using Zustand, Redux, or React Context to manage filter selections.
 
-**What:** Making the comparison table or pricing table a Client Component because it "might need interactivity."
-**Why bad:** Sends unnecessary JavaScript to the browser. Most of the comparison table is static rendered data.
-**Instead:** Render the comparison table as a Server Component. Only wrap interactive elements (e.g., "remove from comparison" button, tab switcher) in Client Components.
+**Why bad:** Filter state is already in the URL. Duplicating it in a store creates synchronization bugs, breaks the back button, and makes URLs non-shareable. The comparison tray correctly uses sessionStorage (via CompareProvider) because comparison selection is transient and per-session, not part of the URL contract.
+
+**Instead:** URL params are the single source of truth for filters. sessionStorage is the single source of truth for comparison selection. These are the only two client-side state stores needed.
+
+### Anti-Pattern 4: Hardcoding Filter Options in Components
+
+**What:** Duplicating enum values and labels in both the schema and the filter component (currently done with `DIETARY_TAG_OPTIONS` in `CategoryFilters.tsx`).
+
+**Why bad:** Adding a new enum value requires updating both the schema and the component. With 6+ filter dimensions, this becomes a maintenance burden and source of drift.
+
+**Instead:** Centralize all enum-to-label mappings in `src/lib/enums.ts`. Components import from there. Single source of truth.
+
+### Anti-Pattern 5: Overly Granular Prisma Indexes on Nullable Enum Fields
+
+**What:** Creating composite indexes on every combination of the new filter fields.
+
+**Why bad:** With 6 new filter dimensions, the number of possible composite indexes explodes. PostgreSQL's query planner handles individual column indexes well with bitmap index scans, combining multiple single-column indexes efficiently.
+
+**Instead:** Add single-column indexes on each new filterable enum field. Let PostgreSQL combine them. Only add composite indexes if query analysis (EXPLAIN ANALYZE) reveals specific slow patterns after launch.
 
 ## Scalability Considerations
 
-| Concern | At 20 providers (launch) | At 100 providers | At 500+ providers |
-|---------|--------------------------|------------------|-------------------|
-| **Query performance** | Trivial. No optimization needed. | Add composite indexes (`[category, active, averageRating]`). | Consider Prisma query caching or materialized views for listing pages. |
-| **Build time** | < 30 seconds. generateStaticParams for all providers. | Still fast (< 2 min). Static generation scales linearly with provider count. | Consider on-demand generation only (`dynamicParams: true` without generateStaticParams). |
-| **Comparison pages** | Pre-generate top 20 SEO comparison combos. | Combinations grow quadratically (n*(n-1)/2). Only pre-generate high-traffic pairs. | SEO comparisons must be curated (editorial picks), not generated for all pairs. |
-| **Search** | PostgreSQL `ILIKE` is sufficient. | PostgreSQL full-text search (`tsvector`). | Consider external search (Algolia, Typesense) if PG full-text becomes slow. |
-| **Image loading** | Next.js Image with remotePatterns. | Same. CDN handles caching. | Consider image proxy/resize service if providers have inconsistent image sizes. |
-| **Admin operations** | Direct Prisma mutations. | Same. Add pagination to admin lists. | Add search/filter to admin lists, batch operations. |
+| Concern | Current (95 providers) | At 500 providers | At 2000+ providers |
+|---------|----------------------|-------------------|---------------------|
+| Query performance | Fast; under 100ms with indexes | Still fast; single-table queries with enum filters | Consider full-text search index for text search; enum filters remain fast |
+| Category page rendering | Instant; 12 per page | Same; pagination handles it | Same |
+| Comparison state | sessionStorage; max 4 items | No change | No change |
+| Filter combinatorics | 9 dimensions manageable | Same | Consider pre-computed "suggested filters" based on available inventory |
+| Image optimization | 95 local images; Next.js Image handles it | Image CDN or external hosting | Move to cloud storage (S3/R2) with remotePatterns |
+| Seed/import | One-time script, ~95 records | Still fine as batch insert | Streaming import, chunked |
+| Admin management | CRUD per provider works | Needs bulk edit, CSV import | Needs search within admin, pagination |
 
-## File Structure (Target State)
-
-```
-src/
-  app/
-    layout.tsx                        # Root layout: HTML, fonts, nav, footer
-    page.tsx                          # Homepage
-    [category]/
-      page.tsx                        # Category listing (Server Component)
-      loading.tsx                     # Category listing skeleton
-    providers/
-      [slug]/
-        page.tsx                      # Provider detail (Server Component)
-        loading.tsx                   # Provider detail skeleton
-    compare/
-      page.tsx                        # Flexible comparison (?providers=a,b,c)
-      [slugs]/
-        page.tsx                      # SEO comparison (slug-vs-slug)
-    best/
-      [slug]/
-        page.tsx                      # Collection/best-of page
-    blog/
-      page.tsx                        # Blog index
-      [slug]/
-        page.tsx                      # Blog post
-    methodology/
-      page.tsx                        # E-E-A-T methodology page
-    search/
-      page.tsx                        # Search results
-    admin/
-      layout.tsx                      # Admin layout with sidebar
-      page.tsx                        # Dashboard
-      providers/
-        page.tsx                      # Provider list
-        [id]/
-          page.tsx                    # Provider edit form
-        new/
-          page.tsx                    # Provider create form
-      content/
-        page.tsx                      # Blog & collection management
-    actions/
-      reviews.ts                      # submitReview Server Action
-      admin.ts                        # Admin CRUD Server Actions
-    api/
-      track/
-        [providerId]/
-          route.ts                    # Affiliate click tracking
-    error.tsx                         # Global error boundary
-    not-found.tsx                     # Global 404 page
-    sitemap.ts                        # Dynamic sitemap generation
-    robots.ts                         # robots.txt generation
-  components/
-    ProviderCard.tsx                   # Provider card for listings
-    ComparisonTable.tsx               # Side-by-side comparison grid
-    ComparisonTray.tsx                # "use client" floating bar
-    FilterPanel.tsx                   # "use client" filter sidebar/drawer
-    SearchBar.tsx                     # "use client" expandable search
-    ReviewForm.tsx                    # "use client" review submission
-    RatingStars.tsx                   # Star display (Server) + input (Client variant)
-    PricingTable.tsx                  # Provider plan comparison
-    FaqAccordion.tsx                  # Collapsible FAQ with JSON-LD
-    BreadcrumbNav.tsx                 # Breadcrumb navigation
-    JsonLd.tsx                        # Reusable JSON-LD helper
-    ui/                               # Base UI primitives
-      Button.tsx
-      Card.tsx
-      Badge.tsx
-      Input.tsx
-      Select.tsx
-      Skeleton.tsx
-  lib/
-    db.ts                             # Prisma client singleton (exists)
-    queries.ts                        # All query functions (server-only)
-    categories.ts                     # Slug <-> enum mapping
-    filters.ts                        # SearchParams parser
-    utils.ts                          # Shared utilities (formatPrice, etc.)
-  generated/
-    prisma/                           # Auto-generated Prisma client (exists)
-  proxy.ts                            # Admin auth gate (Next.js 16)
-prisma/
-  schema.prisma                       # Database schema (exists)
-  seed.ts                             # Seed script
-```
-
-## Suggested Build Order (Dependencies)
-
-The architecture has clear dependency layers that dictate build order:
-
-### Layer 0: Data Foundation (Phase 10)
-**Must build first.** Everything depends on having data.
-- Prisma schema (exists) --> seed script --> query functions
-- No pages can be built without query functions returning real data
-
-### Layer 1: Layout Shell (Phase 20)
-**Depends on:** Layer 0 (category data for nav)
-- Root layout, header, footer, navigation
-- Base UI components (Button, Card, Badge, etc.)
-- These are reused by every subsequent page
-
-### Layer 2: Core Content Pages (Phases 30-50)
-**Depends on:** Layer 0 (queries), Layer 1 (layout, components)
-- Homepage (Phase 30): uses featured providers query + category data
-- Category Listings (Phase 40): uses filtered provider query + FilterPanel
-- Provider Detail (Phase 50): uses provider-by-slug query + all sub-components
-
-**Phase 40 must come before Phase 50** because ProviderCard (built in Phase 40) is reused on detail pages for "related providers."
-
-### Layer 3: Cross-Cutting Features (Phases 60-70)
-**Depends on:** Layer 2 (provider pages must exist)
-- Comparison Tool (Phase 60): needs ProviderCard, provider queries
-- Collections & Blog (Phase 70): needs provider queries, ProviderCard
-
-### Layer 4: Interactive Features (Phases 80-90)
-**Depends on:** Layer 2 (pages where search/reviews appear)
-- Search (Phase 80): needs all content types to exist for indexing
-- Reviews (Phase 90): needs provider detail page to host the form
-
-### Layer 5: Admin & Infrastructure (Phases 100-120)
-**Depends on:** Layers 0-4 (admin manages all content types)
-- Admin Dashboard (Phase 100): needs all models to have CRUD
-- SEO Optimization (Phase 110): needs all public pages to exist
-- Affiliate Tracking & Polish (Phase 120): needs provider detail pages, admin dashboard
-
-### Critical Path
+## Component Dependency Graph
 
 ```
-Schema/Seed --> Layout Shell --> Category Pages --> Provider Detail
-     |                |               |                  |
-     |                |               +-> Comparison --> Collections
-     |                |               +-> Search
-     |                |
-     |                +-> Homepage
-     |
-     +-> Query Layer (unblocks everything)
+Root Layout (layout.tsx)
+  |-- CompareProvider (Client, sessionStorage context)
+  |-- Header (Server, nav links)
+  |     |-- HeaderSearchForm (Client, search input)
+  |-- main (children)
+  |     |
+  |     |-- Homepage (page.tsx, Server)
+  |     |     |-- ProviderCard (Server)
+  |     |     |     |-- ProviderLogo (Server, NEW)
+  |     |     |-- Badge, RatingStars (Server)
+  |     |
+  |     |-- Category Listing ([category]/page.tsx, Server)
+  |     |     |-- CategoryFilters (Client, URL-driven)
+  |     |     |-- ProviderCard (Server)
+  |     |     |     |-- ProviderLogo (Server, NEW)
+  |     |     |     |-- AddToCompareButton (Client)
+  |     |     |-- Pagination (Server)
+  |     |
+  |     |-- Provider Detail (providers/[slug]/page.tsx, Server)
+  |     |     |-- ProviderLogo (Server, NEW, size="lg")
+  |     |     |-- PricingTable, RatingBreakdown, ReviewCard (Server)
+  |     |     |-- FaqAccordion (Client, toggle)
+  |     |     |-- ReviewForm (Client, form)
+  |     |     |-- AffiliateLink (Server)
+  |     |     |-- ProviderCard (related providers)
+  |     |
+  |     |-- Compare Flexible (compare/page.tsx, Server)
+  |     |     |-- ComparisonTable (Server)
+  |     |     |     |-- ProviderLogo (Server, NEW)
+  |     |
+  |     |-- Compare SEO (compare/[versus]/page.tsx, Server)
+  |     |     |-- ComparisonTable (Server)
+  |     |     |-- QuickSummaryCard (Server)
+  |     |
+  |     |-- Search (search/page.tsx, Server)
+  |     |     |-- SearchInput (Client)
+  |     |     |-- ProviderCard, Card, Badge (Server)
+  |     |
+  |     |-- Admin (admin/*, Server)
+  |           |-- ProviderForm (Client, form)
+  |           |-- PlanForm, PlanManager (Client, forms)
+  |
+  |-- Footer (Server)
+  |-- CompareBar (Client, floating)
 ```
 
-The **query layer** (`src/lib/queries.ts`) is the single most critical dependency. Building it thoroughly in Phase 10 unblocks all subsequent phases. If queries are incomplete, every page phase will be blocked by "need to add another query function."
+## Suggested Build Order (Dependencies Between Components)
 
-## Caching Strategy
+The following order minimizes rework and ensures each piece has what it needs before being built:
 
-For a content site with editorial data (updated infrequently by admins), the optimal approach is:
+### Phase 1: Schema & Data Foundation (No UI Dependencies)
 
-| Page Type | Strategy | Revalidation Trigger |
-|-----------|----------|---------------------|
-| Homepage | `revalidate = 3600` (1 hour) + on-demand when admin updates featured | `revalidatePath("/")` from admin actions |
-| Category Listing | `revalidate = 3600` + on-demand | `revalidatePath("/${category}")` from admin actions |
-| Provider Detail | `generateStaticParams` + on-demand | `revalidatePath("/providers/${slug}")` from admin actions |
-| Collection/Best-Of | `generateStaticParams` + on-demand | `revalidatePath("/best/${slug}")` from admin actions |
-| Blog Post | `generateStaticParams` + on-demand | `revalidatePath("/blog/${slug}")` from admin actions |
-| SEO Comparison | `generateStaticParams` + on-demand | `revalidatePath("/compare/${slugs}")` from admin actions |
-| Flexible Comparison | Dynamic (noindex, unique per request) | No caching needed |
-| Search | Dynamic (depends on query) | No caching needed |
-| Admin pages | Dynamic (always fresh) | No caching needed |
+**Must happen first** because everything else depends on the data model and seeded data.
 
-**Key insight:** Since all content is managed by admins (no user-generated content is visible without approval), pages can be aggressively cached and only revalidated when admins make changes. This gives near-static-site performance with full dynamic capabilities.
+1. **Extend Prisma schema** with new enum types and Provider fields
+2. **`npx prisma db push`** to sync schema to Neon
+3. **`npx prisma generate`** to get new TypeScript types
+4. **Write seed script** (`prisma/seed.ts`) to import 95 providers from `food-box-companies.json`
+5. **Run seed** to populate the database
+
+Dependencies: None (schema-only work).
+Produces: Populated database with all 95 providers and their new fields.
+
+### Phase 2: Utility Layer (No UI Dependencies)
+
+**Must happen before UI** because filter parsing and enum mapping are consumed by both pages and components.
+
+1. **`src/lib/enums.ts`** -- Bidirectional maps for all new enums (ModelType, PrepStyle, ValueTier, HouseholdFit, Geography, FlexibilityLevel)
+2. **`src/lib/filters.ts`** -- Centralized search param parsing with validation
+3. **Extend `src/lib/queries.ts`** -- Add new filter params to `getProvidersByCategory()`, add `getProviderCountsByField()` for filter facet counts (optional)
+
+Dependencies: Schema must be pushed and generated (Phase 1).
+Produces: Type-safe filter infrastructure ready for pages and components.
+
+### Phase 3: Image Infrastructure
+
+1. **`src/components/ProviderLogo.tsx`** -- Reusable logo component with fallback
+2. **Update seed script** to set `logoUrl` from manifest.json paths
+3. **Configure `next.config.ts`** -- Verify local image optimization works (no remotePatterns needed for public/ images)
+
+Dependencies: Seed script (Phase 1) must set logoUrl values.
+Produces: Consistent logo rendering across the app.
+
+### Phase 4: Extended Filtering UI
+
+1. **Update `CategoryFilters.tsx`** -- Add new filter sections for each extended dimension
+2. **Update `[category]/page.tsx`** -- Use new `parseFilters()` from filters.ts, pass filter count to CategoryFilters
+
+Dependencies: Utility layer (Phase 2), populated data (Phase 1).
+Produces: Full multi-criteria filtering on category pages.
+
+### Phase 5: Component Updates
+
+1. **Update `ProviderCard.tsx`** -- Use `ProviderLogo` component, optionally show new badges (value tier, prep style)
+2. **Update provider detail page** -- Use `ProviderLogo`, display new fields (model type, prep style, geography, flexibility)
+3. **Update `ComparisonTable.tsx`** -- Add rows for new comparison dimensions
+4. **Update SEO comparison page** -- Include new fields in verdict generation and JSON-LD
+
+Dependencies: ProviderLogo (Phase 3), data (Phase 1).
+Produces: Complete consumer-facing experience.
+
+### Phase 6: Admin & SEO Polish
+
+1. **Update `ProviderForm.tsx`** -- Add form fields for new enum values
+2. **Update admin Server Actions** -- Handle new fields in create/update
+3. **Verify `generateStaticParams`** -- Ensure all 95 providers generate static pages
+4. **Update sitemap.ts** -- Include any new routes
+5. **JSON-LD updates** -- Include new structured data fields where appropriate
+
+Dependencies: All prior phases.
+Produces: Complete admin management of extended provider data.
+
+## Key Architectural Decisions for Next Milestone
+
+| Decision | Recommendation | Rationale |
+|----------|---------------|-----------|
+| Enum fields vs string fields for new taxonomies | Enum fields | Type safety, Prisma validation, IDE autocomplete, consistent with existing CategoryType pattern |
+| Nullable vs required for new fields | Nullable (`?`) | Many providers in the dataset have sparse data; nullable allows gradual enrichment without blocking seed |
+| Separate filter parser module vs inline | Separate (`src/lib/filters.ts`) | Reusable across pages, testable, prevents page component from growing past 150 lines |
+| New ProviderLogo component vs inline rendering | New component | Logo rendering appears in 5+ places with identical fallback logic; DRY |
+| Single-column indexes vs composite for new fields | Single-column | PostgreSQL bitmap scans combine them efficiently; composite only after EXPLAIN ANALYZE evidence |
+| Schema migration files vs db push | db push | Project decision (established in CLAUDE.md); no migration files for now |
+| All providers in seed vs active-only | All 95, flag inactive | Dataset includes status field; seed all, let `active` filter handle display |
 
 ## Sources
 
-- Next.js 16 docs: `node_modules/next/dist/docs/01-app/02-guides/streaming.md` -- streaming, Suspense patterns, HTTP contract
-- Next.js 16 docs: `node_modules/next/dist/docs/01-app/02-guides/caching-without-cache-components.md` -- React.cache(), unstable_cache, revalidation
-- Next.js 16 docs: `node_modules/next/dist/docs/01-app/02-guides/incremental-static-regeneration.md` -- ISR patterns, generateStaticParams
-- Next.js 16 docs: `node_modules/next/dist/docs/01-app/02-guides/json-ld.md` -- JSON-LD implementation
-- Next.js 16 docs: `node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/proxy.md` -- proxy.ts for admin auth
-- Prisma schema: `prisma/schema.prisma` -- 10 models, 5 enums, index definitions
-- Project spec: `.planning/PROJECT.md` -- URL structure, constraints, decisions
-- UX strategy: `.planning/research/UX-STRATEGY.md` -- component hierarchy, layout strategy
-- SEO strategy: `.planning/research/SEO-STRATEGY.md` -- JSON-LD schemas, URL patterns
+- Direct codebase analysis of all 28 components, 15+ route segments, schema, queries, and utilities
+- Next.js 16 official documentation in `node_modules/next/dist/docs/` (ISR, streaming, image optimization)
+- Provider dataset at `temp/plandocs/food-box-companies.json` (95 entries, field structure)
+- Provider asset manifest at `public/assets/providers/manifest.json` (95 validated image paths)
+- Existing ARCHITECTURE.md at `.planning/codebase/ARCHITECTURE.md` (v1.0 architecture baseline)
+- Prisma documentation (enum types, filtering, indexes) -- training data, MEDIUM confidence
 
 ---
 
-*Architecture research: 2026-03-20*
+*Architecture research: 2026-03-21*
