@@ -63,6 +63,9 @@ export default function CompareProvider({
 }>) {
   // Listeners for useSyncExternalStore
   const listenersRef = useRef(new Set<() => void>());
+  // Cache the snapshot so useSyncExternalStore gets a stable reference
+  const cachedSnapshotRef = useRef<CompareEntry[]>(EMPTY);
+  const cachedRawRef = useRef<string | null>(null);
 
   const subscribe = useCallback((listener: () => void) => {
     listenersRef.current.add(listener);
@@ -72,7 +75,12 @@ export default function CompareProvider({
   }, []);
 
   const getSnapshot = useCallback((): CompareEntry[] => {
-    return parseEntries(sessionStorage.getItem(STORAGE_KEY));
+    const raw = sessionStorage.getItem(STORAGE_KEY);
+    if (raw !== cachedRawRef.current) {
+      cachedRawRef.current = raw;
+      cachedSnapshotRef.current = parseEntries(raw);
+    }
+    return cachedSnapshotRef.current;
   }, []);
 
   const getServerSnapshot = useCallback((): CompareEntry[] => {
