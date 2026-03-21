@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Blog - Food Box Tips, Guides & News",
   description:
     "Read the latest tips, guides, and news about food box subscriptions. From meal planning advice to in-depth reviews of the best meal kits and prepared meal services.",
+  alternates: {
+    canonical: "/blog",
+  },
   openGraph: {
     title: "Blog | FoodBoxFinder",
     description:

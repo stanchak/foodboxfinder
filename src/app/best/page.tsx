@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Best Food Box Collections",
   description:
     "Browse our curated 'Best of' collections to find top-rated food box subscriptions. Expert picks for meal kits, prepared meals, protein boxes, and more.",
+  alternates: {
+    canonical: "/best",
+  },
   openGraph: {
     title: "Best Food Box Collections | FoodBoxFinder",
     description:

@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Our Methodology",
   description:
     "Learn how FoodBoxFinder reviews, rates, and compares food box subscription services. Our editorial process, rating methodology, and affiliate disclosure.",
+  alternates: {
+    canonical: "/methodology",
+  },
   openGraph: {
     title: "Our Methodology | FoodBoxFinder",
     description:

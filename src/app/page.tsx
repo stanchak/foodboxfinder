@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "FoodBoxFinder - Discover & Compare Food Box Subscriptions",
   description:
     "Find and compare the best meal kits, prepared meals, protein boxes, and produce boxes. Honest reviews, transparent pricing, and side-by-side comparisons to help you choose the perfect food subscription.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "FoodBoxFinder - Discover & Compare Food Box Subscriptions",
     description:
