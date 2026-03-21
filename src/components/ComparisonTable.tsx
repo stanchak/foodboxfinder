@@ -41,6 +41,16 @@ interface ComparisonProvider {
   secondaryCategory: CategoryType | null;
   dietaryTags: Array<{ tag: DietaryTag }>;
   plans: ComparisonPlan[];
+  // New dataset fields
+  prepStyle: string | null;
+  valueTier: string | null;
+  modelType: string | null;
+  householdFit: string | null;
+  geography: string | null;
+  shippingNotes: string | null;
+  flexibility: string | null;
+  prosJson: unknown;
+  consJson: unknown;
 }
 
 // -- Helpers --
@@ -60,6 +70,29 @@ function formatFrequency(freq: PlanFrequency): string {
     FLEXIBLE: "Flexible",
   };
   return map[freq];
+}
+
+const VALUE_TIER_LABELS: Record<string, string> = {
+  BUDGET: "Budget",
+  MID: "Mid-Range",
+  PREMIUM: "Premium",
+  LUXURY: "Luxury",
+};
+
+function formatValueTier(tier: string | null): string {
+  if (!tier) return "N/A";
+  return VALUE_TIER_LABELS[tier] ?? tier;
+}
+
+function isFieldEmpty(value: unknown): boolean {
+  if (value === null || value === undefined || value === "") return true;
+  if (Array.isArray(value) && value.length === 0) return true;
+  return false;
+}
+
+function parseJsonStringArray(json: unknown): string[] {
+  if (!Array.isArray(json)) return [];
+  return json.filter((item): item is string => typeof item === "string");
 }
 
 function CheckIcon() {
@@ -225,15 +258,128 @@ export default function ComparisonTable({
               }
             </ComparisonRow>
 
+            {/* Section: Provider Details Header */}
+            <SectionHeader label="Provider Details" colCount={colCount} />
+
+            {/* Prep Style */}
+            <HideableComparisonRow
+              label="Prep Style"
+              providers={providers}
+              values={providers.map((p) => p.prepStyle)}
+            >
+              {(provider) => (
+                <span className="text-sm text-gray-700">
+                  {provider.prepStyle ?? "N/A"}
+                </span>
+              )}
+            </HideableComparisonRow>
+
+            {/* Value Tier */}
+            <HideableComparisonRow
+              label="Value Tier"
+              providers={providers}
+              values={providers.map((p) => p.valueTier)}
+              highlight
+            >
+              {(provider) => (
+                <span className="text-sm text-gray-700">
+                  {formatValueTier(provider.valueTier)}
+                </span>
+              )}
+            </HideableComparisonRow>
+
+            {/* Model Type */}
+            <HideableComparisonRow
+              label="Model Type"
+              providers={providers}
+              values={providers.map((p) => p.modelType)}
+            >
+              {(provider) => (
+                <span className="text-sm text-gray-700">
+                  {provider.modelType ?? "N/A"}
+                </span>
+              )}
+            </HideableComparisonRow>
+
+            {/* Household Fit */}
+            <HideableComparisonRow
+              label="Household Fit"
+              providers={providers}
+              values={providers.map((p) => p.householdFit)}
+              highlight
+            >
+              {(provider) => (
+                <span className="text-sm text-gray-700">
+                  {provider.householdFit ?? "N/A"}
+                </span>
+              )}
+            </HideableComparisonRow>
+
+            {/* Geography */}
+            <HideableComparisonRow
+              label="Geography"
+              providers={providers}
+              values={providers.map((p) => p.geography)}
+            >
+              {(provider) => (
+                <span className="text-sm text-gray-700">
+                  {provider.geography ?? "N/A"}
+                </span>
+              )}
+            </HideableComparisonRow>
+
+            {/* Section: Pros & Cons Header */}
+            <SectionHeader label="Pros & Cons" colCount={colCount} />
+
+            {/* Pros */}
+            <HideableComparisonRow
+              label="Pros"
+              providers={providers}
+              values={providers.map((p) => parseJsonStringArray(p.prosJson))}
+            >
+              {(provider) => {
+                const pros = parseJsonStringArray(provider.prosJson);
+                return pros.length > 0 ? (
+                  <ul className="text-sm text-gray-700 text-left space-y-1">
+                    {pros.map((pro, i) => (
+                      <li key={i} className="flex items-start gap-1.5">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-green-500 shrink-0" aria-hidden="true" />
+                        {pro}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <span className="text-sm text-gray-400">N/A</span>
+                );
+              }}
+            </HideableComparisonRow>
+
+            {/* Cons */}
+            <HideableComparisonRow
+              label="Cons"
+              providers={providers}
+              values={providers.map((p) => parseJsonStringArray(p.consJson))}
+              highlight
+            >
+              {(provider) => {
+                const cons = parseJsonStringArray(provider.consJson);
+                return cons.length > 0 ? (
+                  <ul className="text-sm text-gray-700 text-left space-y-1">
+                    {cons.map((con, i) => (
+                      <li key={i} className="flex items-start gap-1.5">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-500 shrink-0" aria-hidden="true" />
+                        {con}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <span className="text-sm text-gray-400">N/A</span>
+                );
+              }}
+            </HideableComparisonRow>
+
             {/* Section: Featured Plan Header */}
-            <tr>
-              <td
-                colSpan={colCount + 1}
-                className="bg-gray-50 px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide border-y border-gray-200"
-              >
-                Featured Plan
-              </td>
-            </tr>
+            <SectionHeader label="Featured Plan" colCount={colCount} />
 
             {/* Featured Plan: Name */}
             <ComparisonRow label="Plan Name" providers={providers}>
@@ -334,15 +480,8 @@ export default function ComparisonTable({
               }}
             </ComparisonRow>
 
-            {/* Section: Flexibility Header */}
-            <tr>
-              <td
-                colSpan={colCount + 1}
-                className="bg-gray-50 px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide border-y border-gray-200"
-              >
-                Flexibility
-              </td>
-            </tr>
+            {/* Section: Plan Flexibility Header */}
+            <SectionHeader label="Plan Flexibility" colCount={colCount} />
 
             {/* Can Skip */}
             <ComparisonRow label="Skip Deliveries" providers={providers}>
@@ -385,6 +524,33 @@ export default function ComparisonTable({
                 </span>
               )}
             </ComparisonRow>
+
+            {/* Shipping Notes */}
+            <HideableComparisonRow
+              label="Shipping Notes"
+              providers={providers}
+              values={providers.map((p) => p.shippingNotes)}
+              highlight
+            >
+              {(provider) => (
+                <span className="text-sm text-gray-700 max-w-[200px] text-left inline-block">
+                  {provider.shippingNotes ?? "N/A"}
+                </span>
+              )}
+            </HideableComparisonRow>
+
+            {/* Flexibility Info (provider-level) */}
+            <HideableComparisonRow
+              label="Flexibility Info"
+              providers={providers}
+              values={providers.map((p) => p.flexibility)}
+            >
+              {(provider) => (
+                <span className="text-sm text-gray-700 max-w-[200px] text-left inline-block">
+                  {provider.flexibility ?? "N/A"}
+                </span>
+              )}
+            </HideableComparisonRow>
 
             {/* Affiliate CTA Row */}
             <tr>
@@ -438,6 +604,27 @@ export default function ComparisonTable({
   );
 }
 
+// -- Section Header Component --
+
+function SectionHeader({
+  label,
+  colCount,
+}: Readonly<{
+  label: string;
+  colCount: number;
+}>) {
+  return (
+    <tr>
+      <td
+        colSpan={colCount + 1}
+        className="bg-gray-50 px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide border-y border-gray-200"
+      >
+        {label}
+      </td>
+    </tr>
+  );
+}
+
 // -- Row Component --
 
 function ComparisonRow({
@@ -472,5 +659,30 @@ function ComparisonRow({
         </td>
       ))}
     </tr>
+  );
+}
+
+// -- Hideable Row Component (hides when ALL providers have empty values) --
+
+function HideableComparisonRow({
+  label,
+  providers,
+  values,
+  highlight = false,
+  children,
+}: Readonly<{
+  label: string;
+  providers: ComparisonProvider[];
+  values: unknown[];
+  highlight?: boolean;
+  children: (provider: ComparisonProvider) => React.ReactNode;
+}>) {
+  const allNa = values.every(isFieldEmpty);
+  if (allNa) return null;
+
+  return (
+    <ComparisonRow label={label} providers={providers} highlight={highlight}>
+      {children}
+    </ComparisonRow>
   );
 }

@@ -98,7 +98,32 @@ export const getProviderBySlug = cache(async (slug: string) => {
 export const getProvidersForComparison = cache(async (slugs: string[]) => {
   return prisma.provider.findMany({
     where: { slug: { in: slugs }, status: "ACTIVE" },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      shortDescription: true,
+      logoUrl: true,
+      website: true,
+      affiliateUrl: true,
+      averageRating: true,
+      reviewCount: true,
+      minPricePerServingCents: true,
+      maxPricePerServingCents: true,
+      freeShipping: true,
+      category: true,
+      secondaryCategory: true,
+      // New dataset fields
+      prepStyle: true,
+      valueTier: true,
+      modelType: true,
+      householdFit: true,
+      geography: true,
+      shippingNotes: true,
+      flexibility: true,
+      prosJson: true,
+      consJson: true,
+      // Relations
       plans: { where: { active: true }, orderBy: { sortOrder: "asc" } },
       dietaryTags: true,
     },
