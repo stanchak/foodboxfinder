@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import ProviderLogo from "@/components/ProviderLogo";
 import type { CategoryType, DietaryTag, PlanFrequency } from "@/generated/prisma/client";
 import { CATEGORY_MAP } from "@/lib/categories";
 import { formatPrice, formatPriceRange } from "@/lib/format";
@@ -142,21 +142,11 @@ export default function ComparisonTable({
                       href={`/providers/${provider.slug}`}
                       className="group flex flex-col items-center gap-2"
                     >
-                      <div className="w-16 h-16 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center overflow-hidden">
-                        {provider.logoUrl ? (
-                          <Image
-                            src={provider.logoUrl}
-                            alt={`${provider.name} logo`}
-                            width={64}
-                            height={64}
-                            className="object-contain p-1"
-                          />
-                        ) : (
-                          <span className="text-xl font-bold text-gray-300">
-                            {provider.name.charAt(0)}
-                          </span>
-                        )}
-                      </div>
+                      <ProviderLogo
+                        logoUrl={provider.logoUrl}
+                        name={provider.name}
+                        size="md"
+                      />
                       <span className="text-sm font-semibold text-gray-900 group-hover:text-primary-700 transition-colors">
                         {provider.name}
                       </span>

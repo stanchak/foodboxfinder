@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import Badge from "@/components/Badge";
 import RatingStars from "@/components/RatingStars";
+import ProviderLogo from "@/components/ProviderLogo";
 import { formatPriceLabel } from "@/lib/format";
 import { CATEGORY_MAP } from "@/lib/categories";
 import type { CategoryType, DietaryTag } from "@/generated/prisma/client";
@@ -42,22 +42,12 @@ export default function ProviderCard({
       <Link href={href} className="block" aria-label={`View ${provider.name}`}>
         {/* Logo / Image area */}
         <div className="relative h-40 bg-gray-50 flex items-center justify-center overflow-hidden">
-          {provider.logoUrl ? (
-            <Image
-              src={provider.logoUrl}
-              alt={`${provider.name} logo`}
-              width={160}
-              height={80}
-              className="object-contain p-4 group-hover:scale-105 transition-transform duration-200"
-            />
-          ) : (
-            <div className="flex items-center justify-center w-full h-full">
-              <span className="text-2xl font-bold text-gray-300">
-                {provider.name.charAt(0)}
-              </span>
-            </div>
-          )}
-
+          <ProviderLogo
+            logoUrl={provider.logoUrl}
+            name={provider.name}
+            size="md"
+            className="group-hover:scale-105 transition-transform duration-200 border-0"
+          />
           {provider.freeShipping && (
             <span className="absolute top-3 right-3 inline-flex items-center rounded-full bg-primary-600 px-2.5 py-0.5 text-xs font-medium text-white">
               Free Shipping

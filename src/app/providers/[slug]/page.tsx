@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
+import ProviderLogo from "@/components/ProviderLogo";
 import type { DietaryTag } from "@/generated/prisma/client";
 import {
   getProviderBySlug,
@@ -201,37 +201,13 @@ export default async function ProviderDetailPage({
         {/* Hero Section */}
         <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
           {/* Logo */}
-          <div className="shrink-0 flex items-center justify-center w-full lg:w-48 h-48 rounded-xl bg-gray-50 border border-gray-200 overflow-hidden">
-            {provider.logoUrl ? (
-              <Image
-                src={provider.logoUrl}
-                alt={`${provider.name} logo`}
-                width={192}
-                height={192}
-                className="object-contain p-4"
-                priority
-              />
-            ) : (
-              <div className="flex flex-col items-center gap-2 text-gray-400" aria-hidden="true">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
-                  <path d="M7 2v20" />
-                  <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
-                </svg>
-                <span className="text-sm font-medium">{provider.name}</span>
-              </div>
-            )}
-          </div>
+          <ProviderLogo
+            logoUrl={provider.logoUrl}
+            name={provider.name}
+            size="lg"
+            priority
+            className="shrink-0 w-full lg:w-48"
+          />
 
           {/* Header Info */}
           <div className="flex-1 min-w-0">
