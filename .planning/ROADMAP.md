@@ -81,11 +81,10 @@ Plans:
   3. FAQ section renders from ProviderFaq records when present
   4. Clicking "Visit Site" records an affiliate click (providerId, source, referrer, hashed IP) and opens the provider's website
   5. The page has correct metadata (title, description) and Product JSON-LD structured data with breadcrumbs
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
+- [ ] 04-01-PLAN.md -- Add new provider field sections (prepStyle, valueTier, householdFit, modelType, geography, flexibility, shippingNotes, status badge) and fix JSON-LD XSS safety on detail page and Breadcrumbs
 
 ### Phase 5: Category Browsing and Filtering
 **Goal**: Users can browse providers by category and narrow results using composable multi-criteria filters with shareable URLs
@@ -208,7 +207,7 @@ Note: Phase 3 and Phase 10 can run in parallel with their neighbors (3 depends o
 | 1. Data Foundation | 0/2 | Not started | - |
 | 2. Query Layer and Filter Infrastructure | 0/2 | Not started | - |
 | 3. Provider Logos | 1/1 | Complete   | 2026-03-21 |
-| 4. Provider Detail Pages | 0/2 | Not started | - |
+| 4. Provider Detail Pages | 0/1 | Not started | - |
 | 5. Category Browsing and Filtering | 0/3 | Not started | - |
 | 6. Homepage | 0/1 | Not started | - |
 | 7. Side-by-Side Comparison | 0/2 | Not started | - |
