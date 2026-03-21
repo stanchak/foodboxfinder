@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { getTopAffiliateProviders } from "@/lib/queries";
+import { CATEGORY_MAP } from "@/lib/categories";
+import type { CategoryType } from "@/generated/prisma/client";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -25,6 +27,7 @@ export default async function AdminDashboardPage() {
     publishedCollectionCount,
     recentClickCount,
     topProviders,
+    categoryBreakdown,
   ] = await Promise.all([
     prisma.provider.count(),
     prisma.provider.count({ where: { status: "ACTIVE" } }),
@@ -36,6 +39,11 @@ export default async function AdminDashboardPage() {
     prisma.collection.count({ where: { status: "PUBLISHED" } }),
     prisma.affiliateClick.count({ where: { createdAt: { gte: thirtyDaysAgo } } }),
     getTopAffiliateProviders(30, 5),
+    prisma.provider.groupBy({
+      by: ["category"],
+      _count: { id: true },
+      orderBy: { _count: { id: "desc" } },
+    }),
   ]);
 
   const stats = [
@@ -167,6 +175,42 @@ export default async function AdminDashboardPage() {
             No affiliate clicks recorded in the last 30 days.
           </div>
         )}
+      </div>
+
+      {/* Providers by Category */}
+      <div className="mt-8">
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          Providers by Category
+        </h2>
+        <div className="bg-white rounded-xl shadow-card overflow-hidden">
+          <table className="min-w-full">
+            <thead>
+              <tr className="border-b border-gray-200">
+                <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  Category
+                </th>
+                <th className="px-5 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  Count
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {categoryBreakdown.map((item, index) => (
+                <tr
+                  key={item.category}
+                  className={index < categoryBreakdown.length - 1 ? "border-b border-gray-100" : ""}
+                >
+                  <td className="px-5 py-3 text-sm font-medium text-gray-900">
+                    {CATEGORY_MAP[item.category as CategoryType]?.label ?? item.category}
+                  </td>
+                  <td className="px-5 py-3 text-sm font-semibold text-gray-900 text-right tabular-nums">
+                    {item._count.id}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
