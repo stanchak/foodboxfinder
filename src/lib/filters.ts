@@ -8,124 +8,31 @@ import type {
 import { Prisma } from "@/generated/prisma/client";
 import { getCategoryBySlug } from "@/lib/categories";
 
-// --- Known Value Groups for String Fields ---
+// Re-export client-safe constants from filter-constants.ts.
+// Server-side code can continue importing these from @/lib/filters.
+// Client components should import directly from @/lib/filter-constants.
+export {
+  PREP_STYLE_GROUPS,
+  MODEL_TYPE_GROUPS,
+  HOUSEHOLD_FIT_VALUES,
+  GEOGRAPHY_GROUPS,
+  VALUE_TIER_SLUGS,
+  SORT_OPTIONS,
+  DIETARY_TAG_OPTIONS,
+  VALUE_TIER_LABELS,
+} from "@/lib/filter-constants";
+export type { SortOption } from "@/lib/filter-constants";
 
-// Groups the 37 distinct prepStyle values into ~8 broad filter categories.
-// The `matchPattern` is used in a Prisma `contains` search against the database value.
-export const PREP_STYLE_GROUPS = {
-  "cook-it-yourself": {
-    slug: "cook-it-yourself",
-    label: "Cook-It-Yourself",
-    matchPattern: "cook-it-yourself",
-  },
-  "prepared": {
-    slug: "prepared",
-    label: "Prepared Meals",
-    matchPattern: "prepared",
-  },
-  "raw-protein": {
-    slug: "raw-protein",
-    label: "Raw Protein",
-    matchPattern: "raw-protein",
-  },
-  "snacks": {
-    slug: "snacks",
-    label: "Snacks",
-    matchPattern: "snack",
-  },
-  "produce-box": {
-    slug: "produce-box",
-    label: "Produce Box",
-    matchPattern: "produce",
-  },
-  "coffee": {
-    slug: "coffee",
-    label: "Coffee",
-    matchPattern: "coffee",
-  },
-  "tea": {
-    slug: "tea",
-    label: "Tea",
-    matchPattern: "tea",
-  },
-  "specialty": {
-    slug: "specialty",
-    label: "Specialty",
-    matchPattern: "specialty",
-  },
-} as const;
-
-// Groups the 11 distinct modelType values into ~5 broad filter categories.
-export const MODEL_TYPE_GROUPS = {
-  "subscription": {
-    slug: "subscription",
-    label: "Subscription",
-    matchPattern: "subscription-first",
-  },
-  "store": {
-    slug: "store",
-    label: "Store-First",
-    matchPattern: "store-first",
-  },
-  "hybrid": {
-    slug: "hybrid",
-    label: "Hybrid",
-    matchPattern: "hybrid",
-  },
-  "marketplace": {
-    slug: "marketplace",
-    label: "Marketplace",
-    matchPattern: "marketplace",
-  },
-  "gift-club": {
-    slug: "gift-club",
-    label: "Gift Club / Other",
-    matchPattern: "gift-club",
-  },
-} as const;
-
-// Direct const array of known household fit values.
-// Pipe-delimited database values like "gifting|family" match via `contains`.
-export const HOUSEHOLD_FIT_VALUES = [
-  "single-serve",
-  "couples",
-  "family",
-  "freezer-stocking",
-  "gifting",
-] as const;
-
-// Groups the 8 distinct geography values into ~3 broad filter categories.
-export const GEOGRAPHY_GROUPS = {
-  "national": {
-    slug: "national",
-    label: "National (US)",
-    matchPattern: "national-us",
-  },
-  "regional": {
-    slug: "regional",
-    label: "Regional",
-    matchPattern: "regional",
-  },
-  "multi-market": {
-    slug: "multi-market",
-    label: "Multi-Market",
-    matchPattern: "multi-market",
-  },
-} as const;
-
-// --- Value Tier Slug Map ---
-
-export const VALUE_TIER_SLUGS: Record<string, ValueTier> = {
-  "budget": "BUDGET",
-  "mid": "MID",
-  "premium": "PREMIUM",
-  "luxury": "LUXURY",
-};
-
-// --- Sort Options ---
-
-export const SORT_OPTIONS = ["featured", "rating", "name-asc", "value-tier"] as const;
-export type SortOption = (typeof SORT_OPTIONS)[number];
+// Local imports needed for parseProviderFilters
+import {
+  PREP_STYLE_GROUPS,
+  MODEL_TYPE_GROUPS,
+  HOUSEHOLD_FIT_VALUES,
+  GEOGRAPHY_GROUPS,
+  VALUE_TIER_SLUGS,
+  SORT_OPTIONS,
+} from "@/lib/filter-constants";
+import type { SortOption } from "@/lib/filter-constants";
 
 // --- Filter Types ---
 

@@ -173,7 +173,7 @@ export default async function CategoryPage({
         <div className="lg:flex lg:gap-8">
           {/* Desktop sidebar filters (hidden on mobile) */}
           <Suspense fallback={null}>
-            <CategoryFilters activeFilterCount={0} />
+            <CategoryFilters />
           </Suspense>
 
           {/* Results column */}
