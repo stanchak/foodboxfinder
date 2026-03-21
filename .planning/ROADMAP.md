@@ -66,10 +66,10 @@ Plans:
   2. Providers without logos display a styled fallback SVG placeholder
   3. Logos render consistently on provider cards, detail pages, and comparison headers
   4. next.config.ts includes images.remotePatterns configuration if any external logo URLs are used
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 03-01: TBD
+- [ ] 03-01-PLAN.md -- Create ProviderLogo component with sm/md/lg size variants and first-initial fallback; replace inline logo rendering in ProviderCard, ComparisonTable, and provider detail page
 
 ### Phase 4: Provider Detail Pages
 **Goal**: Users can view complete information about any provider and click through to the provider's website with tracking
