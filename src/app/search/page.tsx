@@ -280,7 +280,7 @@ export default async function SearchPage({
               ? `Search results for "${query}"`
               : "Search FoodBoxFinder",
             url: `https://foodboxfinder.com/search${query ? `?q=${encodeURIComponent(query)}` : ""}`,
-          }),
+          }).replace(/</g, "\\u003c"),
         }}
       />
     </div>
