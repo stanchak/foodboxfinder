@@ -16,7 +16,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Design System
 
-- [ ] **DS-01**: Tailwind CSS 4 theme with brand colors, typography scale, and spacing tokens
+- [x] **DS-01**: Tailwind CSS 4 theme with brand colors, typography scale, and spacing tokens
 - [ ] **DS-02**: Responsive root layout with header (logo, nav, mobile hamburger) and footer
 - [ ] **DS-03**: Base component library: Button, Card, Badge, Input, Select, Rating stars, loading skeletons
 
@@ -161,7 +161,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | DB-02 | Phase 10 | Complete |
 | DB-03 | Phase 10 | Complete |
 | DB-04 | Phase 10 | Complete |
-| DS-01 | Phase 20 | Pending |
+| DS-01 | Phase 20 | Complete |
 | DS-02 | Phase 20 | Pending |
 | DS-03 | Phase 20 | Pending |
 | HOME-01 | Phase 30 | Pending |
