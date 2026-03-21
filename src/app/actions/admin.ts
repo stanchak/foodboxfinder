@@ -5,7 +5,8 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/generated/prisma/client";
-import type { CategoryType, DietaryTag, PlanFrequency, ContentStatus, ProviderStatus } from "@/generated/prisma/client";
+import type { CategoryType, DietaryTag, PlanFrequency, ContentStatus, ProviderStatus, ValueTier } from "@/generated/prisma/client";
+import { getSlugByCategory } from "@/lib/categories";
 
 // -- Types --
 
@@ -102,6 +103,13 @@ const VALID_PLAN_FREQUENCIES: PlanFrequency[] = [
   "FLEXIBLE",
 ];
 
+const VALID_VALUE_TIERS: ValueTier[] = [
+  "BUDGET",
+  "MID",
+  "PREMIUM",
+  "LUXURY",
+];
+
 function isValidCategory(value: string): value is CategoryType {
   return VALID_CATEGORIES.includes(value as CategoryType);
 }
@@ -120,6 +128,10 @@ function isValidProviderStatus(value: string): value is ProviderStatus {
 
 function isValidPlanFrequency(value: string): value is PlanFrequency {
   return VALID_PLAN_FREQUENCIES.includes(value as PlanFrequency);
+}
+
+function isValidValueTier(value: string): value is ValueTier {
+  return VALID_VALUE_TIERS.includes(value as ValueTier);
 }
 
 // -- Auth --
@@ -194,6 +206,17 @@ export async function createProvider(
   const freeShipping = getBoolean(formData, "freeShipping");
   const dietaryTags = getStringArray(formData, "dietaryTags");
 
+  // Dataset fields
+  const modelType = getOptionalString(formData, "modelType");
+  const prepStyle = getOptionalString(formData, "prepStyle");
+  const valueTierRaw = getOptionalString(formData, "valueTier");
+  const valueTier = valueTierRaw && isValidValueTier(valueTierRaw) ? valueTierRaw : null;
+  const householdFit = getOptionalString(formData, "householdFit");
+  const geography = getOptionalString(formData, "geography");
+  const shippingNotes = getOptionalString(formData, "shippingNotes");
+  const flexibility = getOptionalString(formData, "flexibility");
+  const pricingSignal = getOptionalString(formData, "pricingSignal");
+
   // Pros and cons from textarea (one per line)
   const prosRaw = getString(formData, "pros");
   const consRaw = getString(formData, "cons");
@@ -254,6 +277,14 @@ export async function createProvider(
         featured,
         status: status as ProviderStatus,
         freeShipping,
+        modelType,
+        prepStyle,
+        valueTier,
+        householdFit,
+        geography,
+        shippingNotes,
+        flexibility,
+        pricingSignal,
         prosJson: pros.length > 0 ? pros : undefined,
         consJson: cons.length > 0 ? cons : undefined,
         dietaryTags: {
@@ -264,6 +295,7 @@ export async function createProvider(
 
     revalidatePath("/admin/providers");
     revalidatePath("/");
+    revalidatePath(`/${getSlugByCategory(category as CategoryType)}`);
     redirect(`/admin/providers/${provider.id}/edit`);
   } catch (error) {
     // redirect() throws a special error in Next.js -- rethrow it
@@ -307,6 +339,17 @@ export async function updateProvider(
   const dietaryTags = getStringArray(formData, "dietaryTags");
   const minPricePerServingCents = getOptionalInt(formData, "minPricePerServingCents");
   const maxPricePerServingCents = getOptionalInt(formData, "maxPricePerServingCents");
+
+  // Dataset fields
+  const modelType = getOptionalString(formData, "modelType");
+  const prepStyle = getOptionalString(formData, "prepStyle");
+  const valueTierRaw = getOptionalString(formData, "valueTier");
+  const valueTier = valueTierRaw && isValidValueTier(valueTierRaw) ? valueTierRaw : null;
+  const householdFit = getOptionalString(formData, "householdFit");
+  const geography = getOptionalString(formData, "geography");
+  const shippingNotes = getOptionalString(formData, "shippingNotes");
+  const flexibility = getOptionalString(formData, "flexibility");
+  const pricingSignal = getOptionalString(formData, "pricingSignal");
 
   const prosRaw = getString(formData, "pros");
   const consRaw = getString(formData, "cons");
@@ -374,6 +417,14 @@ export async function updateProvider(
         freeShipping,
         minPricePerServingCents,
         maxPricePerServingCents,
+        modelType,
+        prepStyle,
+        valueTier,
+        householdFit,
+        geography,
+        shippingNotes,
+        flexibility,
+        pricingSignal,
         prosJson: pros.length > 0 ? pros : Prisma.DbNull,
         consJson: cons.length > 0 ? cons : Prisma.DbNull,
         dietaryTags: {
@@ -385,6 +436,8 @@ export async function updateProvider(
     revalidatePath("/admin/providers");
     revalidatePath(`/providers/${slug}`);
     revalidatePath("/");
+    revalidatePath(`/${getSlugByCategory(category as CategoryType)}`);
+    revalidatePath("/compare", "layout");
 
     return {
       success: true,
@@ -405,9 +458,20 @@ export async function deleteProvider(formData: FormData): Promise<void> {
   if (!id) return;
 
   try {
+    const provider = await prisma.provider.findUnique({
+      where: { id },
+      select: { slug: true, category: true },
+    });
+
     await prisma.provider.delete({ where: { id } });
+
     revalidatePath("/admin/providers");
     revalidatePath("/");
+
+    if (provider) {
+      revalidatePath(`/providers/${provider.slug}`);
+      revalidatePath(`/${getSlugByCategory(provider.category)}`);
+    }
   } catch {
     // Silently fail — the provider may already be deleted
   }
