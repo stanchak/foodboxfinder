@@ -183,7 +183,7 @@ Phases execute in numeric order: 10 -> 20 -> 30 -> ... -> 120
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 10. Database & Foundation | 3/3 | Complete    | 2026-03-21 |
-| 20. Design System & Layout | 3/3 | Complete   | 2026-03-21 |
+| 20. Design System & Layout | 3/3 | Complete    | 2026-03-21 |
 | 30. Homepage | 0/? | Not started | - |
 | 40. Category Browsing | 0/? | Not started | - |
 | 50. Provider Detail | 0/? | Not started | - |
