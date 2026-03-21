@@ -1,16 +1,36 @@
 import "server-only";
 import { cache } from "react";
 import { prisma } from "@/lib/db";
+import { CATEGORY_MAP } from "@/lib/categories";
+import type { CategoryType } from "@/generated/prisma/client";
 
 // -- Search (Phase 80) --
 
 export const searchProviders = cache(async (query: string) => {
+  // Match categories whose label contains the query or vice versa
+  const lowerQuery = query.toLowerCase();
+  const matchingCategories = (
+    Object.entries(CATEGORY_MAP) as Array<[CategoryType, { slug: string; label: string; description: string }]>
+  )
+    .filter(([, { label }]) => {
+      const lowerLabel = label.toLowerCase();
+      return lowerLabel.includes(lowerQuery) || lowerQuery.includes(lowerLabel);
+    })
+    .map(([key]) => key);
+
   return prisma.provider.findMany({
     where: {
       status: "ACTIVE",
       OR: [
         { name: { contains: query, mode: "insensitive" } },
         { description: { contains: query, mode: "insensitive" } },
+        { shortDescription: { contains: query, mode: "insensitive" } },
+        ...(matchingCategories.length > 0
+          ? [
+              { category: { in: matchingCategories } },
+              { secondaryCategory: { in: matchingCategories } },
+            ]
+          : []),
       ],
     },
     include: { dietaryTags: true },
