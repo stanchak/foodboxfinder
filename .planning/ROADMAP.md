@@ -13,7 +13,7 @@ Build a complete food box subscription discovery and comparison website from a s
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 10: Database & Foundation** - Schema deployed, seed data populated, query layer built (completed 2026-03-21)
-- [ ] **Phase 20: Design System & Layout** - Theme tokens, responsive layout shell, base component library
+- [x] **Phase 20: Design System & Layout** - Theme tokens, responsive layout shell, base component library (completed 2026-03-21)
 - [ ] **Phase 30: Homepage** - Hero, featured providers, category cards, structured data
 - [ ] **Phase 40: Category Browsing** - Filterable provider listings with URL-driven state
 - [ ] **Phase 50: Provider Detail** - Comprehensive provider profiles with plans, reviews, FAQs
@@ -50,11 +50,11 @@ Plans:
   1. A branded Tailwind theme with defined colors, typography scale, and spacing tokens is applied site-wide
   2. The root layout renders a responsive header (logo, navigation, mobile hamburger) and footer from 375px through 1440px
   3. Base components (Button, Card, Badge, Input, Select, Rating stars, loading skeletons) render correctly and are importable from `src/components/`
-**Plans:** 1/3 plans executed
+**Plans:** 3/3 plans complete
 Plans:
 - [x] 20-01-PLAN.md -- Tailwind CSS 4 theme tokens (brand colors, shadows, radii), category mapping utility, dark mode cleanup
-- [ ] 20-02-PLAN.md -- Responsive layout shell (Header, MobileNav, Footer) and root layout refactor
-- [ ] 20-03-PLAN.md -- Base component library (Button, Card, Badge, Input, Select, RatingStars, Skeleton)
+- [x] 20-02-PLAN.md -- Responsive layout shell (Header, MobileNav, Footer) and root layout refactor
+- [x] 20-03-PLAN.md -- Base component library (Button, Card, Badge, Input, Select, RatingStars, Skeleton)
 
 ### Phase 30: Homepage
 **Goal**: A visitor landing on the site immediately understands the value proposition and can navigate to any category or featured provider
@@ -183,7 +183,7 @@ Phases execute in numeric order: 10 -> 20 -> 30 -> ... -> 120
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 10. Database & Foundation | 3/3 | Complete    | 2026-03-21 |
-| 20. Design System & Layout | 1/3 | In Progress|  |
+| 20. Design System & Layout | 3/3 | Complete   | 2026-03-21 |
 | 30. Homepage | 0/? | Not started | - |
 | 40. Category Browsing | 0/? | Not started | - |
 | 50. Provider Detail | 0/? | Not started | - |
