@@ -132,7 +132,7 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 07-01-PLAN.md -- Expand comparison query with new fields, add N/A row hiding to ComparisonTable, enforce canonical slug ordering via redirect, fix JSON-LD XSS safety
+- [x] 07-01-PLAN.md -- Expand comparison query with new fields, add N/A row hiding to ComparisonTable, enforce canonical slug ordering via redirect, fix JSON-LD XSS safety
 
 ### Phase 8: Search
 **Goal**: Users can find providers by typing a query and see matching results

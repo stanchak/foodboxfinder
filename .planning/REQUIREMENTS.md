@@ -71,18 +71,18 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Side-by-Side Comparison
 
-- [ ] **COMP-01**: Comparison page at /compare/[slugs] rendering 2-3 providers side-by-side
-- [ ] **COMP-02**: Field matrix showing all comparison axes (category, prep style, diet tags, value tier, pricing, flexibility, shipping, pros/cons)
-- [ ] **COMP-03**: Canonical slug ordering in comparison URLs (alphabetical) to prevent duplicate content
-- [ ] **COMP-04**: Comparison page hides rows where all compared providers have N/A values
-- [ ] **COMP-05**: Comparison page metadata and JSON-LD structured data
+- [x] **COMP-01**: Comparison page at /compare/[slugs] rendering 2-3 providers side-by-side
+- [x] **COMP-02**: Field matrix showing all comparison axes (category, prep style, diet tags, value tier, pricing, flexibility, shipping, pros/cons)
+- [x] **COMP-03**: Canonical slug ordering in comparison URLs (alphabetical) to prevent duplicate content
+- [x] **COMP-04**: Comparison page hides rows where all compared providers have N/A values
+- [x] **COMP-05**: Comparison page metadata and JSON-LD structured data
 
 ### Comparison Tray
 
-- [ ] **TRAY-01**: Floating comparison tray bar at bottom of viewport showing 0-3 selected providers
-- [ ] **TRAY-02**: "Add to Compare" button on provider cards
-- [ ] **TRAY-03**: "Compare Now" button navigates to comparison page with selected provider slugs in URL
-- [ ] **TRAY-04**: Comparison tray state managed client-side, transfers to URL params on navigation
+- [x] **TRAY-01**: Floating comparison tray bar at bottom of viewport showing 0-3 selected providers
+- [x] **TRAY-02**: "Add to Compare" button on provider cards
+- [x] **TRAY-03**: "Compare Now" button navigates to comparison page with selected provider slugs in URL
+- [x] **TRAY-04**: Comparison tray state managed client-side, transfers to URL params on navigation
 
 ### SEO and Content
 
@@ -211,15 +211,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEARCH-01 | Phase 8 | Pending |
 | SEARCH-02 | Phase 8 | Pending |
 | SEARCH-03 | Phase 8 | Pending |
-| COMP-01 | Phase 7 | Pending |
-| COMP-02 | Phase 7 | Pending |
-| COMP-03 | Phase 7 | Pending |
-| COMP-04 | Phase 7 | Pending |
-| COMP-05 | Phase 7 | Pending |
-| TRAY-01 | Phase 7 | Pending |
-| TRAY-02 | Phase 7 | Pending |
-| TRAY-03 | Phase 7 | Pending |
-| TRAY-04 | Phase 7 | Pending |
+| COMP-01 | Phase 7 | Complete |
+| COMP-02 | Phase 7 | Complete |
+| COMP-03 | Phase 7 | Complete |
+| COMP-04 | Phase 7 | Complete |
+| COMP-05 | Phase 7 | Complete |
+| TRAY-01 | Phase 7 | Complete |
+| TRAY-02 | Phase 7 | Complete |
+| TRAY-03 | Phase 7 | Complete |
+| TRAY-04 | Phase 7 | Complete |
 | SEO-01 | Phase 9 | Pending |
 | SEO-02 | Phase 9 | Pending |
 | SEO-03 | Phase 9 | Pending |
