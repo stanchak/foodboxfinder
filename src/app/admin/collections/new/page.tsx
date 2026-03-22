@@ -19,11 +19,11 @@ export default async function NewCollectionPage() {
       <div className="mb-6">
         <Link
           href="/admin/collections"
-          className="text-sm text-gray-500 hover:text-gray-700"
+          className="text-sm text-neutral-500 hover:text-neutral-700"
         >
           &larr; Back to Collections
         </Link>
-        <h1 className="text-2xl font-bold text-gray-900 mt-2">New Collection</h1>
+        <h1 className="text-2xl font-bold text-neutral-900 mt-2">New Collection</h1>
       </div>
 
       <div className="bg-white rounded-xl shadow-card p-6">

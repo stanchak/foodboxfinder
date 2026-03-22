@@ -18,7 +18,7 @@ export default function Skeleton({
 }>) {
   return (
     <div
-      className={`animate-pulse bg-gray-200 ${skeletonVariants[variant]} ${className ?? ""}`}
+      className={`animate-pulse bg-neutral-200 ${skeletonVariants[variant]} ${className ?? ""}`}
       aria-hidden="true"
     />
   );

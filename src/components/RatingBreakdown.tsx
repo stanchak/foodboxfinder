@@ -25,7 +25,7 @@ export default function RatingBreakdown({
     <div className="flex flex-col sm:flex-row gap-6 sm:gap-8">
       {/* Summary */}
       <div className="flex flex-col items-center justify-center sm:min-w-[120px]">
-        <p className="text-5xl font-extrabold tracking-tight text-gray-900">
+        <p className="text-5xl font-extrabold tracking-tight text-neutral-900">
           {averageRating.toFixed(1)}
         </p>
         <div className="mt-1 flex gap-0.5" aria-hidden="true">
@@ -50,7 +50,7 @@ export default function RatingBreakdown({
             );
           })}
         </div>
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-neutral-500">
           {totalReviews} {totalReviews === 1 ? "review" : "reviews"}
         </p>
       </div>
@@ -59,10 +59,10 @@ export default function RatingBreakdown({
       <div className="flex-1 space-y-2" role="list" aria-label="Rating distribution">
         {rows.map((row) => (
           <div key={row.rating} className="flex items-center gap-3" role="listitem">
-            <span className="w-12 text-sm text-gray-600 text-right shrink-0">
+            <span className="w-12 text-sm text-neutral-600 text-right shrink-0">
               {row.rating} star{row.rating !== 1 ? "s" : ""}
             </span>
-            <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div className="flex-1 h-2 bg-neutral-100 rounded-full overflow-hidden">
               <div
                 className="h-full bg-star rounded-full transition-all duration-300"
                 style={{ width: `${row.percentage}%` }}
@@ -73,7 +73,7 @@ export default function RatingBreakdown({
                 aria-label={`${row.rating} stars: ${row.count} reviews, ${Math.round(row.percentage)}%`}
               />
             </div>
-            <span className="w-8 text-sm text-gray-500 text-right shrink-0">
+            <span className="w-8 text-sm text-neutral-500 text-right shrink-0">
               {row.count}
             </span>
           </div>

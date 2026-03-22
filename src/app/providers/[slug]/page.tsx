@@ -234,7 +234,7 @@ export default async function ProviderDetailPage({
 
         {/* Hero Image */}
         {(provider.heroImageUrl ?? provider.logoUrl) ? (
-          <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100/80">
+          <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-neutral-50 to-neutral-100/80">
             <Image
               src={(provider.heroImageUrl ?? provider.logoUrl)!}
               alt={provider.name}
@@ -245,8 +245,8 @@ export default async function ProviderDetailPage({
             />
           </div>
         ) : (
-          <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100/80 flex items-center justify-center">
-            <span className="text-7xl font-extrabold text-gray-200" aria-hidden="true">
+          <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-neutral-50 to-neutral-100/80 flex items-center justify-center">
+            <span className="text-7xl font-extrabold text-neutral-200" aria-hidden="true">
               {provider.name.charAt(0).toUpperCase()}
             </span>
           </div>
@@ -273,7 +273,7 @@ export default async function ProviderDetailPage({
             )}
           </div>
 
-          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
             {provider.name}
           </h1>
 
@@ -284,12 +284,12 @@ export default async function ProviderDetailPage({
                 className="flex items-center gap-2 hover:opacity-80 transition-opacity"
               >
                 <RatingStars rating={provider.averageRating} size="md" />
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-neutral-500">
                   ({provider.reviewCount} {provider.reviewCount === 1 ? "review" : "reviews"})
                 </span>
               </a>
             ) : (
-              <span className="text-sm text-gray-500">No reviews yet</span>
+              <span className="text-sm text-neutral-500">No reviews yet</span>
             )}
 
             <span className="text-sm font-semibold text-primary-700">
@@ -301,7 +301,7 @@ export default async function ProviderDetailPage({
             </span>
           </div>
 
-          <p className="mt-4 text-gray-700 leading-relaxed max-w-3xl">
+          <p className="mt-4 text-neutral-700 leading-relaxed max-w-3xl">
             {provider.shortDescription ?? provider.description}
           </p>
 
@@ -329,14 +329,14 @@ export default async function ProviderDetailPage({
               href={provider.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2 transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 transition-colors"
             >
               Official Website
             </a>
           </div>
 
           {/* Quick details */}
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-600">
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-neutral-600">
             {provider.foundedYear && (
               <span>Founded {provider.foundedYear}</span>
             )}
@@ -361,14 +361,14 @@ export default async function ProviderDetailPage({
         {/* Section Navigation */}
         <nav
           aria-label="Page sections"
-          className="mt-8 sticky top-16 z-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-white/90 backdrop-blur-lg border-b border-gray-200"
+          className="mt-8 sticky top-16 z-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-white/90 backdrop-blur-lg border-b border-neutral-200"
         >
           <ul className="flex gap-6 overflow-x-auto no-scrollbar">
             {navSections.map((section) => (
               <li key={section.id}>
                 <a
                   href={`#${section.id}`}
-                  className="inline-block py-3 text-sm font-semibold text-gray-600 hover:text-primary-600 border-b-2 border-transparent hover:border-primary-600 transition-colors whitespace-nowrap"
+                  className="inline-block py-3 text-sm font-semibold text-neutral-600 hover:text-primary-600 border-b-2 border-transparent hover:border-primary-600 transition-colors whitespace-nowrap"
                 >
                   {section.label}
                 </a>
@@ -379,12 +379,12 @@ export default async function ProviderDetailPage({
 
         {/* Overview Section */}
         <section id="overview" className="mt-10 scroll-mt-16">
-          <h2 className="text-xl font-extrabold text-gray-900">Overview</h2>
+          <h2 className="text-xl font-extrabold text-neutral-900">Overview</h2>
 
           {/* Full description */}
           {provider.shortDescription && (
             <div className="mt-4 prose prose-gray max-w-3xl">
-              <p className="text-gray-700 leading-relaxed">{provider.description}</p>
+              <p className="text-neutral-700 leading-relaxed">{provider.description}</p>
             </div>
           )}
 
@@ -394,7 +394,7 @@ export default async function ProviderDetailPage({
               <h3 className="text-[11px] font-bold text-primary-800 uppercase tracking-widest">
                 Editor&apos;s Note
               </h3>
-              <p className="mt-2 text-sm text-gray-700 leading-relaxed">
+              <p className="mt-2 text-sm text-neutral-700 leading-relaxed">
                 {provider.editorNote}
               </p>
             </div>
@@ -427,7 +427,7 @@ export default async function ProviderDetailPage({
                     {pros.map((pro, index) => (
                       <li
                         key={index}
-                        className="flex items-start gap-2 text-sm text-gray-700"
+                        className="flex items-start gap-2 text-sm text-neutral-700"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -476,7 +476,7 @@ export default async function ProviderDetailPage({
                     {cons.map((con, index) => (
                       <li
                         key={index}
-                        className="flex items-start gap-2 text-sm text-gray-700"
+                        className="flex items-start gap-2 text-sm text-neutral-700"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -507,36 +507,36 @@ export default async function ProviderDetailPage({
         {/* Key Details */}
         {hasKeyDetails && (
           <section id="key-details" className="mt-10 scroll-mt-16">
-            <h2 className="text-xl font-extrabold text-gray-900">Key Details</h2>
+            <h2 className="text-xl font-extrabold text-neutral-900">Key Details</h2>
             <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {provider.prepStyle && (
                 <div className="rounded-lg bg-neutral-50 p-4">
-                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Prep Style</dt>
-                  <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.prepStyle)}</dd>
+                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">Prep Style</dt>
+                  <dd className="mt-1 text-sm font-semibold text-neutral-900">{formatFieldLabel(provider.prepStyle)}</dd>
                 </div>
               )}
               {provider.valueTier && (
                 <div className="rounded-lg bg-neutral-50 p-4">
-                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Value Tier</dt>
-                  <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.valueTier)}</dd>
+                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">Value Tier</dt>
+                  <dd className="mt-1 text-sm font-semibold text-neutral-900">{formatFieldLabel(provider.valueTier)}</dd>
                 </div>
               )}
               {provider.modelType && (
                 <div className="rounded-lg bg-neutral-50 p-4">
-                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Model</dt>
-                  <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.modelType)}</dd>
+                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">Model</dt>
+                  <dd className="mt-1 text-sm font-semibold text-neutral-900">{formatFieldLabel(provider.modelType)}</dd>
                 </div>
               )}
               {provider.householdFit && (
                 <div className="rounded-lg bg-neutral-50 p-4">
-                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Best For</dt>
-                  <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.householdFit)}</dd>
+                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">Best For</dt>
+                  <dd className="mt-1 text-sm font-semibold text-neutral-900">{formatFieldLabel(provider.householdFit)}</dd>
                 </div>
               )}
               {provider.geography && (
                 <div className="rounded-lg bg-neutral-50 p-4">
-                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Delivery Area</dt>
-                  <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.geography)}</dd>
+                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">Delivery Area</dt>
+                  <dd className="mt-1 text-sm font-semibold text-neutral-900">{formatFieldLabel(provider.geography)}</dd>
                 </div>
               )}
             </dl>
@@ -546,18 +546,18 @@ export default async function ProviderDetailPage({
         {/* Flexibility & Shipping */}
         {hasFlexShipping && (
           <section id="flex-shipping" className="mt-10 scroll-mt-16">
-            <h2 className="text-xl font-extrabold text-gray-900">Flexibility & Shipping</h2>
+            <h2 className="text-xl font-extrabold text-neutral-900">Flexibility & Shipping</h2>
             <div className="mt-4 grid gap-6 sm:grid-cols-2">
               {provider.flexibility && (
                 <div className="rounded-xl border border-primary-200 bg-primary-50/30 p-5">
                   <h3 className="text-[11px] font-bold text-primary-800 uppercase tracking-widest">Flexibility Policy</h3>
-                  <p className="mt-2 text-sm text-gray-700 leading-relaxed">{provider.flexibility}</p>
+                  <p className="mt-2 text-sm text-neutral-700 leading-relaxed">{provider.flexibility}</p>
                 </div>
               )}
               {provider.shippingNotes && (
-                <div className="rounded-xl border border-gray-200 bg-gray-50/30 p-5">
-                  <h3 className="text-[11px] font-bold text-gray-800 uppercase tracking-widest">Shipping Details</h3>
-                  <p className="mt-2 text-sm text-gray-700 leading-relaxed">{provider.shippingNotes}</p>
+                <div className="rounded-xl border border-neutral-200 bg-neutral-50/30 p-5">
+                  <h3 className="text-[11px] font-bold text-neutral-800 uppercase tracking-widest">Shipping Details</h3>
+                  <p className="mt-2 text-sm text-neutral-700 leading-relaxed">{provider.shippingNotes}</p>
                 </div>
               )}
             </div>
@@ -566,8 +566,8 @@ export default async function ProviderDetailPage({
 
         {/* Plans & Pricing Section */}
         <section id="plans" className="mt-14 scroll-mt-16">
-          <h2 className="text-xl font-extrabold text-gray-900">Plans & Pricing</h2>
-          <p className="mt-2 text-gray-600">
+          <h2 className="text-xl font-extrabold text-neutral-900">Plans & Pricing</h2>
+          <p className="mt-2 text-neutral-600">
             Compare available plans from {provider.name} to find the best fit for your needs.
           </p>
           <div className="mt-6">
@@ -577,13 +577,13 @@ export default async function ProviderDetailPage({
 
         {/* Reviews Section */}
         <section id="reviews" className="mt-14 scroll-mt-16">
-          <h2 className="text-xl font-extrabold text-gray-900">
+          <h2 className="text-xl font-extrabold text-neutral-900">
             Customer Reviews
           </h2>
 
           {/* Rating breakdown (only when reviews exist) */}
           {provider.reviewCount > 0 && (
-            <div className="mt-6 rounded-xl border border-gray-200 bg-gray-50/50 p-6">
+            <div className="mt-6 rounded-xl border border-neutral-200 bg-neutral-50/50 p-6">
               <RatingBreakdown
                 stats={reviewStats}
                 totalReviews={provider.reviewCount}
@@ -600,17 +600,17 @@ export default async function ProviderDetailPage({
               ))}
             </div>
           ) : (
-            <p className="mt-6 text-gray-500">
+            <p className="mt-6 text-neutral-500">
               No reviews yet. Be the first to share your experience!
             </p>
           )}
 
           {/* Review submission form */}
-          <div className="mt-10 rounded-xl border border-gray-200 bg-gray-50/50 p-6">
-            <h3 className="text-lg font-bold text-gray-900">
+          <div className="mt-10 rounded-xl border border-neutral-200 bg-neutral-50/50 p-6">
+            <h3 className="text-lg font-bold text-neutral-900">
               Write a Review
             </h3>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-neutral-500">
               Share your experience with {provider.name} to help other shoppers.
             </p>
             <div className="mt-5">
@@ -622,10 +622,10 @@ export default async function ProviderDetailPage({
         {/* FAQ Section */}
         {provider.faqs.length > 0 && (
           <section id="faq" className="mt-14 scroll-mt-16">
-            <h2 className="text-xl font-extrabold text-gray-900">
+            <h2 className="text-xl font-extrabold text-neutral-900">
               Frequently Asked Questions
             </h2>
-            <p className="mt-2 text-gray-600">
+            <p className="mt-2 text-neutral-600">
               Common questions about {provider.name} answered.
             </p>
             <div className="mt-6">
@@ -642,10 +642,10 @@ export default async function ProviderDetailPage({
 
         {/* Bottom CTA */}
         <section className="mt-14 rounded-2xl bg-gradient-to-br from-primary-50 via-accent-50/30 to-primary-50 p-8 sm:p-10 text-center">
-          <h2 className="text-xl font-extrabold text-gray-900">
+          <h2 className="text-xl font-extrabold text-neutral-900">
             Ready to try {provider.name}?
           </h2>
-          <p className="mt-2 text-gray-600 max-w-xl mx-auto">
+          <p className="mt-2 text-neutral-600 max-w-xl mx-auto">
             Visit their website to explore current plans, seasonal menus, and
             any introductory offers available.
           </p>
@@ -658,9 +658,9 @@ export default async function ProviderDetailPage({
               source={`/providers/${provider.slug}#bottom-cta`}
             />
           </div>
-          <p className="mt-3 text-xs text-gray-500">
+          <p className="mt-3 text-xs text-neutral-500">
             FoodBoxFinder may earn a commission when you visit via this link.{" "}
-            <Link href="/methodology" className="underline hover:text-gray-700">
+            <Link href="/methodology" className="underline hover:text-neutral-700">
               Learn more
             </Link>
           </p>
@@ -669,10 +669,10 @@ export default async function ProviderDetailPage({
         {/* Related Providers */}
         {relatedProviders.length > 0 && (
           <section className="mt-14 mb-10">
-            <h2 className="text-xl font-extrabold text-gray-900">
+            <h2 className="text-xl font-extrabold text-neutral-900">
               Similar {categoryInfo.label}
             </h2>
-            <p className="mt-2 text-gray-600">
+            <p className="mt-2 text-neutral-600">
               Other {categoryInfo.label.toLowerCase()} you might want to compare.
             </p>
             <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

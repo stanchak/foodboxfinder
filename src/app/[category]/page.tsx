@@ -156,14 +156,14 @@ export default async function CategoryPage({
 
         {/* Page header */}
         <header className="mb-8 mt-4">
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
             {categoryInfo.label}
           </h1>
-          <p className="mt-2 text-lg text-gray-600">
+          <p className="mt-2 text-lg text-neutral-600">
             {categoryInfo.description}
           </p>
           {editorialIntro && (
-            <p className="mt-3 text-base text-gray-500 max-w-3xl">
+            <p className="mt-3 text-base text-neutral-500 max-w-3xl">
               {editorialIntro}
             </p>
           )}
@@ -185,21 +185,21 @@ export default async function CategoryPage({
 
             {/* Results header with mobile filter trigger */}
             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-neutral-600">
                 {total === 0 ? (
                   "No providers found"
                 ) : (
                   <>
                     Showing{" "}
-                    <span className="font-medium text-gray-900">
+                    <span className="font-medium text-neutral-900">
                       {(filters.page - 1) * pageSize + 1}
                     </span>
                     {" - "}
-                    <span className="font-medium text-gray-900">
+                    <span className="font-medium text-neutral-900">
                       {Math.min(filters.page * pageSize, total)}
                     </span>{" "}
                     of{" "}
-                    <span className="font-medium text-gray-900">{total}</span>{" "}
+                    <span className="font-medium text-neutral-900">{total}</span>{" "}
                     providers
                   </>
                 )}
@@ -214,7 +214,7 @@ export default async function CategoryPage({
                 ))}
               </div>
             ) : (
-              <div className="rounded-xl border-2 border-dashed border-gray-200 py-16 text-center">
+              <div className="rounded-xl border-2 border-dashed border-neutral-200 py-16 text-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="48"
@@ -225,16 +225,16 @@ export default async function CategoryPage({
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="mx-auto text-gray-300"
+                  className="mx-auto text-neutral-300"
                   aria-hidden="true"
                 >
                   <circle cx="11" cy="11" r="8" />
                   <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <h3 className="mt-4 text-base font-bold text-gray-900">
+                <h3 className="mt-4 text-base font-bold text-neutral-900">
                   No providers match your filters
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-1 text-sm text-neutral-500">
                   Try adjusting your filters or clearing them to see all{" "}
                   {categoryInfo.label.toLowerCase()} options.
                 </p>

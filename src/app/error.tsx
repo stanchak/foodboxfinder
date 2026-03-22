@@ -32,10 +32,10 @@ export default function Error({
       </div>
 
       {/* Heading */}
-      <h1 className="mt-6 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+      <h1 className="mt-6 text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">
         Something went wrong
       </h1>
-      <p className="mt-3 text-base text-gray-600">
+      <p className="mt-3 text-base text-neutral-600">
         An unexpected error occurred while loading this page. Please try again
         or return to the homepage.
       </p>
@@ -50,7 +50,7 @@ export default function Error({
         </button>
         <Link
           href="/"
-          className="inline-flex items-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors"
+          className="inline-flex items-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-neutral-700 shadow-sm ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 transition-colors"
         >
           Go to homepage
         </Link>

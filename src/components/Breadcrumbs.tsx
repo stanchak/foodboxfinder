@@ -29,7 +29,7 @@ export default function Breadcrumbs({
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <nav aria-label="Breadcrumb" className="text-xs text-gray-400">
+      <nav aria-label="Breadcrumb" className="text-xs text-neutral-400">
         <ol className="flex items-center gap-1.5 flex-wrap">
           {items.map((item, index) => {
             const isLast = index === items.length - 1;
@@ -47,13 +47,13 @@ export default function Breadcrumbs({
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     aria-hidden="true"
-                    className="text-gray-300 shrink-0"
+                    className="text-neutral-300 shrink-0"
                   >
                     <path d="m9 18 6-6-6-6" />
                   </svg>
                 )}
                 {isLast ? (
-                  <span className="font-semibold text-gray-700" aria-current="page">
+                  <span className="font-semibold text-neutral-700" aria-current="page">
                     {item.label}
                   </span>
                 ) : (

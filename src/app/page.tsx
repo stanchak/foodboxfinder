@@ -285,12 +285,12 @@ export default async function HomePage() {
       <section className="bg-gradient-to-br from-primary-50 via-white to-accent-50/30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-4xl font-extrabold tracking-tight text-gray-950 sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-extrabold tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl">
               Find Your Perfect{" "}
               <span className="text-primary-600">Food Box</span>{" "}
               Subscription
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-xl">
+            <p className="mt-6 text-lg leading-8 text-neutral-600 sm:text-xl">
               Compare meal kits, prepared meals, protein boxes, and more.
               Honest reviews, transparent pricing, and side-by-side comparisons
               to help you choose the right subscription for your lifestyle.
@@ -339,7 +339,7 @@ export default async function HomePage() {
                     <Link
                       key={key}
                       href={`/${cat.slug}`}
-                      className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-700 shadow-sm ring-1 ring-gray-200 hover:bg-primary-50 hover:text-primary-700 hover:ring-primary-200 transition-all"
+                      className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-semibold uppercase tracking-wide text-neutral-700 shadow-sm ring-1 ring-neutral-200 hover:bg-primary-50 hover:text-primary-700 hover:ring-primary-200 transition-all"
                     >
                       <IconComponent className="text-primary-500 w-5 h-5" />
                       {cat.label}
@@ -359,11 +359,11 @@ export default async function HomePage() {
             <div className="text-center">
               <h2
                 id="featured-heading"
-                className="text-2xl font-extrabold tracking-tight text-gray-900"
+                className="text-2xl font-extrabold tracking-tight text-neutral-900"
               >
                 Featured Providers
               </h2>
-              <p className="mt-3 text-lg text-gray-600">
+              <p className="mt-3 text-lg text-neutral-600">
                 Top-rated food box subscriptions handpicked by our team
               </p>
             </div>
@@ -425,11 +425,11 @@ export default async function HomePage() {
           <div className="text-center">
             <h2
               id="categories-heading"
-              className="text-2xl font-extrabold tracking-tight text-gray-900"
+              className="text-2xl font-extrabold tracking-tight text-neutral-900"
             >
               Browse by Category
             </h2>
-            <p className="mt-3 text-lg text-gray-600">
+            <p className="mt-3 text-lg text-neutral-600">
               Find the type of food subscription that fits your needs
             </p>
           </div>
@@ -443,16 +443,16 @@ export default async function HomePage() {
                   <Link
                     key={key}
                     href={`/${cat.slug}`}
-                    className="group relative flex flex-col items-center gap-4 rounded-2xl bg-white p-8 shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200 hover:-translate-y-1"
+                    className="group relative flex flex-col items-center gap-4 rounded-2xl bg-white p-8 shadow-card ring-1 ring-neutral-100 transition-all hover:shadow-card-hover hover:ring-primary-200 hover:-translate-y-1"
                   >
                     <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform group-hover:scale-110">
                       <IconComponent />
                     </div>
                     <div className="text-center">
-                      <h3 className="text-lg font-semibold text-gray-900 group-hover:text-primary-700 transition-colors">
+                      <h3 className="text-lg font-semibold text-neutral-900 group-hover:text-primary-700 transition-colors">
                         {cat.label}
                       </h3>
-                      <p className="mt-1.5 text-sm text-gray-600">
+                      <p className="mt-1.5 text-sm text-neutral-600">
                         {cat.description}
                       </p>
                       <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600">
@@ -460,7 +460,7 @@ export default async function HomePage() {
                       </p>
                     </div>
                     <span
-                      className="absolute right-4 top-4 text-gray-300 transition-colors group-hover:text-primary-400"
+                      className="absolute right-4 top-4 text-neutral-300 transition-colors group-hover:text-primary-400"
                       aria-hidden="true"
                     >
                       <svg
@@ -496,11 +496,11 @@ export default async function HomePage() {
           <div className="text-center">
             <h2
               id="how-it-works-heading"
-              className="text-2xl font-extrabold tracking-tight text-gray-900"
+              className="text-2xl font-extrabold tracking-tight text-neutral-900"
             >
               How It Works
             </h2>
-            <p className="mt-3 text-lg text-gray-600">
+            <p className="mt-3 text-lg text-neutral-600">
               Finding your ideal food box subscription is easy
             </p>
           </div>
@@ -534,14 +534,14 @@ export default async function HomePage() {
                   {item.icon}
                 </div>
                 <div className="mt-2 flex items-center justify-center">
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-900 text-xs font-bold text-white">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-neutral-900 text-xs font-bold text-white">
                     {item.step}
                   </span>
                 </div>
-                <h3 className="mt-4 text-xl font-bold text-gray-900">
+                <h3 className="mt-4 text-xl font-bold text-neutral-900">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-gray-600 max-w-xs mx-auto">
+                <p className="mt-2 text-sm leading-6 text-neutral-600 max-w-xs mx-auto">
                   {item.description}
                 </p>
               </div>
@@ -552,7 +552,7 @@ export default async function HomePage() {
 
       {/* --- Social Proof / Trust Section --- */}
       <section
-        className="bg-gray-900 py-16 sm:py-20"
+        className="bg-neutral-900 py-16 sm:py-20"
         aria-labelledby="trust-heading"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -586,10 +586,10 @@ export default async function HomePage() {
                 <p className="text-4xl font-extrabold text-white sm:text-5xl">
                   {stat.value}
                 </p>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-neutral-400">
                   {stat.label}
                 </p>
-                <p className="mt-0.5 text-sm text-gray-500">
+                <p className="mt-0.5 text-sm text-neutral-500">
                   {stat.description}
                 </p>
               </div>
@@ -602,10 +602,10 @@ export default async function HomePage() {
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">
+            <h2 className="text-2xl font-extrabold tracking-tight text-neutral-900">
               Ready to find your perfect food box?
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-neutral-600">
               Whether you want chef-designed meal kits or farm-fresh produce
               delivered to your door, we help you compare the best options.
             </p>
@@ -618,7 +618,7 @@ export default async function HomePage() {
               </Link>
               <Link
                 href="/best"
-                className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-6 py-3.5 text-base font-semibold text-gray-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400 transition-all"
+                className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 px-6 py-3.5 text-base font-semibold text-neutral-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 transition-all"
               >
                 Browse Collections
               </Link>

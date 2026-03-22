@@ -63,7 +63,7 @@ function XIcon() {
       strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="text-gray-300"
+      className="text-neutral-300"
       aria-hidden="true"
     >
       <path d="M18 6 6 18" />
@@ -79,7 +79,7 @@ export default function PricingTable({
 }>) {
   if (plans.length === 0) {
     return (
-      <p className="text-gray-500 text-sm">
+      <p className="text-neutral-500 text-sm">
         Pricing information is not yet available for this provider.
       </p>
     );
@@ -93,7 +93,7 @@ export default function PricingTable({
           className={`relative rounded-2xl border p-6 flex flex-col ${
             plan.featured
               ? "border-primary-400 border-2 ring-2 ring-primary-100 bg-primary-50/30 scale-[1.02] shadow-md"
-              : "border-gray-200 bg-white"
+              : "border-neutral-200 bg-white"
           }`}
         >
           {/* Featured badge */}
@@ -105,9 +105,9 @@ export default function PricingTable({
 
           {/* Plan header */}
           <div>
-            <h4 className="text-lg font-semibold text-gray-900">{plan.name}</h4>
+            <h4 className="text-lg font-semibold text-neutral-900">{plan.name}</h4>
             {plan.description && (
-              <p className="mt-1 text-sm text-gray-600">{plan.description}</p>
+              <p className="mt-1 text-sm text-neutral-600">{plan.description}</p>
             )}
           </div>
 
@@ -115,19 +115,19 @@ export default function PricingTable({
           <div className="mt-4">
             {plan.pricePerServingCents != null && (
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold text-gray-900">
+                <span className="text-4xl font-extrabold text-neutral-900">
                   {formatPrice(plan.pricePerServingCents)}
                 </span>
-                <span className="text-sm text-gray-500">/serving</span>
+                <span className="text-sm text-neutral-500">/serving</span>
               </div>
             )}
             {plan.pricePerWeekCents != null && (
-              <p className="mt-1 text-sm text-gray-600">
+              <p className="mt-1 text-sm text-neutral-600">
                 {formatPrice(plan.pricePerWeekCents)}/week
               </p>
             )}
             {plan.pricePerBoxCents != null && (
-              <p className="mt-1 text-sm text-gray-600">
+              <p className="mt-1 text-sm text-neutral-600">
                 {formatPrice(plan.pricePerBoxCents)}/box
               </p>
             )}
@@ -144,38 +144,38 @@ export default function PricingTable({
           <dl className="mt-5 space-y-3 text-sm flex-1">
             {plan.mealsPerWeek != null && (
               <div className="flex justify-between">
-                <dt className="text-gray-600">Meals per week</dt>
-                <dd className="font-medium text-gray-900">{plan.mealsPerWeek}</dd>
+                <dt className="text-neutral-600">Meals per week</dt>
+                <dd className="font-medium text-neutral-900">{plan.mealsPerWeek}</dd>
               </div>
             )}
             {plan.servingsPerMeal != null && (
               <div className="flex justify-between">
-                <dt className="text-gray-600">Servings per meal</dt>
-                <dd className="font-medium text-gray-900">{plan.servingsPerMeal}</dd>
+                <dt className="text-neutral-600">Servings per meal</dt>
+                <dd className="font-medium text-neutral-900">{plan.servingsPerMeal}</dd>
               </div>
             )}
             <div className="flex justify-between">
-              <dt className="text-gray-600">Frequency</dt>
-              <dd className="font-medium text-gray-900">{formatFrequency(plan.frequency)}</dd>
+              <dt className="text-neutral-600">Frequency</dt>
+              <dd className="font-medium text-neutral-900">{formatFrequency(plan.frequency)}</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-gray-600">Shipping</dt>
-              <dd className="font-medium text-gray-900">
+              <dt className="text-neutral-600">Shipping</dt>
+              <dd className="font-medium text-neutral-900">
                 {plan.shippingCostCents === 0
                   ? "Free"
                   : formatPrice(plan.shippingCostCents)}
                 {plan.shippingNote && (
-                  <span className="text-gray-500 font-normal"> ({plan.shippingNote})</span>
+                  <span className="text-neutral-500 font-normal"> ({plan.shippingNote})</span>
                 )}
               </dd>
             </div>
           </dl>
 
           {/* Flexibility */}
-          <div className="mt-5 border-t border-gray-200 pt-4 space-y-2">
+          <div className="mt-5 border-t border-neutral-200 pt-4 space-y-2">
             <div className="flex items-center gap-2 text-sm">
               {plan.canSkip ? <CheckIcon /> : <XIcon />}
-              <span className={plan.canSkip ? "text-gray-900" : "text-gray-400"}>
+              <span className={plan.canSkip ? "text-neutral-900" : "text-neutral-400"}>
                 Skip deliveries
               </span>
               <span className="sr-only">
@@ -184,7 +184,7 @@ export default function PricingTable({
             </div>
             <div className="flex items-center gap-2 text-sm">
               {plan.canCancel ? <CheckIcon /> : <XIcon />}
-              <span className={plan.canCancel ? "text-gray-900" : "text-gray-400"}>
+              <span className={plan.canCancel ? "text-neutral-900" : "text-neutral-400"}>
                 Cancel anytime
               </span>
               <span className="sr-only">
@@ -192,7 +192,7 @@ export default function PricingTable({
               </span>
             </div>
             {plan.cancelPolicy && (
-              <p className="text-xs text-gray-500 ml-6.5">
+              <p className="text-xs text-neutral-500 ml-6.5">
                 {plan.cancelPolicy}
               </p>
             )}

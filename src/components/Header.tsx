@@ -5,10 +5,10 @@ import HeaderSearchForm from "@/components/HeaderSearchForm";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-header">
+    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-neutral-100 shadow-header">
       <nav aria-label="Main" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="text-xl font-extrabold tracking-tight text-gray-900">
+          <Link href="/" className="text-xl font-extrabold tracking-tight text-neutral-900">
             FoodBoxFinder
           </Link>
 
@@ -17,27 +17,27 @@ export default function Header() {
               <Link
                 key={item.slug}
                 href={`/${item.slug}`}
-                className="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors"
+                className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors"
               >
                 {item.label}
               </Link>
             ))}
-            <span className="h-5 w-px bg-gray-200" aria-hidden="true" />
+            <span className="h-5 w-px bg-neutral-200" aria-hidden="true" />
             <Link
               href="/compare"
-              className="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors"
+              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors"
             >
               Compare
             </Link>
             <Link
               href="/best"
-              className="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors"
+              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors"
             >
               Best Of
             </Link>
             <Link
               href="/blog"
-              className="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors"
+              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors"
             >
               Blog
             </Link>

@@ -33,7 +33,7 @@ function BlogBody({ body }: Readonly<{ body: string }>) {
   if (hasHtmlTags) {
     return (
       <div
-        className="prose prose-gray prose-lg max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-strong:text-gray-900"
+        className="prose prose-gray prose-lg max-w-none prose-headings:font-bold prose-headings:text-neutral-900 prose-p:text-neutral-700 prose-p:leading-relaxed prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-strong:text-neutral-900"
         dangerouslySetInnerHTML={{ __html: body }}
       />
     );
@@ -53,7 +53,7 @@ function BlogBody({ body }: Readonly<{ body: string }>) {
           return (
             <h3
               key={index}
-              className="text-xl font-bold text-gray-900 mt-8"
+              className="text-xl font-bold text-neutral-900 mt-8"
               id={slugify(trimmed.slice(4))}
             >
               {formatInlineMarkdown(trimmed.slice(4))}
@@ -64,7 +64,7 @@ function BlogBody({ body }: Readonly<{ body: string }>) {
           return (
             <h2
               key={index}
-              className="text-2xl font-bold text-gray-900 mt-10"
+              className="text-2xl font-bold text-neutral-900 mt-10"
               id={slugify(trimmed.slice(3))}
             >
               {formatInlineMarkdown(trimmed.slice(3))}
@@ -75,7 +75,7 @@ function BlogBody({ body }: Readonly<{ body: string }>) {
           return (
             <h2
               key={index}
-              className="text-2xl font-bold text-gray-900 mt-10"
+              className="text-2xl font-bold text-neutral-900 mt-10"
               id={slugify(trimmed.slice(2))}
             >
               {formatInlineMarkdown(trimmed.slice(2))}
@@ -87,7 +87,7 @@ function BlogBody({ body }: Readonly<{ body: string }>) {
         const lines = trimmed.split("\n");
         if (lines.every((line) => line.startsWith("- ") || line.startsWith("* "))) {
           return (
-            <ul key={index} className="list-disc list-inside space-y-1.5 text-gray-700">
+            <ul key={index} className="list-disc list-inside space-y-1.5 text-neutral-700">
               {lines.map((line, li) => (
                 <li key={li} className="leading-relaxed">
                   {formatInlineMarkdown(line.slice(2))}
@@ -99,7 +99,7 @@ function BlogBody({ body }: Readonly<{ body: string }>) {
 
         // Regular paragraph
         return (
-          <p key={index} className="text-gray-700 leading-relaxed text-lg">
+          <p key={index} className="text-neutral-700 leading-relaxed text-lg">
             {formatInlineMarkdown(trimmed)}
           </p>
         );
@@ -128,7 +128,7 @@ function formatInlineMarkdown(text: string): React.ReactNode {
     if (match[2]) {
       // **bold**
       parts.push(
-        <strong key={match.index} className="font-semibold text-gray-900">
+        <strong key={match.index} className="font-semibold text-neutral-900">
           {match[2]}
         </strong>,
       );
@@ -328,7 +328,7 @@ export default async function BlogPostPage({
           {/* Header */}
           <header className="mx-auto max-w-3xl">
             {/* Meta info */}
-            <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500">
+            <div className="flex flex-wrap items-center gap-3 text-sm text-neutral-500">
               {post.publishedAt && (
                 <time dateTime={post.publishedAt.toISOString()}>
                   {formatDate(post.publishedAt)}
@@ -338,12 +338,12 @@ export default async function BlogPostPage({
               <span>{readingTime} min read</span>
             </div>
 
-            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl leading-tight">
+            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl leading-tight">
               {post.title}
             </h1>
 
             {post.excerpt && (
-              <p className="mt-4 text-lg text-gray-600 leading-relaxed">
+              <p className="mt-4 text-lg text-neutral-600 leading-relaxed">
                 {post.excerpt}
               </p>
             )}
@@ -357,10 +357,10 @@ export default async function BlogPostPage({
                   </span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-neutral-900">
                     {post.author}
                   </p>
-                  <p className="text-xs text-gray-500">Author</p>
+                  <p className="text-xs text-neutral-500">Author</p>
                 </div>
               </div>
             )}
@@ -386,7 +386,7 @@ export default async function BlogPostPage({
             {headings.length >= 3 && (
               <aside className="hidden lg:block lg:w-56 lg:shrink-0 lg:self-start lg:sticky lg:top-20">
                 <nav aria-label="Table of contents">
-                  <h2 className="text-[11px] font-bold text-gray-500 uppercase tracking-widest">
+                  <h2 className="text-[11px] font-bold text-neutral-500 uppercase tracking-widest">
                     On this page
                   </h2>
                   <ul className="mt-3 space-y-2">
@@ -394,7 +394,7 @@ export default async function BlogPostPage({
                       <li key={heading.id}>
                         <a
                           href={`#${heading.id}`}
-                          className={`block text-sm text-gray-600 hover:text-primary-600 transition-colors ${heading.level === 3 ? "pl-3" : ""}`}
+                          className={`block text-sm text-neutral-600 hover:text-primary-600 transition-colors ${heading.level === 3 ? "pl-3" : ""}`}
                         >
                           {heading.text}
                         </a>
@@ -409,8 +409,8 @@ export default async function BlogPostPage({
             <div className="mx-auto max-w-3xl flex-1 min-w-0">
               {/* Mobile ToC */}
               {headings.length >= 3 && (
-                <details className="mb-8 rounded-xl border border-gray-200 bg-neutral-50 p-4 lg:hidden">
-                  <summary className="text-sm font-semibold text-gray-700 cursor-pointer">
+                <details className="mb-8 rounded-xl border border-neutral-200 bg-neutral-50 p-4 lg:hidden">
+                  <summary className="text-sm font-semibold text-neutral-700 cursor-pointer">
                     Table of Contents
                   </summary>
                   <nav aria-label="Table of contents" className="mt-3">
@@ -419,7 +419,7 @@ export default async function BlogPostPage({
                         <li key={heading.id}>
                           <a
                             href={`#${heading.id}`}
-                            className={`block text-sm text-gray-600 hover:text-primary-600 transition-colors ${heading.level === 3 ? "pl-3" : ""}`}
+                            className={`block text-sm text-neutral-600 hover:text-primary-600 transition-colors ${heading.level === 3 ? "pl-3" : ""}`}
                           >
                             {heading.text}
                           </a>
@@ -441,7 +441,7 @@ export default async function BlogPostPage({
           </div>
 
           {/* Footer */}
-          <footer className="mt-14 mx-auto max-w-3xl border-t border-gray-200 pt-8">
+          <footer className="mt-14 mx-auto max-w-3xl border-t border-neutral-200 pt-8">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <Link
                 href="/blog"
@@ -467,7 +467,7 @@ export default async function BlogPostPage({
 
               <Link
                 href="/search"
-                className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors"
               >
                 Browse providers
               </Link>

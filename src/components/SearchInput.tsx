@@ -62,7 +62,7 @@ export default function SearchInput({
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-gray-400"
+          className="text-neutral-400"
           aria-hidden="true"
         >
           <circle cx="11" cy="11" r="8" />
@@ -77,7 +77,7 @@ export default function SearchInput({
         placeholder={placeholder}
         autoFocus={autoFocus}
         onChange={(e) => updateSearch(e.target.value)}
-        className="block w-full rounded-xl border border-gray-200 bg-white py-3.5 pl-12 pr-4 text-base text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-colors shadow-sm"
+        className="block w-full rounded-xl border border-neutral-200 bg-white py-3.5 pl-12 pr-4 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-colors shadow-sm"
       />
     </div>
   );

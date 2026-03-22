@@ -41,7 +41,7 @@ export default function Pagination({
       {hasPrev ? (
         <Link
           href={buildHref(currentPage - 1)}
-          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors"
           aria-label="Go to previous page"
         >
           <svg
@@ -62,7 +62,7 @@ export default function Pagination({
         </Link>
       ) : (
         <span
-          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-300 cursor-not-allowed"
+          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-300 cursor-not-allowed"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -88,13 +88,13 @@ export default function Pagination({
           <>
             <Link
               href={buildHref(1)}
-              className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors min-w-[40px]"
+              className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors min-w-[40px]"
               aria-label="Go to page 1"
             >
               1
             </Link>
             {rangeStart > 2 && (
-              <span className="px-1 text-gray-400" aria-hidden="true">
+              <span className="px-1 text-neutral-400" aria-hidden="true">
                 ...
               </span>
             )}
@@ -108,7 +108,7 @@ export default function Pagination({
             className={`inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium transition-colors min-w-[40px] ${
               page === currentPage
                 ? "bg-primary-600 text-white"
-                : "text-gray-700 hover:bg-gray-100"
+                : "text-neutral-700 hover:bg-neutral-100"
             }`}
             aria-label={`Go to page ${page}`}
             aria-current={page === currentPage ? "page" : undefined}
@@ -120,13 +120,13 @@ export default function Pagination({
         {rangeEnd < totalPages && (
           <>
             {rangeEnd < totalPages - 1 && (
-              <span className="px-1 text-gray-400" aria-hidden="true">
+              <span className="px-1 text-neutral-400" aria-hidden="true">
                 ...
               </span>
             )}
             <Link
               href={buildHref(totalPages)}
-              className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors min-w-[40px]"
+              className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors min-w-[40px]"
               aria-label={`Go to page ${totalPages}`}
             >
               {totalPages}
@@ -136,7 +136,7 @@ export default function Pagination({
       </div>
 
       {/* Mobile page indicator */}
-      <span className="sm:hidden text-sm text-gray-600 px-3">
+      <span className="sm:hidden text-sm text-neutral-600 px-3">
         Page {currentPage} of {totalPages}
       </span>
 
@@ -144,7 +144,7 @@ export default function Pagination({
       {hasNext ? (
         <Link
           href={buildHref(currentPage + 1)}
-          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors"
           aria-label="Go to next page"
         >
           <span className="hidden sm:inline">Next</span>
@@ -165,7 +165,7 @@ export default function Pagination({
         </Link>
       ) : (
         <span
-          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-300 cursor-not-allowed"
+          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-300 cursor-not-allowed"
         >
           <span className="hidden sm:inline">Next</span>
           <svg

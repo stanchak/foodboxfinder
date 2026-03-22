@@ -32,7 +32,7 @@ export default function FaqAccordion({
   }
 
   return (
-    <div className="divide-y divide-gray-100 rounded-xl border border-gray-200 overflow-hidden">
+    <div className="divide-y divide-neutral-100 rounded-xl border border-neutral-200 overflow-hidden">
       {items.map((item) => {
         const isOpen = openIds.has(item.id);
         const panelId = `faq-panel-${item.id}`;
@@ -47,7 +47,7 @@ export default function FaqAccordion({
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => toggle(item.id)}
-                className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left text-gray-900 hover:bg-gray-50 transition-colors"
+                className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left text-neutral-900 hover:bg-neutral-50 transition-colors"
               >
                 <span className="font-medium">{item.question}</span>
                 <svg
@@ -61,7 +61,7 @@ export default function FaqAccordion({
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   aria-hidden="true"
-                  className={`shrink-0 text-gray-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                  className={`shrink-0 text-neutral-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
@@ -74,7 +74,7 @@ export default function FaqAccordion({
               className={isOpen ? "px-5 pb-5" : ""}
               hidden={!isOpen}
             >
-              <p className="text-sm text-gray-700 leading-relaxed">
+              <p className="text-sm text-neutral-700 leading-relaxed">
                 {item.answer}
               </p>
             </div>

@@ -32,7 +32,7 @@ export default function HeaderSearchForm() {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-gray-400"
+          className="text-neutral-400"
           aria-hidden="true"
         >
           <circle cx="11" cy="11" r="8" />
@@ -44,7 +44,7 @@ export default function HeaderSearchForm() {
         id="header-search"
         type="search"
         placeholder="Search..."
-        className="w-44 rounded-full border border-gray-200 bg-gray-50 py-1.5 pl-9 pr-3 text-sm text-gray-700 placeholder:text-gray-400 focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:w-64 transition-all duration-300"
+        className="w-44 rounded-full border border-neutral-200 bg-neutral-50 py-1.5 pl-9 pr-3 text-sm text-neutral-700 placeholder:text-neutral-400 focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:w-64 transition-all duration-300"
       />
     </form>
   );

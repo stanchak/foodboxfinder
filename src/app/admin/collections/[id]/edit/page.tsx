@@ -42,12 +42,12 @@ export default async function EditCollectionPage(props: {
       <div className="mb-6">
         <Link
           href="/admin/collections"
-          className="text-sm text-gray-500 hover:text-gray-700"
+          className="text-sm text-neutral-500 hover:text-neutral-700"
         >
           &larr; Back to Collections
         </Link>
         <div className="flex items-center justify-between mt-2">
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-neutral-900">
             Edit: {collection.title}
           </h1>
           <form action={deleteCollection}>

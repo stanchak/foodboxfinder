@@ -127,7 +127,7 @@ function XIcon() {
       strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="text-gray-300"
+      className="text-neutral-300"
       aria-hidden="true"
     >
       <path d="M18 6 6 18" />
@@ -147,7 +147,7 @@ export default function ComparisonTable({
 
   return (
     <div className="overflow-x-auto -mx-4 sm:mx-0">
-      <div className="inline-block min-w-full align-top sm:rounded-2xl sm:shadow-sm sm:border sm:border-gray-200 sm:overflow-hidden">
+      <div className="inline-block min-w-full align-top sm:rounded-2xl sm:shadow-sm sm:border sm:border-neutral-200 sm:overflow-hidden">
         <table
           className="min-w-full border-collapse"
           role="table"
@@ -158,7 +158,7 @@ export default function ComparisonTable({
             <tr>
               <th
                 scope="col"
-                className="sticky left-0 z-10 bg-gray-50 w-40 sm:w-48 p-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-200"
+                className="sticky left-0 z-10 bg-neutral-50 w-40 sm:w-48 p-4 text-left text-xs font-semibold text-neutral-500 uppercase tracking-wide border-b border-neutral-200"
               >
                 <span className="sr-only">Feature</span>
               </th>
@@ -166,8 +166,8 @@ export default function ComparisonTable({
                 <th
                   key={provider.id}
                   scope="col"
-                  className={`p-6 text-center border-b border-gray-200 bg-white min-w-[200px] ${
-                    index < colCount - 1 ? "border-r border-gray-100" : ""
+                  className={`p-6 text-center border-b border-neutral-200 bg-white min-w-[200px] ${
+                    index < colCount - 1 ? "border-r border-neutral-100" : ""
                   }`}
                 >
                   <div className="flex flex-col items-center gap-3">
@@ -180,7 +180,7 @@ export default function ComparisonTable({
                         name={provider.name}
                         size="md"
                       />
-                      <span className="text-sm font-semibold text-gray-900 group-hover:text-primary-700 transition-colors">
+                      <span className="text-sm font-semibold text-neutral-900 group-hover:text-primary-700 transition-colors">
                         {provider.name}
                       </span>
                     </Link>
@@ -205,16 +205,16 @@ export default function ComparisonTable({
                         size="sm"
                         showNumeric={false}
                       />
-                      <span className="text-sm font-medium text-gray-900">
+                      <span className="text-sm font-medium text-neutral-900">
                         {provider.averageRating.toFixed(1)}
                       </span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-neutral-500">
                         {provider.reviewCount}{" "}
                         {provider.reviewCount === 1 ? "review" : "reviews"}
                       </span>
                     </>
                   ) : (
-                    <span className="text-sm text-gray-400">No reviews</span>
+                    <span className="text-sm text-neutral-400">No reviews</span>
                   )}
                 </div>
               )}
@@ -223,7 +223,7 @@ export default function ComparisonTable({
             {/* Price Range Row */}
             <ComparisonRow label="Price/Serving" providers={providers} highlight>
               {(provider) => (
-                <span className="text-sm font-semibold text-gray-900">
+                <span className="text-sm font-semibold text-neutral-900">
                   {formatPriceRange(
                     provider.minPricePerServingCents,
                     provider.maxPricePerServingCents,
@@ -253,7 +253,7 @@ export default function ComparisonTable({
                     ))}
                   </div>
                 ) : (
-                  <span className="text-sm text-gray-400">None listed</span>
+                  <span className="text-sm text-neutral-400">None listed</span>
                 )
               }
             </ComparisonRow>
@@ -268,7 +268,7 @@ export default function ComparisonTable({
               values={providers.map((p) => p.prepStyle)}
             >
               {(provider) => (
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-neutral-700">
                   {provider.prepStyle ?? "N/A"}
                 </span>
               )}
@@ -282,7 +282,7 @@ export default function ComparisonTable({
               highlight
             >
               {(provider) => (
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-neutral-700">
                   {formatValueTier(provider.valueTier)}
                 </span>
               )}
@@ -295,7 +295,7 @@ export default function ComparisonTable({
               values={providers.map((p) => p.modelType)}
             >
               {(provider) => (
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-neutral-700">
                   {provider.modelType ?? "N/A"}
                 </span>
               )}
@@ -309,7 +309,7 @@ export default function ComparisonTable({
               highlight
             >
               {(provider) => (
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-neutral-700">
                   {provider.householdFit ?? "N/A"}
                 </span>
               )}
@@ -322,7 +322,7 @@ export default function ComparisonTable({
               values={providers.map((p) => p.geography)}
             >
               {(provider) => (
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-neutral-700">
                   {provider.geography ?? "N/A"}
                 </span>
               )}
@@ -340,7 +340,7 @@ export default function ComparisonTable({
               {(provider) => {
                 const pros = parseJsonStringArray(provider.prosJson);
                 return pros.length > 0 ? (
-                  <ul className="text-sm text-gray-700 text-left space-y-1">
+                  <ul className="text-sm text-neutral-700 text-left space-y-1">
                     {pros.map((pro, i) => (
                       <li key={i} className="flex items-start gap-1.5">
                         <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-green-500 shrink-0" aria-hidden="true" />
@@ -349,7 +349,7 @@ export default function ComparisonTable({
                     ))}
                   </ul>
                 ) : (
-                  <span className="text-sm text-gray-400">N/A</span>
+                  <span className="text-sm text-neutral-400">N/A</span>
                 );
               }}
             </HideableComparisonRow>
@@ -364,7 +364,7 @@ export default function ComparisonTable({
               {(provider) => {
                 const cons = parseJsonStringArray(provider.consJson);
                 return cons.length > 0 ? (
-                  <ul className="text-sm text-gray-700 text-left space-y-1">
+                  <ul className="text-sm text-neutral-700 text-left space-y-1">
                     {cons.map((con, i) => (
                       <li key={i} className="flex items-start gap-1.5">
                         <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-500 shrink-0" aria-hidden="true" />
@@ -373,7 +373,7 @@ export default function ComparisonTable({
                     ))}
                   </ul>
                 ) : (
-                  <span className="text-sm text-gray-400">N/A</span>
+                  <span className="text-sm text-neutral-400">N/A</span>
                 );
               }}
             </HideableComparisonRow>
@@ -387,11 +387,11 @@ export default function ComparisonTable({
                 const plan =
                   provider.plans.find((p) => p.featured) ?? provider.plans[0];
                 return plan ? (
-                  <span className="text-sm font-medium text-gray-900">
+                  <span className="text-sm font-medium text-neutral-900">
                     {plan.name}
                   </span>
                 ) : (
-                  <span className="text-sm text-gray-400">N/A</span>
+                  <span className="text-sm text-neutral-400">N/A</span>
                 );
               }}
             </ComparisonRow>
@@ -402,7 +402,7 @@ export default function ComparisonTable({
                 const plan =
                   provider.plans.find((p) => p.featured) ?? provider.plans[0];
                 return (
-                  <span className="text-sm font-semibold text-gray-900">
+                  <span className="text-sm font-semibold text-neutral-900">
                     {plan ? formatPrice(plan.pricePerServingCents) : "N/A"}
                   </span>
                 );
@@ -415,7 +415,7 @@ export default function ComparisonTable({
                 const plan =
                   provider.plans.find((p) => p.featured) ?? provider.plans[0];
                 return (
-                  <span className="text-sm text-gray-700">
+                  <span className="text-sm text-neutral-700">
                     {plan ? formatPrice(plan.pricePerWeekCents) : "N/A"}
                   </span>
                 );
@@ -428,10 +428,10 @@ export default function ComparisonTable({
                 const plan =
                   provider.plans.find((p) => p.featured) ?? provider.plans[0];
                 if (!plan) {
-                  return <span className="text-sm text-gray-400">N/A</span>;
+                  return <span className="text-sm text-neutral-400">N/A</span>;
                 }
                 return (
-                  <span className="text-sm text-gray-700">
+                  <span className="text-sm text-neutral-700">
                     {plan.shippingCostCents === 0
                       ? "Free"
                       : formatPrice(plan.shippingCostCents)}
@@ -446,7 +446,7 @@ export default function ComparisonTable({
                 const plan =
                   provider.plans.find((p) => p.featured) ?? provider.plans[0];
                 if (!plan) {
-                  return <span className="text-sm text-gray-400">N/A</span>;
+                  return <span className="text-sm text-neutral-400">N/A</span>;
                 }
                 const parts: string[] = [];
                 if (plan.servingsPerMeal != null) {
@@ -460,7 +460,7 @@ export default function ComparisonTable({
                   );
                 }
                 return (
-                  <span className="text-sm text-gray-700">
+                  <span className="text-sm text-neutral-700">
                     {parts.length > 0 ? parts.join(", ") : "N/A"}
                   </span>
                 );
@@ -473,7 +473,7 @@ export default function ComparisonTable({
                 const plan =
                   provider.plans.find((p) => p.featured) ?? provider.plans[0];
                 return (
-                  <span className="text-sm text-gray-700">
+                  <span className="text-sm text-neutral-700">
                     {plan ? formatFrequency(plan.frequency) : "N/A"}
                   </span>
                 );
@@ -489,7 +489,7 @@ export default function ComparisonTable({
                 const plan =
                   provider.plans.find((p) => p.featured) ?? provider.plans[0];
                 if (!plan) {
-                  return <span className="text-sm text-gray-400">N/A</span>;
+                  return <span className="text-sm text-neutral-400">N/A</span>;
                 }
                 return (
                   <div className="flex justify-center" aria-label={plan.canSkip ? "Yes" : "No"}>
@@ -505,7 +505,7 @@ export default function ComparisonTable({
                 const plan =
                   provider.plans.find((p) => p.featured) ?? provider.plans[0];
                 if (!plan) {
-                  return <span className="text-sm text-gray-400">N/A</span>;
+                  return <span className="text-sm text-neutral-400">N/A</span>;
                 }
                 return (
                   <div className="flex justify-center" aria-label={plan.canCancel ? "Yes" : "No"}>
@@ -518,7 +518,7 @@ export default function ComparisonTable({
             {/* Total Plans Available */}
             <ComparisonRow label="Total Plans" providers={providers}>
               {(provider) => (
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-neutral-700">
                   {provider.plans.length}{" "}
                   {provider.plans.length === 1 ? "plan" : "plans"}
                 </span>
@@ -533,7 +533,7 @@ export default function ComparisonTable({
               highlight
             >
               {(provider) => (
-                <span className="text-sm text-gray-700 max-w-[200px] text-left inline-block">
+                <span className="text-sm text-neutral-700 max-w-[200px] text-left inline-block">
                   {provider.shippingNotes ?? "N/A"}
                 </span>
               )}
@@ -546,7 +546,7 @@ export default function ComparisonTable({
               values={providers.map((p) => p.flexibility)}
             >
               {(provider) => (
-                <span className="text-sm text-gray-700 max-w-[200px] text-left inline-block">
+                <span className="text-sm text-neutral-700 max-w-[200px] text-left inline-block">
                   {provider.flexibility ?? "N/A"}
                 </span>
               )}
@@ -554,14 +554,14 @@ export default function ComparisonTable({
 
             {/* Affiliate CTA Row */}
             <tr>
-              <th scope="row" className="sticky left-0 z-10 bg-accent-50 p-4 border-t border-gray-200 text-sm font-medium text-gray-600 text-left">
+              <th scope="row" className="sticky left-0 z-10 bg-accent-50 p-4 border-t border-neutral-200 text-sm font-medium text-neutral-600 text-left">
                 Visit Provider
               </th>
               {providers.map((provider, index) => (
                 <td
                   key={provider.id}
-                  className={`bg-accent-50 p-4 text-center border-t border-gray-200 ${
-                    index < colCount - 1 ? "border-r border-gray-100" : ""
+                  className={`bg-accent-50 p-4 text-center border-t border-neutral-200 ${
+                    index < colCount - 1 ? "border-r border-neutral-100" : ""
                   }`}
                 >
                   <AffiliateLink
@@ -578,14 +578,14 @@ export default function ComparisonTable({
 
             {/* View Details Link Row */}
             <tr>
-              <th scope="row" className="sticky left-0 z-10 bg-white p-4 border-t border-gray-200 text-left">
+              <th scope="row" className="sticky left-0 z-10 bg-white p-4 border-t border-neutral-200 text-left">
                 <span className="sr-only">Actions</span>
               </th>
               {providers.map((provider, index) => (
                 <td
                   key={provider.id}
-                  className={`p-4 text-center border-t border-gray-200 ${
-                    index < colCount - 1 ? "border-r border-gray-100" : ""
+                  className={`p-4 text-center border-t border-neutral-200 ${
+                    index < colCount - 1 ? "border-r border-neutral-100" : ""
                   }`}
                 >
                   <Link
@@ -618,7 +618,7 @@ function SectionHeader({
     <tr>
       <td
         colSpan={colCount + 1}
-        className="bg-gray-100 px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide border-y border-gray-200"
+        className="bg-neutral-100 px-4 py-2.5 text-xs font-semibold text-neutral-500 uppercase tracking-wide border-y border-neutral-200"
       >
         {label}
       </td>
@@ -646,15 +646,15 @@ function ComparisonRow({
     <tr>
       <th
         scope="row"
-        className={`sticky left-0 z-10 ${bgClass} p-4 text-sm font-medium text-gray-600 border-b border-gray-100 w-40 sm:w-48 text-left`}
+        className={`sticky left-0 z-10 ${bgClass} p-4 text-sm font-medium text-neutral-600 border-b border-neutral-100 w-40 sm:w-48 text-left`}
       >
         {label}
       </th>
       {providers.map((provider, index) => (
         <td
           key={provider.id}
-          className={`${bgClass} p-4 text-center border-b border-gray-100 ${
-            index < colCount - 1 ? "border-r border-gray-100" : ""
+          className={`${bgClass} p-4 text-center border-b border-neutral-100 ${
+            index < colCount - 1 ? "border-r border-neutral-100" : ""
           }`}
         >
           {children(provider)}

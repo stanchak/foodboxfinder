@@ -82,7 +82,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Dashboard</h1>
+      <h1 className="text-2xl font-bold text-neutral-900 mb-6">Dashboard</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         {stats.map((stat) => (
@@ -90,9 +90,9 @@ export default async function AdminDashboardPage() {
             key={stat.label}
             className="bg-white rounded-xl shadow-card p-5"
           >
-            <p className="text-sm font-medium text-gray-500">{stat.label}</p>
-            <p className="mt-1 text-3xl font-bold text-gray-900">{stat.value}</p>
-            <p className={`mt-1 text-sm ${stat.alert ? "text-amber-600 font-medium" : "text-gray-500"}`}>
+            <p className="text-sm font-medium text-neutral-500">{stat.label}</p>
+            <p className="mt-1 text-3xl font-bold text-neutral-900">{stat.value}</p>
+            <p className={`mt-1 text-sm ${stat.alert ? "text-amber-600 font-medium" : "text-neutral-500"}`}>
               {stat.sub}
             </p>
           </div>
@@ -122,21 +122,21 @@ export default async function AdminDashboardPage() {
 
       {/* Top Providers by Affiliate Clicks */}
       <div className="mt-8">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <h2 className="text-lg font-semibold text-neutral-900 mb-4">
           Top Providers by Clicks (Last 30 Days)
         </h2>
         {topProviders.length > 0 ? (
           <div className="bg-white rounded-xl shadow-card overflow-hidden">
             <table className="min-w-full">
               <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                <tr className="border-b border-neutral-200">
+                  <th className="px-5 py-3 text-left text-xs font-semibold text-neutral-500 uppercase tracking-wide">
                     Rank
                   </th>
-                  <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  <th className="px-5 py-3 text-left text-xs font-semibold text-neutral-500 uppercase tracking-wide">
                     Provider
                   </th>
-                  <th className="px-5 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  <th className="px-5 py-3 text-right text-xs font-semibold text-neutral-500 uppercase tracking-wide">
                     Clicks
                   </th>
                 </tr>
@@ -145,12 +145,12 @@ export default async function AdminDashboardPage() {
                 {topProviders.map((item, index) => (
                   <tr
                     key={item.providerId}
-                    className={index < topProviders.length - 1 ? "border-b border-gray-100" : ""}
+                    className={index < topProviders.length - 1 ? "border-b border-neutral-100" : ""}
                   >
-                    <td className="px-5 py-3 text-sm text-gray-500 w-16">
+                    <td className="px-5 py-3 text-sm text-neutral-500 w-16">
                       {index + 1}
                     </td>
-                    <td className="px-5 py-3 text-sm font-medium text-gray-900">
+                    <td className="px-5 py-3 text-sm font-medium text-neutral-900">
                       {item.provider ? (
                         <Link
                           href={`/admin/providers/${item.provider.slug}/edit`}
@@ -159,10 +159,10 @@ export default async function AdminDashboardPage() {
                           {item.provider.name}
                         </Link>
                       ) : (
-                        <span className="text-gray-400">Unknown provider</span>
+                        <span className="text-neutral-400">Unknown provider</span>
                       )}
                     </td>
-                    <td className="px-5 py-3 text-sm font-semibold text-gray-900 text-right tabular-nums">
+                    <td className="px-5 py-3 text-sm font-semibold text-neutral-900 text-right tabular-nums">
                       {item.clickCount.toLocaleString()}
                     </td>
                   </tr>
@@ -171,7 +171,7 @@ export default async function AdminDashboardPage() {
             </table>
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-card p-6 text-center text-sm text-gray-500">
+          <div className="bg-white rounded-xl shadow-card p-6 text-center text-sm text-neutral-500">
             No affiliate clicks recorded in the last 30 days.
           </div>
         )}
@@ -179,17 +179,17 @@ export default async function AdminDashboardPage() {
 
       {/* Providers by Category */}
       <div className="mt-8">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <h2 className="text-lg font-semibold text-neutral-900 mb-4">
           Providers by Category
         </h2>
         <div className="bg-white rounded-xl shadow-card overflow-hidden">
           <table className="min-w-full">
             <thead>
-              <tr className="border-b border-gray-200">
-                <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+              <tr className="border-b border-neutral-200">
+                <th className="px-5 py-3 text-left text-xs font-semibold text-neutral-500 uppercase tracking-wide">
                   Category
                 </th>
-                <th className="px-5 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                <th className="px-5 py-3 text-right text-xs font-semibold text-neutral-500 uppercase tracking-wide">
                   Count
                 </th>
               </tr>
@@ -198,12 +198,12 @@ export default async function AdminDashboardPage() {
               {categoryBreakdown.map((item, index) => (
                 <tr
                   key={item.category}
-                  className={index < categoryBreakdown.length - 1 ? "border-b border-gray-100" : ""}
+                  className={index < categoryBreakdown.length - 1 ? "border-b border-neutral-100" : ""}
                 >
-                  <td className="px-5 py-3 text-sm font-medium text-gray-900">
+                  <td className="px-5 py-3 text-sm font-medium text-neutral-900">
                     {CATEGORY_MAP[item.category as CategoryType]?.label ?? item.category}
                   </td>
-                  <td className="px-5 py-3 text-sm font-semibold text-gray-900 text-right tabular-nums">
+                  <td className="px-5 py-3 text-sm font-semibold text-neutral-900 text-right tabular-nums">
                     {item._count.id}
                   </td>
                 </tr>

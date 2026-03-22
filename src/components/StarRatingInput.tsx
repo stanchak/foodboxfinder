@@ -41,7 +41,7 @@ export default function StarRatingInput({
 
   return (
     <fieldset className="space-y-1.5">
-      <legend className="block text-sm font-medium text-gray-700">
+      <legend className="block text-sm font-medium text-neutral-700">
         Rating <span className="text-red-500">*</span>
       </legend>
       <div className="flex items-center gap-1">
@@ -79,7 +79,7 @@ export default function StarRatingInput({
           );
         })}
         {displayValue > 0 && (
-          <span className="ml-2 text-sm font-medium text-gray-600">
+          <span className="ml-2 text-sm font-medium text-neutral-600">
             {ratingLabels[displayValue - 1]}
           </span>
         )}

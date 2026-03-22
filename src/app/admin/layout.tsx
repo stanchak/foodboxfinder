@@ -61,14 +61,14 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-neutral-50 flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-gray-100 flex flex-col flex-shrink-0">
-        <div className="p-4 border-b border-gray-700">
+      <aside className="w-64 bg-neutral-900 text-neutral-100 flex flex-col flex-shrink-0">
+        <div className="p-4 border-b border-neutral-700">
           <Link href="/admin" className="text-lg font-bold text-white">
             FoodBoxFinder
           </Link>
-          <p className="text-xs text-gray-400 mt-0.5">Admin Dashboard</p>
+          <p className="text-xs text-neutral-400 mt-0.5">Admin Dashboard</p>
         </div>
 
         <nav className="flex-1 py-4">
@@ -77,7 +77,7 @@ export default function AdminLayout({
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors"
                 >
                   <NavIcon icon={item.icon} />
                   {item.label}
@@ -87,10 +87,10 @@ export default function AdminLayout({
           </ul>
         </nav>
 
-        <div className="p-4 border-t border-gray-700 space-y-2">
+        <div className="p-4 border-t border-neutral-700 space-y-2">
           <Link
             href="/"
-            className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 px-3 py-2 text-sm text-neutral-400 hover:text-white transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -100,7 +100,7 @@ export default function AdminLayout({
           <form action={logoutAction}>
             <button
               type="submit"
-              className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-red-400 transition-colors w-full text-left"
+              className="flex items-center gap-2 px-3 py-2 text-sm text-neutral-400 hover:text-red-400 transition-colors w-full text-left"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

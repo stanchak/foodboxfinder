@@ -171,11 +171,11 @@ export default async function CollectionDetailPage({
 
           {!collection.coverImageUrl && (
             <div className="mb-8">
-              <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
                 {collection.title}
               </h1>
               {collection.description && (
-                <p className="mt-3 text-lg text-gray-600 max-w-3xl">
+                <p className="mt-3 text-lg text-neutral-600 max-w-3xl">
                   {collection.description}
                 </p>
               )}
@@ -188,7 +188,7 @@ export default async function CollectionDetailPage({
               {collection.body.split("\n\n").map((paragraph, index) => (
                 <p
                   key={index}
-                  className="text-gray-700 leading-relaxed [&:not(:first-child)]:mt-4"
+                  className="text-neutral-700 leading-relaxed [&:not(:first-child)]:mt-4"
                 >
                   {paragraph}
                 </p>
@@ -199,7 +199,7 @@ export default async function CollectionDetailPage({
 
         {/* Provider count */}
         <div className="flex items-center gap-2 mb-6">
-          <span className="text-sm font-medium text-gray-500">
+          <span className="text-sm font-medium text-neutral-500">
             {collection.items.length}{" "}
             {collection.items.length === 1 ? "provider" : "providers"} in this
             collection
@@ -218,7 +218,7 @@ export default async function CollectionDetailPage({
 
               return (
                 <li key={item.id}>
-                  <article className="relative bg-white rounded-2xl shadow-card ring-1 ring-gray-100 overflow-hidden transition-all hover:shadow-card-hover hover:-translate-y-0.5">
+                  <article className="relative bg-white rounded-2xl shadow-card ring-1 ring-neutral-100 overflow-hidden transition-all hover:shadow-card-hover hover:-translate-y-0.5">
                     <div className="flex flex-col sm:flex-row">
                       {/* Rank badge */}
                       <div className="absolute top-4 left-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white shadow-sm sm:relative sm:top-auto sm:left-auto sm:h-auto sm:w-16 sm:shrink-0 sm:rounded-none sm:rounded-l-xl sm:bg-primary-50 sm:text-primary-700 sm:shadow-none sm:flex sm:items-center sm:justify-center">
@@ -228,7 +228,7 @@ export default async function CollectionDetailPage({
                       </div>
 
                       {/* Logo */}
-                      <div className="flex items-center justify-center w-full sm:w-32 h-36 sm:h-auto bg-gray-50 border-b sm:border-b-0 sm:border-r border-gray-100 overflow-hidden shrink-0">
+                      <div className="flex items-center justify-center w-full sm:w-32 h-36 sm:h-auto bg-neutral-50 border-b sm:border-b-0 sm:border-r border-neutral-100 overflow-hidden shrink-0">
                         {provider.logoUrl ? (
                           <Image
                             src={provider.logoUrl}
@@ -238,7 +238,7 @@ export default async function CollectionDetailPage({
                             className="object-contain p-3"
                           />
                         ) : (
-                          <span className="text-3xl font-bold text-gray-300">
+                          <span className="text-3xl font-bold text-neutral-300">
                             {provider.name.charAt(0)}
                           </span>
                         )}
@@ -257,7 +257,7 @@ export default async function CollectionDetailPage({
                               )}
                             </div>
 
-                            <h3 className="mt-2 text-xl font-bold text-gray-900">
+                            <h3 className="mt-2 text-xl font-bold text-neutral-900">
                               <Link
                                 href={`/providers/${provider.slug}`}
                                 className="hover:text-primary-700 transition-colors"
@@ -267,7 +267,7 @@ export default async function CollectionDetailPage({
                             </h3>
 
                             {provider.shortDescription && (
-                              <p className="mt-1.5 text-sm text-gray-600 line-clamp-2">
+                              <p className="mt-1.5 text-sm text-neutral-600 line-clamp-2">
                                 {provider.shortDescription}
                               </p>
                             )}
@@ -280,16 +280,16 @@ export default async function CollectionDetailPage({
                                     rating={provider.averageRating}
                                     size="sm"
                                   />
-                                  <span className="text-xs text-gray-500">
+                                  <span className="text-xs text-neutral-500">
                                     ({provider.reviewCount})
                                   </span>
                                 </div>
                               ) : (
-                                <span className="text-xs text-gray-500">
+                                <span className="text-xs text-neutral-500">
                                   No reviews yet
                                 </span>
                               )}
-                              <span className="text-sm font-medium text-gray-900">
+                              <span className="text-sm font-medium text-neutral-900">
                                 {formatPriceLabel(
                                   provider.minPricePerServingCents,
                                 )}
@@ -345,7 +345,7 @@ export default async function CollectionDetailPage({
                             <p className="text-[11px] font-bold text-primary-800 uppercase tracking-widest">
                               Why we picked it
                             </p>
-                            <p className="mt-1 text-sm text-gray-700 leading-relaxed">
+                            <p className="mt-1 text-sm text-neutral-700 leading-relaxed">
                               {item.note}
                             </p>
                           </div>
@@ -359,7 +359,7 @@ export default async function CollectionDetailPage({
           </ol>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-600">
+            <p className="text-neutral-600">
               This collection does not have any providers yet.
             </p>
           </div>

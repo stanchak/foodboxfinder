@@ -20,7 +20,7 @@ function RatingDisplay({ rating }: Readonly<{ rating: number }>) {
       {[1, 2, 3, 4, 5].map((star) => (
         <svg
           key={star}
-          className={`w-4 h-4 ${star <= rating ? "text-amber-400" : "text-gray-200"}`}
+          className={`w-4 h-4 ${star <= rating ? "text-amber-400" : "text-neutral-200"}`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -55,7 +55,7 @@ export default async function AdminReviewsPage(props: {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Reviews</h1>
+        <h1 className="text-2xl font-bold text-neutral-900">Reviews</h1>
         {pendingCount > 0 && (
           <span className="bg-amber-100 text-amber-700 text-sm font-medium px-3 py-1 rounded-full">
             {pendingCount} pending
@@ -64,7 +64,7 @@ export default async function AdminReviewsPage(props: {
       </div>
 
       {/* Status Tabs */}
-      <div className="flex gap-1 mb-6 bg-gray-100 rounded-lg p-1 w-fit">
+      <div className="flex gap-1 mb-6 bg-neutral-100 rounded-lg p-1 w-fit">
         {STATUS_TABS.map((tab) => {
           const isActive = statusFilter === tab.value;
           return (
@@ -73,8 +73,8 @@ export default async function AdminReviewsPage(props: {
               href={`/admin/reviews?status=${tab.value}`}
               className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
                 isActive
-                  ? "bg-white text-gray-900 shadow-sm"
-                  : "text-gray-600 hover:text-gray-900"
+                  ? "bg-white text-neutral-900 shadow-sm"
+                  : "text-neutral-600 hover:text-neutral-900"
               }`}
             >
               {tab.label}
@@ -86,7 +86,7 @@ export default async function AdminReviewsPage(props: {
       {/* Review List */}
       <div className="space-y-3">
         {reviews.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-card p-8 text-center text-gray-500">
+          <div className="bg-white rounded-xl shadow-card p-8 text-center text-neutral-500">
             No {statusFilter.toLowerCase()} reviews found.
           </div>
         ) : (
@@ -110,8 +110,8 @@ export default async function AdminReviewsPage(props: {
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-                    <span className="font-medium text-gray-700">{review.authorName}</span>
+                  <div className="flex items-center gap-2 text-sm text-neutral-500 mb-2">
+                    <span className="font-medium text-neutral-700">{review.authorName}</span>
                     <span>on</span>
                     <a
                       href={`/admin/providers`}
@@ -119,7 +119,7 @@ export default async function AdminReviewsPage(props: {
                     >
                       {review.provider.name}
                     </a>
-                    <span className="text-gray-400">
+                    <span className="text-neutral-400">
                       {review.createdAt.toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -129,13 +129,13 @@ export default async function AdminReviewsPage(props: {
                   </div>
 
                   {review.title && (
-                    <p className="font-medium text-gray-900 mb-1">{review.title}</p>
+                    <p className="font-medium text-neutral-900 mb-1">{review.title}</p>
                   )}
 
-                  <p className="text-sm text-gray-600 line-clamp-3">{review.body}</p>
+                  <p className="text-sm text-neutral-600 line-clamp-3">{review.body}</p>
 
                   {review.authorEmail && (
-                    <p className="mt-1 text-xs text-gray-400">{review.authorEmail}</p>
+                    <p className="mt-1 text-xs text-neutral-400">{review.authorEmail}</p>
                   )}
                 </div>
 
@@ -170,7 +170,7 @@ export default async function AdminReviewsPage(props: {
         )}
       </div>
 
-      <div className="mt-4 text-sm text-gray-500">
+      <div className="mt-4 text-sm text-neutral-500">
         Showing {reviews.length} review{reviews.length !== 1 ? "s" : ""}
       </div>
     </div>

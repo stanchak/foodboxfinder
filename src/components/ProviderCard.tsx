@@ -49,9 +49,9 @@ export default function ProviderCard({
   const remainingTagCount = provider.dietaryTags.length - visibleTags.length;
 
   return (
-    <article className="group relative bg-white rounded-2xl ring-1 ring-gray-100 shadow-card transition-all duration-200 hover:shadow-lg hover:-translate-y-1 overflow-hidden">
+    <article className="group relative bg-white rounded-2xl ring-1 ring-neutral-100 shadow-card transition-all duration-200 hover:shadow-lg hover:-translate-y-1 overflow-hidden">
       {/* Hero image area */}
-      <div className="relative h-44 bg-gradient-to-br from-gray-50 to-gray-100/80 overflow-hidden">
+      <div className="relative h-44 bg-gradient-to-br from-neutral-50 to-neutral-100/80 overflow-hidden">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -62,7 +62,7 @@ export default function ProviderCard({
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-5xl font-extrabold text-gray-200" aria-hidden="true">
+            <span className="text-5xl font-extrabold text-neutral-200" aria-hidden="true">
               {provider.name.charAt(0).toUpperCase()}
             </span>
           </div>
@@ -92,7 +92,7 @@ export default function ProviderCard({
         </div>
 
         {/* Provider name — stretched link covers entire card */}
-        <h3 className="text-base font-bold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-1">
+        <h3 className="text-base font-bold text-neutral-900 group-hover:text-primary-700 transition-colors line-clamp-1">
           <Link href={href} className="after:absolute after:inset-0">
             {provider.name}
           </Link>
@@ -100,7 +100,7 @@ export default function ProviderCard({
 
         {/* Short description */}
         {provider.shortDescription && (
-          <p className="mt-1 text-sm text-gray-600 line-clamp-2">
+          <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
             {provider.shortDescription}
           </p>
         )}
@@ -108,7 +108,7 @@ export default function ProviderCard({
         {/* Rating */}
         <div className="mt-3 flex items-center gap-2">
           <RatingStars rating={provider.averageRating} size="sm" />
-          <span className="text-xs text-gray-600 font-medium">
+          <span className="text-xs text-neutral-600 font-medium">
             ({provider.reviewCount})
           </span>
         </div>
@@ -120,7 +120,7 @@ export default function ProviderCard({
 
         {/* Dietary tags */}
         {provider.dietaryTags.length > 0 && (
-          <div className="mt-3 pt-3 border-t border-gray-100 flex flex-wrap gap-1.5">
+          <div className="mt-3 pt-3 border-t border-neutral-100 flex flex-wrap gap-1.5">
             {visibleTags.map(({ tag }) => (
               <Badge key={tag} color="dietary">
                 {formatDietaryLabel(tag)}

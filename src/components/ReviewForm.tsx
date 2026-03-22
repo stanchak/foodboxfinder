@@ -108,10 +108,10 @@ export default function ReviewForm({
       <div>
         <label
           htmlFor="review-title"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-neutral-700"
         >
           Title{" "}
-          <span className="font-normal text-gray-400">(optional)</span>
+          <span className="font-normal text-neutral-400">(optional)</span>
         </label>
         <input
           id="review-title"
@@ -119,7 +119,7 @@ export default function ReviewForm({
           type="text"
           maxLength={200}
           placeholder="Summarize your experience"
-          className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:bg-gray-50 disabled:text-gray-500"
+          className="mt-1 block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:bg-neutral-50 disabled:text-neutral-500"
           disabled={isPending}
         />
       </div>
@@ -128,7 +128,7 @@ export default function ReviewForm({
       <div>
         <label
           htmlFor="review-body"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-neutral-700"
         >
           Your Review <span className="text-red-500">*</span>
         </label>
@@ -140,7 +140,7 @@ export default function ReviewForm({
           minLength={10}
           maxLength={5000}
           placeholder="Share your experience with this food box service..."
-          className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:bg-gray-50 disabled:text-gray-500 resize-y"
+          className="mt-1 block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:bg-neutral-50 disabled:text-neutral-500 resize-y"
           disabled={isPending}
         />
         {state.errors.body && (
@@ -156,7 +156,7 @@ export default function ReviewForm({
         <div>
           <label
             htmlFor="review-author-name"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-neutral-700"
           >
             Your Name <span className="text-red-500">*</span>
           </label>
@@ -168,7 +168,7 @@ export default function ReviewForm({
             minLength={2}
             maxLength={100}
             placeholder="Jane D."
-            className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:bg-gray-50 disabled:text-gray-500"
+            className="mt-1 block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:bg-neutral-50 disabled:text-neutral-500"
             disabled={isPending}
           />
           {state.errors.authorName && (
@@ -182,10 +182,10 @@ export default function ReviewForm({
         <div>
           <label
             htmlFor="review-author-email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-neutral-700"
           >
             Email{" "}
-            <span className="font-normal text-gray-400">(optional)</span>
+            <span className="font-normal text-neutral-400">(optional)</span>
           </label>
           <input
             id="review-author-email"
@@ -193,7 +193,7 @@ export default function ReviewForm({
             type="email"
             maxLength={254}
             placeholder="jane@example.com"
-            className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:bg-gray-50 disabled:text-gray-500"
+            className="mt-1 block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:bg-neutral-50 disabled:text-neutral-500"
             disabled={isPending}
           />
           {state.errors.authorEmail && (
@@ -201,7 +201,7 @@ export default function ReviewForm({
               {state.errors.authorEmail}
             </p>
           )}
-          <p className="mt-1 text-xs text-gray-400">
+          <p className="mt-1 text-xs text-neutral-400">
             Not displayed publicly. Used only if we need to contact you.
           </p>
         </div>
@@ -213,7 +213,7 @@ export default function ReviewForm({
           {isPending ? "Submitting..." : "Submit Review"}
         </Button>
         {isPending && (
-          <span className="text-sm text-gray-500" aria-live="polite">
+          <span className="text-sm text-neutral-500" aria-live="polite">
             Submitting your review...
           </span>
         )}

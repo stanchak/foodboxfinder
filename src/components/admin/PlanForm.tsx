@@ -51,7 +51,7 @@ export default function PlanForm({
   const [state, formAction, isPending] = useActionState(savePlan, initialState);
 
   return (
-    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+    <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4">
       <form action={formAction} className="space-y-4">
         <input type="hidden" name="providerId" value={providerId} />
         {plan && <input type="hidden" name="id" value={plan.id} />}
@@ -70,7 +70,7 @@ export default function PlanForm({
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div>
-            <label htmlFor="planName" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planName" className="block text-xs font-medium text-neutral-600 mb-1">
               Plan Name *
             </label>
             <input
@@ -79,18 +79,18 @@ export default function PlanForm({
               name="name"
               required
               defaultValue={plan?.name ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
           <div>
-            <label htmlFor="planFrequency" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planFrequency" className="block text-xs font-medium text-neutral-600 mb-1">
               Frequency
             </label>
             <select
               id="planFrequency"
               name="frequency"
               defaultValue={plan?.frequency ?? "WEEKLY"}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
               {FREQUENCY_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -98,7 +98,7 @@ export default function PlanForm({
             </select>
           </div>
           <div>
-            <label htmlFor="planSortOrder" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planSortOrder" className="block text-xs font-medium text-neutral-600 mb-1">
               Sort Order
             </label>
             <input
@@ -106,13 +106,13 @@ export default function PlanForm({
               id="planSortOrder"
               name="sortOrder"
               defaultValue={plan?.sortOrder ?? 0}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor="planDescription" className="block text-xs font-medium text-gray-600 mb-1">
+          <label htmlFor="planDescription" className="block text-xs font-medium text-neutral-600 mb-1">
             Description
           </label>
           <textarea
@@ -120,13 +120,13 @@ export default function PlanForm({
             name="description"
             rows={2}
             defaultValue={plan?.description ?? ""}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <div>
-            <label htmlFor="planPricePerServing" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planPricePerServing" className="block text-xs font-medium text-neutral-600 mb-1">
               Price/Serving (cents)
             </label>
             <input
@@ -134,11 +134,11 @@ export default function PlanForm({
               id="planPricePerServing"
               name="pricePerServingCents"
               defaultValue={plan?.pricePerServingCents ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
           <div>
-            <label htmlFor="planPricePerWeek" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planPricePerWeek" className="block text-xs font-medium text-neutral-600 mb-1">
               Price/Week (cents)
             </label>
             <input
@@ -146,11 +146,11 @@ export default function PlanForm({
               id="planPricePerWeek"
               name="pricePerWeekCents"
               defaultValue={plan?.pricePerWeekCents ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
           <div>
-            <label htmlFor="planPricePerBox" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planPricePerBox" className="block text-xs font-medium text-neutral-600 mb-1">
               Price/Box (cents)
             </label>
             <input
@@ -158,11 +158,11 @@ export default function PlanForm({
               id="planPricePerBox"
               name="pricePerBoxCents"
               defaultValue={plan?.pricePerBoxCents ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
           <div>
-            <label htmlFor="planShippingCost" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planShippingCost" className="block text-xs font-medium text-neutral-600 mb-1">
               Shipping (cents)
             </label>
             <input
@@ -170,14 +170,14 @@ export default function PlanForm({
               id="planShippingCost"
               name="shippingCostCents"
               defaultValue={plan?.shippingCostCents ?? 0}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <div>
-            <label htmlFor="planServingsPerMeal" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planServingsPerMeal" className="block text-xs font-medium text-neutral-600 mb-1">
               Servings/Meal
             </label>
             <input
@@ -185,11 +185,11 @@ export default function PlanForm({
               id="planServingsPerMeal"
               name="servingsPerMeal"
               defaultValue={plan?.servingsPerMeal ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
           <div>
-            <label htmlFor="planMealsPerWeek" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planMealsPerWeek" className="block text-xs font-medium text-neutral-600 mb-1">
               Meals/Week
             </label>
             <input
@@ -197,11 +197,11 @@ export default function PlanForm({
               id="planMealsPerWeek"
               name="mealsPerWeek"
               defaultValue={plan?.mealsPerWeek ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
           <div>
-            <label htmlFor="planMinimumOrder" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planMinimumOrder" className="block text-xs font-medium text-neutral-600 mb-1">
               Min Order
             </label>
             <input
@@ -209,14 +209,14 @@ export default function PlanForm({
               id="planMinimumOrder"
               name="minimumOrder"
               defaultValue={plan?.minimumOrder ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
-            <label htmlFor="planShippingNote" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planShippingNote" className="block text-xs font-medium text-neutral-600 mb-1">
               Shipping Note
             </label>
             <input
@@ -224,11 +224,11 @@ export default function PlanForm({
               id="planShippingNote"
               name="shippingNote"
               defaultValue={plan?.shippingNote ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
           <div>
-            <label htmlFor="planIntroOffer" className="block text-xs font-medium text-gray-600 mb-1">
+            <label htmlFor="planIntroOffer" className="block text-xs font-medium text-neutral-600 mb-1">
               Intro Offer Note
             </label>
             <input
@@ -237,13 +237,13 @@ export default function PlanForm({
               name="introOfferNote"
               defaultValue={plan?.introOfferNote ?? ""}
               placeholder='e.g. "60% off first box"'
-              className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor="planCancelPolicy" className="block text-xs font-medium text-gray-600 mb-1">
+          <label htmlFor="planCancelPolicy" className="block text-xs font-medium text-neutral-600 mb-1">
             Cancel Policy
           </label>
           <input
@@ -251,44 +251,44 @@ export default function PlanForm({
             id="planCancelPolicy"
             name="cancelPolicy"
             defaultValue={plan?.cancelPolicy ?? ""}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
         </div>
 
         <div className="flex flex-wrap gap-4">
-          <label className="flex items-center gap-2 text-sm text-gray-700">
+          <label className="flex items-center gap-2 text-sm text-neutral-700">
             <input
               type="checkbox"
               name="canSkip"
               defaultChecked={plan?.canSkip ?? false}
-              className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+              className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
             />
             Can Skip
           </label>
-          <label className="flex items-center gap-2 text-sm text-gray-700">
+          <label className="flex items-center gap-2 text-sm text-neutral-700">
             <input
               type="checkbox"
               name="canCancel"
               defaultChecked={plan?.canCancel ?? false}
-              className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+              className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
             />
             Can Cancel
           </label>
-          <label className="flex items-center gap-2 text-sm text-gray-700">
+          <label className="flex items-center gap-2 text-sm text-neutral-700">
             <input
               type="checkbox"
               name="featured"
               defaultChecked={plan?.featured ?? false}
-              className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+              className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
             />
             Featured
           </label>
-          <label className="flex items-center gap-2 text-sm text-gray-700">
+          <label className="flex items-center gap-2 text-sm text-neutral-700">
             <input
               type="checkbox"
               name="active"
               defaultChecked={plan?.active ?? true}
-              className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+              className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
             />
             Active
           </label>
@@ -305,7 +305,7 @@ export default function PlanForm({
           <button
             type="button"
             onClick={onClose}
-            className="text-sm text-gray-600 hover:text-gray-900"
+            className="text-sm text-neutral-600 hover:text-neutral-900"
           >
             Cancel
           </button>

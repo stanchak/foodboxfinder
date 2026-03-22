@@ -19,10 +19,10 @@ export default function NotFound() {
       <p className="text-sm font-semibold text-emerald-600">404</p>
 
       {/* Heading */}
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      <h1 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
         Page not found
       </h1>
-      <p className="mt-4 text-base text-gray-600">
+      <p className="mt-4 text-base text-neutral-600">
         Sorry, we couldn&apos;t find the page you&apos;re looking for. It may
         have been moved or no longer exists.
       </p>
@@ -31,7 +31,7 @@ export default function NotFound() {
       <div className="mt-8 max-w-md mx-auto">
         <Suspense
           fallback={
-            <div className="h-12 w-full rounded-lg bg-gray-100 animate-pulse" />
+            <div className="h-12 w-full rounded-lg bg-neutral-100 animate-pulse" />
           }
         >
           <SearchInput
@@ -44,7 +44,7 @@ export default function NotFound() {
 
       {/* Category Suggestions */}
       <div className="mt-12">
-        <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">
+        <h2 className="text-sm font-semibold text-neutral-900 uppercase tracking-wide">
           Browse by category
         </h2>
         <nav aria-label="Category navigation" className="mt-4">
@@ -53,7 +53,7 @@ export default function NotFound() {
               <li key={slug}>
                 <Link
                   href={`/${slug}`}
-                  className="inline-flex items-center rounded-full bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
+                  className="inline-flex items-center rounded-full bg-neutral-100 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
                 >
                   {label}
                 </Link>

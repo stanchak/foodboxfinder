@@ -63,7 +63,7 @@ export default function AddToCompareButton({
       type="button"
       onClick={handleClick}
       disabled={disabled}
-      className={`relative z-10 inline-flex items-center justify-center font-medium rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500 border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed ${sizeClasses} ${className ?? ""}`}
+      className={`relative z-10 inline-flex items-center justify-center font-medium rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-neutral-500 border border-neutral-300 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed ${sizeClasses} ${className ?? ""}`}
       aria-label={
         disabled
           ? "Comparison is full (4 providers max)"

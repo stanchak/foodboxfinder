@@ -105,10 +105,10 @@ export default async function ComparePage({
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
           </div>
-          <h1 className="mt-4 text-2xl font-extrabold text-gray-900">
+          <h1 className="mt-4 text-2xl font-extrabold text-neutral-900">
             Not Enough Providers to Compare
           </h1>
-          <p className="mt-2 text-gray-600 max-w-md mx-auto">
+          <p className="mt-2 text-neutral-600 max-w-md mx-auto">
             {orderedProviders.length === 1
               ? `We found "${orderedProviders[0].name}" but need at least 2 providers for a comparison.`
               : "We couldn't find valid providers for the slugs you provided. Please try different ones."}
@@ -122,7 +122,7 @@ export default async function ComparePage({
             </Link>
             <Link
               href="/search"
-              className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors"
             >
               Search All Providers
             </Link>
@@ -152,10 +152,10 @@ export default async function ComparePage({
         <Breadcrumbs items={breadcrumbItems} />
 
         <div className="mt-6">
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+          <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900">
             {orderedProviders.map((p) => p.name).join(" vs ")}
           </h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-neutral-600">
             Side-by-side comparison of pricing, ratings, dietary options, and
             plan details.
           </p>
@@ -242,10 +242,10 @@ async function CompareEmptyState({
               <rect x="14" y="3" width="7" height="18" rx="1" />
             </svg>
           </div>
-          <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
             Compare Food Boxes Side by Side
           </h1>
-          <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-3 text-lg text-neutral-600 max-w-2xl mx-auto">
             Select 2 to 4 providers from the list below, or use the &ldquo;Add
             to Compare&rdquo; button on any provider page. We will show you a
             detailed breakdown of pricing, ratings, dietary options, and more.
@@ -275,13 +275,13 @@ async function CompareEmptyState({
             },
           ].map((item) => (
             <div key={item.step} className="text-center">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-gray-900 text-white text-sm font-bold">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 text-white text-sm font-bold">
                 {item.step}
               </div>
-              <h3 className="mt-3 text-sm font-semibold text-gray-900">
+              <h3 className="mt-3 text-sm font-semibold text-neutral-900">
                 {item.title}
               </h3>
-              <p className="mt-1 text-sm text-gray-600">{item.description}</p>
+              <p className="mt-1 text-sm text-neutral-600">{item.description}</p>
             </div>
           ))}
         </div>
@@ -291,11 +291,11 @@ async function CompareEmptyState({
           <section className="mt-14" aria-labelledby="compare-pick-heading">
             <h2
               id="compare-pick-heading"
-              className="text-2xl font-extrabold text-gray-900 text-center"
+              className="text-2xl font-extrabold text-neutral-900 text-center"
             >
               Popular Providers to Compare
             </h2>
-            <p className="mt-2 text-gray-600 text-center">
+            <p className="mt-2 text-neutral-600 text-center">
               Start by selecting a few providers below
             </p>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

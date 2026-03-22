@@ -76,7 +76,7 @@ export default function RatingStars({
         <StarIcon key={i} type={type} width={width} height={height} index={i} />
       ))}
       {showNumeric && (
-        <span className={`ml-1.5 font-medium text-gray-700 ${textClass}`}>
+        <span className={`ml-1.5 font-medium text-neutral-700 ${textClass}`}>
           {rating.toFixed(1)}
         </span>
       )}

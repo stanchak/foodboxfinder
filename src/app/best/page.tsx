@@ -65,10 +65,10 @@ export default async function CollectionsIndexPage() {
 
         {/* Page Header */}
         <div className="mt-6 text-center">
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
             Best Food Box Collections
           </h1>
-          <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-3 text-lg text-neutral-600 max-w-2xl mx-auto">
             Our expert-curated collections to help you find the perfect food
             box subscription for your needs.
           </p>
@@ -81,7 +81,7 @@ export default async function CollectionsIndexPage() {
               <Link
                 key={collection.id}
                 href={`/best/${collection.slug}`}
-                className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200 hover:-translate-y-1"
+                className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-neutral-100 transition-all hover:shadow-card-hover hover:ring-primary-200 hover:-translate-y-1"
               >
                 {/* Cover Image */}
                 <div className="relative h-48 bg-gradient-to-br from-primary-50 to-primary-100 overflow-hidden">
@@ -114,7 +114,7 @@ export default async function CollectionsIndexPage() {
                   )}
 
                   {/* Item count badge */}
-                  <span className="absolute bottom-3 right-3 inline-flex items-center rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-gray-700 shadow-sm backdrop-blur-sm">
+                  <span className="absolute bottom-3 right-3 inline-flex items-center rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-neutral-700 shadow-sm backdrop-blur-sm">
                     {collection._count.items}{" "}
                     {collection._count.items === 1 ? "provider" : "providers"}
                   </span>
@@ -122,11 +122,11 @@ export default async function CollectionsIndexPage() {
 
                 {/* Content */}
                 <div className="flex flex-1 flex-col p-5">
-                  <h2 className="text-lg font-bold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-2">
+                  <h2 className="text-lg font-bold text-neutral-900 group-hover:text-primary-700 transition-colors line-clamp-2">
                     {collection.title}
                   </h2>
                   {collection.description && (
-                    <p className="mt-2 text-sm text-gray-600 line-clamp-3 flex-1">
+                    <p className="mt-2 text-sm text-neutral-600 line-clamp-3 flex-1">
                       {collection.description}
                     </p>
                   )}
@@ -165,15 +165,15 @@ export default async function CollectionsIndexPage() {
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="mx-auto text-gray-300"
+              className="mx-auto text-neutral-300"
               aria-hidden="true"
             >
               <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
             </svg>
-            <h2 className="mt-4 text-lg font-bold text-gray-900">
+            <h2 className="mt-4 text-lg font-bold text-neutral-900">
               No collections yet
             </h2>
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-sm text-neutral-600">
               We are working on curating the best food box collections.
               Check back soon!
             </p>

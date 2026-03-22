@@ -44,7 +44,7 @@ export default function PlanManager({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">Plans</h2>
+        <h2 className="text-lg font-semibold text-neutral-900">Plans</h2>
         {!showNewForm && (
           <button
             type="button"
@@ -64,7 +64,7 @@ export default function PlanManager({
       )}
 
       {plans.length === 0 && !showNewForm ? (
-        <p className="text-sm text-gray-500 py-4">No plans yet. Click &quot;Add Plan&quot; to create one.</p>
+        <p className="text-sm text-neutral-500 py-4">No plans yet. Click &quot;Add Plan&quot; to create one.</p>
       ) : (
         <div className="space-y-3">
           {plans.map((plan) => (
@@ -76,30 +76,30 @@ export default function PlanManager({
                   onClose={() => setEditingPlanId(null)}
                 />
               ) : (
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4">
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="font-medium text-gray-900">{plan.name}</h3>
+                        <h3 className="font-medium text-neutral-900">{plan.name}</h3>
                         {plan.featured && (
                           <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
                             Featured
                           </span>
                         )}
                         {!plan.active && (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-neutral-100 text-neutral-600">
                             Inactive
                           </span>
                         )}
                       </div>
-                      <div className="mt-1 flex flex-wrap gap-4 text-sm text-gray-600">
+                      <div className="mt-1 flex flex-wrap gap-4 text-sm text-neutral-600">
                         <span>Per serving: {formatCents(plan.pricePerServingCents)}</span>
                         <span>Per week: {formatCents(plan.pricePerWeekCents)}</span>
                         <span>Shipping: {formatCents(plan.shippingCostCents)}</span>
                         <span>Frequency: {plan.frequency}</span>
                       </div>
                       {plan.description && (
-                        <p className="mt-1 text-sm text-gray-500">{plan.description}</p>
+                        <p className="mt-1 text-sm text-neutral-500">{plan.description}</p>
                       )}
                     </div>
                     <div className="flex items-center gap-2 ml-4 flex-shrink-0">

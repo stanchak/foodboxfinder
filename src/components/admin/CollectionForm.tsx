@@ -107,7 +107,7 @@ export default function CollectionForm({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="title" className="block text-sm font-medium text-neutral-700 mb-1">
             Title *
           </label>
           <input
@@ -116,7 +116,7 @@ export default function CollectionForm({
             name="title"
             required
             defaultValue={collection?.title ?? ""}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
           {state.errors.title && (
             <p className="mt-1 text-sm text-red-600">{state.errors.title}</p>
@@ -124,7 +124,7 @@ export default function CollectionForm({
         </div>
 
         <div>
-          <label htmlFor="slug" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="slug" className="block text-sm font-medium text-neutral-700 mb-1">
             Slug
           </label>
           <input
@@ -133,7 +133,7 @@ export default function CollectionForm({
             name="slug"
             defaultValue={collection?.slug ?? ""}
             placeholder="Auto-generated from title if empty"
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
           {state.errors.slug && (
             <p className="mt-1 text-sm text-red-600">{state.errors.slug}</p>
@@ -142,14 +142,14 @@ export default function CollectionForm({
       </div>
 
       <div>
-        <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="status" className="block text-sm font-medium text-neutral-700 mb-1">
           Status
         </label>
         <select
           id="status"
           name="status"
           defaultValue={collection?.status ?? "DRAFT"}
-          className="block w-full max-w-xs rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+          className="block w-full max-w-xs rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
         >
           {STATUS_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -158,7 +158,7 @@ export default function CollectionForm({
       </div>
 
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="description" className="block text-sm font-medium text-neutral-700 mb-1">
           Description
         </label>
         <textarea
@@ -166,12 +166,12 @@ export default function CollectionForm({
           name="description"
           rows={2}
           defaultValue={collection?.description ?? ""}
-          className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+          className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
         />
       </div>
 
       <div>
-        <label htmlFor="body" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="body" className="block text-sm font-medium text-neutral-700 mb-1">
           Body (editorial content)
         </label>
         <textarea
@@ -179,12 +179,12 @@ export default function CollectionForm({
           name="body"
           rows={8}
           defaultValue={collection?.body ?? ""}
-          className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 font-mono focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+          className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 font-mono focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
         />
       </div>
 
       <div>
-        <label htmlFor="coverImageUrl" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="coverImageUrl" className="block text-sm font-medium text-neutral-700 mb-1">
           Cover Image URL
         </label>
         <input
@@ -192,18 +192,18 @@ export default function CollectionForm({
           id="coverImageUrl"
           name="coverImageUrl"
           defaultValue={collection?.coverImageUrl ?? ""}
-          className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+          className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
         />
       </div>
 
       {/* SEO */}
       <fieldset className="space-y-4">
-        <legend className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+        <legend className="text-sm font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
           SEO
         </legend>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="metaTitle" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="metaTitle" className="block text-sm font-medium text-neutral-700 mb-1">
               Meta Title (max 70 chars)
             </label>
             <input
@@ -212,11 +212,11 @@ export default function CollectionForm({
               name="metaTitle"
               maxLength={70}
               defaultValue={collection?.metaTitle ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
           <div>
-            <label htmlFor="metaDescription" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="metaDescription" className="block text-sm font-medium text-neutral-700 mb-1">
               Meta Description (max 160 chars)
             </label>
             <input
@@ -225,7 +225,7 @@ export default function CollectionForm({
               name="metaDescription"
               maxLength={160}
               defaultValue={collection?.metaDescription ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
@@ -233,12 +233,12 @@ export default function CollectionForm({
 
       {/* Collection Items (Provider Picker) */}
       <fieldset className="space-y-4">
-        <legend className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+        <legend className="text-sm font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
           Collection Items
         </legend>
 
         {items.length === 0 && (
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-neutral-500">
             No providers added yet. Click &quot;Add Provider&quot; below.
           </p>
         )}
@@ -247,23 +247,23 @@ export default function CollectionForm({
           {items.map((item, index) => (
             <div
               key={item.key}
-              className="bg-gray-50 border border-gray-200 rounded-lg p-3"
+              className="bg-neutral-50 border border-neutral-200 rounded-lg p-3"
             >
               <div className="flex items-start gap-3">
-                <span className="text-sm font-medium text-gray-400 mt-2 w-6 text-center flex-shrink-0">
+                <span className="text-sm font-medium text-neutral-400 mt-2 w-6 text-center flex-shrink-0">
                   {index + 1}
                 </span>
 
                 <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-3">
                   <div className="md:col-span-2">
-                    <label className="block text-xs font-medium text-gray-600 mb-1">
+                    <label className="block text-xs font-medium text-neutral-600 mb-1">
                       Provider
                     </label>
                     <select
                       name="itemProviderId"
                       value={item.providerId}
                       onChange={(e) => updateItem(item.key, "providerId", e.target.value)}
-                      className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                      className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
                     >
                       <option value="">Select provider...</option>
                       {providers.map((p) => (
@@ -273,7 +273,7 @@ export default function CollectionForm({
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-1">
+                    <label className="block text-xs font-medium text-neutral-600 mb-1">
                       Sort Order
                     </label>
                     <input
@@ -281,12 +281,12 @@ export default function CollectionForm({
                       name="itemSortOrder"
                       value={item.sortOrder}
                       onChange={(e) => updateItem(item.key, "sortOrder", parseInt(e.target.value, 10) || 0)}
-                      className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                      className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-1">
+                    <label className="block text-xs font-medium text-neutral-600 mb-1">
                       Note
                     </label>
                     <input
@@ -295,7 +295,7 @@ export default function CollectionForm({
                       value={item.note}
                       onChange={(e) => updateItem(item.key, "note", e.target.value)}
                       placeholder="Optional note"
-                      className="block w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                      className="block w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
                     />
                   </div>
                 </div>
@@ -318,14 +318,14 @@ export default function CollectionForm({
         <button
           type="button"
           onClick={addItem}
-          className="bg-gray-100 text-gray-700 rounded-lg px-4 py-2 text-sm font-medium hover:bg-gray-200 transition-colors"
+          className="bg-neutral-100 text-neutral-700 rounded-lg px-4 py-2 text-sm font-medium hover:bg-neutral-200 transition-colors"
         >
           + Add Provider
         </button>
       </fieldset>
 
       {/* Submit */}
-      <div className="flex items-center gap-3 pt-4 border-t border-gray-200">
+      <div className="flex items-center gap-3 pt-4 border-t border-neutral-200">
         <button
           type="submit"
           disabled={isPending}
@@ -339,7 +339,7 @@ export default function CollectionForm({
         </button>
         <Link
           href="/admin/collections"
-          className="text-sm text-gray-600 hover:text-gray-900"
+          className="text-sm text-neutral-600 hover:text-neutral-900"
         >
           Cancel
         </Link>

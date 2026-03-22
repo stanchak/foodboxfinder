@@ -51,7 +51,7 @@ async function SearchResults({
     return (
       <section aria-label="No results">
         <div className="text-center py-12">
-          <div className="mx-auto w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+          <div className="mx-auto w-16 h-16 rounded-full bg-neutral-100 flex items-center justify-center mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="28"
@@ -62,23 +62,23 @@ async function SearchResults({
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-gray-400"
+              className="text-neutral-400"
               aria-hidden="true"
             >
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </div>
-          <h2 className="text-xl font-extrabold text-gray-900">
+          <h2 className="text-xl font-extrabold text-neutral-900">
             No results found for &ldquo;{query}&rdquo;
           </h2>
-          <p className="mt-2 text-gray-600 max-w-md mx-auto">
+          <p className="mt-2 text-neutral-600 max-w-md mx-auto">
             Try a different search term or browse by category.
           </p>
         </div>
 
         <div className="mt-8">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">
+          <h3 className="text-lg font-bold text-neutral-900 mb-4">
             Browse by category
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
@@ -86,7 +86,7 @@ async function SearchResults({
               <Link
                 key={item.slug}
                 href={`/${item.slug}`}
-                className="flex items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition-colors hover:shadow-sm"
+                className="flex items-center justify-center rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm font-semibold text-neutral-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition-colors hover:shadow-sm"
               >
                 {item.label}
               </Link>
@@ -99,7 +99,7 @@ async function SearchResults({
 
   return (
     <>
-      <p className="text-sm text-gray-500 mb-6" aria-live="polite">
+      <p className="text-sm text-neutral-500 mb-6" aria-live="polite">
         Found {providers.length} provider{providers.length !== 1 ? "s" : ""}
         {blogPosts.length > 0 &&
           `, ${blogPosts.length} blog post${blogPosts.length !== 1 ? "s" : ""}`}
@@ -112,7 +112,7 @@ async function SearchResults({
         <section aria-labelledby="providers-heading" className="mb-12">
           <h2
             id="providers-heading"
-            className="text-lg font-extrabold text-gray-900 mb-4"
+            className="text-lg font-extrabold text-neutral-900 mb-4"
           >
             Providers
           </h2>
@@ -129,7 +129,7 @@ async function SearchResults({
         <section aria-labelledby="blog-heading" className="mb-12">
           <h2
             id="blog-heading"
-            className="text-lg font-extrabold text-gray-900 mb-4"
+            className="text-lg font-extrabold text-neutral-900 mb-4"
           >
             Blog Posts
           </h2>
@@ -143,15 +143,15 @@ async function SearchResults({
                   <Badge color="default" className="mb-2">
                     Blog
                   </Badge>
-                  <h3 className="text-base font-semibold text-gray-900 line-clamp-2">
+                  <h3 className="text-base font-semibold text-neutral-900 line-clamp-2">
                     {post.title}
                   </h3>
                   {post.excerpt && (
-                    <p className="mt-1.5 text-sm text-gray-600 line-clamp-2">
+                    <p className="mt-1.5 text-sm text-neutral-600 line-clamp-2">
                       {post.excerpt}
                     </p>
                   )}
-                  <div className="mt-3 flex items-center gap-2 text-xs text-gray-400">
+                  <div className="mt-3 flex items-center gap-2 text-xs text-neutral-400">
                     {post.author && <span>{post.author}</span>}
                     {post.author && post.publishedAt && (
                       <span aria-hidden="true">&middot;</span>
@@ -178,7 +178,7 @@ async function SearchResults({
         <section aria-labelledby="collections-heading" className="mb-12">
           <h2
             id="collections-heading"
-            className="text-lg font-extrabold text-gray-900 mb-4"
+            className="text-lg font-extrabold text-neutral-900 mb-4"
           >
             Collections
           </h2>
@@ -192,15 +192,15 @@ async function SearchResults({
                   <Badge color="category" className="mb-2">
                     Collection
                   </Badge>
-                  <h3 className="text-base font-semibold text-gray-900 line-clamp-2">
+                  <h3 className="text-base font-semibold text-neutral-900 line-clamp-2">
                     {collection.title}
                   </h3>
                   {collection.description && (
-                    <p className="mt-1.5 text-sm text-gray-600 line-clamp-2">
+                    <p className="mt-1.5 text-sm text-neutral-600 line-clamp-2">
                       {collection.description}
                     </p>
                   )}
-                  <p className="mt-3 text-xs text-gray-400">
+                  <p className="mt-3 text-xs text-neutral-400">
                     {collection._count.items} provider
                     {collection._count.items !== 1 ? "s" : ""}
                   </p>
@@ -217,16 +217,16 @@ async function SearchResults({
 function SearchResultsSkeleton() {
   return (
     <div className="animate-pulse space-y-6">
-      <div className="h-4 w-48 bg-gray-200 rounded" />
+      <div className="h-4 w-48 bg-neutral-200 rounded" />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="bg-white rounded-xl shadow-card overflow-hidden">
-            <div className="h-40 bg-gray-100" />
+            <div className="h-40 bg-neutral-100" />
             <div className="p-4 space-y-3">
-              <div className="h-4 w-20 bg-gray-200 rounded-full" />
-              <div className="h-5 w-3/4 bg-gray-200 rounded" />
-              <div className="h-3 w-full bg-gray-100 rounded" />
-              <div className="h-3 w-2/3 bg-gray-100 rounded" />
+              <div className="h-4 w-20 bg-neutral-200 rounded-full" />
+              <div className="h-5 w-3/4 bg-neutral-200 rounded" />
+              <div className="h-3 w-full bg-neutral-100 rounded" />
+              <div className="h-3 w-2/3 bg-neutral-100 rounded" />
             </div>
           </div>
         ))}
@@ -247,10 +247,10 @@ export default async function SearchPage({
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-neutral-900">
           Search
         </h1>
-        <p className="mt-1 text-gray-600">
+        <p className="mt-1 text-neutral-600">
           Find food box subscriptions, blog posts, and curated collections.
         </p>
       </div>
@@ -309,16 +309,16 @@ function EmptyQueryState() {
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
         </div>
-        <h2 className="text-xl font-extrabold text-gray-900">
+        <h2 className="text-xl font-extrabold text-neutral-900">
           Start typing to search
         </h2>
-        <p className="mt-2 text-gray-600 max-w-md mx-auto">
+        <p className="mt-2 text-neutral-600 max-w-md mx-auto">
           Search across providers, blog posts, and curated collections.
         </p>
       </div>
 
       <div className="mt-8">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">
+        <h3 className="text-lg font-bold text-neutral-900 mb-4">
           Or browse by category
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
@@ -326,7 +326,7 @@ function EmptyQueryState() {
             <Link
               key={item.slug}
               href={`/${item.slug}`}
-              className="flex items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition-colors hover:shadow-sm"
+              className="flex items-center justify-center rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm font-semibold text-neutral-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition-colors hover:shadow-sm"
             >
               {item.label}
             </Link>

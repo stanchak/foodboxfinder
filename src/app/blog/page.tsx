@@ -88,10 +88,10 @@ export default async function BlogIndexPage({
 
         {/* Page Header */}
         <div className="mt-6 text-center">
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
             The FoodBoxFinder Blog
           </h1>
-          <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-3 text-lg text-neutral-600 max-w-2xl mx-auto">
             Tips, guides, and the latest news on food box subscriptions
             and meal delivery services.
           </p>
@@ -104,7 +104,7 @@ export default async function BlogIndexPage({
               <article className="mt-10">
                 <Link
                   href={`/blog/${featuredPost.slug}`}
-                  className="group block overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200"
+                  className="group block overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-neutral-100 transition-all hover:shadow-card-hover hover:ring-primary-200"
                 >
                   <div className="flex flex-col lg:flex-row">
                     {/* Image */}
@@ -140,14 +140,14 @@ export default async function BlogIndexPage({
                           </svg>
                         </div>
                       )}
-                      <span className="absolute top-4 left-4 rounded-full bg-gray-900 px-3 py-1 text-xs font-semibold text-white">
+                      <span className="absolute top-4 left-4 rounded-full bg-neutral-900 px-3 py-1 text-xs font-semibold text-white">
                         Featured
                       </span>
                     </div>
 
                     {/* Content */}
                     <div className="flex flex-1 flex-col justify-center p-6 lg:p-10">
-                      <div className="flex items-center gap-3 text-sm text-gray-500">
+                      <div className="flex items-center gap-3 text-sm text-neutral-500">
                         {featuredPost.publishedAt && (
                           <time dateTime={featuredPost.publishedAt.toISOString()}>
                             {formatDate(featuredPost.publishedAt)}
@@ -161,19 +161,19 @@ export default async function BlogIndexPage({
                         </span>
                       </div>
 
-                      <h2 className="mt-3 text-2xl font-extrabold text-gray-900 group-hover:text-primary-700 transition-colors sm:text-3xl line-clamp-3">
+                      <h2 className="mt-3 text-2xl font-extrabold text-neutral-900 group-hover:text-primary-700 transition-colors sm:text-3xl line-clamp-3">
                         {featuredPost.title}
                       </h2>
 
                       {featuredPost.excerpt && (
-                        <p className="mt-3 text-gray-600 leading-relaxed line-clamp-3">
+                        <p className="mt-3 text-neutral-600 leading-relaxed line-clamp-3">
                           {featuredPost.excerpt}
                         </p>
                       )}
 
                       <div className="mt-4 flex items-center gap-2">
                         {featuredPost.author && (
-                          <span className="text-sm font-medium text-gray-700">
+                          <span className="text-sm font-medium text-neutral-700">
                             By {featuredPost.author}
                           </span>
                         )}
@@ -213,10 +213,10 @@ export default async function BlogIndexPage({
                   <article key={post.id}>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="group flex flex-col h-full overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200"
+                      className="group flex flex-col h-full overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-neutral-100 transition-all hover:shadow-card-hover hover:ring-primary-200"
                     >
                       {/* Image */}
-                      <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden shrink-0">
+                      <div className="relative h-48 bg-gradient-to-br from-neutral-50 to-neutral-100 overflow-hidden shrink-0">
                         {post.coverImageUrl ? (
                           <Image
                             src={post.coverImageUrl}
@@ -237,7 +237,7 @@ export default async function BlogIndexPage({
                               strokeWidth="1"
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              className="text-gray-300"
+                              className="text-neutral-300"
                               aria-hidden="true"
                             >
                               <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
@@ -251,7 +251,7 @@ export default async function BlogIndexPage({
 
                       {/* Content */}
                       <div className="flex flex-1 flex-col p-5">
-                        <div className="flex items-center gap-3 text-xs text-gray-500">
+                        <div className="flex items-center gap-3 text-xs text-neutral-500">
                           {post.publishedAt && (
                             <time dateTime={post.publishedAt.toISOString()}>
                               {formatDate(post.publishedAt)}
@@ -265,18 +265,18 @@ export default async function BlogIndexPage({
                           </span>
                         </div>
 
-                        <h2 className="mt-2 text-lg font-bold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-2">
+                        <h2 className="mt-2 text-lg font-bold text-neutral-900 group-hover:text-primary-700 transition-colors line-clamp-2">
                           {post.title}
                         </h2>
 
                         {post.excerpt && (
-                          <p className="mt-2 text-sm text-gray-600 line-clamp-3 flex-1">
+                          <p className="mt-2 text-sm text-neutral-600 line-clamp-3 flex-1">
                             {post.excerpt}
                           </p>
                         )}
 
                         {post.author && (
-                          <p className="mt-3 text-xs font-medium text-gray-500">
+                          <p className="mt-3 text-xs font-medium text-neutral-500">
                             By {post.author}
                           </p>
                         )}
@@ -296,7 +296,7 @@ export default async function BlogIndexPage({
                 {page > 1 && (
                   <Link
                     href={`/blog${page === 2 ? "" : `?page=${page - 1}`}`}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -317,14 +317,14 @@ export default async function BlogIndexPage({
                   </Link>
                 )}
 
-                <span className="text-sm text-gray-500 px-3">
+                <span className="text-sm text-neutral-500 px-3">
                   Page {page} of {totalPages}
                 </span>
 
                 {page < totalPages && (
                   <Link
                     href={`/blog?page=${page + 1}`}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors"
                   >
                     Next
                     <svg
@@ -359,7 +359,7 @@ export default async function BlogIndexPage({
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="mx-auto text-gray-300"
+              className="mx-auto text-neutral-300"
               aria-hidden="true"
             >
               <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
@@ -367,10 +367,10 @@ export default async function BlogIndexPage({
               <path d="M15 18h-5" />
               <path d="M10 6h8v4h-8V6Z" />
             </svg>
-            <h2 className="mt-4 text-lg font-bold text-gray-900">
+            <h2 className="mt-4 text-lg font-bold text-neutral-900">
               No blog posts yet
             </h2>
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-sm text-neutral-600">
               We are working on great content. Check back soon!
             </p>
             <Link

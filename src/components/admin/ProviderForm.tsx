@@ -111,13 +111,13 @@ export default function ProviderForm({
 
       {/* Basic Info */}
       <fieldset className="space-y-4">
-        <legend className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+        <legend className="text-lg font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
           Basic Information
         </legend>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1">
               Name *
             </label>
             <input
@@ -126,7 +126,7 @@ export default function ProviderForm({
               name="name"
               required
               defaultValue={provider?.name ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
             {state.errors.name && (
               <p className="mt-1 text-sm text-red-600">{state.errors.name}</p>
@@ -134,7 +134,7 @@ export default function ProviderForm({
           </div>
 
           <div>
-            <label htmlFor="slug" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="slug" className="block text-sm font-medium text-neutral-700 mb-1">
               Slug
             </label>
             <input
@@ -143,7 +143,7 @@ export default function ProviderForm({
               name="slug"
               defaultValue={provider?.slug ?? ""}
               placeholder="Auto-generated from name if empty"
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
             {state.errors.slug && (
               <p className="mt-1 text-sm text-red-600">{state.errors.slug}</p>
@@ -152,7 +152,7 @@ export default function ProviderForm({
         </div>
 
         <div>
-          <label htmlFor="shortDescription" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="shortDescription" className="block text-sm font-medium text-neutral-700 mb-1">
             Short Description
           </label>
           <input
@@ -161,12 +161,12 @@ export default function ProviderForm({
             name="shortDescription"
             maxLength={300}
             defaultValue={provider?.shortDescription ?? ""}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="description" className="block text-sm font-medium text-neutral-700 mb-1">
             Description *
           </label>
           <textarea
@@ -175,7 +175,7 @@ export default function ProviderForm({
             required
             rows={4}
             defaultValue={provider?.description ?? ""}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
           {state.errors.description && (
             <p className="mt-1 text-sm text-red-600">{state.errors.description}</p>
@@ -184,7 +184,7 @@ export default function ProviderForm({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="website" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="website" className="block text-sm font-medium text-neutral-700 mb-1">
               Website URL *
             </label>
             <input
@@ -193,7 +193,7 @@ export default function ProviderForm({
               name="website"
               required
               defaultValue={provider?.website ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
             {state.errors.website && (
               <p className="mt-1 text-sm text-red-600">{state.errors.website}</p>
@@ -201,7 +201,7 @@ export default function ProviderForm({
           </div>
 
           <div>
-            <label htmlFor="affiliateUrl" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="affiliateUrl" className="block text-sm font-medium text-neutral-700 mb-1">
               Affiliate URL
             </label>
             <input
@@ -209,7 +209,7 @@ export default function ProviderForm({
               id="affiliateUrl"
               name="affiliateUrl"
               defaultValue={provider?.affiliateUrl ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
@@ -217,13 +217,13 @@ export default function ProviderForm({
 
       {/* Category & Tags */}
       <fieldset className="space-y-4">
-        <legend className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+        <legend className="text-lg font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
           Category & Dietary Tags
         </legend>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="category" className="block text-sm font-medium text-neutral-700 mb-1">
               Primary Category *
             </label>
             <select
@@ -231,7 +231,7 @@ export default function ProviderForm({
               name="category"
               required
               defaultValue={provider?.category ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
               <option value="">Select category...</option>
               {CATEGORY_OPTIONS.map((opt) => (
@@ -244,14 +244,14 @@ export default function ProviderForm({
           </div>
 
           <div>
-            <label htmlFor="secondaryCategory" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="secondaryCategory" className="block text-sm font-medium text-neutral-700 mb-1">
               Secondary Category
             </label>
             <select
               id="secondaryCategory"
               name="secondaryCategory"
               defaultValue={provider?.secondaryCategory ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
               <option value="">None</option>
               {CATEGORY_OPTIONS.map((opt) => (
@@ -262,16 +262,16 @@ export default function ProviderForm({
         </div>
 
         <div>
-          <p className="block text-sm font-medium text-gray-700 mb-2">Dietary Tags</p>
+          <p className="block text-sm font-medium text-neutral-700 mb-2">Dietary Tags</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
             {DIETARY_TAG_OPTIONS.map((tag) => (
-              <label key={tag.value} className="flex items-center gap-2 text-sm text-gray-700">
+              <label key={tag.value} className="flex items-center gap-2 text-sm text-neutral-700">
                 <input
                   type="checkbox"
                   name="dietaryTags"
                   value={tag.value}
                   defaultChecked={selectedTags.includes(tag.value)}
-                  className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                  className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
                 />
                 {tag.label}
               </label>
@@ -285,20 +285,20 @@ export default function ProviderForm({
 
       {/* Provider Characteristics */}
       <fieldset className="space-y-4">
-        <legend className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+        <legend className="text-lg font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
           Provider Characteristics
         </legend>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label htmlFor="valueTier" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="valueTier" className="block text-sm font-medium text-neutral-700 mb-1">
               Value Tier
             </label>
             <select
               id="valueTier"
               name="valueTier"
               defaultValue={provider?.valueTier ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
               <option value="">Not set</option>
               {VALUE_TIER_OPTIONS.map((opt) => (
@@ -308,7 +308,7 @@ export default function ProviderForm({
           </div>
 
           <div>
-            <label htmlFor="modelType" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="modelType" className="block text-sm font-medium text-neutral-700 mb-1">
               Model Type
             </label>
             <input
@@ -317,12 +317,12 @@ export default function ProviderForm({
               name="modelType"
               placeholder="e.g. Traditional, Marketplace"
               defaultValue={provider?.modelType ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
 
           <div>
-            <label htmlFor="prepStyle" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="prepStyle" className="block text-sm font-medium text-neutral-700 mb-1">
               Prep Style
             </label>
             <input
@@ -331,14 +331,14 @@ export default function ProviderForm({
               name="prepStyle"
               placeholder="e.g. Cook from scratch, Heat and eat"
               defaultValue={provider?.prepStyle ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label htmlFor="householdFit" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="householdFit" className="block text-sm font-medium text-neutral-700 mb-1">
               Household Fit
             </label>
             <input
@@ -347,12 +347,12 @@ export default function ProviderForm({
               name="householdFit"
               placeholder="e.g. Couples, Families, Singles"
               defaultValue={provider?.householdFit ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
 
           <div>
-            <label htmlFor="geography" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="geography" className="block text-sm font-medium text-neutral-700 mb-1">
               Geography
             </label>
             <input
@@ -361,12 +361,12 @@ export default function ProviderForm({
               name="geography"
               placeholder="e.g. Nationwide, Regional (West Coast)"
               defaultValue={provider?.geography ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
 
           <div>
-            <label htmlFor="pricingSignal" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="pricingSignal" className="block text-sm font-medium text-neutral-700 mb-1">
               Pricing Signal
             </label>
             <input
@@ -375,14 +375,14 @@ export default function ProviderForm({
               name="pricingSignal"
               placeholder="e.g. $8-12/serving"
               defaultValue={provider?.pricingSignal ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="shippingNotes" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="shippingNotes" className="block text-sm font-medium text-neutral-700 mb-1">
               Shipping Notes
             </label>
             <textarea
@@ -391,12 +391,12 @@ export default function ProviderForm({
               rows={2}
               placeholder="Shipping details..."
               defaultValue={provider?.shippingNotes ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
 
           <div>
-            <label htmlFor="flexibility" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="flexibility" className="block text-sm font-medium text-neutral-700 mb-1">
               Flexibility
             </label>
             <textarea
@@ -405,7 +405,7 @@ export default function ProviderForm({
               rows={2}
               placeholder="Skip, pause, cancel policies..."
               defaultValue={provider?.flexibility ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
@@ -413,13 +413,13 @@ export default function ProviderForm({
 
       {/* Images */}
       <fieldset className="space-y-4">
-        <legend className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+        <legend className="text-lg font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
           Images
         </legend>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="logoUrl" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="logoUrl" className="block text-sm font-medium text-neutral-700 mb-1">
               Logo URL
             </label>
             <input
@@ -427,12 +427,12 @@ export default function ProviderForm({
               id="logoUrl"
               name="logoUrl"
               defaultValue={provider?.logoUrl ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
 
           <div>
-            <label htmlFor="heroImageUrl" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="heroImageUrl" className="block text-sm font-medium text-neutral-700 mb-1">
               Hero Image URL
             </label>
             <input
@@ -440,7 +440,7 @@ export default function ProviderForm({
               id="heroImageUrl"
               name="heroImageUrl"
               defaultValue={provider?.heroImageUrl ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
@@ -448,13 +448,13 @@ export default function ProviderForm({
 
       {/* Business Details */}
       <fieldset className="space-y-4">
-        <legend className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+        <legend className="text-lg font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
           Business Details
         </legend>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label htmlFor="foundedYear" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="foundedYear" className="block text-sm font-medium text-neutral-700 mb-1">
               Founded Year
             </label>
             <input
@@ -464,12 +464,12 @@ export default function ProviderForm({
               min={1900}
               max={2100}
               defaultValue={provider?.foundedYear ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
 
           <div>
-            <label htmlFor="headquarters" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="headquarters" className="block text-sm font-medium text-neutral-700 mb-1">
               Headquarters
             </label>
             <input
@@ -477,12 +477,12 @@ export default function ProviderForm({
               id="headquarters"
               name="headquarters"
               defaultValue={provider?.headquarters ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
 
           <div>
-            <label htmlFor="deliveryAreaDescription" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="deliveryAreaDescription" className="block text-sm font-medium text-neutral-700 mb-1">
               Delivery Area
             </label>
             <input
@@ -490,7 +490,7 @@ export default function ProviderForm({
               id="deliveryAreaDescription"
               name="deliveryAreaDescription"
               defaultValue={provider?.deliveryAreaDescription ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
@@ -499,15 +499,15 @@ export default function ProviderForm({
       {/* Pricing (edit only) */}
       {provider && (
         <fieldset className="space-y-4">
-          <legend className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+          <legend className="text-lg font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
             Price Overrides (cents)
           </legend>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-neutral-500">
             These are normally auto-calculated from plans. Override only if needed.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="minPricePerServingCents" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="minPricePerServingCents" className="block text-sm font-medium text-neutral-700 mb-1">
                 Min Price/Serving (cents)
               </label>
               <input
@@ -515,11 +515,11 @@ export default function ProviderForm({
                 id="minPricePerServingCents"
                 name="minPricePerServingCents"
                 defaultValue={provider.minPricePerServingCents ?? ""}
-                className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
               />
             </div>
             <div>
-              <label htmlFor="maxPricePerServingCents" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="maxPricePerServingCents" className="block text-sm font-medium text-neutral-700 mb-1">
                 Max Price/Serving (cents)
               </label>
               <input
@@ -527,7 +527,7 @@ export default function ProviderForm({
                 id="maxPricePerServingCents"
                 name="maxPricePerServingCents"
                 defaultValue={provider.maxPricePerServingCents ?? ""}
-                className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
               />
             </div>
           </div>
@@ -536,12 +536,12 @@ export default function ProviderForm({
 
       {/* Editorial */}
       <fieldset className="space-y-4">
-        <legend className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+        <legend className="text-lg font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
           Editorial Content
         </legend>
 
         <div>
-          <label htmlFor="editorNote" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="editorNote" className="block text-sm font-medium text-neutral-700 mb-1">
             Editor Note
           </label>
           <textarea
@@ -549,13 +549,13 @@ export default function ProviderForm({
             name="editorNote"
             rows={3}
             defaultValue={provider?.editorNote ?? ""}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="pros" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="pros" className="block text-sm font-medium text-neutral-700 mb-1">
               Pros (one per line)
             </label>
             <textarea
@@ -564,12 +564,12 @@ export default function ProviderForm({
               rows={4}
               defaultValue={prosArray.join("\n")}
               placeholder="Great variety of meals&#10;Easy to cook&#10;Fresh ingredients"
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
 
           <div>
-            <label htmlFor="cons" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="cons" className="block text-sm font-medium text-neutral-700 mb-1">
               Cons (one per line)
             </label>
             <textarea
@@ -578,7 +578,7 @@ export default function ProviderForm({
               rows={4}
               defaultValue={consArray.join("\n")}
               placeholder="Higher price point&#10;Limited options for large families"
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
@@ -586,13 +586,13 @@ export default function ProviderForm({
 
       {/* SEO */}
       <fieldset className="space-y-4">
-        <legend className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+        <legend className="text-lg font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
           SEO
         </legend>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="metaTitle" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="metaTitle" className="block text-sm font-medium text-neutral-700 mb-1">
               Meta Title (max 70 chars)
             </label>
             <input
@@ -601,12 +601,12 @@ export default function ProviderForm({
               name="metaTitle"
               maxLength={70}
               defaultValue={provider?.metaTitle ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
 
           <div>
-            <label htmlFor="metaDescription" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="metaDescription" className="block text-sm font-medium text-neutral-700 mb-1">
               Meta Description (max 160 chars)
             </label>
             <input
@@ -615,7 +615,7 @@ export default function ProviderForm({
               name="metaDescription"
               maxLength={160}
               defaultValue={provider?.metaDescription ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
@@ -623,20 +623,20 @@ export default function ProviderForm({
 
       {/* Flags */}
       <fieldset className="space-y-4">
-        <legend className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+        <legend className="text-lg font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
           Status & Flags
         </legend>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="status" className="block text-sm font-medium text-neutral-700 mb-1">
               Status
             </label>
             <select
               id="status"
               name="status"
               defaultValue={provider?.status ?? "ACTIVE"}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
               <option value="ACTIVE">Active</option>
               <option value="HYBRID">Hybrid</option>
@@ -649,22 +649,22 @@ export default function ProviderForm({
           </div>
 
           <div className="flex items-end gap-6">
-            <label className="flex items-center gap-2 text-sm text-gray-700">
+            <label className="flex items-center gap-2 text-sm text-neutral-700">
               <input
                 type="checkbox"
                 name="featured"
                 defaultChecked={provider?.featured ?? false}
-                className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
               />
               Featured
             </label>
 
-            <label className="flex items-center gap-2 text-sm text-gray-700">
+            <label className="flex items-center gap-2 text-sm text-neutral-700">
               <input
                 type="checkbox"
                 name="freeShipping"
                 defaultChecked={provider?.freeShipping ?? false}
-                className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
               />
               Free Shipping
             </label>
@@ -673,7 +673,7 @@ export default function ProviderForm({
       </fieldset>
 
       {/* Submit */}
-      <div className="flex items-center gap-3 pt-4 border-t border-gray-200">
+      <div className="flex items-center gap-3 pt-4 border-t border-neutral-200">
         <button
           type="submit"
           disabled={isPending}
@@ -687,7 +687,7 @@ export default function ProviderForm({
         </button>
         <Link
           href="/admin/providers"
-          className="text-sm text-gray-600 hover:text-gray-900"
+          className="text-sm text-neutral-600 hover:text-neutral-900"
         >
           Cancel
         </Link>

@@ -21,7 +21,7 @@ export default function CompareBar() {
 
   return (
     <div
-      className="fixed bottom-0 inset-x-0 z-50 border-t border-gray-200 bg-white/90 backdrop-blur-xl shadow-[0_-4px_12px_rgb(0_0_0/0.08)]"
+      className="fixed bottom-0 inset-x-0 z-50 border-t border-neutral-200 bg-white/90 backdrop-blur-xl shadow-[0_-4px_12px_rgb(0_0_0/0.08)]"
       role="region"
       aria-label="Comparison selection"
     >
@@ -32,7 +32,7 @@ export default function CompareBar() {
         <div className="flex items-center justify-between py-3 gap-4">
           {/* Selected providers */}
           <div className="flex items-center gap-3 min-w-0 overflow-x-auto">
-            <span className="shrink-0 text-sm font-medium text-gray-500">
+            <span className="shrink-0 text-sm font-medium text-neutral-500">
               {selected.length}/4
             </span>
 
@@ -40,13 +40,13 @@ export default function CompareBar() {
               {selected.map((entry) => (
                 <div
                   key={entry.slug}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-gray-900 pl-3 pr-1.5 py-1 text-sm font-medium text-white shrink-0"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-neutral-900 pl-3 pr-1.5 py-1 text-sm font-medium text-white shrink-0"
                 >
                   <span className="max-w-[120px] truncate">{entry.name}</span>
                   <button
                     type="button"
                     onClick={() => removeProvider(entry.slug)}
-                    className="inline-flex items-center justify-center w-5 h-5 rounded-full hover:bg-gray-700 transition-colors"
+                    className="inline-flex items-center justify-center w-5 h-5 rounded-full hover:bg-neutral-700 transition-colors"
                     aria-label={`Remove ${entry.name} from comparison`}
                   >
                     <svg
@@ -75,7 +75,7 @@ export default function CompareBar() {
             <button
               type="button"
               onClick={clearAll}
-              className="text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors px-2 py-1"
+              className="text-sm font-medium text-neutral-500 hover:text-neutral-700 transition-colors px-2 py-1"
               aria-label="Clear all providers from comparison"
             >
               Clear

@@ -3,17 +3,17 @@ import { CATEGORY_NAV_ITEMS } from "@/lib/categories";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 border-t border-gray-800 mt-auto">
+    <footer className="bg-neutral-900 border-t border-neutral-800 mt-auto">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-gray-300">Categories</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-300">Categories</h3>
             <ul className="mt-4 space-y-3">
               {CATEGORY_NAV_ITEMS.map((item) => (
                 <li key={item.slug}>
                   <Link
                     href={`/${item.slug}`}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
+                    className="text-sm text-neutral-400 hover:text-white transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -23,12 +23,12 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-gray-300">Resources</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-300">Resources</h3>
             <ul className="mt-4 space-y-3">
               <li>
                 <Link
                   href="/blog"
-                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                  className="text-sm text-neutral-400 hover:text-white transition-colors"
                 >
                   Blog
                 </Link>
@@ -36,7 +36,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/best"
-                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                  className="text-sm text-neutral-400 hover:text-white transition-colors"
                 >
                   Collections
                 </Link>
@@ -44,7 +44,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/about"
-                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                  className="text-sm text-neutral-400 hover:text-white transition-colors"
                 >
                   About
                 </Link>
@@ -52,7 +52,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/#how-it-works"
-                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                  className="text-sm text-neutral-400 hover:text-white transition-colors"
                 >
                   How It Works
                 </Link>
@@ -61,12 +61,12 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-gray-300">Legal</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-300">Legal</h3>
             <ul className="mt-4 space-y-3">
               <li>
                 <Link
                   href="/privacy"
-                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                  className="text-sm text-neutral-400 hover:text-white transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -74,7 +74,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/terms"
-                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                  className="text-sm text-neutral-400 hover:text-white transition-colors"
                 >
                   Terms of Service
                 </Link>
@@ -83,16 +83,16 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-gray-300">FoodBoxFinder</h3>
-            <p className="mt-4 text-sm text-gray-400">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-300">FoodBoxFinder</h3>
+            <p className="mt-4 text-sm text-neutral-400">
               Helping you find the perfect food box subscription for your dietary
               needs and budget.
             </p>
           </div>
         </div>
 
-        <div className="mt-12 border-t border-gray-800 pt-8">
-          <p className="text-center text-sm text-gray-500">
+        <div className="mt-12 border-t border-neutral-800 pt-8">
+          <p className="text-center text-sm text-neutral-500">
             &copy; {new Date().getFullYear()} FoodBoxFinder. All rights reserved.
           </p>
         </div>

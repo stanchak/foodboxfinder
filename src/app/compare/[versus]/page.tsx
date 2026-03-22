@@ -133,10 +133,10 @@ export default async function VersusPage({
 
         {/* Page Header */}
         <div className="mt-6">
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
             {providerA.name} vs {providerB.name}
           </h1>
-          <p className="mt-3 text-lg text-gray-600 max-w-3xl">
+          <p className="mt-3 text-lg text-neutral-600 max-w-3xl">
             Detailed side-by-side comparison to help you choose between{" "}
             {providerA.name} and {providerB.name}. We break down pricing,
             ratings, dietary options, and plan flexibility so you can make an
@@ -152,10 +152,10 @@ export default async function VersusPage({
 
         {/* Comparison Table */}
         <div className="mt-10">
-          <h2 className="text-2xl font-extrabold text-gray-900">
+          <h2 className="text-2xl font-extrabold text-neutral-900">
             Full Comparison
           </h2>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-neutral-600">
             Every detail at a glance.
           </p>
           <div className="mt-6">
@@ -167,11 +167,11 @@ export default async function VersusPage({
         <section className="mt-12" aria-labelledby="verdict-heading">
           <h2
             id="verdict-heading"
-            className="text-2xl font-extrabold text-gray-900"
+            className="text-2xl font-extrabold text-neutral-900"
           >
             The Bottom Line
           </h2>
-          <div className="mt-4 rounded-2xl border border-gray-200 bg-neutral-50 p-6 space-y-4">
+          <div className="mt-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-6 space-y-4">
             <VerdictParagraph providerA={providerA} providerB={providerB} />
           </div>
         </section>
@@ -192,7 +192,7 @@ export default async function VersusPage({
           </Link>
           <Link
             href="/compare"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-500 hover:text-neutral-700 transition-colors"
           >
             Compare more providers
           </Link>
@@ -220,9 +220,9 @@ function QuickSummaryCard({
   provider,
 }: Readonly<{ provider: SummaryProvider }>) {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-card">
+    <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-card">
       <div className="flex items-center justify-between gap-4">
-        <h3 className="text-lg font-bold text-gray-900">
+        <h3 className="text-lg font-bold text-neutral-900">
           <Link
             href={`/providers/${provider.slug}`}
             className="hover:text-primary-700 transition-colors"
@@ -230,27 +230,27 @@ function QuickSummaryCard({
             {provider.name}
           </Link>
         </h3>
-        <span className="text-xs font-medium text-gray-500 bg-gray-100 rounded-full px-2.5 py-0.5">
+        <span className="text-xs font-medium text-neutral-500 bg-neutral-100 rounded-full px-2.5 py-0.5">
           {CATEGORY_MAP[provider.category].label}
         </span>
       </div>
 
       <dl className="mt-4 grid grid-cols-2 gap-4">
         <div>
-          <dt className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+          <dt className="text-xs font-medium text-neutral-500 uppercase tracking-wide">
             Rating
           </dt>
-          <dd className="mt-1 text-sm font-semibold text-gray-900">
+          <dd className="mt-1 text-sm font-semibold text-neutral-900">
             {provider.reviewCount > 0
               ? `${provider.averageRating.toFixed(1)} / 5 (${provider.reviewCount})`
               : "No reviews"}
           </dd>
         </div>
         <div>
-          <dt className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+          <dt className="text-xs font-medium text-neutral-500 uppercase tracking-wide">
             Price/Serving
           </dt>
-          <dd className="mt-1 text-sm font-semibold text-gray-900">
+          <dd className="mt-1 text-sm font-semibold text-neutral-900">
             {formatPriceRange(
               provider.minPricePerServingCents,
               provider.maxPricePerServingCents,
@@ -258,18 +258,18 @@ function QuickSummaryCard({
           </dd>
         </div>
         <div>
-          <dt className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+          <dt className="text-xs font-medium text-neutral-500 uppercase tracking-wide">
             Free Shipping
           </dt>
-          <dd className="mt-1 text-sm font-semibold text-gray-900">
+          <dd className="mt-1 text-sm font-semibold text-neutral-900">
             {provider.freeShipping ? "Yes" : "No"}
           </dd>
         </div>
         <div>
-          <dt className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+          <dt className="text-xs font-medium text-neutral-500 uppercase tracking-wide">
             Dietary Options
           </dt>
-          <dd className="mt-1 text-sm font-semibold text-gray-900">
+          <dd className="mt-1 text-sm font-semibold text-neutral-900">
             {provider.dietaryTags.length > 0
               ? `${provider.dietaryTags.length} options`
               : "None listed"}
@@ -319,10 +319,10 @@ function VerdictParagraph({
 
   return (
     <>
-      <p className="text-gray-700 leading-relaxed">{priceParagraph}</p>
-      <p className="text-gray-700 leading-relaxed">{ratingParagraph}</p>
-      <p className="text-gray-700 leading-relaxed">{dietParagraph}</p>
-      <p className="text-sm text-gray-500">
+      <p className="text-neutral-700 leading-relaxed">{priceParagraph}</p>
+      <p className="text-neutral-700 leading-relaxed">{ratingParagraph}</p>
+      <p className="text-neutral-700 leading-relaxed">{dietParagraph}</p>
+      <p className="text-sm text-neutral-500">
         Ultimately, the best choice depends on your specific needs. We recommend
         visiting each provider&apos;s detail page to explore their full plan
         options and read customer reviews before making a decision.

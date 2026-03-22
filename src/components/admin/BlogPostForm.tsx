@@ -56,7 +56,7 @@ export default function BlogPostForm({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="title" className="block text-sm font-medium text-neutral-700 mb-1">
             Title *
           </label>
           <input
@@ -65,7 +65,7 @@ export default function BlogPostForm({
             name="title"
             required
             defaultValue={post?.title ?? ""}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
           {state.errors.title && (
             <p className="mt-1 text-sm text-red-600">{state.errors.title}</p>
@@ -73,7 +73,7 @@ export default function BlogPostForm({
         </div>
 
         <div>
-          <label htmlFor="slug" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="slug" className="block text-sm font-medium text-neutral-700 mb-1">
             Slug
           </label>
           <input
@@ -82,7 +82,7 @@ export default function BlogPostForm({
             name="slug"
             defaultValue={post?.slug ?? ""}
             placeholder="Auto-generated from title if empty"
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
           {state.errors.slug && (
             <p className="mt-1 text-sm text-red-600">{state.errors.slug}</p>
@@ -92,7 +92,7 @@ export default function BlogPostForm({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="author" className="block text-sm font-medium text-neutral-700 mb-1">
             Author
           </label>
           <input
@@ -100,19 +100,19 @@ export default function BlogPostForm({
             id="author"
             name="author"
             defaultValue={post?.author ?? ""}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
         </div>
 
         <div>
-          <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="status" className="block text-sm font-medium text-neutral-700 mb-1">
             Status
           </label>
           <select
             id="status"
             name="status"
             defaultValue={post?.status ?? "DRAFT"}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           >
             {STATUS_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -125,7 +125,7 @@ export default function BlogPostForm({
       </div>
 
       <div>
-        <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="excerpt" className="block text-sm font-medium text-neutral-700 mb-1">
           Excerpt (max 300 chars)
         </label>
         <textarea
@@ -134,12 +134,12 @@ export default function BlogPostForm({
           rows={2}
           maxLength={300}
           defaultValue={post?.excerpt ?? ""}
-          className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+          className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
         />
       </div>
 
       <div>
-        <label htmlFor="body" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="body" className="block text-sm font-medium text-neutral-700 mb-1">
           Body *
         </label>
         <textarea
@@ -148,7 +148,7 @@ export default function BlogPostForm({
           required
           rows={16}
           defaultValue={post?.body ?? ""}
-          className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 font-mono focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+          className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 font-mono focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
         />
         {state.errors.body && (
           <p className="mt-1 text-sm text-red-600">{state.errors.body}</p>
@@ -156,7 +156,7 @@ export default function BlogPostForm({
       </div>
 
       <div>
-        <label htmlFor="coverImageUrl" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="coverImageUrl" className="block text-sm font-medium text-neutral-700 mb-1">
           Cover Image URL
         </label>
         <input
@@ -164,18 +164,18 @@ export default function BlogPostForm({
           id="coverImageUrl"
           name="coverImageUrl"
           defaultValue={post?.coverImageUrl ?? ""}
-          className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+          className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
         />
       </div>
 
       {/* SEO */}
       <fieldset className="space-y-4">
-        <legend className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2 w-full">
+        <legend className="text-sm font-semibold text-neutral-900 border-b border-neutral-200 pb-2 w-full">
           SEO
         </legend>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="metaTitle" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="metaTitle" className="block text-sm font-medium text-neutral-700 mb-1">
               Meta Title (max 70 chars)
             </label>
             <input
@@ -184,11 +184,11 @@ export default function BlogPostForm({
               name="metaTitle"
               maxLength={70}
               defaultValue={post?.metaTitle ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
           <div>
-            <label htmlFor="metaDescription" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="metaDescription" className="block text-sm font-medium text-neutral-700 mb-1">
               Meta Description (max 160 chars)
             </label>
             <input
@@ -197,14 +197,14 @@ export default function BlogPostForm({
               name="metaDescription"
               maxLength={160}
               defaultValue={post?.metaDescription ?? ""}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
         </div>
       </fieldset>
 
       {/* Submit */}
-      <div className="flex items-center gap-3 pt-4 border-t border-gray-200">
+      <div className="flex items-center gap-3 pt-4 border-t border-neutral-200">
         <button
           type="submit"
           disabled={isPending}
@@ -214,7 +214,7 @@ export default function BlogPostForm({
         </button>
         <Link
           href="/admin/blog"
-          className="text-sm text-gray-600 hover:text-gray-900"
+          className="text-sm text-neutral-600 hover:text-neutral-900"
         >
           Cancel
         </Link>
