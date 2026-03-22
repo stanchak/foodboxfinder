@@ -24,7 +24,7 @@ export default function Button({
 }> & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
-      className={`inline-flex items-center justify-center font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 rounded-lg active:scale-[0.98] ${variants[variant]} ${sizes[size]} ${className ?? ""}`}
+      className={`inline-flex items-center justify-center font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 rounded-full active:scale-[0.98] ${variants[variant]} ${sizes[size]} ${className ?? ""}`}
       {...props}
     >
       {children}
