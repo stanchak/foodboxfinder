@@ -16,7 +16,7 @@ export default function NotFound() {
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 text-center">
       {/* Status */}
-      <p className="text-sm font-semibold text-emerald-600">404</p>
+      <p className="text-sm font-semibold text-primary-600">404</p>
 
       {/* Heading */}
       <h1 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
@@ -53,7 +53,7 @@ export default function NotFound() {
               <li key={slug}>
                 <Link
                   href={`/${slug}`}
-                  className="inline-flex items-center rounded-full bg-neutral-100 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
+                  className="inline-flex items-center rounded-full bg-neutral-100 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 transition-colors"
                 >
                   {label}
                 </Link>
@@ -67,7 +67,7 @@ export default function NotFound() {
       <div className="mt-10">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
