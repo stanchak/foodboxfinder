@@ -38,7 +38,20 @@ Consumers can quickly discover and compare food box subscriptions that match the
 
 ### Active
 
-(None — start next milestone to define new requirements)
+- [ ] AI-generated cover images for all existing collection pages (6)
+- [ ] AI-generated cover images for all existing blog posts (5)
+- [ ] Database records updated with cover image URLs
+- [ ] 100 logo design variations generated via Gemini
+- [ ] Logo gallery page for browsing and selecting logo options
+
+## Current Milestone: v1.1 AI Image Generation
+
+**Goal:** Add AI-generated featured images to all content pages and explore logo design options via Gemini image generation.
+
+**Target features:**
+- Backfill all existing collections and blog posts with Gemini-generated cover images
+- Generate 100 FoodBoxFinder logo options for selection
+- Logo gallery page for browsing options
 
 
 ### Out of Scope
@@ -112,4 +125,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-21 after initialization*
+*Last updated: 2026-03-22 after v1.1 milestone start*
