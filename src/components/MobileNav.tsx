@@ -111,7 +111,7 @@ export default function MobileNav() {
       {isOpen && (
         <>
           <div
-            className="fixed inset-0 z-50 bg-black/20"
+            className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
             onClick={() => setIsOpen(false)}
           />
           <div
@@ -120,7 +120,7 @@ export default function MobileNav() {
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation"
-            className="fixed top-0 right-0 z-50 h-full w-72 bg-white shadow-xl transform transition-transform duration-300 translate-x-0"
+            className="fixed top-0 right-0 z-50 h-full w-80 bg-white shadow-xl transform transition-transform duration-300 translate-x-0"
           >
             <button
               onClick={() => setIsOpen(false)}
@@ -149,7 +149,7 @@ export default function MobileNav() {
                 <Link
                   key={item.slug}
                   href={`/${item.slug}`}
-                  className="block px-3 py-2.5 text-base font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-700 rounded-lg transition-colors"
+                  className="block px-3 py-2.5 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
@@ -160,21 +160,21 @@ export default function MobileNav() {
 
               <Link
                 href="/search"
-                className="block px-3 py-2.5 text-base font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-700 rounded-lg transition-colors"
+                className="block px-3 py-2.5 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Search
               </Link>
               <Link
                 href="/compare"
-                className="block px-3 py-2.5 text-base font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-700 rounded-lg transition-colors"
+                className="block px-3 py-2.5 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Compare
               </Link>
               <Link
                 href="/blog"
-                className="block px-3 py-2.5 text-base font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-700 rounded-lg transition-colors"
+                className="block px-3 py-2.5 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Blog
