@@ -1,7 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import Badge from "@/components/Badge";
 import RatingStars from "@/components/RatingStars";
-import ProviderLogo from "@/components/ProviderLogo";
 import AddToCompareButton from "@/components/AddToCompareButton";
 import { formatPriceLabel } from "@/lib/format";
 import { CATEGORY_MAP } from "@/lib/categories";
@@ -12,6 +12,7 @@ export interface ProviderCardData {
   slug: string;
   shortDescription: string | null;
   logoUrl: string | null;
+  heroImageUrl?: string | null;
   averageRating: number;
   reviewCount: number;
   minPricePerServingCents: number | null;
@@ -43,25 +44,35 @@ export default function ProviderCard({
 }>) {
   const categoryInfo = CATEGORY_MAP[provider.category];
   const href = `/providers/${provider.slug}`;
+  const imageUrl = provider.heroImageUrl ?? provider.logoUrl;
   const visibleTags = provider.dietaryTags.slice(0, 3);
   const remainingTagCount = provider.dietaryTags.length - visibleTags.length;
 
   return (
     <article className="group relative bg-white rounded-2xl ring-1 ring-gray-100 shadow-card transition-all duration-200 hover:shadow-lg hover:-translate-y-1 overflow-hidden">
-      {/* Logo / Image area */}
-      <div className="relative h-36 bg-gradient-to-br from-gray-50 to-gray-100/80 flex items-center justify-center overflow-hidden">
-        <ProviderLogo
-          logoUrl={provider.logoUrl}
-          name={provider.name}
-          size="md"
-          className="group-hover:scale-105 transition-transform duration-200 border-0"
-        />
+      {/* Hero image area */}
+      <div className="relative h-44 bg-gradient-to-br from-gray-50 to-gray-100/80 overflow-hidden">
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt={`${provider.name}`}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-5xl font-extrabold text-gray-200" aria-hidden="true">
+              {provider.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+        )}
         {provider.freeShipping && (
-          <span className="absolute top-3 right-3">
+          <span className="absolute top-3 right-3 z-10">
             <Badge color="default">Free Shipping</Badge>
           </span>
         )}
-        <div className="absolute bottom-3 right-3">
+        <div className="absolute bottom-3 right-3 z-10">
           <AddToCompareButton slug={provider.slug} name={provider.name} size="sm" />
         </div>
       </div>
