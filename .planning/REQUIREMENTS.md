@@ -25,10 +25,10 @@
 
 ### Category Color System
 
-- [ ] **CAT-01**: Each of the 5 categories has a distinct color (orange, berry, amber, green, teal) defined as design tokens
-- [ ] **CAT-02**: Category badges use per-category colors instead of uniform primary
+- [x] **CAT-01**: Each of the 5 categories has a distinct color (orange, berry, amber, green, teal) defined as design tokens
+- [x] **CAT-02**: Category badges use per-category colors instead of uniform primary
 - [ ] **CAT-03**: Provider cards show category via colored top-border accent
-- [ ] **CAT-04**: Category colors are distinguishable in grayscale (color not sole differentiator)
+- [x] **CAT-04**: Category colors are distinguishable in grayscale (color not sole differentiator)
 
 ### Navigation Simplification
 
@@ -39,8 +39,8 @@
 
 ### Component Sizing Updates
 
-- [ ] **SIZE-01**: Button md size increased to px-5 py-3 text-base (48px min height)
-- [ ] **SIZE-02**: Badge text increased from 11px to 12px with increased padding
+- [x] **SIZE-01**: Button md size increased to px-5 py-3 text-base (48px min height)
+- [x] **SIZE-02**: Badge text increased from 11px to 12px with increased padding
 - [ ] **SIZE-03**: ProviderCard text sizes increased (title text-lg, description text-base, price text-xl)
 - [ ] **SIZE-04**: Card padding increased to p-6, image height to h-48
 - [ ] **SIZE-05**: Results grid uses 3 columns on desktop (not 4) with gap-8
@@ -84,16 +84,16 @@
 | A11Y-03 | Phase 18 | Pending |
 | A11Y-04 | Phase 18 | Pending |
 | A11Y-05 | Phase 18 | Pending |
-| CAT-01 | Phase 18 | Pending |
-| CAT-02 | Phase 18 | Pending |
+| CAT-01 | Phase 18 | Complete |
+| CAT-02 | Phase 18 | Complete |
 | CAT-03 | Phase 18 | Pending |
-| CAT-04 | Phase 18 | Pending |
+| CAT-04 | Phase 18 | Complete |
 | NAV-01 | Phase 19 | Pending |
 | NAV-02 | Phase 19 | Pending |
 | NAV-03 | Phase 19 | Pending |
 | NAV-04 | Phase 19 | Pending |
-| SIZE-01 | Phase 18 | Pending |
-| SIZE-02 | Phase 18 | Pending |
+| SIZE-01 | Phase 18 | Complete |
+| SIZE-02 | Phase 18 | Complete |
 | SIZE-03 | Phase 18 | Pending |
 | SIZE-04 | Phase 18 | Pending |
 | SIZE-05 | Phase 18 | Pending |
