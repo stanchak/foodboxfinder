@@ -63,8 +63,6 @@
       height: 120px;
       max-width: 400px;
       object-fit: contain;
-      mix-blend-mode: multiply;
-      filter: contrast(1.1);
       transition: opacity 0.3s;
     }
     .header-nav {
@@ -407,8 +405,6 @@
       max-height: 56px;
       max-width: 100%;
       object-fit: contain;
-      mix-blend-mode: multiply;
-      filter: contrast(1.1);
     }
 
     /* ── Theme Name Overlay ── */
@@ -434,12 +430,6 @@
     }
     .theme-indicator.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-    /* ── Dark theme fixes ── */
-    body[data-theme="midnight"] .header-logo,
-    body[data-theme="midnight"] .carousel-center img {
-      mix-blend-mode: screen;
-      filter: brightness(1.2) contrast(1.1);
-    }
   </style>
 </head>
 <body>
