@@ -54,6 +54,16 @@ export default function MobileNav() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
+  // Lock body scroll when drawer is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
+
   // Return focus to trigger button on close
   useEffect(() => {
     if (wasOpenRef.current && !isOpen) {
@@ -66,7 +76,7 @@ export default function MobileNav() {
     <>
       <button
         ref={triggerRef}
-        className="lg:hidden p-2 text-neutral-700 hover:text-primary-600"
+        className="lg:hidden p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-neutral-700 hover:text-primary-600 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
         aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}
         aria-controls="mobile-nav-drawer"
@@ -112,6 +122,7 @@ export default function MobileNav() {
         <>
           <div
             className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
+            aria-hidden="true"
             onClick={() => setIsOpen(false)}
           />
           <div

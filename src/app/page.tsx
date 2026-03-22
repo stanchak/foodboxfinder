@@ -282,7 +282,7 @@ export default async function HomePage() {
       <OrganizationJsonLd />
 
       {/* --- Hero Section --- */}
-      <section className="bg-gradient-to-br from-primary-50 via-white to-accent-50/30">
+      <section className="bg-gradient-to-br from-primary-50 via-white to-accent-50/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-4xl font-extrabold tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl">
@@ -418,7 +418,7 @@ export default async function HomePage() {
 
       {/* --- Browse by Category Section --- */}
       <section
-        className="bg-primary-50 py-20 sm:py-24"
+        className="bg-neutral-100 py-20 sm:py-24"
         aria-labelledby="categories-heading"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -534,7 +534,7 @@ export default async function HomePage() {
                   {item.icon}
                 </div>
                 <div className="mt-2 flex items-center justify-center">
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-neutral-900 text-xs font-bold text-white">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary-600 text-xs font-bold text-white">
                     {item.step}
                   </span>
                 </div>
@@ -552,7 +552,7 @@ export default async function HomePage() {
 
       {/* --- Social Proof / Trust Section --- */}
       <section
-        className="bg-neutral-900 py-16 sm:py-20"
+        className="bg-gradient-to-br from-primary-900 to-primary-950 py-16 sm:py-20"
         aria-labelledby="trust-heading"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

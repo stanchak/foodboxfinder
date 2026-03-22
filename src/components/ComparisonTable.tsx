@@ -343,7 +343,7 @@ export default function ComparisonTable({
                   <ul className="text-sm text-neutral-700 text-left space-y-1">
                     {pros.map((pro, i) => (
                       <li key={i} className="flex items-start gap-1.5">
-                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-green-500 shrink-0" aria-hidden="true" />
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-success-500 shrink-0" aria-hidden="true" />
                         {pro}
                       </li>
                     ))}

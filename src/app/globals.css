@@ -42,7 +42,7 @@
 
   /* Rating Stars — matches primary-600 orange */
   --color-star: oklch(0.646 0.194 38);
-  --color-star-empty: oklch(0.920 0.035 50);
+  --color-star-empty: oklch(0.920 0.008 50);
 
   /* Warm Neutral (hues shifted toward orange for harmony) */
   --color-neutral-50: oklch(0.985 0.004 55);
@@ -75,11 +75,11 @@
   --color-warning-600: oklch(0.666 0.179 80);
   --color-warning-700: oklch(0.555 0.163 80);
 
-  /* Shadows (warm orange-tinted, hue 38) */
-  --shadow-card: 0 1px 3px 0 oklch(0.30 0.01 38 / 0.06), 0 1px 2px -1px oklch(0.30 0.01 38 / 0.06);
-  --shadow-card-hover: 0 4px 12px -2px oklch(0.30 0.01 38 / 0.10), 0 2px 4px -2px oklch(0.30 0.01 38 / 0.06);
-  --shadow-elevated: 0 8px 24px -4px oklch(0.30 0.01 38 / 0.12), 0 4px 8px -4px oklch(0.30 0.01 38 / 0.06);
-  --shadow-header: 0 1px 0 0 oklch(0.30 0.01 38 / 0.06);
+  /* Shadows (warm orange-tinted, higher chroma for visible warmth) */
+  --shadow-card: 0 1px 3px 0 oklch(0.55 0.04 38 / 0.07), 0 1px 2px -1px oklch(0.55 0.04 38 / 0.05);
+  --shadow-card-hover: 0 8px 20px -4px oklch(0.55 0.06 38 / 0.12), 0 4px 8px -4px oklch(0.55 0.04 38 / 0.07);
+  --shadow-elevated: 0 12px 32px -6px oklch(0.55 0.06 38 / 0.15), 0 6px 12px -4px oklch(0.55 0.04 38 / 0.08);
+  --shadow-header: 0 1px 0 0 oklch(0.55 0.04 38 / 0.08);
 
   /* Border Radius */
   --radius-sm: 0.5rem;
@@ -92,6 +92,10 @@
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }
 
 :focus-visible {

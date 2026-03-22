@@ -6,16 +6,16 @@ import HeaderSearchForm from "@/components/HeaderSearchForm";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-40 bg-primary-50/80 backdrop-blur-xl border-b border-primary-100 shadow-header">
+    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-neutral-100 shadow-header">
       <nav aria-label="Main" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-24">
-          <Link href="/" className="flex-shrink-0">
+        <div className="flex items-center justify-between h-20 sm:h-24 lg:h-40">
+          <Link href="/" className="flex-shrink-0 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600" aria-label="FoodBoxFinder home">
             <Image
               src="/foodboxfinder-logo-transparent.png"
               alt="FoodBoxFinder"
-              width={280}
-              height={72}
-              className="h-[72px] w-auto object-contain"
+              width={450}
+              height={150}
+              className="h-16 sm:h-20 lg:h-[150px] w-auto object-contain"
               priority
             />
           </Link>
@@ -25,7 +25,7 @@ export default function Header() {
               <Link
                 key={item.slug}
                 href={`/${item.slug}`}
-                className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors"
+                className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
               >
                 {item.label}
               </Link>
@@ -33,19 +33,19 @@ export default function Header() {
             <span className="h-5 w-px bg-neutral-200" aria-hidden="true" />
             <Link
               href="/compare"
-              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors"
+              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
             >
               Compare
             </Link>
             <Link
               href="/best"
-              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors"
+              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
             >
               Best Of
             </Link>
             <Link
               href="/blog"
-              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors"
+              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
             >
               Blog
             </Link>

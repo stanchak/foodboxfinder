@@ -41,7 +41,7 @@ export default function ReviewForm({
     return (
       <div
         ref={successRef}
-        className="rounded-xl border border-green-200 bg-green-50 p-6 text-center"
+        className="rounded-xl border border-success-500/20 bg-success-50 p-6 text-center"
         role="status"
         tabIndex={-1}
       >
@@ -55,16 +55,16 @@ export default function ReviewForm({
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="mx-auto text-green-600"
+          className="mx-auto text-success-600"
           aria-hidden="true"
         >
           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
           <path d="m9 11 3 3L22 4" />
         </svg>
-        <h3 className="mt-3 text-lg font-semibold text-green-800">
+        <h3 className="mt-3 text-lg font-semibold text-success-700">
           Review Submitted
         </h3>
-        <p className="mt-1 text-sm text-green-700">{state.message}</p>
+        <p className="mt-1 text-sm text-success-700">{state.message}</p>
       </div>
     );
   }
@@ -89,7 +89,7 @@ export default function ReviewForm({
       {/* General error */}
       {state.errors.general && (
         <div
-          className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700"
+          className="rounded-lg border border-error-500/20 bg-error-50 p-4 text-sm text-error-700"
           role="alert"
         >
           {state.errors.general}
@@ -130,7 +130,7 @@ export default function ReviewForm({
           htmlFor="review-body"
           className="block text-sm font-medium text-neutral-700"
         >
-          Your Review <span className="text-red-500">*</span>
+          Your Review <span className="text-error-500">*</span>
         </label>
         <textarea
           id="review-body"
@@ -144,7 +144,7 @@ export default function ReviewForm({
           disabled={isPending}
         />
         {state.errors.body && (
-          <p className="mt-1 text-sm text-red-600" role="alert">
+          <p className="mt-1 text-sm text-error-600" role="alert">
             {state.errors.body}
           </p>
         )}
@@ -158,7 +158,7 @@ export default function ReviewForm({
             htmlFor="review-author-name"
             className="block text-sm font-medium text-neutral-700"
           >
-            Your Name <span className="text-red-500">*</span>
+            Your Name <span className="text-error-500">*</span>
           </label>
           <input
             id="review-author-name"
@@ -172,7 +172,7 @@ export default function ReviewForm({
             disabled={isPending}
           />
           {state.errors.authorName && (
-            <p className="mt-1 text-sm text-red-600" role="alert">
+            <p className="mt-1 text-sm text-error-600" role="alert">
               {state.errors.authorName}
             </p>
           )}
@@ -197,7 +197,7 @@ export default function ReviewForm({
             disabled={isPending}
           />
           {state.errors.authorEmail && (
-            <p className="mt-1 text-sm text-red-600" role="alert">
+            <p className="mt-1 text-sm text-error-600" role="alert">
               {state.errors.authorEmail}
             </p>
           )}

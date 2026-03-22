@@ -51,10 +51,10 @@ function formatFieldLabel(value: string): string {
 }
 
 const statusStyleMap: Record<ProviderStatus, string> = {
-  ACTIVE: "bg-green-50 text-green-700 ring-green-600/20",
-  HYBRID: "bg-blue-50 text-blue-700 ring-blue-600/20",
-  UNCLEAR: "bg-yellow-50 text-yellow-700 ring-yellow-600/20",
-  DISCONTINUED: "bg-red-50 text-red-700 ring-red-600/20",
+  ACTIVE: "bg-success-50 text-success-700 ring-success-600/20",
+  HYBRID: "bg-accent-50 text-accent-700 ring-accent-600/20",
+  UNCLEAR: "bg-warning-50 text-warning-700 ring-warning-600/20",
+  DISCONTINUED: "bg-error-50 text-error-700 ring-error-600/20",
 };
 
 function getStatusStyle(status: ProviderStatus): string {
@@ -439,7 +439,7 @@ export default async function ProviderDetailPage({
                           strokeWidth="2.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="mt-0.5 shrink-0 text-green-600"
+                          className="mt-0.5 shrink-0 text-success-600"
                           aria-hidden="true"
                         >
                           <path d="M20 6 9 17l-5-5" />
@@ -488,7 +488,7 @@ export default async function ProviderDetailPage({
                           strokeWidth="2.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="mt-0.5 shrink-0 text-red-500"
+                          className="mt-0.5 shrink-0 text-error-500"
                           aria-hidden="true"
                         >
                           <path d="M18 6 6 18" />
