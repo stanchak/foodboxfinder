@@ -2,11 +2,11 @@ const skeletonVariants = {
   text: "h-4 w-3/4 rounded",
   title: "h-6 w-1/2 rounded",
   avatar: "h-10 w-10 rounded-full",
-  card: "h-64 w-full rounded-xl",
-  rating: "h-4 w-24 rounded",
-  badge: "h-6 w-16 rounded-full",
-  image: "h-48 w-full rounded-xl",
-  button: "h-10 w-28 rounded-lg",
+  card: "h-72 w-full rounded-xl",
+  rating: "h-5 w-28 rounded",
+  badge: "h-7 w-18 rounded-full",
+  image: "h-52 w-full rounded-xl",
+  button: "h-12 w-32 rounded-full",
 } as const;
 
 export default function Skeleton({
