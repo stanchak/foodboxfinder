@@ -47,9 +47,9 @@ export default function ProviderCard({
   const remainingTagCount = provider.dietaryTags.length - visibleTags.length;
 
   return (
-    <article className="group relative bg-white rounded-xl shadow-card transition-shadow duration-200 hover:shadow-card-hover overflow-hidden">
+    <article className="group relative bg-white rounded-2xl ring-1 ring-gray-100 shadow-card transition-all duration-200 hover:shadow-lg hover:-translate-y-1 overflow-hidden">
       {/* Logo / Image area */}
-      <div className="relative h-32 bg-gray-50 flex items-center justify-center overflow-hidden">
+      <div className="relative h-36 bg-gradient-to-br from-gray-50 to-gray-100/80 flex items-center justify-center overflow-hidden">
         <ProviderLogo
           logoUrl={provider.logoUrl}
           name={provider.name}
@@ -67,7 +67,7 @@ export default function ProviderCard({
       </div>
 
       {/* Content */}
-      <div className="p-4">
+      <div className="p-5">
         {/* Category and value tier badges */}
         <div className="flex flex-wrap gap-1.5 mb-2">
           <Badge color="category">
@@ -81,7 +81,7 @@ export default function ProviderCard({
         </div>
 
         {/* Provider name — stretched link covers entire card */}
-        <h3 className="text-lg font-semibold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-1">
+        <h3 className="text-base font-bold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-1">
           <Link href={href} className="after:absolute after:inset-0">
             {provider.name}
           </Link>
@@ -103,13 +103,13 @@ export default function ProviderCard({
         </div>
 
         {/* Price */}
-        <p className="mt-2 text-base font-semibold text-primary-700">
+        <p className="mt-2 text-lg font-bold text-primary-700">
           {formatPriceLabel(provider.minPricePerServingCents)}
         </p>
 
         {/* Dietary tags */}
         {provider.dietaryTags.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-1.5">
+          <div className="mt-3 pt-3 border-t border-gray-100 flex flex-wrap gap-1.5">
             {visibleTags.map(({ tag }) => (
               <Badge key={tag} color="dietary">
                 {formatDietaryLabel(tag)}

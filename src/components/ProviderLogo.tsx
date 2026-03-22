@@ -25,7 +25,7 @@ export default function ProviderLogo({
     <div
       role="img"
       aria-label={`${name} logo`}
-      className={`${s.container} rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center overflow-hidden ${className ?? ""}`}
+      className={`${s.container} rounded-2xl bg-white shadow-xs flex items-center justify-center overflow-hidden ${className ?? ""}`}
     >
       {logoUrl ? (
         <Image
@@ -37,7 +37,7 @@ export default function ProviderLogo({
           priority={priority}
         />
       ) : (
-        <span className={`font-bold text-gray-400 ${s.text}`} aria-hidden="true">
+        <span className={`font-extrabold text-gray-300 ${s.text}`} aria-hidden="true">
           {name.charAt(0).toUpperCase()}
         </span>
       )}
