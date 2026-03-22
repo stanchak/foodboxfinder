@@ -178,11 +178,17 @@ export default function PricingTable({
               <span className={plan.canSkip ? "text-gray-900" : "text-gray-400"}>
                 Skip deliveries
               </span>
+              <span className="sr-only">
+                {plan.canSkip ? "— available" : "— not available"}
+              </span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               {plan.canCancel ? <CheckIcon /> : <XIcon />}
               <span className={plan.canCancel ? "text-gray-900" : "text-gray-400"}>
                 Cancel anytime
+              </span>
+              <span className="sr-only">
+                {plan.canCancel ? "— available" : "— not available"}
               </span>
             </div>
             {plan.cancelPolicy && (
