@@ -75,6 +75,36 @@
   --color-warning-600: oklch(0.666 0.179 80);
   --color-warning-700: oklch(0.555 0.163 80);
 
+  /* Category: Meal Kits — Tangerine Orange (reuses primary hues 38-55) */
+  --color-cat-meal-kits-50: oklch(0.980 0.016 48);
+  --color-cat-meal-kits-100: oklch(0.940 0.045 45);
+  --color-cat-meal-kits-600: oklch(0.600 0.190 40);
+  --color-cat-meal-kits-700: oklch(0.520 0.170 38);
+
+  /* Category: Prepared Meals — Warm Berry (hue 340-350) */
+  --color-cat-prepared-meals-50: oklch(0.975 0.015 345);
+  --color-cat-prepared-meals-100: oklch(0.935 0.040 342);
+  --color-cat-prepared-meals-600: oklch(0.560 0.170 340);
+  --color-cat-prepared-meals-700: oklch(0.480 0.150 340);
+
+  /* Category: Protein Boxes — Rich Amber/Sienna (hue 48-70) */
+  --color-cat-protein-boxes-50: oklch(0.980 0.018 65);
+  --color-cat-protein-boxes-100: oklch(0.940 0.050 60);
+  --color-cat-protein-boxes-600: oklch(0.580 0.160 55);
+  --color-cat-protein-boxes-700: oklch(0.500 0.140 52);
+
+  /* Category: Produce Boxes — Garden Green (hue 148-150) */
+  --color-cat-produce-boxes-50: oklch(0.975 0.020 150);
+  --color-cat-produce-boxes-100: oklch(0.935 0.045 148);
+  --color-cat-produce-boxes-600: oklch(0.540 0.160 148);
+  --color-cat-produce-boxes-700: oklch(0.460 0.135 148);
+
+  /* Category: Specialty — Teal (reuses accent hues 185-190) */
+  --color-cat-specialty-50: oklch(0.975 0.014 190);
+  --color-cat-specialty-100: oklch(0.940 0.035 188);
+  --color-cat-specialty-600: oklch(0.560 0.104 185);
+  --color-cat-specialty-700: oklch(0.480 0.090 185);
+
   /* Shadows (warm orange-tinted, higher chroma for visible warmth) */
   --shadow-card: 0 1px 3px 0 oklch(0.55 0.04 38 / 0.07), 0 1px 2px -1px oklch(0.55 0.04 38 / 0.05);
   --shadow-card-hover: 0 8px 20px -4px oklch(0.55 0.06 38 / 0.12), 0 4px 8px -4px oklch(0.55 0.04 38 / 0.07);
