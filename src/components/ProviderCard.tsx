@@ -4,7 +4,7 @@ import Badge from "@/components/Badge";
 import RatingStars from "@/components/RatingStars";
 import AddToCompareButton from "@/components/AddToCompareButton";
 import { formatPriceLabel } from "@/lib/format";
-import { CATEGORY_MAP } from "@/lib/categories";
+import { CATEGORY_MAP, CATEGORY_COLOR_MAP } from "@/lib/categories";
 import type { CategoryType, DietaryTag } from "@/generated/prisma/client";
 
 export interface ProviderCardData {
@@ -49,15 +49,15 @@ export default function ProviderCard({
   const remainingTagCount = provider.dietaryTags.length - visibleTags.length;
 
   return (
-    <article className="group relative bg-white rounded-2xl ring-1 ring-neutral-100 shadow-card transition-all duration-200 hover:shadow-card-hover hover:-translate-y-1 overflow-hidden">
+    <article className={`group relative bg-white rounded-2xl ring-1 ring-neutral-100 shadow-card transition-all duration-200 hover:shadow-card-hover hover:-translate-y-1 overflow-hidden border-t-3 ${CATEGORY_COLOR_MAP[provider.category].borderTop}`}>
       {/* Hero image area */}
-      <div className="relative h-44 bg-gradient-to-br from-neutral-50 to-neutral-100/80 overflow-hidden">
+      <div className="relative h-48 lg:h-52 bg-gradient-to-br from-neutral-50 to-neutral-100/80 overflow-hidden">
         {imageUrl ? (
           <Image
             src={imageUrl}
             alt={`${provider.name}`}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
@@ -78,10 +78,10 @@ export default function ProviderCard({
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="p-6">
         {/* Category and value tier badges */}
-        <div className="flex flex-wrap gap-1.5 mb-2">
-          <Badge color="category">
+        <div className="flex flex-wrap gap-2 mb-2">
+          <Badge color="category" categoryType={provider.category}>
             {categoryInfo.label}
           </Badge>
           {provider.valueTier && VALUE_TIER_LABELS[provider.valueTier] && (
@@ -92,7 +92,7 @@ export default function ProviderCard({
         </div>
 
         {/* Provider name — stretched link covers entire card */}
-        <h3 className="text-base font-bold text-neutral-900 group-hover:text-primary-700 transition-colors line-clamp-1">
+        <h3 className="text-lg font-bold text-neutral-900 group-hover:text-primary-700 transition-colors line-clamp-1">
           <Link href={href} className="after:absolute after:inset-0">
             {provider.name}
           </Link>
@@ -100,7 +100,7 @@ export default function ProviderCard({
 
         {/* Short description */}
         {provider.shortDescription && (
-          <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
+          <p className="mt-1 text-base text-neutral-600 line-clamp-2">
             {provider.shortDescription}
           </p>
         )}
@@ -108,19 +108,19 @@ export default function ProviderCard({
         {/* Rating */}
         <div className="mt-3 flex items-center gap-2">
           <RatingStars rating={provider.averageRating} size="sm" />
-          <span className="text-xs text-neutral-600 font-medium">
+          <span className="text-sm text-neutral-600 font-medium">
             ({provider.reviewCount})
           </span>
         </div>
 
         {/* Price */}
-        <p className="mt-2 text-lg font-bold text-primary-700">
+        <p className="mt-2 text-xl font-bold text-primary-700">
           {formatPriceLabel(provider.minPricePerServingCents)}
         </p>
 
         {/* Dietary tags */}
         {provider.dietaryTags.length > 0 && (
-          <div className="mt-3 pt-3 border-t border-neutral-100 flex flex-wrap gap-1.5">
+          <div className="mt-3 pt-3 border-t border-neutral-100 flex flex-wrap gap-2">
             {visibleTags.map(({ tag }) => (
               <Badge key={tag} color="dietary">
                 {formatDietaryLabel(tag)}
