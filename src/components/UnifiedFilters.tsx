@@ -200,13 +200,13 @@ export function UnifiedActiveFilterChips() {
       {activeFilters.map((filter) => (
         <span
           key={`${filter.key}-${filter.value}`}
-          className="inline-flex items-center gap-1 rounded-full bg-primary-600 text-white text-sm font-medium px-3 py-1.5"
+          className="inline-flex items-center gap-1 rounded-full bg-primary-600 text-white text-base font-medium px-4 py-2"
         >
           {filter.label}
           <button
             type="button"
             onClick={() => removeFilter(filter.key, filter.value)}
-            className="ml-0.5 inline-flex items-center rounded-full p-0.5 hover:bg-primary-500 transition-colors"
+            className="ml-0.5 inline-flex items-center rounded-full p-1 hover:bg-primary-500 transition-colors"
             aria-label={`Remove ${filter.label} filter`}
           >
             <svg
@@ -230,7 +230,7 @@ export function UnifiedActiveFilterChips() {
       <button
         type="button"
         onClick={handleClearAll}
-        className="text-sm font-medium text-primary-600 hover:text-primary-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+        className="text-base font-medium text-primary-600 hover:text-primary-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
       >
         Clear all
       </button>
@@ -641,7 +641,7 @@ export default function UnifiedFilters({
             {Object.entries(MODEL_TYPE_GROUPS).map(([key, group]) => (
               <label
                 key={key}
-                className="flex items-center gap-2.5 cursor-pointer group/check"
+                className="flex items-center gap-3 cursor-pointer group/check min-h-[44px] rounded-lg px-2 -mx-2 hover:bg-neutral-50 transition-colors"
               >
                 <input
                   type="radio"
@@ -679,7 +679,7 @@ export default function UnifiedFilters({
             {Object.entries(GEOGRAPHY_GROUPS).map(([key, group]) => (
               <label
                 key={key}
-                className="flex items-center gap-2.5 cursor-pointer group/check"
+                className="flex items-center gap-3 cursor-pointer group/check min-h-[44px] rounded-lg px-2 -mx-2 hover:bg-neutral-50 transition-colors"
               >
                 <input
                   type="radio"
@@ -735,7 +735,7 @@ export default function UnifiedFilters({
                   <button
                     type="button"
                     onClick={handleClearAll}
-                    className="text-sm font-medium text-primary-600 hover:text-primary-800 transition-colors"
+                    className="text-base font-medium text-primary-600 hover:text-primary-800 transition-colors"
                   >
                     Clear All ({activeFilterCount})
                   </button>

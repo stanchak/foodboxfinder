@@ -162,7 +162,7 @@ export function ActiveFilterChips() {
       {activeFilters.map((filter) => (
         <span
           key={`${filter.key}-${filter.value}`}
-          className="inline-flex items-center gap-1 rounded-full bg-primary-600 text-white text-xs font-medium px-2.5 py-1"
+          className="inline-flex items-center gap-1 rounded-full bg-primary-600 text-white text-sm font-medium px-2.5 py-1"
         >
           {filter.label}
           <button
@@ -192,7 +192,7 @@ export function ActiveFilterChips() {
       <button
         type="button"
         onClick={handleClearAll}
-        className="text-xs font-medium text-primary-600 hover:text-primary-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+        className="text-sm font-medium text-primary-600 hover:text-primary-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
       >
         Clear all
       </button>
@@ -354,7 +354,7 @@ export default function CategoryFilters() {
       <div>
         <label
           htmlFor="sort-select"
-          className="block text-sm font-medium text-neutral-700"
+          className="block text-base font-semibold text-neutral-700"
         >
           Sort By
         </label>
@@ -362,7 +362,7 @@ export default function CategoryFilters() {
           id="sort-select"
           value={currentSort}
           onChange={(e) => handleSortChange(e.target.value)}
-          className="mt-1 block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+          className="mt-1 block w-full rounded-lg border border-neutral-300 px-3 py-2 text-base text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
         >
           {SORT_OPTIONS.map((opt) => (
             <option key={opt} value={opt}>
@@ -378,7 +378,7 @@ export default function CategoryFilters() {
           <button
             type="button"
             onClick={() => toggleGroup("diet")}
-            className="flex w-full items-center justify-between text-sm font-medium text-neutral-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            className="flex w-full items-center justify-between text-base font-semibold text-neutral-700 mb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
             aria-expanded={!collapsedGroups.has("diet")}
           >
             Dietary Preferences
@@ -390,15 +390,15 @@ export default function CategoryFilters() {
             {DIETARY_TAG_OPTIONS.map((option) => (
               <label
                 key={option.value}
-                className="flex items-center gap-2.5 cursor-pointer group/check"
+                className="flex items-center gap-3 cursor-pointer group/check min-h-[44px] rounded-lg px-2 -mx-2 hover:bg-neutral-50 transition-colors"
               >
                 <input
                   type="checkbox"
                   checked={activeDietaryTags.has(option.value)}
                   onChange={() => handleDietaryToggle(option.value)}
-                  className="h-4 w-4 rounded border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                  className="h-5 w-5 rounded border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
                 />
-                <span className="text-sm text-neutral-700 group-hover/check:text-neutral-900">
+                <span className="text-base text-neutral-700 group-hover/check:text-neutral-900">
                   {option.label}
                 </span>
               </label>
@@ -413,7 +413,7 @@ export default function CategoryFilters() {
           <button
             type="button"
             onClick={() => toggleGroup("prep")}
-            className="flex w-full items-center justify-between text-sm font-medium text-neutral-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            className="flex w-full items-center justify-between text-base font-semibold text-neutral-700 mb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
             aria-expanded={!collapsedGroups.has("prep")}
           >
             Prep Style
@@ -425,16 +425,16 @@ export default function CategoryFilters() {
             {Object.entries(PREP_STYLE_GROUPS).map(([key, group]) => (
               <label
                 key={key}
-                className="flex items-center gap-2.5 cursor-pointer group/check"
+                className="flex items-center gap-3 cursor-pointer group/check min-h-[44px] rounded-lg px-2 -mx-2 hover:bg-neutral-50 transition-colors"
               >
                 <input
                   type="radio"
                   name="prep"
                   checked={currentPrep === key}
                   onChange={() => handleSingleSelect("prep", key, currentPrep)}
-                  className="h-4 w-4 border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                  className="h-5 w-5 border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
                 />
-                <span className="text-sm text-neutral-700 group-hover/check:text-neutral-900">
+                <span className="text-base text-neutral-700 group-hover/check:text-neutral-900">
                   {group.label}
                 </span>
               </label>
@@ -449,7 +449,7 @@ export default function CategoryFilters() {
           <button
             type="button"
             onClick={() => toggleGroup("valueTier")}
-            className="flex w-full items-center justify-between text-sm font-medium text-neutral-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            className="flex w-full items-center justify-between text-base font-semibold text-neutral-700 mb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
             aria-expanded={!collapsedGroups.has("valueTier")}
           >
             Value Tier
@@ -461,16 +461,16 @@ export default function CategoryFilters() {
             {Object.keys(VALUE_TIER_SLUGS).map((key) => (
               <label
                 key={key}
-                className="flex items-center gap-2.5 cursor-pointer group/check"
+                className="flex items-center gap-3 cursor-pointer group/check min-h-[44px] rounded-lg px-2 -mx-2 hover:bg-neutral-50 transition-colors"
               >
                 <input
                   type="radio"
                   name="valueTier"
                   checked={currentValueTier === key}
                   onChange={() => handleSingleSelect("valueTier", key, currentValueTier)}
-                  className="h-4 w-4 border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                  className="h-5 w-5 border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
                 />
-                <span className="text-sm text-neutral-700 group-hover/check:text-neutral-900">
+                <span className="text-base text-neutral-700 group-hover/check:text-neutral-900">
                   {VALUE_TIER_LABELS[key]}
                 </span>
               </label>
@@ -485,7 +485,7 @@ export default function CategoryFilters() {
           <button
             type="button"
             onClick={() => toggleGroup("household")}
-            className="flex w-full items-center justify-between text-sm font-medium text-neutral-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            className="flex w-full items-center justify-between text-base font-semibold text-neutral-700 mb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
             aria-expanded={!collapsedGroups.has("household")}
           >
             Household Fit
@@ -497,16 +497,16 @@ export default function CategoryFilters() {
             {HOUSEHOLD_FIT_VALUES.map((value) => (
               <label
                 key={value}
-                className="flex items-center gap-2.5 cursor-pointer group/check"
+                className="flex items-center gap-3 cursor-pointer group/check min-h-[44px] rounded-lg px-2 -mx-2 hover:bg-neutral-50 transition-colors"
               >
                 <input
                   type="radio"
                   name="household"
                   checked={currentHousehold === value}
                   onChange={() => handleSingleSelect("household", value, currentHousehold)}
-                  className="h-4 w-4 border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                  className="h-5 w-5 border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
                 />
-                <span className="text-sm text-neutral-700 group-hover/check:text-neutral-900">
+                <span className="text-base text-neutral-700 group-hover/check:text-neutral-900">
                   {formatFilterLabel(value)}
                 </span>
               </label>
@@ -521,7 +521,7 @@ export default function CategoryFilters() {
           <button
             type="button"
             onClick={() => toggleGroup("model")}
-            className="flex w-full items-center justify-between text-sm font-medium text-neutral-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            className="flex w-full items-center justify-between text-base font-semibold text-neutral-700 mb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
             aria-expanded={!collapsedGroups.has("model")}
           >
             Model Type
@@ -533,16 +533,16 @@ export default function CategoryFilters() {
             {Object.entries(MODEL_TYPE_GROUPS).map(([key, group]) => (
               <label
                 key={key}
-                className="flex items-center gap-2.5 cursor-pointer group/check"
+                className="flex items-center gap-3 cursor-pointer group/check min-h-[44px] rounded-lg px-2 -mx-2 hover:bg-neutral-50 transition-colors"
               >
                 <input
                   type="radio"
                   name="model"
                   checked={currentModel === key}
                   onChange={() => handleSingleSelect("model", key, currentModel)}
-                  className="h-4 w-4 border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                  className="h-5 w-5 border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
                 />
-                <span className="text-sm text-neutral-700 group-hover/check:text-neutral-900">
+                <span className="text-base text-neutral-700 group-hover/check:text-neutral-900">
                   {group.label}
                 </span>
               </label>
@@ -557,7 +557,7 @@ export default function CategoryFilters() {
           <button
             type="button"
             onClick={() => toggleGroup("geo")}
-            className="flex w-full items-center justify-between text-sm font-medium text-neutral-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            className="flex w-full items-center justify-between text-base font-semibold text-neutral-700 mb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
             aria-expanded={!collapsedGroups.has("geo")}
           >
             Geography
@@ -569,16 +569,16 @@ export default function CategoryFilters() {
             {Object.entries(GEOGRAPHY_GROUPS).map(([key, group]) => (
               <label
                 key={key}
-                className="flex items-center gap-2.5 cursor-pointer group/check"
+                className="flex items-center gap-3 cursor-pointer group/check min-h-[44px] rounded-lg px-2 -mx-2 hover:bg-neutral-50 transition-colors"
               >
                 <input
                   type="radio"
                   name="geo"
                   checked={currentGeo === key}
                   onChange={() => handleSingleSelect("geo", key, currentGeo)}
-                  className="h-4 w-4 border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                  className="h-5 w-5 border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
                 />
-                <span className="text-sm text-neutral-700 group-hover/check:text-neutral-900">
+                <span className="text-base text-neutral-700 group-hover/check:text-neutral-900">
                   {group.label}
                 </span>
               </label>
@@ -592,7 +592,7 @@ export default function CategoryFilters() {
         <button
           type="button"
           onClick={handleClearAll}
-          className="w-full rounded-full border border-neutral-300 px-4 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+          className="w-full rounded-full border border-neutral-300 px-4 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
         >
           Clear All Filters
         </button>
@@ -611,11 +611,11 @@ export default function CategoryFilters() {
 
       {/* Desktop sidebar */}
       <aside
-        className="hidden lg:block w-64 shrink-0"
+        className="hidden lg:block w-72 shrink-0"
         aria-label="Filter providers"
       >
         <div className="sticky top-20">
-          <div className="bg-white rounded-xl p-5 shadow-sm ring-1 ring-primary-100">
+          <div className="bg-white rounded-xl p-5 shadow-sm ring-1 ring-neutral-100">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-900">Filters</h2>
               {activeFilterCount > 0 && (
@@ -635,7 +635,7 @@ export default function CategoryFilters() {
           ref={triggerRef}
           type="button"
           onClick={() => setDrawerOpen(true)}
-          className="inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-4 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50 transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-4 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50 transition-colors shadow-sm"
           aria-label="Open filters"
         >
           <svg
@@ -729,7 +729,7 @@ export default function CategoryFilters() {
               <button
                 type="button"
                 onClick={() => setDrawerOpen(false)}
-                className="w-full rounded-full bg-primary-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-primary-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                className="w-full rounded-full bg-primary-600 px-4 py-2.5 text-base font-medium text-white hover:bg-primary-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
               >
                 Show Results
               </button>
