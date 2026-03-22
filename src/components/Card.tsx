@@ -11,7 +11,7 @@ export default function Card({
   href?: string;
   padding?: boolean;
 }>) {
-  const cardClasses = `bg-white rounded-xl shadow-card transition-shadow duration-200 hover:shadow-card-hover overflow-hidden ${padding ? "p-6" : ""} ${className ?? ""}`;
+  const cardClasses = `bg-white rounded-2xl shadow-card transition-shadow duration-200 hover:shadow-card-hover overflow-hidden ${padding ? "p-6" : ""} ${className ?? ""}`;
 
   if (href) {
     return (
