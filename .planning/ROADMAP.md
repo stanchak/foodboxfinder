@@ -77,8 +77,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 19-01-PLAN.md — Simplify Header, MobileNav, and Footer navigation links
-- [ ] 19-02-PLAN.md — Update homepage category links, add proxy.ts redirects, update sitemap
+- [x] 19-01-PLAN.md — Simplify Header, MobileNav, and Footer navigation links
+- [x] 19-02-PLAN.md — Update homepage category links, add proxy.ts redirects, update sitemap
 
 **Success Criteria:**
 1. Header shows: Logo, Discover, Compare, Best Of, Blog (no individual category links)

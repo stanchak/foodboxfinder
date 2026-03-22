@@ -32,7 +32,7 @@
 
 ### Navigation Simplification
 
-- [ ] **NAV-01**: Header nav simplified — remove individual category links, add "Discover" as primary
+- [x] **NAV-01**: Header nav simplified — remove individual category links, add "Discover" as primary
 - [ ] **NAV-02**: Homepage hero CTA routes to /discover instead of separate category pages
 - [ ] **NAV-03**: Compare, Blog, Best Of remain as their own pages/nav items
 - [ ] **NAV-04**: Individual category pages redirect to /discover?category={slug} for SEO continuity
@@ -88,7 +88,7 @@
 | CAT-02 | Phase 18 | Complete |
 | CAT-03 | Phase 18 | Complete |
 | CAT-04 | Phase 18 | Complete |
-| NAV-01 | Phase 19 | Pending |
+| NAV-01 | Phase 19 | Complete |
 | NAV-02 | Phase 19 | Pending |
 | NAV-03 | Phase 19 | Pending |
 | NAV-04 | Phase 19 | Pending |
