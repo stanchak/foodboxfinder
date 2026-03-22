@@ -338,7 +338,7 @@ export default async function HomePage() {
                   return (
                     <Link
                       key={key}
-                      href={`/${cat.slug}`}
+                      href={`/search?category=${cat.slug}`}
                       className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-semibold uppercase tracking-wide text-neutral-700 shadow-sm ring-1 ring-neutral-200 hover:bg-primary-50 hover:text-primary-700 hover:ring-primary-200 transition-all"
                     >
                       <IconComponent className="text-primary-500 w-5 h-5" />
@@ -442,7 +442,7 @@ export default async function HomePage() {
                 return (
                   <Link
                     key={key}
-                    href={`/${cat.slug}`}
+                    href={`/search?category=${cat.slug}`}
                     className="group relative flex flex-col items-center gap-4 rounded-2xl bg-white p-8 shadow-card ring-1 ring-neutral-100 transition-all hover:shadow-card-hover hover:ring-primary-200 hover:-translate-y-1"
                   >
                     <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform group-hover:scale-110">
