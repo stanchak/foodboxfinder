@@ -248,10 +248,10 @@ Plans:
   6. ProviderCard has emphasized pricing, reduced logo area, and Badge-based Free Shipping
   7. All components have proper ARIA attributes and sr-only text where needed
   8. Semantic color tokens (success/error/warning) exist in CSS
-**Plans:** 4 plans
+**Plans:** 1/4 plans executed
 
 Plans:
 - [ ] 13-01-PLAN.md -- CategoryFilters radio inputs, collapsible groups, focus-visible buttons; Header nav links and aria-label; semantic color tokens
 - [ ] 13-02-PLAN.md -- ComparisonTable th scope=row, CTA background, View Details text link with aria-labels; PricingTable sr-only boolean text
 - [ ] 13-03-PLAN.md -- ProviderCard visual fixes, ProviderLogo accessibility, RatingStars aria-hidden; CompareBar aria-live, AffiliateLink sr-only, FaqAccordion cleanup, Pagination fix
-- [ ] 13-04-PLAN.md -- Homepage scroll indicator gradient for mobile featured providers
+- [x] 13-04-PLAN.md -- Homepage scroll indicator gradient for mobile featured providers
