@@ -41,7 +41,7 @@ export default function Pagination({
       {hasPrev ? (
         <Link
           href={buildHref(currentPage - 1)}
-          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors"
+          className="inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors"
           aria-label="Go to previous page"
         >
           <svg
@@ -62,7 +62,7 @@ export default function Pagination({
         </Link>
       ) : (
         <span
-          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-300 cursor-not-allowed"
+          className="inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-neutral-300 cursor-not-allowed"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +88,7 @@ export default function Pagination({
           <>
             <Link
               href={buildHref(1)}
-              className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors min-w-[40px]"
+              className="inline-flex items-center justify-center rounded-full px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors min-w-[40px]"
               aria-label="Go to page 1"
             >
               1
@@ -105,7 +105,7 @@ export default function Pagination({
           <Link
             key={page}
             href={buildHref(page)}
-            className={`inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium transition-colors min-w-[40px] ${
+            className={`inline-flex items-center justify-center rounded-full px-3 py-2 text-sm font-medium transition-colors min-w-[40px] ${
               page === currentPage
                 ? "bg-primary-600 text-white"
                 : "text-neutral-700 hover:bg-neutral-100"
@@ -126,7 +126,7 @@ export default function Pagination({
             )}
             <Link
               href={buildHref(totalPages)}
-              className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors min-w-[40px]"
+              className="inline-flex items-center justify-center rounded-full px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors min-w-[40px]"
               aria-label={`Go to page ${totalPages}`}
             >
               {totalPages}
@@ -144,7 +144,7 @@ export default function Pagination({
       {hasNext ? (
         <Link
           href={buildHref(currentPage + 1)}
-          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors"
+          className="inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors"
           aria-label="Go to next page"
         >
           <span className="hidden sm:inline">Next</span>
@@ -165,7 +165,7 @@ export default function Pagination({
         </Link>
       ) : (
         <span
-          className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-300 cursor-not-allowed"
+          className="inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-neutral-300 cursor-not-allowed"
         >
           <span className="hidden sm:inline">Next</span>
           <svg
