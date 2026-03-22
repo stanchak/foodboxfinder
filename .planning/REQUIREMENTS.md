@@ -8,10 +8,10 @@
 ### Unified Interface
 
 - [ ] **UI-01**: User can browse all 95+ providers across all categories from a single /discover page
-- [ ] **UI-02**: User can filter by category using prominent quick-filter buttons (Kayak-style tabs)
-- [ ] **UI-03**: User can filter by all 9 dimensions (category, diet, prep style, value tier, household, model type, geography, shipping, flexibility) from a left sidebar
-- [ ] **UI-04**: User can search by provider name or keyword with autocomplete from a prominent search bar
-- [ ] **UI-05**: User can see active filter count and clear individual or all filters
+- [x] **UI-02**: User can filter by category using prominent quick-filter buttons (Kayak-style tabs)
+- [x] **UI-03**: User can filter by all 9 dimensions (category, diet, prep style, value tier, household, model type, geography, shipping, flexibility) from a left sidebar
+- [x] **UI-04**: User can search by provider name or keyword with autocomplete from a prominent search bar
+- [x] **UI-05**: User can see active filter count and clear individual or all filters
 - [x] **UI-06**: URL search params drive all filter/sort state (shareable URLs)
 - [ ] **UI-07**: Results show provider count with aria-live announcement on filter change
 
@@ -48,7 +48,7 @@
 ### Zero Results & Feedback
 
 - [ ] **UX-01**: Zero-results state with illustration, helpful text, and prominent "Clear Filters" / "Browse All" buttons
-- [ ] **UX-02**: Filter-applied chips displayed above results with individual remove buttons
+- [x] **UX-02**: Filter-applied chips displayed above results with individual remove buttons
 - [ ] **UX-03**: Loading skeletons match the larger card sizes
 
 ## Future Requirements
@@ -73,10 +73,10 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | UI-01 | Phase 17 | Pending |
-| UI-02 | Phase 17 | Pending |
-| UI-03 | Phase 17 | Pending |
-| UI-04 | Phase 17 | Pending |
-| UI-05 | Phase 17 | Pending |
+| UI-02 | Phase 17 | Complete |
+| UI-03 | Phase 17 | Complete |
+| UI-04 | Phase 17 | Complete |
+| UI-05 | Phase 17 | Complete |
 | UI-06 | Phase 17 | Complete |
 | UI-07 | Phase 17 | Pending |
 | A11Y-01 | Phase 18 | Pending |
@@ -98,7 +98,7 @@
 | SIZE-04 | Phase 18 | Pending |
 | SIZE-05 | Phase 18 | Pending |
 | UX-01 | Phase 17 | Pending |
-| UX-02 | Phase 17 | Pending |
+| UX-02 | Phase 17 | Complete |
 | UX-03 | Phase 17 | Pending |
 
 **Coverage:**
