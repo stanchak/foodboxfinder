@@ -23,19 +23,21 @@ export default function ProviderLogo({
 
   return (
     <div
+      role="img"
+      aria-label={`${name} logo`}
       className={`${s.container} rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center overflow-hidden ${className ?? ""}`}
     >
       {logoUrl ? (
         <Image
           src={logoUrl}
-          alt={`${name} logo`}
+          alt=""
           width={s.image}
           height={s.image}
           className={`object-contain ${s.padding}`}
           priority={priority}
         />
       ) : (
-        <span className={`font-bold text-gray-400 ${s.text}`}>
+        <span className={`font-bold text-gray-400 ${s.text}`} aria-hidden="true">
           {name.charAt(0).toUpperCase()}
         </span>
       )}

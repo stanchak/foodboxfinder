@@ -19,7 +19,7 @@ function StarIcon({
 }>) {
   if (type === "full") {
     return (
-      <svg viewBox="0 0 24 24" width={width} height={height} xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 24 24" width={width} height={height} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d={starPath} className="fill-star stroke-star" strokeWidth={1} />
       </svg>
     );
@@ -27,14 +27,14 @@ function StarIcon({
 
   if (type === "empty") {
     return (
-      <svg viewBox="0 0 24 24" width={width} height={height} xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 24 24" width={width} height={height} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d={starPath} className="fill-star-empty stroke-star-empty" strokeWidth={1} />
       </svg>
     );
   }
 
   return (
-    <svg viewBox="0 0 24 24" width={width} height={height} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" width={width} height={height} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
         <linearGradient id={`half-grad-${index}`} x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="50%" style={{ stopColor: "var(--color-star)" }} />

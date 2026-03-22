@@ -49,7 +49,7 @@ export default function ProviderCard({
   return (
     <article className="group relative bg-white rounded-xl shadow-card transition-shadow duration-200 hover:shadow-card-hover overflow-hidden">
       {/* Logo / Image area */}
-      <div className="relative h-40 bg-gray-50 flex items-center justify-center overflow-hidden">
+      <div className="relative h-32 bg-gray-50 flex items-center justify-center overflow-hidden">
         <ProviderLogo
           logoUrl={provider.logoUrl}
           name={provider.name}
@@ -57,8 +57,8 @@ export default function ProviderCard({
           className="group-hover:scale-105 transition-transform duration-200 border-0"
         />
         {provider.freeShipping && (
-          <span className="absolute top-3 right-3 inline-flex items-center rounded-full bg-primary-600 px-2.5 py-0.5 text-xs font-medium text-white">
-            Free Shipping
+          <span className="absolute top-3 right-3">
+            <Badge color="default">Free Shipping</Badge>
           </span>
         )}
         <div className="absolute bottom-3 right-3">
@@ -97,13 +97,13 @@ export default function ProviderCard({
         {/* Rating */}
         <div className="mt-3 flex items-center gap-2">
           <RatingStars rating={provider.averageRating} size="sm" />
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-gray-600 font-medium">
             ({provider.reviewCount})
           </span>
         </div>
 
         {/* Price */}
-        <p className="mt-2 text-sm font-medium text-gray-900">
+        <p className="mt-2 text-base font-semibold text-primary-700">
           {formatPriceLabel(provider.minPricePerServingCents)}
         </p>
 
