@@ -12,37 +12,34 @@ Consumers can quickly discover and compare food box subscriptions that match the
 
 ### Validated
 
-- ✓ Next.js 16 + React 19 + Tailwind CSS 4 + Prisma 7.5 + Neon PostgreSQL stack configured — existing
-- ✓ Prisma schema with Provider, Plan, Review, BlogPost, Collection, AffiliateClick models — existing
-- ✓ Admin route protection via proxy.ts + ADMIN_SECRET — existing
-- ✓ Database singleton with Neon adapter and HMR-safe caching — existing
-- ✓ Root layout with Geist fonts and global CSS — existing
-- ✓ Provider logo/graphic assets for 95 providers prepared and integrity-checked — existing
-- ✓ Normalized dataset of 95 providers with research-backed fields — existing
-- ✓ Research corpus covering 5 categories with landscape analysis — existing
+- ✓ Next.js 16 + React 19 + Tailwind CSS 4 + Prisma 7.5 + Neon PostgreSQL stack — v1.0
+- ✓ Extended Provider schema with 13 dataset fields + ProviderStatus/ValueTier enums — v1.0
+- ✓ 95 providers seeded from research dataset with logo paths from manifest — v1.0
+- ✓ Homepage with hero, featured providers, category cards, social proof — v1.0
+- ✓ Category listing pages with 9-dimension multi-criteria filtering — v1.0
+- ✓ URL search params drive all filter/sort state (shareable URLs) — v1.0
+- ✓ Provider detail pages with full info, plans, logo, and SEO metadata — v1.0
+- ✓ Side-by-side comparison UI for 2-3 providers with field matrix — v1.0
+- ✓ Comparison page with shareable canonical URLs — v1.0
+- ✓ Comparison tray (floating bar) for selecting providers to compare — v1.0
+- ✓ Provider logo rendering with full-bleed hero images and fallbacks — v1.0
+- ✓ SEO metadata + JSON-LD + canonical URLs + sitemap on all public pages — v1.0
+- ✓ Category hub pages with editorial intros and breadcrumbs — v1.0
+- ✓ Server-side search across providers with expandable header bar — v1.0
+- ✓ Admin CRUD with all schema fields + revalidation — v1.0
+- ✓ Admin dashboard with stats and category breakdown — v1.0
+- ✓ Query layer with React.cache() split into domain files — v1.0
+- ✓ Error boundaries, 404 pages, loading skeletons on all routes — v1.0
+- ✓ Mobile-responsive design with filter drawer — v1.0
+- ✓ Affiliate click tracking for outbound provider links — v1.0
+- ✓ WCAG 2.1 AA accessibility (skip nav, focus traps, ARIA, keyboard nav) — v1.0
+- ✓ Visual rebrand: deep teal + warm amber palette, Inter font, modern design system — v1.0
+- ✓ 6 curated "Best for X" collection pages — v1.0
 
 ### Active
 
-- [ ] Extend Provider schema with dataset fields (model_type, prep_style, diet_tags, household_fit, value_tier, geography, shipping_notes, flexibility, pricing_signal, secondary_tags, status)
-- [ ] Seed script to import all 95 providers from food-box-companies.json into database
-- [ ] Homepage with hero, featured providers, category cards, and social proof
-- [ ] Category listing pages with multi-criteria filtering (category, prep style, diet tags, value tier, household fit, geography, flexibility, model type, status)
-- [ ] URL search params drive all filter/sort state (shareable URLs)
-- [ ] Provider detail pages with full info, plans, logo, and SEO metadata
-- [ ] Side-by-side comparison UI for 2-3 providers with field matrix
-- [ ] Comparison page with shareable URL/state
-- [ ] Comparison tray (floating bar) for selecting providers to compare
-- [ ] Provider logo rendering from manifest across cards, detail pages, and compare headers
-- [ ] Fallback image behavior when provider logo is missing
-- [ ] SEO metadata (title, description) and JSON-LD structured data on every public page
-- [ ] Category hub pages generated from provider data
-- [ ] Search functionality across providers
-- [ ] Admin CRUD for provider management
-- [ ] Admin dashboard with stats
-- [ ] Query layer with React.cache() for request-level deduplication
-- [ ] Error boundaries (error.tsx), not-found pages (not-found.tsx), and loading states (loading.tsx)
-- [ ] Mobile-responsive design across all pages
-- [ ] Affiliate click tracking for outbound provider links
+(None — start next milestone to define new requirements)
+
 
 ### Out of Scope
 
@@ -64,13 +61,12 @@ Consumers can quickly discover and compare food box subscriptions that match the
 - **Research corpus**: `temp/plandocs/` — MASTER-LANDSCAPE.md, category deep-dives (meal-kits, prepared-meals, protein-boxes, produce-boxes, specialty-boxes), taxonomy rubric, content matrix.
 - **Status breakdown**: 66 active/hybrid providers (priority), remaining are unclear/discontinued.
 
-### Existing Codebase
-- Next.js 16.2 app with App Router, Server Components by default
-- Prisma schema has Provider, Plan, ProviderDietaryTag, Review, ProviderFaq, BlogPost, Collection, CollectionItem, AffiliateClick
-- Current schema needs extension for dataset fields (model_type, prep_style, household_fit, value_tier, geography, flexibility, etc.)
-- proxy.ts protects /admin/* routes
-- No pages built yet beyond default Next.js template
-- Codebase map available at .planning/codebase/
+### Current State (v1.0 shipped)
+- 34,192 lines of TypeScript across 200+ files
+- 95 providers seeded with 9-dimension filtering, side-by-side comparison, and full SEO
+- Deep teal + warm amber brand identity with Inter + Source Serif 4 typography
+- WCAG 2.1 AA accessible (skip nav, focus traps, ARIA labels, keyboard navigation)
+- 158 commits, 23K insertions in this milestone
 
 ### Import Strategy
 - One-time seed from food-box-companies.json
