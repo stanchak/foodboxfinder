@@ -49,7 +49,7 @@ export default function ProviderCard({
   const remainingTagCount = provider.dietaryTags.length - visibleTags.length;
 
   return (
-    <article className="group relative bg-white rounded-2xl ring-1 ring-neutral-100 shadow-card transition-all duration-200 hover:shadow-lg hover:-translate-y-1 overflow-hidden">
+    <article className="group relative bg-white rounded-2xl ring-1 ring-primary-100 shadow-card transition-all duration-200 hover:shadow-lg hover:-translate-y-1 overflow-hidden">
       {/* Hero image area */}
       <div className="relative h-44 bg-gradient-to-br from-neutral-50 to-neutral-100/80 overflow-hidden">
         {imageUrl ? (
@@ -85,7 +85,7 @@ export default function ProviderCard({
             {categoryInfo.label}
           </Badge>
           {provider.valueTier && VALUE_TIER_LABELS[provider.valueTier] && (
-            <Badge color="default">
+            <Badge color="valueTier">
               {VALUE_TIER_LABELS[provider.valueTier]}
             </Badge>
           )}

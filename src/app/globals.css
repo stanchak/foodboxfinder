@@ -42,7 +42,7 @@
 
   /* Rating Stars — matches primary-600 orange */
   --color-star: oklch(0.646 0.194 38);
-  --color-star-empty: oklch(0.920 0.008 50);
+  --color-star-empty: oklch(0.920 0.035 50);
 
   /* Warm Neutral (hues shifted toward orange for harmony) */
   --color-neutral-50: oklch(0.985 0.004 55);

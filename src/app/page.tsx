@@ -418,7 +418,7 @@ export default async function HomePage() {
 
       {/* --- Browse by Category Section --- */}
       <section
-        className="bg-neutral-100 py-20 sm:py-24"
+        className="bg-primary-50 py-20 sm:py-24"
         aria-labelledby="categories-heading"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

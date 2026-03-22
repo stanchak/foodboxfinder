@@ -615,7 +615,7 @@ export default function CategoryFilters() {
         aria-label="Filter providers"
       >
         <div className="sticky top-20">
-          <div className="bg-white rounded-xl p-5 shadow-sm ring-1 ring-neutral-100">
+          <div className="bg-white rounded-xl p-5 shadow-sm ring-1 ring-primary-100">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-900">Filters</h2>
               {activeFilterCount > 0 && (
