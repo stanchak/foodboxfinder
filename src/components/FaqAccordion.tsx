@@ -71,7 +71,7 @@ export default function FaqAccordion({
               id={panelId}
               role="region"
               aria-labelledby={headingId}
-              className={`overflow-hidden transition-all duration-200 ${isOpen ? "pb-4" : "max-h-0"}`}
+              className={isOpen ? "pb-4" : ""}
               hidden={!isOpen}
             >
               <p className="text-sm text-gray-700 leading-relaxed">

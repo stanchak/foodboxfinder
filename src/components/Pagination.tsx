@@ -63,7 +63,6 @@ export default function Pagination({
       ) : (
         <span
           className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-300 cursor-not-allowed"
-          aria-disabled="true"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -167,7 +166,6 @@ export default function Pagination({
       ) : (
         <span
           className="inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-300 cursor-not-allowed"
-          aria-disabled="true"
         >
           <span className="hidden sm:inline">Next</span>
           <svg

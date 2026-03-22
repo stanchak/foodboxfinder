@@ -26,6 +26,9 @@ export default function CompareBar() {
       aria-label="Comparison selection"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div aria-live="polite" className="sr-only">
+          {selected.length} {selected.length === 1 ? "provider" : "providers"} selected for comparison
+        </div>
         <div className="flex items-center justify-between py-3 gap-4">
           {/* Selected providers */}
           <div className="flex items-center gap-3 min-w-0 overflow-x-auto">
@@ -73,6 +76,7 @@ export default function CompareBar() {
               type="button"
               onClick={clearAll}
               className="text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors px-2 py-1"
+              aria-label="Clear all providers from comparison"
             >
               Clear
             </button>

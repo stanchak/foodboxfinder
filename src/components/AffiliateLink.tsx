@@ -25,6 +25,7 @@ export default function AffiliateLink({
       >
         Visit Site
         <ExternalLinkIcon size={14} />
+        <span className="sr-only">(opens in new tab)</span>
       </a>
     );
   }
@@ -38,6 +39,7 @@ export default function AffiliateLink({
     >
       Visit {providerName}
       <ExternalLinkIcon size={16} />
+      <span className="sr-only">(opens in new tab)</span>
     </a>
   );
 }
