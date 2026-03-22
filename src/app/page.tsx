@@ -298,7 +298,7 @@ export default async function HomePage() {
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/search"
-                className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3.5 text-base font-semibold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-all"
+                className="inline-flex items-center gap-2 rounded-full bg-primary-600 px-6 py-3.5 text-base font-semibold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-all"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -319,7 +319,7 @@ export default async function HomePage() {
               </Link>
               <Link
                 href="/compare"
-                className="inline-flex items-center gap-2 rounded-xl border border-primary-600 px-6 py-3.5 text-base font-semibold text-primary-600 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-primary-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-all"
+                className="inline-flex items-center gap-2 rounded-full border border-primary-600 px-6 py-3.5 text-base font-semibold text-primary-600 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-primary-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-all"
               >
                 Compare Side by Side
               </Link>
@@ -612,13 +612,13 @@ export default async function HomePage() {
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/search"
-                className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3.5 text-base font-semibold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-all"
+                className="inline-flex items-center gap-2 rounded-full bg-primary-600 px-6 py-3.5 text-base font-semibold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-all"
               >
                 Start Exploring
               </Link>
               <Link
                 href="/best"
-                className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 px-6 py-3.5 text-base font-semibold text-neutral-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 transition-all"
+                className="inline-flex items-center gap-2 rounded-full border border-neutral-300 px-6 py-3.5 text-base font-semibold text-neutral-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 transition-all"
               >
                 Browse Collections
               </Link>
