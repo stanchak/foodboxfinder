@@ -294,10 +294,10 @@ Plans:
 **Goal:** Restyle all 10 consumer-facing page layouts to the new brand design language -- font-extrabold headings, rounded-2xl elevated cards, hover lift effects, bg-gray-900 social proof, uppercase tracking-wide labels, frosted glass section nav, /30 opacity semantic backgrounds, and rounded-xl CTA buttons with shadow lift
 **Requirements**: REBRAND-HOMEPAGE, REBRAND-PROVIDER-DETAIL, REBRAND-CATEGORY, REBRAND-SEARCH, REBRAND-COMPARE, REBRAND-COLLECTIONS, REBRAND-BLOG
 **Depends on:** Phase 15
-**Plans:** 2/4 plans executed
+**Plans:** 3/4 plans executed
 
 Plans:
 - [x] 16-01-PLAN.md -- Restyle homepage: diagonal gradient hero, font-extrabold headings, bg-neutral-100 categories, bg-gray-900 social proof, rounded-xl lift CTAs
 - [x] 16-02-PLAN.md -- Restyle provider detail: font-extrabold section headings, frosted glass nav, /30 opacity pros/cons, filled key details, rounded-2xl gradient CTA
-- [ ] 16-03-PLAN.md -- Restyle category, search, and comparison pages: font-extrabold headings, bg-neutral-50 background, rounded-2xl summary cards, rounded-xl buttons
+- [x] 16-03-PLAN.md -- Restyle category, search, and comparison pages: font-extrabold headings, bg-neutral-50 background, rounded-2xl summary cards, rounded-xl buttons
 - [ ] 16-04-PLAN.md -- Restyle collections and blog pages: font-extrabold headings, rounded-2xl cards with hover lift, tracking-widest editorial labels, bg-gray-900 featured badge
