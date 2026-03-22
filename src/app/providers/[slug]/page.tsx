@@ -353,7 +353,7 @@ export default async function ProviderDetailPage({
         {/* Section Navigation */}
         <nav
           aria-label="Page sections"
-          className="mt-8 sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200"
+          className="mt-8 sticky top-16 z-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200"
         >
           <ul className="flex gap-6 overflow-x-auto no-scrollbar">
             {navSections.map((section) => (

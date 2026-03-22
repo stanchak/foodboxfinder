@@ -35,7 +35,7 @@ export default function ProviderLogo({
           priority={priority}
         />
       ) : (
-        <span className={`font-bold text-gray-300 ${s.text}`}>
+        <span className={`font-bold text-gray-400 ${s.text}`}>
           {name.charAt(0).toUpperCase()}
         </span>
       )}
