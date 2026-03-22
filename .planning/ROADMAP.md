@@ -258,13 +258,22 @@ Plans:
 
 ### Phase 14: Visual Rebrand - Design System Foundation
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** Replace the entire design token system (colors, shadows, radii) with the new brand identity (deep teal primary, warm amber accent, warm neutrals) and swap typography from Geist Sans to Inter + Source Serif 4, then update Badge and Button foundation components to the new design language
+**Requirements**: REBRAND-TOKENS, REBRAND-FONTS, REBRAND-BADGE, REBRAND-BUTTON
 **Depends on:** Phase 13
-**Plans:** 0 plans
+**Success Criteria** (what must be TRUE):
+  1. All color tokens use the new oklch values from BRAND_BRIEF.md (teal primary hue ~190, amber accent hue ~48-80, warm neutral hue ~40-80)
+  2. Page background is warm off-white (oklch 0.985 0.004 80) instead of pure white
+  3. Inter is the primary sans font, Source Serif 4 is available as serif, Geist Mono remains for monospace
+  4. Shadows use warm oklch tinting instead of rgb black
+  5. Badge has 6 differentiated variants with distinct shapes per badge type
+  6. Button has press feedback (active:scale), shadow states, and font-semibold
+  7. The build succeeds without errors
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 14 to break down)
+- [ ] 14-01-PLAN.md -- Replace all design tokens in globals.css (colors, shadows, radii, root vars) and swap fonts in layout.tsx to Inter + Source Serif 4 + Geist Mono
+- [ ] 14-02-PLAN.md -- Update Badge.tsx with 6 differentiated variants and new typography; update Button.tsx with press feedback, shadows, and refined styling
 
 ### Phase 15: Visual Rebrand - Component Restyling
 
