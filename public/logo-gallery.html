@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FoodBoxFinder Logo Gallery — 100 Options</title>
+  <title>FoodBoxFinder Logo Gallery — 30 Variations</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -168,7 +168,7 @@
 <body>
   <header>
     <h1>FoodBoxFinder Logo Gallery</h1>
-    <p class="subtitle">100 AI-generated logo options. Click to select your favorites.</p>
+    <p class="subtitle">30 variations of 3 finalists. Click to select your favorites.</p>
   </header>
 
   <div class="controls">
@@ -196,9 +196,16 @@
     const grid = document.getElementById('grid');
     const bar = document.getElementById('selectedBar');
 
-    // Generate 100 cards
-    for (let i = 1; i <= 100; i++) {
-      const num = String(i).padStart(3, '0');
+    const sectionLabels = {1:'Mascot (from #009)',11:'Badge (from #030)',21:'Superhero (from #089)'};
+    // Generate 30 cards
+    for (let i = 1; i <= 30; i++) {
+      if (sectionLabels[i]) {
+        const label = document.createElement('div');
+        label.style.cssText = 'grid-column:1/-1;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#0f766e;padding:1rem 0 0;border-top:2px solid #e5e7eb;margin-top:0.5rem';
+        label.textContent = sectionLabels[i];
+        grid.appendChild(label);
+      }
+      const num = String(i).padStart(2, '0');
       const card = document.createElement('div');
       card.className = 'card';
       card.dataset.num = i;
@@ -229,7 +236,7 @@
       document.getElementById('selectedCount').textContent = count;
       const sorted = [...selected].sort((a, b) => a - b);
       document.getElementById('selectedNumbers').textContent =
-        sorted.map(n => '#' + String(n).padStart(3, '0')).join(', ');
+        sorted.map(n => '#' + String(n).padStart(2, '0')).join(', ');
       bar.classList.toggle('visible', count > 0);
     }
 
@@ -241,7 +248,7 @@
 
     function copySelection() {
       const sorted = [...selected].sort((a, b) => a - b);
-      const text = 'My favorite logos: ' + sorted.map(n => '#' + String(n).padStart(3, '0')).join(', ');
+      const text = 'My favorite logos: ' + sorted.map(n => '#' + String(n).padStart(2, '0')).join(', ');
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.querySelector('.selected-bar button');
         btn.textContent = 'Copied!';
