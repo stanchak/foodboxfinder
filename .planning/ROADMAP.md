@@ -188,11 +188,10 @@ Plans:
   3. Loading states with skeleton components appear during page transitions
   4. All pages render correctly on mobile, tablet, and desktop breakpoints
   5. A sticky header with navigation links and search is visible on all pages
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 11-01: TBD
-- [ ] 11-02: TBD
+- [ ] 11-01-PLAN.md -- Create 5 missing loading.tsx skeleton files (compare, compare/[versus], best, blog, methodology) and verify all UX requirements
 
 ## Progress
 
@@ -212,4 +211,4 @@ Note: Phase 3 and Phase 10 can run in parallel with their neighbors (3 depends o
 | 8. Search | 0/1 | Not started | - |
 | 9. SEO and Collections | 0/2 | Not started | - |
 | 10. Admin | 2/2 | Complete    | 2026-03-21 |
-| 11. UX Polish | 0/2 | Not started | - |
+| 11. UX Polish | 0/1 | Not started | - |
