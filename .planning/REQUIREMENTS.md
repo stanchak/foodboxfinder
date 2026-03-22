@@ -112,11 +112,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Error Handling and UX
 
-- [ ] **UX-01**: error.tsx error boundaries on all route segments
-- [ ] **UX-02**: not-found.tsx custom 404 pages with search and category suggestions
-- [ ] **UX-03**: loading.tsx streaming loading states with skeleton components
-- [ ] **UX-04**: Mobile-responsive design across all pages
-- [ ] **UX-05**: Sticky header with navigation and search
+- [x] **UX-01**: error.tsx error boundaries on all route segments
+- [x] **UX-02**: not-found.tsx custom 404 pages with search and category suggestions
+- [x] **UX-03**: loading.tsx streaming loading states with skeleton components
+- [x] **UX-04**: Mobile-responsive design across all pages
+- [x] **UX-05**: Sticky header with navigation and search
 
 ### Query Layer
 
@@ -234,11 +234,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ADMIN-04 | Phase 10 | Complete |
 | AFF-01 | Phase 4 | Complete |
 | AFF-02 | Phase 4 | Complete |
-| UX-01 | Phase 11 | Pending |
-| UX-02 | Phase 11 | Pending |
-| UX-03 | Phase 11 | Pending |
-| UX-04 | Phase 11 | Pending |
-| UX-05 | Phase 11 | Pending |
+| UX-01 | Phase 11 | Complete |
+| UX-02 | Phase 11 | Complete |
+| UX-03 | Phase 11 | Complete |
+| UX-04 | Phase 11 | Complete |
+| UX-05 | Phase 11 | Complete |
 | QUERY-01 | Phase 2 | Complete |
 | QUERY-02 | Phase 2 | Complete |
 | QUERY-03 | Phase 2 | Complete |
