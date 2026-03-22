@@ -538,17 +538,17 @@ export default async function ProviderDetailPage({
         {/* Flexibility & Shipping */}
         {hasFlexShipping && (
           <section id="flex-shipping" className="mt-10 scroll-mt-16">
-            <h2 className="text-2xl font-bold text-gray-900">Flexibility & Shipping</h2>
+            <h2 className="text-xl font-extrabold text-gray-900">Flexibility & Shipping</h2>
             <div className="mt-4 grid gap-6 sm:grid-cols-2">
               {provider.flexibility && (
                 <div className="rounded-xl border border-primary-200 bg-primary-50/30 p-5">
-                  <h3 className="text-sm font-semibold text-primary-800 uppercase tracking-wide">Flexibility Policy</h3>
+                  <h3 className="text-[11px] font-bold text-primary-800 uppercase tracking-widest">Flexibility Policy</h3>
                   <p className="mt-2 text-sm text-gray-700 leading-relaxed">{provider.flexibility}</p>
                 </div>
               )}
               {provider.shippingNotes && (
                 <div className="rounded-xl border border-gray-200 bg-gray-50/30 p-5">
-                  <h3 className="text-sm font-semibold text-gray-800 uppercase tracking-wide">Shipping Details</h3>
+                  <h3 className="text-[11px] font-bold text-gray-800 uppercase tracking-widest">Shipping Details</h3>
                   <p className="mt-2 text-sm text-gray-700 leading-relaxed">{provider.shippingNotes}</p>
                 </div>
               )}
@@ -558,7 +558,7 @@ export default async function ProviderDetailPage({
 
         {/* Plans & Pricing Section */}
         <section id="plans" className="mt-14 scroll-mt-16">
-          <h2 className="text-2xl font-bold text-gray-900">Plans & Pricing</h2>
+          <h2 className="text-xl font-extrabold text-gray-900">Plans & Pricing</h2>
           <p className="mt-2 text-gray-600">
             Compare available plans from {provider.name} to find the best fit for your needs.
           </p>
@@ -569,7 +569,7 @@ export default async function ProviderDetailPage({
 
         {/* Reviews Section */}
         <section id="reviews" className="mt-14 scroll-mt-16">
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-xl font-extrabold text-gray-900">
             Customer Reviews
           </h2>
 
@@ -599,7 +599,7 @@ export default async function ProviderDetailPage({
 
           {/* Review submission form */}
           <div className="mt-10 rounded-xl border border-gray-200 bg-gray-50/50 p-6">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-bold text-gray-900">
               Write a Review
             </h3>
             <p className="mt-1 text-sm text-gray-500">
@@ -614,7 +614,7 @@ export default async function ProviderDetailPage({
         {/* FAQ Section */}
         {provider.faqs.length > 0 && (
           <section id="faq" className="mt-14 scroll-mt-16">
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-xl font-extrabold text-gray-900">
               Frequently Asked Questions
             </h2>
             <p className="mt-2 text-gray-600">
@@ -633,8 +633,8 @@ export default async function ProviderDetailPage({
         )}
 
         {/* Bottom CTA */}
-        <section className="mt-14 rounded-xl border border-accent-200 bg-accent-50/50 p-6 sm:p-8 text-center">
-          <h2 className="text-xl font-bold text-gray-900">
+        <section className="mt-14 rounded-2xl bg-gradient-to-br from-primary-50 via-accent-50/30 to-primary-50 p-8 sm:p-10 text-center">
+          <h2 className="text-xl font-extrabold text-gray-900">
             Ready to try {provider.name}?
           </h2>
           <p className="mt-2 text-gray-600 max-w-xl mx-auto">
@@ -661,7 +661,7 @@ export default async function ProviderDetailPage({
         {/* Related Providers */}
         {relatedProviders.length > 0 && (
           <section className="mt-14 mb-10">
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-xl font-extrabold text-gray-900">
               Similar {categoryInfo.label}
             </h2>
             <p className="mt-2 text-gray-600">
