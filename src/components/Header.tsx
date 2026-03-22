@@ -8,14 +8,14 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-neutral-100 shadow-header">
       <nav aria-label="Main" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-24">
           <Link href="/" className="flex-shrink-0">
             <Image
               src="/foodboxfinder-logo-transparent.png"
               alt="FoodBoxFinder"
-              width={180}
-              height={48}
-              className="h-12 w-auto object-contain"
+              width={280}
+              height={72}
+              className="h-[72px] w-auto object-contain"
               priority
             />
           </Link>
