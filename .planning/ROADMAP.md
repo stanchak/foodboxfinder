@@ -280,12 +280,12 @@ Plans:
 **Goal:** Restyle all 15 shared components to the new brand design language -- frosted glass chrome, elevated cards with hover lift, warm alternating table rows, pill search, dark footer, and consistent use of the new oklch color tokens
 **Requirements**: REBRAND-HEADER, REBRAND-FOOTER, REBRAND-MOBILENAV, REBRAND-PROVIDERCARD, REBRAND-PROVIDERLOGO, REBRAND-BREADCRUMBS, REBRAND-COMPARISONTABLE, REBRAND-PRICINGTABLE, REBRAND-COMPAREBAR, REBRAND-CATEGORYFILTERS, REBRAND-HEADERSEARCHFORM, REBRAND-FAQACCORDION, REBRAND-REVIEWCARD, REBRAND-RATINGBREAKDOWN, REBRAND-AFFILIATELINK
 **Depends on:** Phase 14
-**Plans:** 1/5 plans executed
+**Plans:** 2/5 plans executed
 
 Plans:
 - [ ] 15-01-PLAN.md -- Restyle Header (frosted glass, font-extrabold logo), Footer (dark bg-gray-900, uppercase headings), MobileNav (wider drawer, neutral hover)
 - [ ] 15-02-PLAN.md -- Restyle ProviderCard (rounded-2xl, hover lift, gradient logo area, bold pricing), ProviderLogo (rounded-2xl, shadow-xs), Breadcrumbs (text-xs text-gray-400)
-- [ ] 15-03-PLAN.md -- Restyle ComparisonTable (rounded-2xl, p-6 headers, warm rows), PricingTable (featured scale, text-4xl prices), CompareBar (frosted glass, dark chips, accent button)
+- [x] 15-03-PLAN.md -- Restyle ComparisonTable (rounded-2xl, p-6 headers, warm rows), PricingTable (featured scale, text-4xl prices), CompareBar (frosted glass, dark chips, accent button)
 - [ ] 15-04-PLAN.md -- Restyle CategoryFilters (card container, divide-y groups, active chips), HeaderSearchForm (pill shape, focus expand)
 - [x] 15-05-PLAN.md -- Restyle FaqAccordion (rounded-xl container, hover:bg-gray-50), ReviewCard (py-8, neutral avatar), RatingBreakdown (h-2 bars, font-extrabold), AffiliateLink (rounded-xl, hover lift)
 
