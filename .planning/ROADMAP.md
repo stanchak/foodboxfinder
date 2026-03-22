@@ -11,7 +11,7 @@
 
 - [ ] **Phase 17: Unified Discovery Page** — Build the core /search page with unified provider grid, category quick-filters, left sidebar filters, search bar, and feedback states
 - [ ] **Phase 18: Accessibility & Design System Updates** — Increase all font/button/card sizes for elderly accessibility, add category color tokens, update component sizing across the site
-- [ ] **Phase 19: Navigation & Route Simplification** — Simplify header nav, update homepage CTA, redirect old category routes to /discover, remove redundant pages
+- [ ] **Phase 19: Navigation & Route Simplification** — Simplify header nav, update homepage CTA, redirect old category routes to /search, remove redundant pages
 
 ## Progress
 
@@ -19,7 +19,7 @@
 |-------|------|--------|-------|---------|-----------|
 | 17 | Unified Discovery Page | Planned | 3 plans | — | — |
 | 18 | Accessibility & Design System Updates | Planned | 3 plans | — | — |
-| 19 | Navigation & Route Simplification | Pending | — | — | — |
+| 19 | Navigation & Route Simplification | Planned | 2 plans | — | — |
 
 ## Phase Details
 
@@ -70,14 +70,20 @@ Plans:
 
 ### Phase 19: Navigation & Route Simplification
 
-**Goal:** Simplify site navigation to center on /discover, redirect old category pages, and update the homepage.
+**Goal:** Simplify site navigation to center on /search, redirect old category pages, and update the homepage.
 
 **Requirements:** NAV-01, NAV-02, NAV-03, NAV-04
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 19-01-PLAN.md — Simplify Header, MobileNav, and Footer navigation links
+- [ ] 19-02-PLAN.md — Update homepage category links, add proxy.ts redirects, update sitemap
+
 **Success Criteria:**
 1. Header shows: Logo, Discover, Compare, Best Of, Blog (no individual category links)
-2. Homepage hero CTA links to /discover
-3. Old category URLs (/meal-kits, /protein-boxes, etc.) redirect to /discover?category={slug}
+2. Homepage category cards link to /search?category={slug}
+3. Old category URLs (/meal-kits, /protein-boxes, etc.) redirect to /search?category={slug}
 4. Sitemap updated with new URL structure
 5. Compare, Blog, Best Of pages unchanged and accessible
 
