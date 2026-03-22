@@ -35,6 +35,28 @@ const SORT_LABELS: Record<string, string> = {
 
 const FILTER_PARAM_KEYS = ["diet", "prep", "valueTier", "household", "model", "geo"] as const;
 
+// --- Chevron Icon ---
+
+function ChevronIcon({ expanded }: Readonly<{ expanded: boolean }>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`shrink-0 w-4 h-4 text-gray-400 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+      aria-hidden="true"
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  );
+}
+
 // --- Active Filter Chips ---
 
 export function ActiveFilterChips() {
@@ -170,7 +192,7 @@ export function ActiveFilterChips() {
       <button
         type="button"
         onClick={handleClearAll}
-        className="text-xs font-medium text-primary-600 hover:text-primary-800 transition-colors"
+        className="text-xs font-medium text-primary-600 hover:text-primary-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
       >
         Clear all
       </button>
@@ -189,6 +211,16 @@ export default function CategoryFilters() {
   const drawerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const wasDrawerOpenRef = useRef(false);
+  const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
+
+  function toggleGroup(group: string) {
+    setCollapsedGroups(prev => {
+      const next = new Set(prev);
+      if (next.has(group)) next.delete(group);
+      else next.add(group);
+      return next;
+    });
+  }
 
   // Focus trap and Escape handler for mobile drawer
   useEffect(() => {
@@ -340,154 +372,219 @@ export default function CategoryFilters() {
         </select>
       </div>
 
-      {/* Dietary Preferences */}
+      {/* Dietary Preferences (multi-select -- stays as checkboxes) */}
       <fieldset>
-        <legend className="block text-sm font-medium text-gray-700 mb-2">
-          Dietary Preferences
+        <legend className="contents">
+          <button
+            type="button"
+            onClick={() => toggleGroup("diet")}
+            className="flex w-full items-center justify-between text-sm font-medium text-gray-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            aria-expanded={!collapsedGroups.has("diet")}
+          >
+            Dietary Preferences
+            <ChevronIcon expanded={!collapsedGroups.has("diet")} />
+          </button>
         </legend>
-        <div className="space-y-2 max-h-64 overflow-y-auto">
-          {DIETARY_TAG_OPTIONS.map((option) => (
-            <label
-              key={option.value}
-              className="flex items-center gap-2.5 cursor-pointer group/check"
-            >
-              <input
-                type="checkbox"
-                checked={activeDietaryTags.has(option.value)}
-                onChange={() => handleDietaryToggle(option.value)}
-                className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
-              />
-              <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
-                {option.label}
-              </span>
-            </label>
-          ))}
-        </div>
+        {!collapsedGroups.has("diet") && (
+          <div className="space-y-2 max-h-64 overflow-y-auto">
+            {DIETARY_TAG_OPTIONS.map((option) => (
+              <label
+                key={option.value}
+                className="flex items-center gap-2.5 cursor-pointer group/check"
+              >
+                <input
+                  type="checkbox"
+                  checked={activeDietaryTags.has(option.value)}
+                  onChange={() => handleDietaryToggle(option.value)}
+                  className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                />
+                <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
+                  {option.label}
+                </span>
+              </label>
+            ))}
+          </div>
+        )}
       </fieldset>
 
-      {/* Prep Style */}
+      {/* Prep Style (single-select -- radio) */}
       <fieldset>
-        <legend className="block text-sm font-medium text-gray-700 mb-2">
-          Prep Style
+        <legend className="contents">
+          <button
+            type="button"
+            onClick={() => toggleGroup("prep")}
+            className="flex w-full items-center justify-between text-sm font-medium text-gray-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            aria-expanded={!collapsedGroups.has("prep")}
+          >
+            Prep Style
+            <ChevronIcon expanded={!collapsedGroups.has("prep")} />
+          </button>
         </legend>
-        <div className="space-y-2">
-          {Object.entries(PREP_STYLE_GROUPS).map(([key, group]) => (
-            <label
-              key={key}
-              className="flex items-center gap-2.5 cursor-pointer group/check"
-            >
-              <input
-                type="checkbox"
-                checked={currentPrep === key}
-                onChange={() => handleSingleSelect("prep", key, currentPrep)}
-                className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
-              />
-              <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
-                {group.label}
-              </span>
-            </label>
-          ))}
-        </div>
+        {!collapsedGroups.has("prep") && (
+          <div className="space-y-2">
+            {Object.entries(PREP_STYLE_GROUPS).map(([key, group]) => (
+              <label
+                key={key}
+                className="flex items-center gap-2.5 cursor-pointer group/check"
+              >
+                <input
+                  type="radio"
+                  name="prep"
+                  checked={currentPrep === key}
+                  onChange={() => handleSingleSelect("prep", key, currentPrep)}
+                  className="h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                />
+                <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
+                  {group.label}
+                </span>
+              </label>
+            ))}
+          </div>
+        )}
       </fieldset>
 
-      {/* Value Tier */}
+      {/* Value Tier (single-select -- radio) */}
       <fieldset>
-        <legend className="block text-sm font-medium text-gray-700 mb-2">
-          Value Tier
+        <legend className="contents">
+          <button
+            type="button"
+            onClick={() => toggleGroup("valueTier")}
+            className="flex w-full items-center justify-between text-sm font-medium text-gray-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            aria-expanded={!collapsedGroups.has("valueTier")}
+          >
+            Value Tier
+            <ChevronIcon expanded={!collapsedGroups.has("valueTier")} />
+          </button>
         </legend>
-        <div className="space-y-2">
-          {Object.keys(VALUE_TIER_SLUGS).map((key) => (
-            <label
-              key={key}
-              className="flex items-center gap-2.5 cursor-pointer group/check"
-            >
-              <input
-                type="checkbox"
-                checked={currentValueTier === key}
-                onChange={() => handleSingleSelect("valueTier", key, currentValueTier)}
-                className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
-              />
-              <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
-                {VALUE_TIER_LABELS[key]}
-              </span>
-            </label>
-          ))}
-        </div>
+        {!collapsedGroups.has("valueTier") && (
+          <div className="space-y-2">
+            {Object.keys(VALUE_TIER_SLUGS).map((key) => (
+              <label
+                key={key}
+                className="flex items-center gap-2.5 cursor-pointer group/check"
+              >
+                <input
+                  type="radio"
+                  name="valueTier"
+                  checked={currentValueTier === key}
+                  onChange={() => handleSingleSelect("valueTier", key, currentValueTier)}
+                  className="h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                />
+                <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
+                  {VALUE_TIER_LABELS[key]}
+                </span>
+              </label>
+            ))}
+          </div>
+        )}
       </fieldset>
 
-      {/* Household Fit */}
+      {/* Household Fit (single-select -- radio) */}
       <fieldset>
-        <legend className="block text-sm font-medium text-gray-700 mb-2">
-          Household Fit
+        <legend className="contents">
+          <button
+            type="button"
+            onClick={() => toggleGroup("household")}
+            className="flex w-full items-center justify-between text-sm font-medium text-gray-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            aria-expanded={!collapsedGroups.has("household")}
+          >
+            Household Fit
+            <ChevronIcon expanded={!collapsedGroups.has("household")} />
+          </button>
         </legend>
-        <div className="space-y-2">
-          {HOUSEHOLD_FIT_VALUES.map((value) => (
-            <label
-              key={value}
-              className="flex items-center gap-2.5 cursor-pointer group/check"
-            >
-              <input
-                type="checkbox"
-                checked={currentHousehold === value}
-                onChange={() => handleSingleSelect("household", value, currentHousehold)}
-                className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
-              />
-              <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
-                {formatFilterLabel(value)}
-              </span>
-            </label>
-          ))}
-        </div>
+        {!collapsedGroups.has("household") && (
+          <div className="space-y-2">
+            {HOUSEHOLD_FIT_VALUES.map((value) => (
+              <label
+                key={value}
+                className="flex items-center gap-2.5 cursor-pointer group/check"
+              >
+                <input
+                  type="radio"
+                  name="household"
+                  checked={currentHousehold === value}
+                  onChange={() => handleSingleSelect("household", value, currentHousehold)}
+                  className="h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                />
+                <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
+                  {formatFilterLabel(value)}
+                </span>
+              </label>
+            ))}
+          </div>
+        )}
       </fieldset>
 
-      {/* Model Type */}
+      {/* Model Type (single-select -- radio) */}
       <fieldset>
-        <legend className="block text-sm font-medium text-gray-700 mb-2">
-          Model Type
+        <legend className="contents">
+          <button
+            type="button"
+            onClick={() => toggleGroup("model")}
+            className="flex w-full items-center justify-between text-sm font-medium text-gray-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            aria-expanded={!collapsedGroups.has("model")}
+          >
+            Model Type
+            <ChevronIcon expanded={!collapsedGroups.has("model")} />
+          </button>
         </legend>
-        <div className="space-y-2">
-          {Object.entries(MODEL_TYPE_GROUPS).map(([key, group]) => (
-            <label
-              key={key}
-              className="flex items-center gap-2.5 cursor-pointer group/check"
-            >
-              <input
-                type="checkbox"
-                checked={currentModel === key}
-                onChange={() => handleSingleSelect("model", key, currentModel)}
-                className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
-              />
-              <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
-                {group.label}
-              </span>
-            </label>
-          ))}
-        </div>
+        {!collapsedGroups.has("model") && (
+          <div className="space-y-2">
+            {Object.entries(MODEL_TYPE_GROUPS).map(([key, group]) => (
+              <label
+                key={key}
+                className="flex items-center gap-2.5 cursor-pointer group/check"
+              >
+                <input
+                  type="radio"
+                  name="model"
+                  checked={currentModel === key}
+                  onChange={() => handleSingleSelect("model", key, currentModel)}
+                  className="h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                />
+                <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
+                  {group.label}
+                </span>
+              </label>
+            ))}
+          </div>
+        )}
       </fieldset>
 
-      {/* Geography */}
+      {/* Geography (single-select -- radio) */}
       <fieldset>
-        <legend className="block text-sm font-medium text-gray-700 mb-2">
-          Geography
+        <legend className="contents">
+          <button
+            type="button"
+            onClick={() => toggleGroup("geo")}
+            className="flex w-full items-center justify-between text-sm font-medium text-gray-700 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            aria-expanded={!collapsedGroups.has("geo")}
+          >
+            Geography
+            <ChevronIcon expanded={!collapsedGroups.has("geo")} />
+          </button>
         </legend>
-        <div className="space-y-2">
-          {Object.entries(GEOGRAPHY_GROUPS).map(([key, group]) => (
-            <label
-              key={key}
-              className="flex items-center gap-2.5 cursor-pointer group/check"
-            >
-              <input
-                type="checkbox"
-                checked={currentGeo === key}
-                onChange={() => handleSingleSelect("geo", key, currentGeo)}
-                className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
-              />
-              <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
-                {group.label}
-              </span>
-            </label>
-          ))}
-        </div>
+        {!collapsedGroups.has("geo") && (
+          <div className="space-y-2">
+            {Object.entries(GEOGRAPHY_GROUPS).map(([key, group]) => (
+              <label
+                key={key}
+                className="flex items-center gap-2.5 cursor-pointer group/check"
+              >
+                <input
+                  type="radio"
+                  name="geo"
+                  checked={currentGeo === key}
+                  onChange={() => handleSingleSelect("geo", key, currentGeo)}
+                  className="h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2 focus:ring-offset-1"
+                />
+                <span className="text-sm text-gray-700 group-hover/check:text-gray-900">
+                  {group.label}
+                </span>
+              </label>
+            ))}
+          </div>
+        )}
       </fieldset>
 
       {/* Clear All */}
@@ -495,7 +592,7 @@ export default function CategoryFilters() {
         <button
           type="button"
           onClick={handleClearAll}
-          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
         >
           Clear All Filters
         </button>
@@ -630,7 +727,7 @@ export default function CategoryFilters() {
               <button
                 type="button"
                 onClick={() => setDrawerOpen(false)}
-                className="w-full rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-primary-700 transition-colors"
+                className="w-full rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-primary-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
               >
                 Show Results
               </button>
