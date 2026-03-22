@@ -1,5 +1,22 @@
 # Milestones
 
+## v2.0 Unified Discovery Interface (Shipped: 2026-03-22)
+
+**Phases completed:** 3 phases, 8 plans, 16 tasks
+
+**Key accomplishments:**
+
+- ProviderFilters extended with textQuery (case-insensitive contains on name/shortDescription/description) and freeShipping (exact boolean match), default pageSize 18
+- SearchHero with 400ms debounce search + category tabs, UnifiedFilters with 320px chip-style sidebar and mobile bottom sheet covering all 9 filter dimensions
+- Unified /search page composing SearchHero, UnifiedFilters sidebar, ProviderCard grid, pagination, and zero-results state with JSON-LD and loading skeleton
+- 5 oklch category color palettes with CATEGORY_COLOR_MAP, 48px+ Button touch targets, 12px Badge text with per-category coloring
+- 16px minimum text, 20px inputs, and 44px touch targets across all filter, pagination, navigation, and rating components
+- Category-colored border-top accents on ProviderCard, increased text/padding sizing, 3-column desktop grid, and SVG category icons on SearchHero quick-filter tabs
+- Replaced 5 individual category nav links with single Discover link pointing to /search, updated footer to use /search?category= routes
+- Homepage category cards link to /search?category={slug}, old /{category} URLs permanently redirect via proxy.ts, sitemap updated for new URL structure
+
+---
+
 ## v1.0 FoodBoxFinder MVP (Shipped: 2026-03-22)
 
 **Phases completed:** 16 phases, 34 plans, 64 tasks

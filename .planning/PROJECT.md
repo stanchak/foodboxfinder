@@ -36,25 +36,21 @@ Consumers can quickly discover and compare food box subscriptions that match the
 - ✓ Visual rebrand: deep teal + warm amber palette, Inter font, modern design system — v1.0
 - ✓ 6 curated "Best for X" collection pages — v1.0
 
+- ✓ Unified Kayak-style /search page replacing separate category pages — v2.0
+- ✓ Category quick-filter buttons with per-category color coding (5 palettes) — v2.0
+- ✓ Elderly-accessible font sizes (16px min body, 44px+ touch targets) — v2.0
+- ✓ Simplified navigation (Discover/Compare/Best Of/Blog) — v2.0
+- ✓ Large left sidebar filters with chip-style button interactions — v2.0
+- ✓ Zero-results and filter-applied feedback states — v2.0
+- ✓ 301 redirects for old category URLs preserving SEO — v2.0
+- ✓ Mobile bottom sheet filter drawer — v2.0
+- ✓ Citrus Pop theme (orange primary, teal accent, Nunito fonts) — v2.0
+- ✓ AI-generated cover images for collections and blog posts — v2.0
+- ✓ FoodBoxFinder mascot logo with transparent background — v2.0
+
 ### Active
 
-- [ ] Unified Kayak-style search/filter interface replacing separate category pages
-- [ ] Category quick-filter buttons with per-category color coding
-- [ ] Elderly-accessible font sizes (16px min body, 44px touch targets)
-- [ ] Simplified navigation (remove redundant category nav)
-- [ ] Large left sidebar filters with button-style interactions
-- [ ] Zero-results and filter-applied feedback states
-
-## Current Milestone: v2.0 Unified Discovery Interface
-
-**Goal:** Replace separate category pages with a single Kayak-style unified search/filter interface. All 95+ providers discoverable from one page with large, accessible filters. Elderly-friendly font sizes and touch targets throughout.
-
-**Target features:**
-- Unified /discover page with all providers, filterable by all 9 dimensions
-- Category quick-filter buttons (Kayak-style tabs) with color coding
-- Large accessible left sidebar filters (16px+ text, 44px+ touch targets)
-- Simplified header navigation
-- Responsive mobile filter drawer
+(None — start next milestone to define new requirements)
 
 
 ### Out of Scope
@@ -128,4 +124,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-22 after v2.0 milestone start*
+*Last updated: 2026-03-22 after v2.0 milestone complete*
