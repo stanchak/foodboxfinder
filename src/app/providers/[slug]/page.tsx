@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import ProviderLogo from "@/components/ProviderLogo";
+import Image from "next/image";
 import type { DietaryTag, ProviderStatus } from "@/generated/prisma/client";
 import {
   getProviderBySlug,
@@ -232,121 +232,129 @@ export default async function ProviderDetailPage({
         {/* Breadcrumbs */}
         <Breadcrumbs items={breadcrumbItems} />
 
-        {/* Hero Section */}
-        <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
-          {/* Logo */}
-          <ProviderLogo
-            logoUrl={provider.logoUrl}
-            name={provider.name}
-            size="lg"
-            priority
-            className="shrink-0 w-full lg:w-48"
-          />
+        {/* Hero Image */}
+        {(provider.heroImageUrl ?? provider.logoUrl) ? (
+          <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100/80">
+            <Image
+              src={(provider.heroImageUrl ?? provider.logoUrl)!}
+              alt={provider.name}
+              fill
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              className="object-cover"
+              priority
+            />
+          </div>
+        ) : (
+          <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100/80 flex items-center justify-center">
+            <span className="text-7xl font-extrabold text-gray-200" aria-hidden="true">
+              {provider.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+        )}
 
-          {/* Header Info */}
-          <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge color="category">{categoryInfo.label}</Badge>
-              {provider.secondaryCategory && (
-                <Badge color="default">
-                  {CATEGORY_MAP[provider.secondaryCategory].label}
-                </Badge>
-              )}
-              {provider.freeShipping && (
-                <Badge color="dietary">Free Shipping</Badge>
-              )}
-              {provider.status !== "ACTIVE" && (
-                <span
-                  className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${getStatusStyle(provider.status)}`}
-                >
-                  {provider.status.charAt(0) + provider.status.slice(1).toLowerCase()}
-                </span>
-              )}
-            </div>
-
-            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              {provider.name}
-            </h1>
-
-            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-              {provider.reviewCount > 0 ? (
-                <a
-                  href="#reviews"
-                  className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-                >
-                  <RatingStars rating={provider.averageRating} size="md" />
-                  <span className="text-sm text-gray-500">
-                    ({provider.reviewCount} {provider.reviewCount === 1 ? "review" : "reviews"})
-                  </span>
-                </a>
-              ) : (
-                <span className="text-sm text-gray-500">No reviews yet</span>
-              )}
-
-              <span className="text-sm font-semibold text-primary-700">
-                {formatPriceRange(
-                  provider.minPricePerServingCents,
-                  provider.maxPricePerServingCents,
-                )}
-                {provider.minPricePerServingCents != null ? "/serving" : ""}
+        {/* Header Info */}
+        <div className="mt-6">
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge color="category">{categoryInfo.label}</Badge>
+            {provider.secondaryCategory && (
+              <Badge color="default">
+                {CATEGORY_MAP[provider.secondaryCategory].label}
+              </Badge>
+            )}
+            {provider.freeShipping && (
+              <Badge color="dietary">Free Shipping</Badge>
+            )}
+            {provider.status !== "ACTIVE" && (
+              <span
+                className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${getStatusStyle(provider.status)}`}
+              >
+                {provider.status.charAt(0) + provider.status.slice(1).toLowerCase()}
               </span>
-            </div>
+            )}
+          </div>
 
-            <p className="mt-4 text-gray-700 leading-relaxed max-w-3xl">
-              {provider.shortDescription ?? provider.description}
-            </p>
+          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            {provider.name}
+          </h1>
 
-            {/* Dietary tags */}
-            {provider.dietaryTags.length > 0 && (
-              <div className="mt-4 flex flex-wrap gap-2">
-                {provider.dietaryTags.map((dt) => (
-                  <Badge key={dt.tag} color="dietary">
-                    {formatDietaryTagLabel(dt.tag)}
-                  </Badge>
-                ))}
-              </div>
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+            {provider.reviewCount > 0 ? (
+              <a
+                href="#reviews"
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              >
+                <RatingStars rating={provider.averageRating} size="md" />
+                <span className="text-sm text-gray-500">
+                  ({provider.reviewCount} {provider.reviewCount === 1 ? "review" : "reviews"})
+                </span>
+              </a>
+            ) : (
+              <span className="text-sm text-gray-500">No reviews yet</span>
             )}
 
-            {/* CTA and website links */}
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <AffiliateLink
-                providerId={provider.id}
-                providerName={provider.name}
-                affiliateUrl={provider.affiliateUrl}
-                website={provider.website}
-                source={`/providers/${provider.slug}`}
-              />
-              <a
-                href={provider.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2 transition-colors"
-              >
-                Official Website
-              </a>
-            </div>
+            <span className="text-sm font-semibold text-primary-700">
+              {formatPriceRange(
+                provider.minPricePerServingCents,
+                provider.maxPricePerServingCents,
+              )}
+              {provider.minPricePerServingCents != null ? "/serving" : ""}
+            </span>
+          </div>
 
-            {/* Quick details */}
-            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-600">
-              {provider.foundedYear && (
-                <span>Founded {provider.foundedYear}</span>
-              )}
-              {provider.headquarters && (
-                <span>HQ: {provider.headquarters}</span>
-              )}
-              {provider.deliveryAreaDescription && (
-                <span>Delivers: {provider.deliveryAreaDescription}</span>
-              )}
-              {provider.lastVerifiedAt && (
-                <span>
-                  Verified{" "}
-                  {new Intl.DateTimeFormat("en-US", {
-                    month: "short",
-                    year: "numeric",
-                  }).format(provider.lastVerifiedAt)}
-                </span>
-              )}
+          <p className="mt-4 text-gray-700 leading-relaxed max-w-3xl">
+            {provider.shortDescription ?? provider.description}
+          </p>
+
+          {/* Dietary tags */}
+          {provider.dietaryTags.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {provider.dietaryTags.map((dt) => (
+                <Badge key={dt.tag} color="dietary">
+                  {formatDietaryTagLabel(dt.tag)}
+                </Badge>
+              ))}
             </div>
+          )}
+
+          {/* CTA and website links */}
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <AffiliateLink
+              providerId={provider.id}
+              providerName={provider.name}
+              affiliateUrl={provider.affiliateUrl}
+              website={provider.website}
+              source={`/providers/${provider.slug}`}
+            />
+            <a
+              href={provider.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2 transition-colors"
+            >
+              Official Website
+            </a>
+          </div>
+
+          {/* Quick details */}
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-600">
+            {provider.foundedYear && (
+              <span>Founded {provider.foundedYear}</span>
+            )}
+            {provider.headquarters && (
+              <span>HQ: {provider.headquarters}</span>
+            )}
+            {provider.deliveryAreaDescription && (
+              <span>Delivers: {provider.deliveryAreaDescription}</span>
+            )}
+            {provider.lastVerifiedAt && (
+              <span>
+                Verified{" "}
+                {new Intl.DateTimeFormat("en-US", {
+                  month: "short",
+                  year: "numeric",
+                }).format(provider.lastVerifiedAt)}
+              </span>
+            )}
           </div>
         </div>
 
