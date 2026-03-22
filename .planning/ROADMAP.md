@@ -215,13 +215,24 @@ Note: Phase 3 and Phase 10 can run in parallel with their neighbors (3 depends o
 
 ### Phase 12: Critical Design & Accessibility Fixes
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** All P0 design and accessibility issues from UX/UI/A11y agent reviews are fixed -- skip navigation, focus traps, keyboard accessibility, visual consistency, and comparison flow from listing pages
+**Requirements**: P0-SKIP-NAV, P0-FOCUS-VISIBLE, P0-LOGO-CONTRAST, P0-ICON-CONSISTENCY, P0-SECTION-NAV, P0-COMPARE-PADDING, P0-MOBILE-SEARCH, P0-MOBILENAV-FOCUS-TRAP, P0-FILTERS-FOCUS-TRAP, P0-COMPARE-BUTTON, P0-STRETCHED-LINK
 **Depends on:** Phase 11
-**Plans:** 0 plans
+**Success Criteria** (what must be TRUE):
+  1. Keyboard users can skip to main content via a visible skip link
+  2. All interactive elements show a visible :focus-visible ring
+  3. MobileNav and CategoryFilters drawers trap focus, close on Escape, and return focus on close
+  4. ProviderCard uses stretched-link pattern with a working AddToCompareButton
+  5. Check/X icons use consistent colors across ComparisonTable and PricingTable
+  6. Provider detail section nav does not overlap the sticky header
+  7. Page content is not hidden behind CompareBar
+  8. Search is accessible on mobile viewports
+**Plans:** 3 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 12 to break down)
+- [ ] 12-01-PLAN.md -- Skip nav, focus-visible baseline, ProviderLogo contrast, icon standardization, section nav z-index, CompareBar padding, mobile search visibility
+- [ ] 12-02-PLAN.md -- MobileNav and CategoryFilters focus traps, Escape handlers, focus return, ARIA attributes
+- [ ] 12-03-PLAN.md -- AddToCompareButton component and ProviderCard stretched-link refactor
 
 ### Phase 13: Design Polish & UX Improvements
 
