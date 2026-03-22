@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getFilteredProviders, getCategoryCounts } from "@/lib/queries";
 import { parseProviderFilters } from "@/lib/filters";
-import SearchHero from "@/components/SearchHero";
 import UnifiedFilters, { UnifiedActiveFilterChips } from "@/components/UnifiedFilters";
 import ProviderCard from "@/components/ProviderCard";
 import Pagination from "@/components/Pagination";
@@ -72,17 +71,12 @@ export default async function SearchPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
-      {/* Search hero with search bar + category tabs */}
-      <Suspense fallback={null}>
-        <SearchHero categoryCounts={categoryCounts} totalCount={total} />
-      </Suspense>
-
       {/* Main content: sidebar + results */}
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="lg:flex lg:gap-8">
           {/* Filter sidebar (desktop) + mobile trigger */}
           <Suspense fallback={null}>
-            <UnifiedFilters totalCount={total} />
+            <UnifiedFilters totalCount={total} categoryCounts={categoryCounts} />
           </Suspense>
 
           {/* Results column */}
