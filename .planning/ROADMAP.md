@@ -255,3 +255,33 @@ Plans:
 - [x] 13-02-PLAN.md -- ComparisonTable th scope=row, CTA background, View Details text link with aria-labels; PricingTable sr-only boolean text
 - [x] 13-03-PLAN.md -- ProviderCard visual fixes, ProviderLogo accessibility, RatingStars aria-hidden; CompareBar aria-live, AffiliateLink sr-only, FaqAccordion cleanup, Pagination fix
 - [x] 13-04-PLAN.md -- Homepage scroll indicator gradient for mobile featured providers
+
+### Phase 14: Visual Rebrand - Design System Foundation
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 13
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 14 to break down)
+
+### Phase 15: Visual Rebrand - Component Restyling
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 14
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 15 to break down)
+
+### Phase 16: Visual Rebrand - Page Restyling
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 15
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 16 to break down)
