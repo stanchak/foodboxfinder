@@ -57,7 +57,7 @@ Plans:
 Plans:
 - [x] 18-01-PLAN.md — Category color tokens, CATEGORY_COLOR_MAP, Button/Badge/Skeleton sizing
 - [x] 18-02-PLAN.md — Filter, pagination, header, and rating accessibility sizing
-- [ ] 18-03-PLAN.md — ProviderCard category colors, grid layout, SearchHero icons, loading skeleton
+- [x] 18-03-PLAN.md — ProviderCard category colors, grid layout, SearchHero icons, loading skeleton
 
 **Success Criteria:**
 1. All body text is 16px+ and filter text is 16px+

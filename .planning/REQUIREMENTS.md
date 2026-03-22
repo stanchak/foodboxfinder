@@ -19,7 +19,7 @@
 
 - [x] **A11Y-01**: All body text is 16px minimum, filter labels 16px minimum
 - [x] **A11Y-02**: All interactive elements meet 44x44px touch target minimum
-- [ ] **A11Y-03**: Category filter buttons are large pill-shaped with icon + text
+- [x] **A11Y-03**: Category filter buttons are large pill-shaped with icon + text
 - [x] **A11Y-04**: Checkboxes and radio inputs are 20x20px with generous label spacing
 - [x] **A11Y-05**: Filter option rows have min-height 44px with hover highlight
 
@@ -27,7 +27,7 @@
 
 - [x] **CAT-01**: Each of the 5 categories has a distinct color (orange, berry, amber, green, teal) defined as design tokens
 - [x] **CAT-02**: Category badges use per-category colors instead of uniform primary
-- [ ] **CAT-03**: Provider cards show category via colored top-border accent
+- [x] **CAT-03**: Provider cards show category via colored top-border accent
 - [x] **CAT-04**: Category colors are distinguishable in grayscale (color not sole differentiator)
 
 ### Navigation Simplification
@@ -41,9 +41,9 @@
 
 - [x] **SIZE-01**: Button md size increased to px-5 py-3 text-base (48px min height)
 - [x] **SIZE-02**: Badge text increased from 11px to 12px with increased padding
-- [ ] **SIZE-03**: ProviderCard text sizes increased (title text-lg, description text-base, price text-xl)
-- [ ] **SIZE-04**: Card padding increased to p-6, image height to h-48
-- [ ] **SIZE-05**: Results grid uses 3 columns on desktop (not 4) with gap-8
+- [x] **SIZE-03**: ProviderCard text sizes increased (title text-lg, description text-base, price text-xl)
+- [x] **SIZE-04**: Card padding increased to p-6, image height to h-48
+- [x] **SIZE-05**: Results grid uses 3 columns on desktop (not 4) with gap-8
 
 ### Zero Results & Feedback
 
@@ -81,12 +81,12 @@
 | UI-07 | Phase 17 | Complete |
 | A11Y-01 | Phase 18 | Complete |
 | A11Y-02 | Phase 18 | Complete |
-| A11Y-03 | Phase 18 | Pending |
+| A11Y-03 | Phase 18 | Complete |
 | A11Y-04 | Phase 18 | Complete |
 | A11Y-05 | Phase 18 | Complete |
 | CAT-01 | Phase 18 | Complete |
 | CAT-02 | Phase 18 | Complete |
-| CAT-03 | Phase 18 | Pending |
+| CAT-03 | Phase 18 | Complete |
 | CAT-04 | Phase 18 | Complete |
 | NAV-01 | Phase 19 | Pending |
 | NAV-02 | Phase 19 | Pending |
@@ -94,9 +94,9 @@
 | NAV-04 | Phase 19 | Pending |
 | SIZE-01 | Phase 18 | Complete |
 | SIZE-02 | Phase 18 | Complete |
-| SIZE-03 | Phase 18 | Pending |
-| SIZE-04 | Phase 18 | Pending |
-| SIZE-05 | Phase 18 | Pending |
+| SIZE-03 | Phase 18 | Complete |
+| SIZE-04 | Phase 18 | Complete |
+| SIZE-05 | Phase 18 | Complete |
 | UX-01 | Phase 17 | Complete |
 | UX-02 | Phase 17 | Complete |
 | UX-03 | Phase 17 | Complete |
