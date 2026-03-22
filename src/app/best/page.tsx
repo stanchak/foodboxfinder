@@ -65,7 +65,7 @@ export default async function CollectionsIndexPage() {
 
         {/* Page Header */}
         <div className="mt-6 text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             Best Food Box Collections
           </h1>
           <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
@@ -81,7 +81,7 @@ export default async function CollectionsIndexPage() {
               <Link
                 key={collection.id}
                 href={`/best/${collection.slug}`}
-                className="group relative flex flex-col overflow-hidden rounded-xl bg-white shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200"
+                className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200 hover:-translate-y-1"
               >
                 {/* Cover Image */}
                 <div className="relative h-48 bg-gradient-to-br from-primary-50 to-primary-100 overflow-hidden">
@@ -122,7 +122,7 @@ export default async function CollectionsIndexPage() {
 
                 {/* Content */}
                 <div className="flex flex-1 flex-col p-5">
-                  <h2 className="text-lg font-semibold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-2">
+                  <h2 className="text-lg font-bold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-2">
                     {collection.title}
                   </h2>
                   {collection.description && (
@@ -170,7 +170,7 @@ export default async function CollectionsIndexPage() {
             >
               <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
             </svg>
-            <h2 className="mt-4 text-lg font-semibold text-gray-900">
+            <h2 className="mt-4 text-lg font-bold text-gray-900">
               No collections yet
             </h2>
             <p className="mt-2 text-sm text-gray-600">
@@ -179,7 +179,7 @@ export default async function CollectionsIndexPage() {
             </p>
             <Link
               href="/"
-              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-700 transition-colors"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all hover:bg-primary-700"
             >
               Browse providers
             </Link>

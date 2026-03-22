@@ -146,7 +146,7 @@ export default async function CollectionDetailPage({
         {/* Header */}
         <div className="mt-6">
           {collection.coverImageUrl && (
-            <div className="relative h-48 sm:h-64 lg:h-80 rounded-xl overflow-hidden mb-8">
+            <div className="relative h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden mb-8">
               <Image
                 src={collection.coverImageUrl}
                 alt=""
@@ -157,7 +157,7 @@ export default async function CollectionDetailPage({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                <h1 className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
+                <h1 className="text-2xl font-extrabold text-white sm:text-3xl lg:text-4xl">
                   {collection.title}
                 </h1>
                 {collection.description && (
@@ -171,7 +171,7 @@ export default async function CollectionDetailPage({
 
           {!collection.coverImageUrl && (
             <div className="mb-8">
-              <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                 {collection.title}
               </h1>
               {collection.description && (
@@ -218,7 +218,7 @@ export default async function CollectionDetailPage({
 
               return (
                 <li key={item.id}>
-                  <article className="relative bg-white rounded-xl shadow-card ring-1 ring-gray-100 overflow-hidden transition-shadow hover:shadow-card-hover">
+                  <article className="relative bg-white rounded-2xl shadow-card ring-1 ring-gray-100 overflow-hidden transition-all hover:shadow-card-hover hover:-translate-y-0.5">
                     <div className="flex flex-col sm:flex-row">
                       {/* Rank badge */}
                       <div className="absolute top-4 left-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white shadow-sm sm:relative sm:top-auto sm:left-auto sm:h-auto sm:w-16 sm:shrink-0 sm:rounded-none sm:rounded-l-xl sm:bg-primary-50 sm:text-primary-700 sm:shadow-none sm:flex sm:items-center sm:justify-center">
@@ -257,7 +257,7 @@ export default async function CollectionDetailPage({
                               )}
                             </div>
 
-                            <h3 className="mt-2 text-xl font-semibold text-gray-900">
+                            <h3 className="mt-2 text-xl font-bold text-gray-900">
                               <Link
                                 href={`/providers/${provider.slug}`}
                                 className="hover:text-primary-700 transition-colors"
@@ -317,7 +317,7 @@ export default async function CollectionDetailPage({
                           <div className="shrink-0">
                             <Link
                               href={`/providers/${provider.slug}`}
-                              className="inline-flex items-center gap-1.5 rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 transition-colors"
+                              className="inline-flex items-center gap-1.5 rounded-xl bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:shadow-md hover:bg-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 transition-all"
                             >
                               View details
                               <svg
@@ -341,8 +341,8 @@ export default async function CollectionDetailPage({
 
                         {/* Editorial note */}
                         {item.note && (
-                          <div className="mt-4 rounded-lg border border-primary-200 bg-primary-50/50 p-4">
-                            <p className="text-xs font-semibold text-primary-800 uppercase tracking-wide">
+                          <div className="mt-4 rounded-lg bg-primary-50/30 p-4">
+                            <p className="text-[11px] font-bold text-primary-800 uppercase tracking-widest">
                               Why we picked it
                             </p>
                             <p className="mt-1 text-sm text-gray-700 leading-relaxed">
