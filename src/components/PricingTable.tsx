@@ -90,15 +90,15 @@ export default function PricingTable({
       {plans.map((plan) => (
         <div
           key={plan.id}
-          className={`relative rounded-xl border p-6 flex flex-col ${
+          className={`relative rounded-2xl border p-6 flex flex-col ${
             plan.featured
-              ? "border-primary-400 ring-2 ring-primary-100 bg-primary-50/30"
+              ? "border-primary-400 border-2 ring-2 ring-primary-100 bg-primary-50/30 scale-[1.02] shadow-md"
               : "border-gray-200 bg-white"
           }`}
         >
           {/* Featured badge */}
           {plan.featured && (
-            <div className="absolute -top-3 left-4">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <Badge color="dietary">Most Popular</Badge>
             </div>
           )}
@@ -115,7 +115,7 @@ export default function PricingTable({
           <div className="mt-4">
             {plan.pricePerServingCents != null && (
               <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-bold text-gray-900">
+                <span className="text-4xl font-extrabold text-gray-900">
                   {formatPrice(plan.pricePerServingCents)}
                 </span>
                 <span className="text-sm text-gray-500">/serving</span>

@@ -21,7 +21,7 @@ export default function CompareBar() {
 
   return (
     <div
-      className="fixed bottom-0 inset-x-0 z-50 border-t border-gray-200 bg-white/95 backdrop-blur-sm shadow-[0_-4px_12px_rgb(0_0_0/0.08)]"
+      className="fixed bottom-0 inset-x-0 z-50 border-t border-gray-200 bg-white/90 backdrop-blur-xl shadow-[0_-4px_12px_rgb(0_0_0/0.08)]"
       role="region"
       aria-label="Comparison selection"
     >
@@ -40,13 +40,13 @@ export default function CompareBar() {
               {selected.map((entry) => (
                 <div
                   key={entry.slug}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-primary-50 border border-primary-200 pl-3 pr-1.5 py-1 text-sm font-medium text-primary-700 shrink-0"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-gray-900 pl-3 pr-1.5 py-1 text-sm font-medium text-white shrink-0"
                 >
                   <span className="max-w-[120px] truncate">{entry.name}</span>
                   <button
                     type="button"
                     onClick={() => removeProvider(entry.slug)}
-                    className="inline-flex items-center justify-center w-5 h-5 rounded-full hover:bg-primary-200 transition-colors"
+                    className="inline-flex items-center justify-center w-5 h-5 rounded-full hover:bg-gray-700 transition-colors"
                     aria-label={`Remove ${entry.name} from comparison`}
                   >
                     <svg
@@ -84,7 +84,7 @@ export default function CompareBar() {
               type="button"
               onClick={handleCompare}
               disabled={!canCompare}
-              className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
