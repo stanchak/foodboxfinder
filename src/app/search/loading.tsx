@@ -44,23 +44,23 @@ export default function SearchLoading() {
             {/* Results header skeleton */}
             <div className="h-5 w-48 bg-neutral-200 rounded animate-pulse mb-6" />
             {/* Card grid skeleton */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {Array.from({ length: 9 }).map((_, i) => (
                 <div
                   key={i}
                   className="bg-white rounded-2xl ring-1 ring-neutral-100 shadow-card overflow-hidden"
                 >
-                  <div className="h-44 bg-neutral-100 animate-pulse" />
-                  <div className="p-5 space-y-3">
-                    <div className="flex gap-1.5">
-                      <div className="h-6 w-20 bg-neutral-200 rounded-full animate-pulse" />
-                      <div className="h-6 w-16 bg-neutral-200 rounded-full animate-pulse" />
+                  <div className="h-48 bg-neutral-100 animate-pulse" />
+                  <div className="p-6 space-y-3">
+                    <div className="flex gap-2">
+                      <div className="h-7 w-22 bg-neutral-200 rounded-full animate-pulse" />
+                      <div className="h-7 w-18 bg-neutral-200 rounded-full animate-pulse" />
                     </div>
-                    <div className="h-5 w-3/4 bg-neutral-200 rounded animate-pulse" />
+                    <div className="h-6 w-3/4 bg-neutral-200 rounded animate-pulse" />
                     <div className="h-4 w-full bg-neutral-100 rounded animate-pulse" />
                     <div className="h-4 w-2/3 bg-neutral-100 rounded animate-pulse" />
                     <div className="h-4 w-24 bg-neutral-200 rounded animate-pulse" />
-                    <div className="h-6 w-20 bg-neutral-200 rounded animate-pulse" />
+                    <div className="h-7 w-24 bg-neutral-200 rounded animate-pulse" />
                   </div>
                 </div>
               ))}

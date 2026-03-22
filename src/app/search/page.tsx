@@ -117,7 +117,7 @@ export default async function SearchPage({
 
             {/* Provider grid or zero results */}
             {providers.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 {providers.map((provider) => (
                   <ProviderCard key={provider.slug} provider={provider} />
                 ))}
