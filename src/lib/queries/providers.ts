@@ -227,6 +227,22 @@ export const getFilteredProviders = cache(async (filters: ProviderFilters) => {
   const valueTierFilter = nullAwareEnumFilter("valueTier", filters.valueTier);
   if (Object.keys(valueTierFilter).length > 0) conditions.push(valueTierFilter);
 
+  // Text search (name, shortDescription, description -- case-insensitive contains)
+  if (filters.textQuery) {
+    conditions.push({
+      OR: [
+        { name: { contains: filters.textQuery, mode: "insensitive" } },
+        { shortDescription: { contains: filters.textQuery, mode: "insensitive" } },
+        { description: { contains: filters.textQuery, mode: "insensitive" } },
+      ],
+    });
+  }
+
+  // Free shipping filter (exact boolean match, not null-aware)
+  if (filters.freeShipping) {
+    conditions.push({ freeShipping: true });
+  }
+
   const where: Prisma.ProviderWhereInput = { AND: conditions };
 
   // Sort mapping
