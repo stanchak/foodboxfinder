@@ -162,13 +162,13 @@ export function ActiveFilterChips() {
       {activeFilters.map((filter) => (
         <span
           key={`${filter.key}-${filter.value}`}
-          className="inline-flex items-center gap-1 rounded-full bg-primary-50 text-primary-700 text-xs font-medium px-2.5 py-1 ring-1 ring-inset ring-primary-600/20"
+          className="inline-flex items-center gap-1 rounded-full bg-primary-600 text-white text-xs font-medium px-2.5 py-1"
         >
           {filter.label}
           <button
             type="button"
             onClick={() => removeFilter(filter.key, filter.value)}
-            className="ml-0.5 inline-flex items-center rounded-full p-0.5 hover:bg-primary-100 transition-colors"
+            className="ml-0.5 inline-flex items-center rounded-full p-0.5 hover:bg-primary-500 transition-colors"
             aria-label={`Remove ${filter.label} filter`}
           >
             <svg
@@ -349,7 +349,7 @@ export default function CategoryFilters() {
   }
 
   const filterContent = (
-    <div className="space-y-6">
+    <div className="space-y-6 divide-y divide-gray-100">
       {/* Sort */}
       <div>
         <label
@@ -615,15 +615,17 @@ export default function CategoryFilters() {
         aria-label="Filter providers"
       >
         <div className="sticky top-20">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-base font-semibold text-gray-900">Filters</h2>
-            {activeFilterCount > 0 && (
-              <span className="inline-flex items-center justify-center rounded-full bg-primary-100 text-primary-700 text-xs font-medium px-2 py-0.5">
-                {activeFilterCount}
-              </span>
-            )}
+          <div className="bg-white rounded-xl p-5 shadow-sm ring-1 ring-gray-100">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-900">Filters</h2>
+              {activeFilterCount > 0 && (
+                <span className="inline-flex items-center justify-center rounded-full bg-primary-100 text-primary-700 text-xs font-medium px-2 py-0.5">
+                  {activeFilterCount}
+                </span>
+              )}
+            </div>
+            {filterContent}
           </div>
-          {filterContent}
         </div>
       </aside>
 
