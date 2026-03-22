@@ -9,7 +9,7 @@
 
 ### v2.0 Unified Discovery Interface
 
-- [ ] **Phase 17: Unified Discovery Page** — Build the core /discover page with unified provider grid, category quick-filters, left sidebar filters, search bar, and feedback states
+- [ ] **Phase 17: Unified Discovery Page** — Build the core /search page with unified provider grid, category quick-filters, left sidebar filters, search bar, and feedback states
 - [ ] **Phase 18: Accessibility & Design System Updates** — Increase all font/button/card sizes for elderly accessibility, add category color tokens, update component sizing across the site
 - [ ] **Phase 19: Navigation & Route Simplification** — Simplify header nav, update homepage CTA, redirect old category routes to /discover, remove redundant pages
 
@@ -17,7 +17,7 @@
 
 | Phase | Name | Status | Plans | Started | Completed |
 |-------|------|--------|-------|---------|-----------|
-| 17 | Unified Discovery Page | Pending | — | — | — |
+| 17 | Unified Discovery Page | Planned | 3 plans | — | — |
 | 18 | Accessibility & Design System Updates | Pending | — | — | — |
 | 19 | Navigation & Route Simplification | Pending | — | — | — |
 
@@ -25,12 +25,19 @@
 
 ### Phase 17: Unified Discovery Page
 
-**Goal:** Create a single /discover page where users can browse, filter, and search all 95+ providers across all categories — the Kayak-style unified interface.
+**Goal:** Create a single /search page where users can browse, filter, and search all 95+ providers across all categories — the Kayak-style unified interface.
 
 **Requirements:** UI-01, UI-02, UI-03, UI-04, UI-05, UI-06, UI-07, UX-01, UX-02, UX-03
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 17-01-PLAN.md — Extend data layer with textQuery, freeShipping, and updated page size
+- [ ] 17-02-PLAN.md — Build SearchHero and UnifiedFilters client components
+- [ ] 17-03-PLAN.md — Rewrite /search page with unified discovery layout and loading skeleton
+
 **Success Criteria:**
-1. User can visit /discover and see all providers in a responsive card grid
+1. User can visit /search and see all providers in a responsive card grid
 2. Category quick-filter buttons at the top filter providers by type with visual feedback
 3. Left sidebar with all 9 filter dimensions, each with clear labels and interactive controls
 4. Search bar at top of page filters providers by name/keyword
