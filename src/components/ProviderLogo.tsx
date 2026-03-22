@@ -1,9 +1,9 @@
 import Image from "next/image";
 
 const sizes = {
-  sm: { container: "w-10 h-10", image: 40, text: "text-sm", padding: "p-1" },
-  md: { container: "w-16 h-16", image: 64, text: "text-xl", padding: "p-1" },
-  lg: { container: "w-48 h-48", image: 192, text: "text-4xl", padding: "p-4" },
+  sm: { container: "w-12 h-12", image: 48, text: "text-base", padding: "p-1" },
+  md: { container: "w-20 h-20", image: 80, text: "text-2xl", padding: "p-1.5" },
+  lg: { container: "w-56 h-56", image: 224, text: "text-5xl", padding: "p-4" },
 } as const;
 
 export default function ProviderLogo({

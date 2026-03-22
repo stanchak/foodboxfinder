@@ -475,7 +475,7 @@
     "slug": "bountiful-baskets-food-co-op",
     "name": "Bountiful Baskets Food Co-op",
     "website": "https://www.bountifulbaskets.org",
-    "asset": "/assets/providers/bountiful-baskets-food-co-op.jpg",
+    "asset": "/assets/providers/bountiful-baskets-food-co-op.png",
     "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://bountifulbaskets.org&size=256",
     "error": null
   },
@@ -685,7 +685,7 @@
     "slug": "levain-bakery",
     "name": "Levain Bakery",
     "website": "https://levainbakery.com",
-    "asset": "/assets/providers/levain-bakery.png",
+    "asset": "/assets/providers/levain-bakery.svg",
     "sourceUrl": "https://levainbakery.com/cdn/shop/files/blue-cookie.png?crop=center&height=32&v=1685546472&width=32",
     "error": null
   },
