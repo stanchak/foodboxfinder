@@ -44,7 +44,7 @@ export default function HeaderSearchForm() {
         id="header-search"
         type="search"
         placeholder="Search..."
-        className="w-44 rounded-lg border border-gray-200 bg-gray-50 py-1.5 pl-9 pr-3 text-sm text-gray-700 placeholder:text-gray-400 focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-colors"
+        className="w-44 rounded-full border border-gray-200 bg-gray-50 py-1.5 pl-9 pr-3 text-sm text-gray-700 placeholder:text-gray-400 focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:w-64 transition-all duration-300"
       />
     </form>
   );
