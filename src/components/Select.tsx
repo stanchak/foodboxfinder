@@ -19,7 +19,7 @@ export default function Select({
       </label>
       <select
         id={id}
-        className="mt-1 block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:bg-neutral-50 disabled:text-neutral-500"
+        className="mt-1 block w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:bg-neutral-50 disabled:text-neutral-500"
         {...props}
       >
         {placeholder && <option value="">{placeholder}</option>}
