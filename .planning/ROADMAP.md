@@ -236,10 +236,22 @@ Plans:
 
 ### Phase 13: Design Polish & UX Improvements
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** All P1/P2 design, accessibility, and UX issues from UX Architect, UI Designer, and Accessibility Auditor reviews are fixed -- radio inputs for single-select filters, collapsible filter groups, table semantics, visual hierarchy, ARIA attributes, screen reader text, and visual polish
+**Requirements**: P1-RADIO-INPUTS, P1-COLLAPSIBLE-FILTERS, P1-FILTERS-FOCUS-VISIBLE, P1-HEADER-NAV-LINKS, P1-SEMANTIC-TOKENS, P2-HEADER-ARIA-LABEL, P1-TH-SCOPE-ROW, P1-CTA-ROW-BG, P1-VIEW-DETAILS-LINK, P1-COMPARE-BAR-LIVE, P1-PRICING-SR-ONLY, P2-VIEW-DETAILS-ARIA, P2-FAQ-TRANSITION, P1-COMPAREBAR-ARIA-LIVE, P1-COMPAREBAR-CLEAR-LABEL, P1-RATINGSTARS-ARIA-HIDDEN, P1-PROVIDERLOGO-A11Y, P1-PRICE-EMPHASIS, P1-FREE-SHIPPING-BADGE, P2-AFFILIATELINK-NEW-TAB, P2-PAGINATION-ARIA-DISABLED, P2-REVIEW-COUNT-STYLE, P2-LOGO-AREA-HEIGHT, P2-SCROLL-INDICATOR
 **Depends on:** Phase 12
-**Plans:** 0 plans
+**Success Criteria** (what must be TRUE):
+  1. Single-select filter groups use radio inputs instead of checkboxes
+  2. Filter groups are collapsible/expandable to reduce visual clutter
+  3. Desktop header shows Compare, Best Of, Blog links
+  4. ComparisonTable row labels use th with scope="row"
+  5. CompareBar has aria-live region and descriptive Clear label
+  6. ProviderCard has emphasized pricing, reduced logo area, and Badge-based Free Shipping
+  7. All components have proper ARIA attributes and sr-only text where needed
+  8. Semantic color tokens (success/error/warning) exist in CSS
+**Plans:** 4 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 13 to break down)
+- [ ] 13-01-PLAN.md -- CategoryFilters radio inputs, collapsible groups, focus-visible buttons; Header nav links and aria-label; semantic color tokens
+- [ ] 13-02-PLAN.md -- ComparisonTable th scope=row, CTA background, View Details text link with aria-labels; PricingTable sr-only boolean text
+- [ ] 13-03-PLAN.md -- ProviderCard visual fixes, ProviderLogo accessibility, RatingStars aria-hidden; CompareBar aria-live, AffiliateLink sr-only, FaqAccordion cleanup, Pagination fix
+- [ ] 13-04-PLAN.md -- Homepage scroll indicator gradient for mobile featured providers
