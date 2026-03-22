@@ -88,7 +88,7 @@ export default async function BlogIndexPage({
 
         {/* Page Header */}
         <div className="mt-6 text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             The FoodBoxFinder Blog
           </h1>
           <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
@@ -104,7 +104,7 @@ export default async function BlogIndexPage({
               <article className="mt-10">
                 <Link
                   href={`/blog/${featuredPost.slug}`}
-                  className="group block overflow-hidden rounded-xl bg-white shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200"
+                  className="group block overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200"
                 >
                   <div className="flex flex-col lg:flex-row">
                     {/* Image */}
@@ -140,7 +140,7 @@ export default async function BlogIndexPage({
                           </svg>
                         </div>
                       )}
-                      <span className="absolute top-4 left-4 rounded-full bg-primary-600 px-3 py-1 text-xs font-medium text-white">
+                      <span className="absolute top-4 left-4 rounded-full bg-gray-900 px-3 py-1 text-xs font-semibold text-white">
                         Featured
                       </span>
                     </div>
@@ -161,7 +161,7 @@ export default async function BlogIndexPage({
                         </span>
                       </div>
 
-                      <h2 className="mt-3 text-2xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors sm:text-3xl line-clamp-3">
+                      <h2 className="mt-3 text-2xl font-extrabold text-gray-900 group-hover:text-primary-700 transition-colors sm:text-3xl line-clamp-3">
                         {featuredPost.title}
                       </h2>
 
@@ -213,7 +213,7 @@ export default async function BlogIndexPage({
                   <article key={post.id}>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="group flex flex-col h-full overflow-hidden rounded-xl bg-white shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200"
+                      className="group flex flex-col h-full overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200"
                     >
                       {/* Image */}
                       <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden shrink-0">
@@ -265,7 +265,7 @@ export default async function BlogIndexPage({
                           </span>
                         </div>
 
-                        <h2 className="mt-2 text-lg font-semibold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-2">
+                        <h2 className="mt-2 text-lg font-bold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-2">
                           {post.title}
                         </h2>
 
@@ -296,7 +296,7 @@ export default async function BlogIndexPage({
                 {page > 1 && (
                   <Link
                     href={`/blog${page === 2 ? "" : `?page=${page - 1}`}`}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -324,7 +324,7 @@ export default async function BlogIndexPage({
                 {page < totalPages && (
                   <Link
                     href={`/blog?page=${page + 1}`}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
                   >
                     Next
                     <svg
@@ -367,7 +367,7 @@ export default async function BlogIndexPage({
               <path d="M15 18h-5" />
               <path d="M10 6h8v4h-8V6Z" />
             </svg>
-            <h2 className="mt-4 text-lg font-semibold text-gray-900">
+            <h2 className="mt-4 text-lg font-bold text-gray-900">
               No blog posts yet
             </h2>
             <p className="mt-2 text-sm text-gray-600">
@@ -375,7 +375,7 @@ export default async function BlogIndexPage({
             </p>
             <Link
               href="/"
-              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-700 transition-colors"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all hover:bg-primary-700"
             >
               Back to home
             </Link>
