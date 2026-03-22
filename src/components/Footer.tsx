@@ -7,12 +7,20 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-300">Categories</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-neutral-300">Browse</h3>
             <ul className="mt-4 space-y-3">
+              <li>
+                <Link
+                  href="/search"
+                  className="text-sm text-neutral-400 hover:text-white transition-colors"
+                >
+                  Browse All
+                </Link>
+              </li>
               {CATEGORY_NAV_ITEMS.map((item) => (
                 <li key={item.slug}>
                   <Link
-                    href={`/${item.slug}`}
+                    href={`/search?category=${item.slug}`}
                     className="text-sm text-neutral-400 hover:text-white transition-colors"
                   >
                     {item.label}
