@@ -25,7 +25,7 @@ export default function RatingBreakdown({
     <div className="flex flex-col sm:flex-row gap-6 sm:gap-8">
       {/* Summary */}
       <div className="flex flex-col items-center justify-center sm:min-w-[120px]">
-        <p className="text-5xl font-bold text-gray-900">
+        <p className="text-5xl font-extrabold tracking-tight text-gray-900">
           {averageRating.toFixed(1)}
         </p>
         <div className="mt-1 flex gap-0.5" aria-hidden="true">
@@ -62,7 +62,7 @@ export default function RatingBreakdown({
             <span className="w-12 text-sm text-gray-600 text-right shrink-0">
               {row.rating} star{row.rating !== 1 ? "s" : ""}
             </span>
-            <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+            <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
               <div
                 className="h-full bg-star rounded-full transition-all duration-300"
                 style={{ width: `${row.percentage}%` }}

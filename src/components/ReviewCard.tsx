@@ -21,12 +21,12 @@ function formatReviewDate(date: Date): string {
 
 export default function ReviewCard({ review }: Readonly<ReviewCardProps>) {
   return (
-    <article className="border-b border-gray-200 py-6 last:border-0">
+    <article className="border-b border-gray-100 py-8 last:border-0">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <div className="flex items-center gap-3">
             <div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-700 font-semibold text-sm"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-neutral-100 text-neutral-600 font-semibold text-sm"
               aria-hidden="true"
             >
               {review.authorName.charAt(0).toUpperCase()}
