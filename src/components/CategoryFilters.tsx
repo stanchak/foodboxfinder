@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useRef, useEffect } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import {
   PREP_STYLE_GROUPS,
@@ -186,6 +186,61 @@ export default function CategoryFilters() {
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const wasDrawerOpenRef = useRef(false);
+
+  // Focus trap and Escape handler for mobile drawer
+  useEffect(() => {
+    if (!drawerOpen) return;
+
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+
+    // Focus the close button on open
+    const closeBtn = drawer.querySelector<HTMLElement>("button[aria-label='Close filters']");
+    closeBtn?.focus();
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setDrawerOpen(false);
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focusableElements = drawer!.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusableElements.length === 0) return;
+
+        const first = focusableElements[0];
+        const last = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [drawerOpen]);
+
+  // Return focus to trigger button on close
+  useEffect(() => {
+    if (wasDrawerOpenRef.current && !drawerOpen) {
+      triggerRef.current?.focus();
+    }
+    wasDrawerOpenRef.current = drawerOpen;
+  }, [drawerOpen]);
 
   // Compute active filter count from URL
   const activeFilterCount = (() => {
@@ -478,6 +533,7 @@ export default function CategoryFilters() {
       {/* Mobile filter trigger button */}
       <div className="lg:hidden">
         <button
+          ref={triggerRef}
           type="button"
           onClick={() => setDrawerOpen(true)}
           className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm"
@@ -526,6 +582,7 @@ export default function CategoryFilters() {
 
           {/* Drawer panel */}
           <div
+            ref={drawerRef}
             className="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] bg-white shadow-xl overflow-y-auto lg:hidden"
             role="dialog"
             aria-modal="true"
