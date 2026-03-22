@@ -147,7 +147,7 @@ export default function ComparisonTable({
 
   return (
     <div className="overflow-x-auto -mx-4 sm:mx-0">
-      <div className="inline-block min-w-full align-top sm:rounded-xl sm:border sm:border-gray-200 sm:overflow-hidden">
+      <div className="inline-block min-w-full align-top sm:rounded-2xl sm:shadow-sm sm:border sm:border-gray-200 sm:overflow-hidden">
         <table
           className="min-w-full border-collapse"
           role="table"
@@ -166,7 +166,7 @@ export default function ComparisonTable({
                 <th
                   key={provider.id}
                   scope="col"
-                  className={`p-4 text-center border-b border-gray-200 bg-white min-w-[200px] ${
+                  className={`p-6 text-center border-b border-gray-200 bg-white min-w-[200px] ${
                     index < colCount - 1 ? "border-r border-gray-100" : ""
                   }`}
                 >
@@ -618,7 +618,7 @@ function SectionHeader({
     <tr>
       <td
         colSpan={colCount + 1}
-        className="bg-gray-50 px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide border-y border-gray-200"
+        className="bg-gray-100 px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide border-y border-gray-200"
       >
         {label}
       </td>
@@ -640,7 +640,7 @@ function ComparisonRow({
   children: (provider: ComparisonProvider) => React.ReactNode;
 }>) {
   const colCount = providers.length;
-  const bgClass = highlight ? "bg-gray-50/50" : "bg-white";
+  const bgClass = highlight ? "bg-neutral-50" : "bg-white";
 
   return (
     <tr>
