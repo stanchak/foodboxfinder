@@ -264,7 +264,7 @@ export default async function ProviderDetailPage({
               )}
             </div>
 
-            <h1 className="mt-3 text-3xl font-bold text-gray-900 sm:text-4xl">
+            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
               {provider.name}
             </h1>
 
@@ -353,14 +353,14 @@ export default async function ProviderDetailPage({
         {/* Section Navigation */}
         <nav
           aria-label="Page sections"
-          className="mt-8 sticky top-16 z-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200"
+          className="mt-8 sticky top-16 z-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-white/90 backdrop-blur-lg border-b border-gray-200"
         >
           <ul className="flex gap-6 overflow-x-auto no-scrollbar">
             {navSections.map((section) => (
               <li key={section.id}>
                 <a
                   href={`#${section.id}`}
-                  className="inline-block py-3 text-sm font-medium text-gray-600 hover:text-primary-600 border-b-2 border-transparent hover:border-primary-600 transition-colors whitespace-nowrap"
+                  className="inline-block py-3 text-sm font-semibold text-gray-600 hover:text-primary-600 border-b-2 border-transparent hover:border-primary-600 transition-colors whitespace-nowrap"
                 >
                   {section.label}
                 </a>
@@ -371,7 +371,7 @@ export default async function ProviderDetailPage({
 
         {/* Overview Section */}
         <section id="overview" className="mt-10 scroll-mt-16">
-          <h2 className="text-2xl font-bold text-gray-900">Overview</h2>
+          <h2 className="text-xl font-extrabold text-gray-900">Overview</h2>
 
           {/* Full description */}
           {provider.shortDescription && (
@@ -383,7 +383,7 @@ export default async function ProviderDetailPage({
           {/* Editor Note */}
           {provider.editorNote && (
             <div className="mt-6 rounded-xl border border-primary-200 bg-primary-50/50 p-5">
-              <h3 className="text-sm font-semibold text-primary-800 uppercase tracking-wide">
+              <h3 className="text-[11px] font-bold text-primary-800 uppercase tracking-widest">
                 Editor&apos;s Note
               </h3>
               <p className="mt-2 text-sm text-gray-700 leading-relaxed">
@@ -397,8 +397,8 @@ export default async function ProviderDetailPage({
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               {/* Pros */}
               {pros.length > 0 && (
-                <div className="rounded-xl border border-green-200 bg-green-50/50 p-5">
-                  <h3 className="flex items-center gap-2 font-semibold text-green-800">
+                <div className="rounded-xl bg-success-50/30 p-5">
+                  <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-success-700">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -445,8 +445,8 @@ export default async function ProviderDetailPage({
 
               {/* Cons */}
               {cons.length > 0 && (
-                <div className="rounded-xl border border-red-200 bg-red-50/50 p-5">
-                  <h3 className="flex items-center gap-2 font-semibold text-red-800">
+                <div className="rounded-xl bg-error-50/30 p-5">
+                  <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-error-700">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -499,35 +499,35 @@ export default async function ProviderDetailPage({
         {/* Key Details */}
         {hasKeyDetails && (
           <section id="key-details" className="mt-10 scroll-mt-16">
-            <h2 className="text-2xl font-bold text-gray-900">Key Details</h2>
+            <h2 className="text-xl font-extrabold text-gray-900">Key Details</h2>
             <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {provider.prepStyle && (
-                <div className="rounded-lg border border-gray-200 p-4">
-                  <dt className="text-sm font-medium text-gray-500">Prep Style</dt>
+                <div className="rounded-lg bg-neutral-50 p-4">
+                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Prep Style</dt>
                   <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.prepStyle)}</dd>
                 </div>
               )}
               {provider.valueTier && (
-                <div className="rounded-lg border border-gray-200 p-4">
-                  <dt className="text-sm font-medium text-gray-500">Value Tier</dt>
+                <div className="rounded-lg bg-neutral-50 p-4">
+                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Value Tier</dt>
                   <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.valueTier)}</dd>
                 </div>
               )}
               {provider.modelType && (
-                <div className="rounded-lg border border-gray-200 p-4">
-                  <dt className="text-sm font-medium text-gray-500">Model</dt>
+                <div className="rounded-lg bg-neutral-50 p-4">
+                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Model</dt>
                   <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.modelType)}</dd>
                 </div>
               )}
               {provider.householdFit && (
-                <div className="rounded-lg border border-gray-200 p-4">
-                  <dt className="text-sm font-medium text-gray-500">Best For</dt>
+                <div className="rounded-lg bg-neutral-50 p-4">
+                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Best For</dt>
                   <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.householdFit)}</dd>
                 </div>
               )}
               {provider.geography && (
-                <div className="rounded-lg border border-gray-200 p-4">
-                  <dt className="text-sm font-medium text-gray-500">Delivery Area</dt>
+                <div className="rounded-lg bg-neutral-50 p-4">
+                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">Delivery Area</dt>
                   <dd className="mt-1 text-sm font-semibold text-gray-900">{formatFieldLabel(provider.geography)}</dd>
                 </div>
               )}
