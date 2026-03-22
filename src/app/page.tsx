@@ -282,10 +282,10 @@ export default async function HomePage() {
       <OrganizationJsonLd />
 
       {/* --- Hero Section --- */}
-      <section className="bg-gradient-to-b from-primary-50 to-white">
+      <section className="bg-gradient-to-br from-primary-50 via-white to-accent-50/30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-extrabold tracking-tight text-gray-950 sm:text-5xl lg:text-6xl">
               Find Your Perfect{" "}
               <span className="text-primary-600">Food Box</span>{" "}
               Subscription
@@ -298,7 +298,7 @@ export default async function HomePage() {
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/search"
-                className="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3.5 text-base font-semibold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-all"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -319,7 +319,7 @@ export default async function HomePage() {
               </Link>
               <Link
                 href="/compare"
-                className="inline-flex items-center gap-2 rounded-lg border border-primary-600 px-6 py-3.5 text-base font-semibold text-primary-600 hover:bg-primary-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl border border-primary-600 px-6 py-3.5 text-base font-semibold text-primary-600 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-primary-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-all"
               >
                 Compare Side by Side
               </Link>
@@ -339,7 +339,7 @@ export default async function HomePage() {
                     <Link
                       key={key}
                       href={`/${cat.slug}`}
-                      className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm ring-1 ring-gray-200 hover:bg-primary-50 hover:text-primary-700 hover:ring-primary-200 transition-all"
+                      className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-700 shadow-sm ring-1 ring-gray-200 hover:bg-primary-50 hover:text-primary-700 hover:ring-primary-200 transition-all"
                     >
                       <IconComponent className="text-primary-500 w-5 h-5" />
                       {cat.label}
@@ -354,12 +354,12 @@ export default async function HomePage() {
 
       {/* --- Featured Providers Section --- */}
       {featuredProviders.length > 0 && (
-        <section className="py-16 sm:py-20" aria-labelledby="featured-heading">
+        <section className="py-20 sm:py-24" aria-labelledby="featured-heading">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h2
                 id="featured-heading"
-                className="text-3xl font-bold tracking-tight text-gray-900"
+                className="text-2xl font-extrabold tracking-tight text-gray-900"
               >
                 Featured Providers
               </h2>
@@ -383,7 +383,7 @@ export default async function HomePage() {
                 </div>
                 {/* Scroll indicator gradient - mobile only */}
                 <div
-                  className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white to-transparent sm:hidden"
+                  className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[var(--background)] to-transparent sm:hidden"
                   aria-hidden="true"
                 />
               </div>
@@ -418,14 +418,14 @@ export default async function HomePage() {
 
       {/* --- Browse by Category Section --- */}
       <section
-        className="bg-gray-50 py-16 sm:py-20"
+        className="bg-neutral-100 py-20 sm:py-24"
         aria-labelledby="categories-heading"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2
               id="categories-heading"
-              className="text-3xl font-bold tracking-tight text-gray-900"
+              className="text-2xl font-extrabold tracking-tight text-gray-900"
             >
               Browse by Category
             </h2>
@@ -443,9 +443,9 @@ export default async function HomePage() {
                   <Link
                     key={key}
                     href={`/${cat.slug}`}
-                    className="group relative flex flex-col items-center gap-4 rounded-xl bg-white p-8 shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200"
+                    className="group relative flex flex-col items-center gap-4 rounded-2xl bg-white p-8 shadow-card ring-1 ring-gray-100 transition-all hover:shadow-card-hover hover:ring-primary-200 hover:-translate-y-1"
                   >
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary-50 text-primary-600 transition-colors group-hover:bg-primary-100">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-transform group-hover:scale-110">
                       <IconComponent />
                     </div>
                     <div className="text-center">
@@ -455,7 +455,7 @@ export default async function HomePage() {
                       <p className="mt-1.5 text-sm text-gray-600">
                         {cat.description}
                       </p>
-                      <p className="mt-3 text-sm font-medium text-primary-600">
+                      <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-600">
                         {count} {count === 1 ? "provider" : "providers"}
                       </p>
                     </div>
