@@ -12,7 +12,7 @@
 - [ ] **UI-03**: User can filter by all 9 dimensions (category, diet, prep style, value tier, household, model type, geography, shipping, flexibility) from a left sidebar
 - [ ] **UI-04**: User can search by provider name or keyword with autocomplete from a prominent search bar
 - [ ] **UI-05**: User can see active filter count and clear individual or all filters
-- [ ] **UI-06**: URL search params drive all filter/sort state (shareable URLs)
+- [x] **UI-06**: URL search params drive all filter/sort state (shareable URLs)
 - [ ] **UI-07**: Results show provider count with aria-live announcement on filter change
 
 ### Accessibility & Elderly-Friendly Design
@@ -77,7 +77,7 @@
 | UI-03 | Phase 17 | Pending |
 | UI-04 | Phase 17 | Pending |
 | UI-05 | Phase 17 | Pending |
-| UI-06 | Phase 17 | Pending |
+| UI-06 | Phase 17 | Complete |
 | UI-07 | Phase 17 | Pending |
 | A11Y-01 | Phase 18 | Pending |
 | A11Y-02 | Phase 18 | Pending |

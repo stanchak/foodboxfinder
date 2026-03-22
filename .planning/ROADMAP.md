@@ -32,7 +32,7 @@
 **Plans:** 3 plans
 
 Plans:
-- [ ] 17-01-PLAN.md — Extend data layer with textQuery, freeShipping, and updated page size
+- [x] 17-01-PLAN.md — Extend data layer with textQuery, freeShipping, and updated page size
 - [ ] 17-02-PLAN.md — Build SearchHero and UnifiedFilters client components
 - [ ] 17-03-PLAN.md — Rewrite /search page with unified discovery layout and loading skeleton
 
