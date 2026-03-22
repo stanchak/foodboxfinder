@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { CATEGORY_NAV_ITEMS } from "@/lib/categories";
 
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -156,25 +155,12 @@ export default function MobileNav() {
             </button>
 
             <nav className="mt-16 px-6 space-y-1">
-              {CATEGORY_NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/${item.slug}`}
-                  className="block px-3 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 rounded-xl transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-
-              <hr className="my-4 border-neutral-200" />
-
               <Link
                 href="/search"
                 className="block px-3 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 rounded-xl transition-colors"
                 onClick={() => setIsOpen(false)}
               >
-                Search
+                Discover All Providers
               </Link>
               <Link
                 href="/compare"
@@ -182,6 +168,13 @@ export default function MobileNav() {
                 onClick={() => setIsOpen(false)}
               >
                 Compare
+              </Link>
+              <Link
+                href="/best"
+                className="block px-3 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 rounded-xl transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Best Of
               </Link>
               <Link
                 href="/blog"

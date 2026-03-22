@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { CATEGORY_NAV_ITEMS } from "@/lib/categories";
 import MobileNav from "@/components/MobileNav";
 import HeaderSearchForm from "@/components/HeaderSearchForm";
 
@@ -21,16 +20,12 @@ export default function Header() {
           </Link>
 
           <div className="hidden lg:flex lg:items-center lg:gap-6">
-            {CATEGORY_NAV_ITEMS.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/${item.slug}`}
-                className="text-base font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <span className="h-5 w-px bg-neutral-200" aria-hidden="true" />
+            <Link
+              href="/search"
+              className="text-base font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+            >
+              Discover
+            </Link>
             <Link
               href="/compare"
               className="text-base font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
