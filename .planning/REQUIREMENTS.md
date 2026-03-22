@@ -3,44 +3,107 @@
 **Defined:** 2026-03-22
 **Core Value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences — with transparent criteria and visual brand identity.
 
-## v1.1 Requirements
+## v2.0 Requirements
 
-### Content Images
+### Unified Interface
 
-- [ ] **IMG-01**: All 6 collection pages have AI-generated cover images
-- [ ] **IMG-02**: All 5 blog posts have AI-generated cover images
-- [ ] **IMG-03**: Cover images are stored locally in public/assets/ and referenced via coverImageUrl
-- [ ] **IMG-04**: Images render on collection and blog pages with proper alt text
+- [ ] **UI-01**: User can browse all 95+ providers across all categories from a single /discover page
+- [ ] **UI-02**: User can filter by category using prominent quick-filter buttons (Kayak-style tabs)
+- [ ] **UI-03**: User can filter by all 9 dimensions (category, diet, prep style, value tier, household, model type, geography, shipping, flexibility) from a left sidebar
+- [ ] **UI-04**: User can search by provider name or keyword with autocomplete from a prominent search bar
+- [ ] **UI-05**: User can see active filter count and clear individual or all filters
+- [ ] **UI-06**: URL search params drive all filter/sort state (shareable URLs)
+- [ ] **UI-07**: Results show provider count with aria-live announcement on filter change
 
-### Logo Exploration
+### Accessibility & Elderly-Friendly Design
 
-- [ ] **LOGO-01**: 100 logo design variations generated via Gemini
-- [ ] **LOGO-02**: Logo gallery page with grid layout for browsing all options
-- [ ] **LOGO-03**: Gallery is accessible at a URL where user can review and pick favorites
+- [ ] **A11Y-01**: All body text is 16px minimum, filter labels 16px minimum
+- [ ] **A11Y-02**: All interactive elements meet 44x44px touch target minimum
+- [ ] **A11Y-03**: Category filter buttons are large pill-shaped with icon + text
+- [ ] **A11Y-04**: Checkboxes and radio inputs are 20x20px with generous label spacing
+- [ ] **A11Y-05**: Filter option rows have min-height 44px with hover highlight
+
+### Category Color System
+
+- [ ] **CAT-01**: Each of the 5 categories has a distinct color (orange, berry, amber, green, teal) defined as design tokens
+- [ ] **CAT-02**: Category badges use per-category colors instead of uniform primary
+- [ ] **CAT-03**: Provider cards show category via colored top-border accent
+- [ ] **CAT-04**: Category colors are distinguishable in grayscale (color not sole differentiator)
+
+### Navigation Simplification
+
+- [ ] **NAV-01**: Header nav simplified — remove individual category links, add "Discover" as primary
+- [ ] **NAV-02**: Homepage hero CTA routes to /discover instead of separate category pages
+- [ ] **NAV-03**: Compare, Blog, Best Of remain as their own pages/nav items
+- [ ] **NAV-04**: Individual category pages redirect to /discover?category={slug} for SEO continuity
+
+### Component Sizing Updates
+
+- [ ] **SIZE-01**: Button md size increased to px-5 py-3 text-base (48px min height)
+- [ ] **SIZE-02**: Badge text increased from 11px to 12px with increased padding
+- [ ] **SIZE-03**: ProviderCard text sizes increased (title text-lg, description text-base, price text-xl)
+- [ ] **SIZE-04**: Card padding increased to p-6, image height to h-48
+- [ ] **SIZE-05**: Results grid uses 3 columns on desktop (not 4) with gap-8
+
+### Zero Results & Feedback
+
+- [ ] **UX-01**: Zero-results state with illustration, helpful text, and prominent "Clear Filters" / "Browse All" buttons
+- [ ] **UX-02**: Filter-applied chips displayed above results with individual remove buttons
+- [ ] **UX-03**: Loading skeletons match the larger card sizes
+
+## Future Requirements
+
+### Advanced Search
+
+- **SEARCH-01**: Autocomplete dropdown with provider name suggestions
+- **SEARCH-02**: Search by dietary tag, prep style keywords
+- **SEARCH-03**: Recent searches history
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Gemini API integration in admin UI | Requires API key setup; defer to v1.2 |
-| Auto-generation on content create | Requires Gemini SDK integration; defer to v1.2 |
-| Logo implementation (favicon, header) | User picks first, then we implement |
+| Map-based provider search | Food boxes ship nationally, location not primary filter |
+| Price comparison charts | Pricing data too sparse (17% populated) |
+| User accounts / saved searches | No auth system, deferred |
+| AI recommendations | v3 feature |
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| IMG-01 | Phase 17 | Pending |
-| IMG-02 | Phase 17 | Pending |
-| IMG-03 | Phase 17 | Pending |
-| IMG-04 | Phase 17 | Pending |
-| LOGO-01 | Phase 18 | Pending |
-| LOGO-02 | Phase 18 | Pending |
-| LOGO-03 | Phase 18 | Pending |
+| UI-01 | Phase 17 | Pending |
+| UI-02 | Phase 17 | Pending |
+| UI-03 | Phase 17 | Pending |
+| UI-04 | Phase 17 | Pending |
+| UI-05 | Phase 17 | Pending |
+| UI-06 | Phase 17 | Pending |
+| UI-07 | Phase 17 | Pending |
+| A11Y-01 | Phase 18 | Pending |
+| A11Y-02 | Phase 18 | Pending |
+| A11Y-03 | Phase 18 | Pending |
+| A11Y-04 | Phase 18 | Pending |
+| A11Y-05 | Phase 18 | Pending |
+| CAT-01 | Phase 18 | Pending |
+| CAT-02 | Phase 18 | Pending |
+| CAT-03 | Phase 18 | Pending |
+| CAT-04 | Phase 18 | Pending |
+| NAV-01 | Phase 19 | Pending |
+| NAV-02 | Phase 19 | Pending |
+| NAV-03 | Phase 19 | Pending |
+| NAV-04 | Phase 19 | Pending |
+| SIZE-01 | Phase 18 | Pending |
+| SIZE-02 | Phase 18 | Pending |
+| SIZE-03 | Phase 18 | Pending |
+| SIZE-04 | Phase 18 | Pending |
+| SIZE-05 | Phase 18 | Pending |
+| UX-01 | Phase 17 | Pending |
+| UX-02 | Phase 17 | Pending |
+| UX-03 | Phase 17 | Pending |
 
 **Coverage:**
-- v1.1 requirements: 7 total
-- Mapped to phases: 7
+- v2.0 requirements: 28 total
+- Mapped to phases: 28
 - Unmapped: 0 ✓
 
 ---

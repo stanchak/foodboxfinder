@@ -38,20 +38,23 @@ Consumers can quickly discover and compare food box subscriptions that match the
 
 ### Active
 
-- [ ] AI-generated cover images for all existing collection pages (6)
-- [ ] AI-generated cover images for all existing blog posts (5)
-- [ ] Database records updated with cover image URLs
-- [ ] 100 logo design variations generated via Gemini
-- [ ] Logo gallery page for browsing and selecting logo options
+- [ ] Unified Kayak-style search/filter interface replacing separate category pages
+- [ ] Category quick-filter buttons with per-category color coding
+- [ ] Elderly-accessible font sizes (16px min body, 44px touch targets)
+- [ ] Simplified navigation (remove redundant category nav)
+- [ ] Large left sidebar filters with button-style interactions
+- [ ] Zero-results and filter-applied feedback states
 
-## Current Milestone: v1.1 AI Image Generation
+## Current Milestone: v2.0 Unified Discovery Interface
 
-**Goal:** Add AI-generated featured images to all content pages and explore logo design options via Gemini image generation.
+**Goal:** Replace separate category pages with a single Kayak-style unified search/filter interface. All 95+ providers discoverable from one page with large, accessible filters. Elderly-friendly font sizes and touch targets throughout.
 
 **Target features:**
-- Backfill all existing collections and blog posts with Gemini-generated cover images
-- Generate 100 FoodBoxFinder logo options for selection
-- Logo gallery page for browsing options
+- Unified /discover page with all providers, filterable by all 9 dimensions
+- Category quick-filter buttons (Kayak-style tabs) with color coding
+- Large accessible left sidebar filters (16px+ text, 44px+ touch targets)
+- Simplified header navigation
+- Responsive mobile filter drawer
 
 
 ### Out of Scope
@@ -125,4 +128,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-22 after v1.1 milestone start*
+*Last updated: 2026-03-22 after v2.0 milestone start*
