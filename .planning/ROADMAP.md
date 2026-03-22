@@ -18,7 +18,7 @@
 | Phase | Name | Status | Plans | Started | Completed |
 |-------|------|--------|-------|---------|-----------|
 | 17 | Unified Discovery Page | Planned | 3 plans | — | — |
-| 18 | Accessibility & Design System Updates | Pending | — | — | — |
+| 18 | Accessibility & Design System Updates | Planned | 3 plans | — | — |
 | 19 | Navigation & Route Simplification | Pending | — | — | — |
 
 ## Phase Details
@@ -51,6 +51,13 @@ Plans:
 **Goal:** Update the entire design system for elderly-friendly accessibility — larger fonts, bigger touch targets, category color coding, and increased component sizing.
 
 **Requirements:** A11Y-01, A11Y-02, A11Y-03, A11Y-04, A11Y-05, CAT-01, CAT-02, CAT-03, CAT-04, SIZE-01, SIZE-02, SIZE-03, SIZE-04, SIZE-05
+
+**Plans:** 3 plans
+
+Plans:
+- [ ] 18-01-PLAN.md — Category color tokens, CATEGORY_COLOR_MAP, Button/Badge/Skeleton sizing
+- [ ] 18-02-PLAN.md — Filter, pagination, header, and rating accessibility sizing
+- [ ] 18-03-PLAN.md — ProviderCard category colors, grid layout, SearchHero icons, loading skeleton
 
 **Success Criteria:**
 1. All body text is 16px+ and filter text is 16px+
