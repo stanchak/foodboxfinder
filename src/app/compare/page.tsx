@@ -105,7 +105,7 @@ export default async function ComparePage({
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
           </div>
-          <h1 className="mt-4 text-2xl font-bold text-gray-900">
+          <h1 className="mt-4 text-2xl font-extrabold text-gray-900">
             Not Enough Providers to Compare
           </h1>
           <p className="mt-2 text-gray-600 max-w-md mx-auto">
@@ -116,13 +116,13 @@ export default async function ComparePage({
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link
               href="/compare"
-              className="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-6 py-3 text-sm font-semibold text-white hover:bg-primary-700 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white hover:bg-primary-700 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all"
             >
               Browse Providers to Compare
             </Link>
             <Link
               href="/search"
-              className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
             >
               Search All Providers
             </Link>
@@ -152,7 +152,7 @@ export default async function ComparePage({
         <Breadcrumbs items={breadcrumbItems} />
 
         <div className="mt-6">
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
             {orderedProviders.map((p) => p.name).join(" vs ")}
           </h1>
           <p className="mt-2 text-gray-600">
@@ -242,7 +242,7 @@ async function CompareEmptyState({
               <rect x="14" y="3" width="7" height="18" rx="1" />
             </svg>
           </div>
-          <h1 className="mt-4 text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             Compare Food Boxes Side by Side
           </h1>
           <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
@@ -275,7 +275,7 @@ async function CompareEmptyState({
             },
           ].map((item) => (
             <div key={item.step} className="text-center">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 text-white text-sm font-bold">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-gray-900 text-white text-sm font-bold">
                 {item.step}
               </div>
               <h3 className="mt-3 text-sm font-semibold text-gray-900">
@@ -291,7 +291,7 @@ async function CompareEmptyState({
           <section className="mt-14" aria-labelledby="compare-pick-heading">
             <h2
               id="compare-pick-heading"
-              className="text-2xl font-bold text-gray-900 text-center"
+              className="text-2xl font-extrabold text-gray-900 text-center"
             >
               Popular Providers to Compare
             </h2>

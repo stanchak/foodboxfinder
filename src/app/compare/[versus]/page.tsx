@@ -133,7 +133,7 @@ export default async function VersusPage({
 
         {/* Page Header */}
         <div className="mt-6">
-          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             {providerA.name} vs {providerB.name}
           </h1>
           <p className="mt-3 text-lg text-gray-600 max-w-3xl">
@@ -152,7 +152,7 @@ export default async function VersusPage({
 
         {/* Comparison Table */}
         <div className="mt-10">
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-extrabold text-gray-900">
             Full Comparison
           </h2>
           <p className="mt-2 text-gray-600">
@@ -167,11 +167,11 @@ export default async function VersusPage({
         <section className="mt-12" aria-labelledby="verdict-heading">
           <h2
             id="verdict-heading"
-            className="text-2xl font-bold text-gray-900"
+            className="text-2xl font-extrabold text-gray-900"
           >
             The Bottom Line
           </h2>
-          <div className="mt-4 rounded-xl border border-gray-200 bg-gray-50/50 p-6 space-y-4">
+          <div className="mt-4 rounded-2xl border border-gray-200 bg-neutral-50 p-6 space-y-4">
             <VerdictParagraph providerA={providerA} providerB={providerB} />
           </div>
         </section>
@@ -180,13 +180,13 @@ export default async function VersusPage({
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Link
             href={`/providers/${providerA.slug}`}
-            className="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-6 py-3 text-sm font-semibold text-white hover:bg-primary-700 transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white hover:bg-primary-700 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all"
           >
             View {providerA.name}
           </Link>
           <Link
             href={`/providers/${providerB.slug}`}
-            className="inline-flex items-center gap-2 rounded-lg border border-primary-600 px-6 py-3 text-sm font-semibold text-primary-600 hover:bg-primary-50 transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl border border-primary-600 px-6 py-3 text-sm font-semibold text-primary-600 hover:bg-primary-50 transition-colors"
           >
             View {providerB.name}
           </Link>
@@ -220,9 +220,9 @@ function QuickSummaryCard({
   provider,
 }: Readonly<{ provider: SummaryProvider }>) {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6">
+    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-card">
       <div className="flex items-center justify-between gap-4">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-lg font-bold text-gray-900">
           <Link
             href={`/providers/${provider.slug}`}
             className="hover:text-primary-700 transition-colors"
