@@ -269,11 +269,11 @@ Plans:
   5. Badge has 6 differentiated variants with distinct shapes per badge type
   6. Button has press feedback (active:scale), shadow states, and font-semibold
   7. The build succeeds without errors
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
 - [x] 14-01-PLAN.md -- Replace all design tokens in globals.css (colors, shadows, radii, root vars) and swap fonts in layout.tsx to Inter + Source Serif 4 + Geist Mono
-- [ ] 14-02-PLAN.md -- Update Badge.tsx with 6 differentiated variants and new typography; update Button.tsx with press feedback, shadows, and refined styling
+- [x] 14-02-PLAN.md -- Update Badge.tsx with 6 differentiated variants and new typography; update Button.tsx with press feedback, shadows, and refined styling
 
 ### Phase 15: Visual Rebrand - Component Restyling
 
