@@ -11,28 +11,28 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --primary: #0f766e;
-      --primary-light: #ccfbf1;
-      --primary-dark: #134e4a;
-      --accent: #d97706;
-      --accent-light: #fef3c7;
-      --bg: #fafaf8;
+      --primary: #ea580c;
+      --primary-light: #fff7ed;
+      --primary-dark: #c2410c;
+      --accent: #0d9488;
+      --accent-light: #ccfbf1;
+      --bg: #fff7ed;
       --surface: #ffffff;
-      --text: #1a1a2e;
-      --text-secondary: #6b7280;
-      --radius: 12px;
+      --text: #1c1917;
+      --text-secondary: #78716c;
+      --radius: 16px;
       --radius-badge: 9999px;
-      --radius-button: 8px;
-      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-hover: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+      --radius-button: 9999px;
+      --shadow: 0 4px 12px rgba(234,88,12,0.1);
+      --shadow-hover: 0 8px 24px rgba(234,88,12,0.15);
       --shadow-elevated: 0 8px 24px rgba(0,0,0,0.12);
-      --font-heading: 'Inter', sans-serif;
-      --font-body: 'Inter', sans-serif;
-      --star: #f59e0b;
+      --font-heading: 'Nunito', sans-serif;
+      --font-body: 'Nunito Sans', sans-serif;
+      --star: #ea580c;
       --success: #16a34a;
       --error: #dc2626;
-      --footer-bg: #111827;
-      --footer-text: #d1d5db;
+      --footer-bg: #1c1917;
+      --footer-text: #d6d3d1;
     }
 
     body {
@@ -63,6 +63,8 @@
       height: 120px;
       max-width: 400px;
       object-fit: contain;
+      mix-blend-mode: multiply;
+      filter: contrast(1.1);
       transition: opacity 0.3s;
     }
     .header-nav {
@@ -405,6 +407,8 @@
       max-height: 56px;
       max-width: 100%;
       object-fit: contain;
+      mix-blend-mode: multiply;
+      filter: contrast(1.1);
     }
 
     /* ── Theme Name Overlay ── */
@@ -430,6 +434,12 @@
     }
     .theme-indicator.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
+    /* ── Dark theme fixes ── */
+    body[data-theme="midnight"] .header-logo,
+    body[data-theme="midnight"] .carousel-center img {
+      mix-blend-mode: screen;
+      filter: brightness(1.2) contrast(1.1);
+    }
   </style>
 </head>
 <body>
@@ -438,7 +448,7 @@
 
   <!-- Sticky Header with integrated logo -->
   <div class="site-header">
-    <img id="headerLogo" class="header-logo" src="/assets/logos/logo-01.png" alt="FoodBoxFinder">
+    <img id="headerLogo" class="header-logo" src="/foodboxfinder-logo-transparent.png" alt="FoodBoxFinder">
     <div class="header-nav">
       <a href="#">Meal Kits</a>
       <a href="#">Prepared Meals</a>
@@ -580,23 +590,23 @@
     <div class="control-body" id="controlBody">
       <!-- Theme Carousel -->
       <div class="control-group">
-        <div class="control-group-label">Theme (<span id="themeNum">1</span>/9)</div>
+        <div class="control-group-label">Theme (<span id="themeNum">6</span>/9)</div>
         <div class="arrow-carousel">
           <button class="arrow-btn" onclick="prevTheme()">&larr;</button>
           <div class="carousel-center">
-            <div class="carousel-label" id="themeName">Deep Teal</div>
-            <div class="carousel-sublabel">current default</div>
+            <div class="carousel-label" id="themeName">Citrus Pop</div>
+            <div class="carousel-sublabel">playful, energetic</div>
           </div>
           <button class="arrow-btn" onclick="nextTheme()">&rarr;</button>
         </div>
       </div>
       <!-- Logo Carousel -->
       <div class="control-group">
-        <div class="control-group-label">Logo (#<span id="logoNum">01</span> of 30)</div>
+        <div class="control-group-label">Logo (<span id="logoNum">Selected</span>)</div>
         <div class="arrow-carousel">
           <button class="arrow-btn" onclick="prevLogo()">&larr;</button>
           <div class="carousel-center">
-            <img id="carouselLogo" src="/assets/logos/logo-01.png" alt="Logo">
+            <img id="carouselLogo" src="/foodboxfinder-logo-transparent.png" alt="Logo">
           </div>
           <button class="arrow-btn" onclick="nextLogo()">&rarr;</button>
         </div>
@@ -653,7 +663,7 @@
     };
 
     // ── Theme Carousel ──
-    let currentThemeIdx = 0;
+    let currentThemeIdx = 5; // citrus
     function applyTheme(key) {
       const theme = themes[key];
       if (!theme) return;
@@ -681,16 +691,17 @@
     }
 
     // ── Logo Carousel ──
-    var currentLogo = 1;
+    var currentLogo = 0; // 0 = selected transparent logo
+    var logoSources = ['/foodboxfinder-logo-transparent.png'];
+    for (var i = 1; i <= 30; i++) logoSources.push('/assets/logos/logo-' + String(i).padStart(2, '0') + '.png');
     function updateLogo() {
-      var num = String(currentLogo).padStart(2, '0');
-      var src = '/assets/logos/logo-' + num + '.png';
+      var src = logoSources[currentLogo];
       document.getElementById('carouselLogo').src = src;
       document.getElementById('headerLogo').src = src;
-      document.getElementById('logoNum').textContent = num;
+      document.getElementById('logoNum').textContent = currentLogo === 0 ? 'Selected' : '#' + String(currentLogo).padStart(2, '0') + ' of 30';
     }
-    function nextLogo() { currentLogo = currentLogo >= 30 ? 1 : currentLogo + 1; updateLogo(); }
-    function prevLogo() { currentLogo = currentLogo <= 1 ? 30 : currentLogo - 1; updateLogo(); }
+    function nextLogo() { currentLogo = currentLogo >= 30 ? 0 : currentLogo + 1; updateLogo(); }
+    function prevLogo() { currentLogo = currentLogo <= 0 ? 30 : currentLogo - 1; updateLogo(); }
 
     // ── Control Panel Toggle ──
     function togglePanel() {
