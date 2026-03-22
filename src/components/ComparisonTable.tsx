@@ -107,7 +107,7 @@ function CheckIcon() {
       strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="text-green-600"
+      className="text-primary-600"
       aria-hidden="true"
     >
       <path d="M20 6 9 17l-5-5" />
@@ -127,7 +127,7 @@ function XIcon() {
       strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="text-red-400"
+      className="text-gray-300"
       aria-hidden="true"
     >
       <path d="M18 6 6 18" />
