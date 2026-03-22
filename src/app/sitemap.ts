@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${BASE_URL}/search`,
       lastModified: now,
       changeFrequency: "weekly",
-      priority: 0.5,
+      priority: 0.9,
     },
     {
       url: `${BASE_URL}/blog`,
@@ -52,13 +52,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // -- Category pages --
-  const categoryPages: MetadataRoute.Sitemap = Object.values(CATEGORY_MAP).map(
+  // -- Search category pages --
+  const searchCategoryPages: MetadataRoute.Sitemap = Object.values(CATEGORY_MAP).map(
     ({ slug }) => ({
-      url: `${BASE_URL}/${slug}`,
+      url: `${BASE_URL}/search?category=${slug}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
-      priority: 0.9,
+      priority: 0.8,
     }),
   );
 
@@ -92,7 +92,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticPages,
-    ...categoryPages,
+    ...searchCategoryPages,
     ...providerPages,
     ...collectionPages,
     ...blogPages,
