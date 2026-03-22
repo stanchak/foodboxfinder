@@ -100,6 +100,11 @@ Recent decisions affecting current work:
 - [Phase 10]: Followed existing validation pattern (VALID_VALUE_TIERS + isValidValueTier) consistent with other enum validators
 - [Phase 11]: No code changes needed for UX verification -- all infrastructure (error.tsx, global-error.tsx, not-found.tsx, sticky Header, MobileNav) already in place from prior phases
 
+### Roadmap Evolution
+
+- Phase 12 added: Critical Design & Accessibility Fixes (P0 issues from UX/UI/A11y agent reviews)
+- Phase 13 added: Design Polish & UX Improvements (P1/P2 issues from UX/UI/A11y agent reviews)
+
 ### Pending Todos
 
 None yet.

@@ -212,3 +212,23 @@ Note: Phase 3 and Phase 10 can run in parallel with their neighbors (3 depends o
 | 9. SEO and Collections | 0/2 | Not started | - |
 | 10. Admin | 2/2 | Complete    | 2026-03-21 |
 | 11. UX Polish | 1/1 | Complete    | 2026-03-22 |
+
+### Phase 12: Critical Design & Accessibility Fixes
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 11
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 12 to break down)
+
+### Phase 13: Design Polish & UX Improvements
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 12
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 13 to break down)
