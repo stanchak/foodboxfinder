@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
-import SearchInput from "@/components/SearchInput";
+import { getFilteredProviders, getCategoryCounts } from "@/lib/queries";
+import { parseProviderFilters } from "@/lib/filters";
+import SearchHero from "@/components/SearchHero";
+import UnifiedFilters, { UnifiedActiveFilterChips } from "@/components/UnifiedFilters";
 import ProviderCard from "@/components/ProviderCard";
-import Card from "@/components/Card";
-import Badge from "@/components/Badge";
-import {
-  searchProviders,
-  searchBlogPosts,
-  searchCollections,
-} from "@/lib/queries";
-import { CATEGORY_NAV_ITEMS } from "@/lib/categories";
+import Pagination from "@/components/Pagination";
 
 export async function generateMetadata({
   searchParams,
@@ -19,220 +14,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const sp = await searchParams;
   const query = typeof sp.q === "string" ? sp.q : "";
-
-  if (query) {
-    return {
-      title: `Search results for "${query}"`,
-      description: `Find food box subscriptions, blog posts, and collections matching "${query}" on FoodBoxFinder.`,
-      robots: { index: false },
-    };
-  }
+  const hasFilters = Object.keys(sp).some(
+    (key) => key !== "page" && sp[key] !== undefined && sp[key] !== "",
+  );
 
   return {
-    title: "Search",
-    description:
-      "Search for meal kits, prepared meals, protein boxes, produce boxes, and specialty food subscriptions on FoodBoxFinder.",
+    title: query
+      ? `"${query}" - Food Box Search`
+      : "Discover Food Box Subscriptions",
+    description: query
+      ? `Find food box subscriptions matching "${query}" on FoodBoxFinder.`
+      : "Browse and compare 95+ food box subscription services. Filter by category, diet, prep style, price, and more.",
+    ...(hasFilters && { robots: { index: false, follow: true } }),
+    alternates: { canonical: "/search" },
   };
-}
-
-async function SearchResults({
-  query,
-}: Readonly<{ query: string }>) {
-  const [providers, blogPosts, collections] = await Promise.all([
-    searchProviders(query),
-    searchBlogPosts(query),
-    searchCollections(query),
-  ]);
-
-  const totalResults =
-    providers.length + blogPosts.length + collections.length;
-
-  if (totalResults === 0) {
-    return (
-      <section aria-label="No results">
-        <div className="text-center py-12">
-          <div className="mx-auto w-16 h-16 rounded-full bg-neutral-100 flex items-center justify-center mb-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-neutral-400"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-          </div>
-          <h2 className="text-xl font-extrabold text-neutral-900">
-            No results found for &ldquo;{query}&rdquo;
-          </h2>
-          <p className="mt-2 text-neutral-600 max-w-md mx-auto">
-            Try a different search term or browse by category.
-          </p>
-        </div>
-
-        <div className="mt-8">
-          <h3 className="text-lg font-bold text-neutral-900 mb-4">
-            Browse by category
-          </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            {CATEGORY_NAV_ITEMS.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/${item.slug}`}
-                className="flex items-center justify-center rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm font-semibold text-neutral-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition-colors hover:shadow-sm"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <>
-      <p className="text-sm text-neutral-500 mb-6" aria-live="polite">
-        Found {providers.length} provider{providers.length !== 1 ? "s" : ""}
-        {blogPosts.length > 0 &&
-          `, ${blogPosts.length} blog post${blogPosts.length !== 1 ? "s" : ""}`}
-        {collections.length > 0 &&
-          `, ${collections.length} collection${collections.length !== 1 ? "s" : ""}`}
-      </p>
-
-      {/* Provider results */}
-      {providers.length > 0 && (
-        <section aria-labelledby="providers-heading" className="mb-12">
-          <h2
-            id="providers-heading"
-            className="text-lg font-extrabold text-neutral-900 mb-4"
-          >
-            Providers
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {providers.map((provider) => (
-              <ProviderCard key={provider.slug} provider={provider} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Blog post results */}
-      {blogPosts.length > 0 && (
-        <section aria-labelledby="blog-heading" className="mb-12">
-          <h2
-            id="blog-heading"
-            className="text-lg font-extrabold text-neutral-900 mb-4"
-          >
-            Blog Posts
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {blogPosts.map((post) => (
-              <Card
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-              >
-                <article>
-                  <Badge color="default" className="mb-2">
-                    Blog
-                  </Badge>
-                  <h3 className="text-base font-semibold text-neutral-900 line-clamp-2">
-                    {post.title}
-                  </h3>
-                  {post.excerpt && (
-                    <p className="mt-1.5 text-sm text-neutral-600 line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                  )}
-                  <div className="mt-3 flex items-center gap-2 text-xs text-neutral-400">
-                    {post.author && <span>{post.author}</span>}
-                    {post.author && post.publishedAt && (
-                      <span aria-hidden="true">&middot;</span>
-                    )}
-                    {post.publishedAt && (
-                      <time dateTime={post.publishedAt.toISOString()}>
-                        {post.publishedAt.toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </time>
-                    )}
-                  </div>
-                </article>
-              </Card>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Collection results */}
-      {collections.length > 0 && (
-        <section aria-labelledby="collections-heading" className="mb-12">
-          <h2
-            id="collections-heading"
-            className="text-lg font-extrabold text-neutral-900 mb-4"
-          >
-            Collections
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {collections.map((collection) => (
-              <Card
-                key={collection.slug}
-                href={`/collections/${collection.slug}`}
-              >
-                <article>
-                  <Badge color="category" className="mb-2">
-                    Collection
-                  </Badge>
-                  <h3 className="text-base font-semibold text-neutral-900 line-clamp-2">
-                    {collection.title}
-                  </h3>
-                  {collection.description && (
-                    <p className="mt-1.5 text-sm text-neutral-600 line-clamp-2">
-                      {collection.description}
-                    </p>
-                  )}
-                  <p className="mt-3 text-xs text-neutral-400">
-                    {collection._count.items} provider
-                    {collection._count.items !== 1 ? "s" : ""}
-                  </p>
-                </article>
-              </Card>
-            ))}
-          </div>
-        </section>
-      )}
-    </>
-  );
-}
-
-function SearchResultsSkeleton() {
-  return (
-    <div className="animate-pulse space-y-6">
-      <div className="h-4 w-48 bg-neutral-200 rounded" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="bg-white rounded-xl shadow-card overflow-hidden">
-            <div className="h-40 bg-neutral-100" />
-            <div className="p-4 space-y-3">
-              <div className="h-4 w-20 bg-neutral-200 rounded-full" />
-              <div className="h-5 w-3/4 bg-neutral-200 rounded" />
-              <div className="h-3 w-full bg-neutral-100 rounded" />
-              <div className="h-3 w-2/3 bg-neutral-100 rounded" />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 }
 
 export default async function SearchPage({
@@ -240,99 +35,146 @@ export default async function SearchPage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const sp = await searchParams;
-  const query = typeof sp.q === "string" ? sp.q.trim() : "";
+  const rawSearchParams = await searchParams;
+  const filters = parseProviderFilters(rawSearchParams);
+
+  // Fetch data in parallel
+  const [{ providers, total, pageSize }, categoryCounts] = await Promise.all([
+    getFilteredProviders(filters),
+    getCategoryCounts(),
+  ]);
+
+  const totalPages = Math.ceil(total / pageSize);
+
+  // Build pagination search params (keep all string params except "page")
+  const paginationSearchParams: Record<string, string> = {};
+  for (const [key, value] of Object.entries(rawSearchParams)) {
+    if (typeof value === "string" && value.length > 0 && key !== "page") {
+      paginationSearchParams[key] = value;
+    }
+  }
+
+  // JSON-LD structured data
+  const query = typeof rawSearchParams.q === "string" ? rawSearchParams.q : "";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: query ? `Search results for "${query}"` : "Discover Food Box Subscriptions",
+    description: "Browse and compare food box subscription services on FoodBoxFinder.",
+    url: "https://foodboxfinder.com/search",
+    numberOfItems: total,
+  };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      {/* Page header */}
-      <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-neutral-900">
-          Search
-        </h1>
-        <p className="mt-1 text-neutral-600">
-          Find food box subscriptions, blog posts, and curated collections.
-        </p>
-      </div>
-
-      {/* Search input */}
-      <Suspense>
-        <SearchInput autoFocus className="mb-8" />
-      </Suspense>
-
-      {/* Results */}
-      {query ? (
-        <Suspense fallback={<SearchResultsSkeleton />}>
-          <SearchResults query={query} />
-        </Suspense>
-      ) : (
-        <EmptyQueryState />
-      )}
-
-      {/* JSON-LD */}
+    <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SearchResultsPage",
-            name: query
-              ? `Search results for "${query}"`
-              : "Search FoodBoxFinder",
-            url: `https://foodboxfinder.com/search${query ? `?q=${encodeURIComponent(query)}` : ""}`,
-          }).replace(/</g, "\\u003c"),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
-    </div>
+
+      {/* Search hero with search bar + category tabs */}
+      <Suspense fallback={null}>
+        <SearchHero categoryCounts={categoryCounts} totalCount={total} />
+      </Suspense>
+
+      {/* Main content: sidebar + results */}
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="lg:flex lg:gap-8">
+          {/* Filter sidebar (desktop) + mobile trigger */}
+          <Suspense fallback={null}>
+            <UnifiedFilters totalCount={total} />
+          </Suspense>
+
+          {/* Results column */}
+          <div className="flex-1 min-w-0">
+            {/* Active filter chips */}
+            <Suspense fallback={null}>
+              <UnifiedActiveFilterChips />
+            </Suspense>
+
+            {/* Results header */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+              <p className="text-base text-neutral-600" aria-live="polite">
+                {total === 0 ? (
+                  "No providers found"
+                ) : (
+                  <>
+                    Showing{" "}
+                    <span className="font-medium text-neutral-900">
+                      {(filters.page - 1) * pageSize + 1}
+                    </span>
+                    {" - "}
+                    <span className="font-medium text-neutral-900">
+                      {Math.min(filters.page * pageSize, total)}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-medium text-neutral-900">{total}</span>{" "}
+                    providers
+                  </>
+                )}
+              </p>
+            </div>
+
+            {/* Provider grid or zero results */}
+            {providers.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+                {providers.map((provider) => (
+                  <ProviderCard key={provider.slug} provider={provider} />
+                ))}
+              </div>
+            ) : (
+              <ZeroResultsState />
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-10">
+                <Pagination
+                  currentPage={filters.page}
+                  totalPages={totalPages}
+                  basePath="/search"
+                  searchParams={paginationSearchParams}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 
-function EmptyQueryState() {
+function ZeroResultsState() {
   return (
-    <section aria-label="Search suggestions">
-      <div className="text-center py-12">
-        <div className="mx-auto w-16 h-16 rounded-full bg-primary-50 flex items-center justify-center mb-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-primary-500"
-            aria-hidden="true"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
-        </div>
-        <h2 className="text-xl font-extrabold text-neutral-900">
-          Start typing to search
-        </h2>
-        <p className="mt-2 text-neutral-600 max-w-md mx-auto">
-          Search across providers, blog posts, and curated collections.
-        </p>
+    <div className="rounded-2xl border-2 border-dashed border-neutral-200 py-16 px-8 text-center">
+      {/* Search icon illustration */}
+      <div className="mx-auto w-20 h-20 rounded-full bg-neutral-100 flex items-center justify-center mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-neutral-400" aria-hidden="true">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
       </div>
-
-      <div className="mt-8">
-        <h3 className="text-lg font-bold text-neutral-900 mb-4">
-          Or browse by category
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-          {CATEGORY_NAV_ITEMS.map((item) => (
-            <Link
-              key={item.slug}
-              href={`/${item.slug}`}
-              className="flex items-center justify-center rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm font-semibold text-neutral-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition-colors hover:shadow-sm"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
+      <h3 className="text-xl font-extrabold text-neutral-900">
+        No providers match your filters
+      </h3>
+      <p className="mt-2 text-base text-neutral-600 max-w-md mx-auto">
+        Try adjusting your filters or clearing them to see all available food box subscriptions.
+      </p>
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        {/* These are plain links -- the actual clearing is done by navigating to /search */}
+        <a
+          href="/search"
+          className="inline-flex items-center rounded-full bg-primary-600 px-6 py-3 text-base font-bold text-white hover:bg-primary-700 transition-colors"
+        >
+          Clear All Filters
+        </a>
+        <a
+          href="/search"
+          className="inline-flex items-center rounded-full border border-neutral-300 bg-white px-6 py-3 text-base font-bold text-neutral-700 hover:bg-neutral-50 transition-colors"
+        >
+          Browse All
+        </a>
       </div>
-    </section>
+    </div>
   );
 }
