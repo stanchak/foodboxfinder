@@ -489,14 +489,14 @@ export default async function HomePage() {
       {/* --- How It Works Section --- */}
       <section
         id="how-it-works"
-        className="py-16 sm:py-20"
+        className="py-20 sm:py-24"
         aria-labelledby="how-it-works-heading"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2
               id="how-it-works-heading"
-              className="text-3xl font-bold tracking-tight text-gray-900"
+              className="text-2xl font-extrabold tracking-tight text-gray-900"
             >
               How It Works
             </h2>
@@ -530,18 +530,18 @@ export default async function HomePage() {
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary-50">
+                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-50">
                   {item.icon}
                 </div>
                 <div className="mt-2 flex items-center justify-center">
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary-600 text-xs font-bold text-white">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-900 text-xs font-bold text-white">
                     {item.step}
                   </span>
                 </div>
-                <h3 className="mt-4 text-xl font-semibold text-gray-900">
+                <h3 className="mt-4 text-xl font-bold text-gray-900">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-gray-600">
+                <p className="mt-2 text-sm leading-6 text-gray-600 max-w-xs mx-auto">
                   {item.description}
                 </p>
               </div>
@@ -552,7 +552,7 @@ export default async function HomePage() {
 
       {/* --- Social Proof / Trust Section --- */}
       <section
-        className="bg-primary-700 py-14 sm:py-16"
+        className="bg-gray-900 py-16 sm:py-20"
         aria-labelledby="trust-heading"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -583,13 +583,13 @@ export default async function HomePage() {
               },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="text-3xl font-bold text-white sm:text-4xl">
+                <p className="text-4xl font-extrabold text-white sm:text-5xl">
                   {stat.value}
                 </p>
-                <p className="mt-1 text-base font-semibold text-primary-100">
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-gray-400">
                   {stat.label}
                 </p>
-                <p className="mt-0.5 text-sm text-primary-200">
+                <p className="mt-0.5 text-sm text-gray-500">
                   {stat.description}
                 </p>
               </div>
@@ -599,10 +599,10 @@ export default async function HomePage() {
       </section>
 
       {/* --- Final CTA Section --- */}
-      <section className="py-16 sm:py-20">
+      <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+            <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">
               Ready to find your perfect food box?
             </h2>
             <p className="mt-4 text-lg text-gray-600">
@@ -612,13 +612,13 @@ export default async function HomePage() {
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/search"
-                className="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3.5 text-base font-semibold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-all"
               >
                 Start Exploring
               </Link>
               <Link
                 href="/best"
-                className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-6 py-3.5 text-base font-semibold text-gray-700 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400 transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-6 py-3.5 text-base font-semibold text-gray-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400 transition-all"
               >
                 Browse Collections
               </Link>
