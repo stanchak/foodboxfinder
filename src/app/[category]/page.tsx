@@ -147,7 +147,7 @@ export default async function CategoryPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 bg-neutral-50 min-h-screen">
         {/* Breadcrumbs */}
         <Breadcrumbs items={[
           { label: "Home", href: "/" },
@@ -156,7 +156,7 @@ export default async function CategoryPage({
 
         {/* Page header */}
         <header className="mb-8 mt-4">
-          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             {categoryInfo.label}
           </h1>
           <p className="mt-2 text-lg text-gray-600">
@@ -231,7 +231,7 @@ export default async function CategoryPage({
                   <circle cx="11" cy="11" r="8" />
                   <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <h3 className="mt-4 text-base font-medium text-gray-900">
+                <h3 className="mt-4 text-base font-bold text-gray-900">
                   No providers match your filters
                 </h3>
                 <p className="mt-1 text-sm text-gray-500">

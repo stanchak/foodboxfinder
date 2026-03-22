@@ -69,7 +69,7 @@ async function SearchResults({
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </div>
-          <h2 className="text-xl font-semibold text-gray-900">
+          <h2 className="text-xl font-extrabold text-gray-900">
             No results found for &ldquo;{query}&rdquo;
           </h2>
           <p className="mt-2 text-gray-600 max-w-md mx-auto">
@@ -78,7 +78,7 @@ async function SearchResults({
         </div>
 
         <div className="mt-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <h3 className="text-lg font-bold text-gray-900 mb-4">
             Browse by category
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
@@ -86,7 +86,7 @@ async function SearchResults({
               <Link
                 key={item.slug}
                 href={`/${item.slug}`}
-                className="flex items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition-colors shadow-sm"
+                className="flex items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition-colors hover:shadow-sm"
               >
                 {item.label}
               </Link>
@@ -112,7 +112,7 @@ async function SearchResults({
         <section aria-labelledby="providers-heading" className="mb-12">
           <h2
             id="providers-heading"
-            className="text-lg font-semibold text-gray-900 mb-4"
+            className="text-lg font-extrabold text-gray-900 mb-4"
           >
             Providers
           </h2>
@@ -129,7 +129,7 @@ async function SearchResults({
         <section aria-labelledby="blog-heading" className="mb-12">
           <h2
             id="blog-heading"
-            className="text-lg font-semibold text-gray-900 mb-4"
+            className="text-lg font-extrabold text-gray-900 mb-4"
           >
             Blog Posts
           </h2>
@@ -178,7 +178,7 @@ async function SearchResults({
         <section aria-labelledby="collections-heading" className="mb-12">
           <h2
             id="collections-heading"
-            className="text-lg font-semibold text-gray-900 mb-4"
+            className="text-lg font-extrabold text-gray-900 mb-4"
           >
             Collections
           </h2>
@@ -247,7 +247,7 @@ export default async function SearchPage({
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900">
           Search
         </h1>
         <p className="mt-1 text-gray-600">
@@ -309,7 +309,7 @@ function EmptyQueryState() {
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
         </div>
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-extrabold text-gray-900">
           Start typing to search
         </h2>
         <p className="mt-2 text-gray-600 max-w-md mx-auto">
@@ -318,7 +318,7 @@ function EmptyQueryState() {
       </div>
 
       <div className="mt-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-bold text-gray-900 mb-4">
           Or browse by category
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
@@ -326,7 +326,7 @@ function EmptyQueryState() {
             <Link
               key={item.slug}
               href={`/${item.slug}`}
-              className="flex items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition-colors shadow-sm"
+              className="flex items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition-colors hover:shadow-sm"
             >
               {item.label}
             </Link>
