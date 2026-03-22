@@ -1,18 +1,75 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { CATEGORY_NAV_ITEMS } from "@/lib/categories";
 
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const wasOpenRef = useRef(false);
+
+  // Focus trap and Escape handler
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+
+    // Focus the close button on open
+    const closeBtn = drawer.querySelector<HTMLElement>("button[aria-label='Close menu']");
+    closeBtn?.focus();
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focusableElements = drawer!.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusableElements.length === 0) return;
+
+        const first = focusableElements[0];
+        const last = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  // Return focus to trigger button on close
+  useEffect(() => {
+    if (wasOpenRef.current && !isOpen) {
+      triggerRef.current?.focus();
+    }
+    wasOpenRef.current = isOpen;
+  }, [isOpen]);
 
   return (
     <>
       <button
+        ref={triggerRef}
         className="lg:hidden p-2 text-gray-700 hover:text-primary-600"
         aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}
+        aria-controls="mobile-nav-drawer"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? (
@@ -26,6 +83,7 @@ export default function MobileNav() {
             strokeWidth={2}
             strokeLinecap="round"
             strokeLinejoin="round"
+            aria-hidden="true"
           >
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
@@ -41,6 +99,7 @@ export default function MobileNav() {
             strokeWidth={2}
             strokeLinecap="round"
             strokeLinejoin="round"
+            aria-hidden="true"
           >
             <line x1="3" y1="6" x2="21" y2="6" />
             <line x1="3" y1="12" x2="21" y2="12" />
@@ -55,7 +114,14 @@ export default function MobileNav() {
             className="fixed inset-0 z-50 bg-black/20"
             onClick={() => setIsOpen(false)}
           />
-          <div className="fixed top-0 right-0 z-50 h-full w-72 bg-white shadow-xl transform transition-transform duration-300 translate-x-0">
+          <div
+            ref={drawerRef}
+            id="mobile-nav-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
+            className="fixed top-0 right-0 z-50 h-full w-72 bg-white shadow-xl transform transition-transform duration-300 translate-x-0"
+          >
             <button
               onClick={() => setIsOpen(false)}
               className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700"
@@ -71,6 +137,7 @@ export default function MobileNav() {
                 strokeWidth={2}
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                aria-hidden="true"
               >
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
