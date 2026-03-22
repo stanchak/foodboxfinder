@@ -554,13 +554,13 @@ export default function ComparisonTable({
 
             {/* Affiliate CTA Row */}
             <tr>
-              <td className="sticky left-0 z-10 bg-accent-50/30 p-4 border-t border-gray-200 text-sm font-medium text-gray-600">
+              <th scope="row" className="sticky left-0 z-10 bg-accent-50 p-4 border-t border-gray-200 text-sm font-medium text-gray-600 text-left">
                 Visit Provider
-              </td>
+              </th>
               {providers.map((provider, index) => (
                 <td
                   key={provider.id}
-                  className={`bg-accent-50/30 p-4 text-center border-t border-gray-200 ${
+                  className={`bg-accent-50 p-4 text-center border-t border-gray-200 ${
                     index < colCount - 1 ? "border-r border-gray-100" : ""
                   }`}
                 >
@@ -578,9 +578,9 @@ export default function ComparisonTable({
 
             {/* View Details Link Row */}
             <tr>
-              <td className="sticky left-0 z-10 bg-white p-4 border-t border-gray-200">
+              <th scope="row" className="sticky left-0 z-10 bg-white p-4 border-t border-gray-200 text-left">
                 <span className="sr-only">Actions</span>
-              </td>
+              </th>
               {providers.map((provider, index) => (
                 <td
                   key={provider.id}
@@ -590,7 +590,8 @@ export default function ComparisonTable({
                 >
                   <Link
                     href={`/providers/${provider.slug}`}
-                    className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 transition-colors"
+                    className="text-sm font-medium text-primary-600 hover:text-primary-700 underline underline-offset-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+                    aria-label={`View details for ${provider.name}`}
                   >
                     View Details
                   </Link>
@@ -643,11 +644,12 @@ function ComparisonRow({
 
   return (
     <tr>
-      <td
-        className={`sticky left-0 z-10 ${bgClass} p-4 text-sm font-medium text-gray-600 border-b border-gray-100 w-40 sm:w-48`}
+      <th
+        scope="row"
+        className={`sticky left-0 z-10 ${bgClass} p-4 text-sm font-medium text-gray-600 border-b border-gray-100 w-40 sm:w-48 text-left`}
       >
         {label}
-      </td>
+      </th>
       {providers.map((provider, index) => (
         <td
           key={provider.id}
