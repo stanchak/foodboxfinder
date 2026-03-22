@@ -17,11 +17,11 @@
 
 ### Accessibility & Elderly-Friendly Design
 
-- [ ] **A11Y-01**: All body text is 16px minimum, filter labels 16px minimum
-- [ ] **A11Y-02**: All interactive elements meet 44x44px touch target minimum
+- [x] **A11Y-01**: All body text is 16px minimum, filter labels 16px minimum
+- [x] **A11Y-02**: All interactive elements meet 44x44px touch target minimum
 - [ ] **A11Y-03**: Category filter buttons are large pill-shaped with icon + text
-- [ ] **A11Y-04**: Checkboxes and radio inputs are 20x20px with generous label spacing
-- [ ] **A11Y-05**: Filter option rows have min-height 44px with hover highlight
+- [x] **A11Y-04**: Checkboxes and radio inputs are 20x20px with generous label spacing
+- [x] **A11Y-05**: Filter option rows have min-height 44px with hover highlight
 
 ### Category Color System
 
@@ -79,11 +79,11 @@
 | UI-05 | Phase 17 | Complete |
 | UI-06 | Phase 17 | Complete |
 | UI-07 | Phase 17 | Complete |
-| A11Y-01 | Phase 18 | Pending |
-| A11Y-02 | Phase 18 | Pending |
+| A11Y-01 | Phase 18 | Complete |
+| A11Y-02 | Phase 18 | Complete |
 | A11Y-03 | Phase 18 | Pending |
-| A11Y-04 | Phase 18 | Pending |
-| A11Y-05 | Phase 18 | Pending |
+| A11Y-04 | Phase 18 | Complete |
+| A11Y-05 | Phase 18 | Complete |
 | CAT-01 | Phase 18 | Complete |
 | CAT-02 | Phase 18 | Complete |
 | CAT-03 | Phase 18 | Pending |
