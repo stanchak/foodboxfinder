@@ -25,7 +25,7 @@ export default function Header() {
               <Link
                 key={item.slug}
                 href={`/${item.slug}`}
-                className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                className="text-base font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
               >
                 {item.label}
               </Link>
@@ -33,19 +33,19 @@ export default function Header() {
             <span className="h-5 w-px bg-neutral-200" aria-hidden="true" />
             <Link
               href="/compare"
-              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+              className="text-base font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
             >
               Compare
             </Link>
             <Link
               href="/best"
-              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+              className="text-base font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
             >
               Best Of
             </Link>
             <Link
               href="/blog"
-              className="text-sm font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+              className="text-base font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
             >
               Blog
             </Link>
