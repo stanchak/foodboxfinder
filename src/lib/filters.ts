@@ -44,6 +44,8 @@ export interface ProviderFilters {
   householdFit?: string;
   modelType?: string;
   geography?: string;
+  textQuery?: string;
+  freeShipping?: boolean;
   status: ProviderStatus[];
   sortBy: SortOption;
   page: number;
@@ -143,12 +145,20 @@ export function parseProviderFilters(
   const parsedPage = pageParam ? parseInt(pageParam, 10) : NaN;
   const page = !isNaN(parsedPage) && parsedPage >= 1 ? parsedPage : 1;
 
-  // Page size: parse as integer, clamp to 1-48, default 12
+  // Page size: parse as integer, clamp to 1-48, default 18
   const pageSizeParam = typeof searchParams.pageSize === "string" ? searchParams.pageSize : undefined;
   const parsedPageSize = pageSizeParam ? parseInt(pageSizeParam, 10) : NaN;
   const pageSize = !isNaN(parsedPageSize) && parsedPageSize >= 1 && parsedPageSize <= 48
     ? parsedPageSize
-    : 12;
+    : 18;
+
+  // Text query: trim whitespace, treat empty as undefined
+  const textQueryParam = typeof searchParams.q === "string" ? searchParams.q.trim() : undefined;
+  const textQuery = textQueryParam && textQueryParam.length > 0 ? textQueryParam : undefined;
+
+  // Free shipping: treat "1" as true, anything else as undefined
+  const freeShippingParam = typeof searchParams.freeShipping === "string" ? searchParams.freeShipping : undefined;
+  const freeShipping = freeShippingParam === "1" ? true : undefined;
 
   return {
     category,
@@ -158,6 +168,8 @@ export function parseProviderFilters(
     householdFit,
     modelType,
     geography,
+    textQuery,
+    freeShipping,
     status,
     sortBy,
     page,
