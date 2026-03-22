@@ -370,15 +370,22 @@ export default async function HomePage() {
 
             {/* Horizontal scroll on mobile, grid on desktop */}
             <div className="mt-10 -mx-4 px-4 sm:mx-0 sm:px-0">
-              <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:overflow-visible sm:pb-0">
-                {featuredProviders.map((provider) => (
-                  <article
-                    key={provider.id}
-                    className="min-w-[280px] max-w-[320px] snap-start sm:min-w-0 sm:max-w-none"
-                  >
-                    <ProviderCard provider={provider} />
-                  </article>
-                ))}
+              <div className="relative">
+                <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:overflow-visible sm:pb-0">
+                  {featuredProviders.map((provider) => (
+                    <article
+                      key={provider.id}
+                      className="min-w-[280px] max-w-[320px] snap-start sm:min-w-0 sm:max-w-none"
+                    >
+                      <ProviderCard provider={provider} />
+                    </article>
+                  ))}
+                </div>
+                {/* Scroll indicator gradient - mobile only */}
+                <div
+                  className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white to-transparent sm:hidden"
+                  aria-hidden="true"
+                />
               </div>
             </div>
 
