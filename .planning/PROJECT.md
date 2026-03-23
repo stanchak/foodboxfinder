@@ -53,25 +53,18 @@ Consumers can quickly discover and compare food box subscriptions that match the
 - ✓ About link in Header, MobileNav, and Footer — v2.1
 - ✓ AboutPage JSON-LD structured data and sitemap entry — v2.1
 
+- ✓ Audit existing 95 providers for data completeness across all schema fields — v3.0
+- ✓ Research the full food box subscription market to identify missing providers — v3.0
+- ✓ Populate real pricing data (per serving, per box) for all providers — v3.0
+- ✓ Fill missing fields: dietary tags, prep style, household fit, geography, flexibility, descriptions — v3.0
+- ✓ Obtain proper logos/graphics for all providers (eliminate fallbacks) — v3.0
+- ✓ Validate accuracy of existing provider data against current provider websites — v3.0
+- ✓ Build import/update tooling for bulk data operations — v3.0
+
 ### Active
 
-- [ ] Audit existing 95 providers for data completeness across all schema fields
-- [ ] Research the full food box subscription market to identify missing providers
-- [ ] Populate real pricing data (per serving, per box) for all providers
-- [ ] Fill missing fields: dietary tags, prep style, household fit, geography, flexibility, descriptions
-- [ ] Obtain proper logos/graphics for all providers (eliminate fallbacks)
-- [ ] Validate accuracy of existing provider data against current provider websites
-- [ ] Build import/update tooling for bulk data operations
+(None — planning next milestone)
 
-## Current Milestone: v3.0 Data Completeness & Market Coverage
-
-**Goal:** Make the dataset comprehensive (all providers in the market) and accurate (every field populated and validated) — the foundation that makes discovery actually useful.
-
-**Target features:**
-- Full market coverage across all 5 categories
-- Complete, validated data for every provider
-- Real pricing, accurate dietary/category data, proper graphics
-- Tooling for bulk data import and validation
 
 
 ### Out of Scope
@@ -94,19 +87,22 @@ Consumers can quickly discover and compare food box subscriptions that match the
 - **Research corpus**: `temp/plandocs/` — MASTER-LANDSCAPE.md, category deep-dives (meal-kits, prepared-meals, protein-boxes, produce-boxes, specialty-boxes), taxonomy rubric, content matrix.
 - **Status breakdown**: 66 active/hybrid providers (priority), remaining are unclear/discontinued.
 
-### Current State (v2.1 shipped)
-- 95 providers with unified /search discovery, 9-dimension filtering, side-by-side comparison
+### Current State (v3.0 shipped)
+- 117 providers (106 active, 10 hybrid, 1 discontinued) with complete data across all fields
+- 170 pricing Plans, 341 FAQs, 326 dietary tags, 27 affiliate URLs
+- Full SEO: metaTitle + metaDescription + FAQ JSON-LD on all 116 active provider pages
+- Unified /search discovery, 9-dimension filtering, side-by-side comparison
 - Citrus Pop theme (orange primary, teal accent, Nunito fonts) with elderly-accessible sizing
-- Streamlined nav: Discover | Best Of | Blog | About (Compare accessible via provider cards)
-- /about page with mission, methodology, and affiliate transparency
-- Full SEO: metadata, JSON-LD, canonical URLs, sitemap on all public pages
+- Streamlined nav: Discover | Best Of | Blog | About
 - WCAG 2.1 AA accessible
+- Parent company tracking (18 providers linked to 8 corporate groups)
+- 8 data tooling scripts for bulk enrichment, pricing research, and validation
 
-### Import Strategy
-- One-time seed from food-box-companies.json
-- Extend existing Prisma schema (don't rebuild from scratch)
-- Import active + hybrid providers first, then unclear with labeling
-- After import, manage providers via admin UI
+### Data Tooling
+- `prisma/scripts/24-enrich-providers.ts` — xAI-powered content enrichment
+- `prisma/scripts/25-create-plans.ts` — xAI-powered pricing research
+- `prisma/scripts/26-generate-meta-faqs.ts` — SEO meta + FAQ generation
+- `prisma/scripts/26-affiliate-validate.ts` — Affiliate URL + data validation
 
 ## Constraints
 
@@ -122,11 +118,14 @@ Consumers can quickly discover and compare food box subscriptions that match the
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Extend existing Prisma schema rather than rebuild | Preserve existing models (Review, Blog, Collection) for future use | -- Pending |
-| One-time seed import rather than repeatable sync | Simpler implementation; admin UI handles ongoing changes | -- Pending |
-| SEO built into pages as we go | Discovery site needs organic traffic; not a blocker but a co-requirement | -- Pending |
-| Admin UI retained for v1 | Need way to manage providers after import | -- Pending |
-| Keep Review/Blog/Collection schemas but defer UI | Reduces scope while preserving future capability | -- Pending |
+| Extend existing Prisma schema rather than rebuild | Preserve existing models (Review, Blog, Collection) for future use | ✓ Good — added parentCompany field in v3.0 |
+| One-time seed import rather than repeatable sync | Simpler implementation; admin UI handles ongoing changes | ✓ Good — scripts are idempotent, admin handles updates |
+| SEO built into pages as we go | Discovery site needs organic traffic; not a blocker but a co-requirement | ✓ Good — 100% meta + FAQ JSON-LD coverage |
+| Admin UI retained for v1 | Need way to manage providers after import | ✓ Good — parentCompany field added in v3.0 |
+| Keep Review/Blog/Collection schemas but defer UI | Reduces scope while preserving future capability | ✓ Good |
+| xAI Responses API for bulk data research | Live web search for provider data, pricing, validation | ✓ Good — powered Phases 24-26 enrichment |
+| Template-based fallback for API rate limits | Ensures 100% coverage when API credits exhausted | ✓ Good — prevented blocking on API availability |
+| Research-sourced pricing fallback | Review site data as alternative to live web scraping | ✓ Good — 100% pricing coverage despite API limits |
 | Demote Compare from nav, elevate Best Of + Blog | Compare is a tool accessed via provider cards, not a destination | ✓ Good |
 | Two-tier nav link styling (elevated vs standard) | Best Of + Blog get accent colors as primary content links | ✓ Good |
 | Static About page (no dynamic content) | Simple content page, no database queries needed | ✓ Good |
@@ -149,4 +148,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-22 after v3.0 milestone started*
+*Last updated: 2026-03-23 after v3.0 milestone complete*

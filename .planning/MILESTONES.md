@@ -1,5 +1,25 @@
 # Milestones
 
+## v3.0 Data Completeness & Market Coverage (Shipped: 2026-03-23)
+
+**Phases completed:** 5 phases, 11 plans, 21 tasks
+
+**Key accomplishments:**
+
+- Added parentCompany field to Provider schema and migrated 28 unclear statuses to ACTIVE, set 17 parent company relationships, and updated 13 providers with M&A/ownership notes
+- Admin ProviderForm parentCompany text input with server action handling in both createProvider and updateProvider, plus clean production build
+- 16 real logos downloaded via Google Favicon Service + 6 SVG placeholders for unavailable sites, manifest.json expanded from 95 to 117 entries
+- 22 new Tier 1+2 providers inserted via idempotent upsert script, expanding database from 95 to 117 providers across 4 categories
+- xAI-powered batch enrichment script (593 lines) with web_search, field-level validation, and idempotent DB updates for all ~100 stub providers
+- Enriched all 116 active providers via xAI API (107) and manual fallback (7+2 tag passes), achieving zero stubs, 85% dietary tag coverage, and 91% flexibility coverage
+- xAI-powered pricing research script with category-aware prompts, validation, and Plan creation for meal kits (per-serving), protein/produce/specialty (per-box)
+- 100% plan coverage via research-sourced fallback: 134 plans created across 97 providers, 170 total plan records, all denormalized fields verified accurate
+- Template-based script generating metaTitle (under 70 chars), metaDescription (under 160 chars), and 3 FAQ records per provider from existing data, with optional xAI API enhancement and graceful fallback
+- Script populating affiliate URLs for 22 known providers, cross-validating data quality across 6 fields, and setting lastVerifiedAt timestamps for v3.0 verification
+- 100% meta/FAQ/verification coverage across all 116 providers with 0 failures, 27 affiliate URLs, and successful next build confirming FAQ JSON-LD on all provider pages
+
+---
+
 ## v2.1 Navigation & About Page (Shipped: 2026-03-23)
 
 **Phases completed:** 2 phases, 2 plans, 4 tasks
