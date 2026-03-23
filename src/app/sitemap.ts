@@ -50,6 +50,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    {
+      url: `${BASE_URL}/about`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
   ];
 
   // -- Search category pages --
