@@ -59,7 +59,7 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 20. Navigation Refinement | v2.1 | 1/1 | Complete    | 2026-03-23 |
-| 21. About Page | v2.1 | 1/1 | Complete   | 2026-03-23 |
+| 21. About Page | v2.1 | 1/1 | Complete    | 2026-03-23 |
 
 <details>
 <summary>✅ v2.0 Unified Discovery Interface (Phases 17-19) -- SHIPPED 2026-03-22</summary>
