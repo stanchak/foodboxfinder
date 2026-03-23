@@ -13,7 +13,7 @@
 
 **Goal:** Make the dataset comprehensive (all providers in the market) and accurate (every field populated and validated) — the foundation that makes discovery actually useful.
 
-- [ ] **Phase 22: Schema Evolution & Status Cleanup** -- Add parentCompany field, update 28 unclear→active statuses, flag discontinued providers, add ownership/M&A notes, clean data foundation
+- [x] **Phase 22: Schema Evolution & Status Cleanup** -- Add parentCompany field, update 28 unclear→active statuses, flag discontinued providers, add ownership/M&A notes, clean data foundation
 - [ ] **Phase 23: Market Expansion** -- Add ~22 missing Tier 1+2 providers from market gap research (Clean Eatz Kitchen, Tempo, Rastelli's, Cometeer, TokyoTreat, etc.), obtain logos, create basic records
 - [ ] **Phase 24: Bulk Content Enrichment** -- AI-assisted enrichment for all ~100+ providers: real descriptions, shortDescriptions, pros/cons, valueTier, dietaryTags, flexibility, foundedYear, headquarters, deliveryArea using xAI Responses API + Firecrawl
 - [ ] **Phase 25: Pricing & Plans** -- Create Plan records with real pricing for all providers, handle per-serving vs per-box vs per-item pricing models, update denormalized min/max fields
@@ -49,6 +49,12 @@ Plans:
 ### Phase 23: Market Expansion
 
 **Goal:** Add ~22 missing Tier 1 and Tier 2 providers identified in the market gap research to the database, with logos and basic record structure, expanding market coverage from 95 to ~117 providers.
+
+**Plans:** 2 plans
+
+Plans:
+- [ ] 23-01-PLAN.md — Download logos for 22 new providers, update manifest.json
+- [ ] 23-02-PLAN.md — Create migration script to insert 22 providers into database + build verification
 
 **Requirements:**
 - R23.1: Add 10 Tier 1 must-add providers: Clean Eatz Kitchen, Tempo, Rastelli's, Sea to Table, Cometeer, TokyoTreat, Japan Crate, Munch Addict, Heatonist/Hot Ones, Melissa's Produce
@@ -177,4 +183,4 @@ Plans:
 Full details: `.planning/milestones/`
 
 ---
-*Last updated: 2026-03-22 after Phase 22 planning complete*
+*Last updated: 2026-03-23 after Phase 23 planning complete*
