@@ -110,7 +110,7 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 25-01-PLAN.md — Build xAI-powered pricing research script + test on 2-3 providers across categories
+- [x] 25-01-PLAN.md — Build xAI-powered pricing research script + test on 2-3 providers across categories
 - [ ] 25-02-PLAN.md — Run full batch pricing across all ~99 providers + recompute denormalized fields + verify build
 
 **Requirements:**
