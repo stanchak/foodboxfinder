@@ -1,333 +1,5 @@
 [
   {
-    "slug": "hellofresh",
-    "name": "HelloFresh",
-    "website": "https://www.hellofresh.com",
-    "asset": "/assets/providers/hellofresh.png",
-    "sourceUrl": "https://hf-website-live.s3.eu-west-1.amazonaws.com/us/EarnedMedia/OpenGraphImages/HelloFresh_OpenGraph.png",
-    "error": null
-  },
-  {
-    "slug": "everyplate",
-    "name": "EveryPlate",
-    "website": "https://www.everyplate.com",
-    "asset": "/assets/providers/everyplate.png",
-    "sourceUrl": "https://cdn.hellofresh.com/us/EarnedMedia/OpenGraphImages/EveryPlate_OpenGraph.png",
-    "error": null
-  },
-  {
-    "slug": "home-chef",
-    "name": "Home Chef",
-    "website": "https://www.homechef.com",
-    "asset": "/assets/providers/home-chef.png",
-    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://homechef.com&size=256",
-    "error": null
-  },
-  {
-    "slug": "blue-apron",
-    "name": "Blue Apron",
-    "website": "https://www.blueapron.com",
-    "asset": "/assets/providers/blue-apron.png",
-    "sourceUrl": "https://www.blueapron.com/favicon.ico",
-    "error": null
-  },
-  {
-    "slug": "marley-spoon",
-    "name": "Marley Spoon",
-    "website": "https://marleyspoon.com",
-    "asset": "/assets/providers/marley-spoon.png",
-    "sourceUrl": "https://marleyspoon.com/images/ms/sharing/logo.png",
-    "error": null
-  },
-  {
-    "slug": "dinnerly",
-    "name": "Dinnerly",
-    "website": "https://dinnerly.com",
-    "asset": "/assets/providers/dinnerly.png",
-    "sourceUrl": "https://dinnerly.com/images/dn/sharing/logo.png",
-    "error": null
-  },
-  {
-    "slug": "green-chef",
-    "name": "Green Chef",
-    "website": "https://www.greenchef.com",
-    "asset": "/assets/providers/green-chef.png",
-    "sourceUrl": "https://cdn.hellofresh.com/us/EarnedMedia/OpenGraphImages/GreenChef_OpenGraph.png",
-    "error": null
-  },
-  {
-    "slug": "gobble",
-    "name": "Gobble",
-    "website": "https://www.gobble.com",
-    "asset": "/assets/providers/gobble.png",
-    "sourceUrl": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://gobble.com&size=256",
-    "error": null
-  },
-  {
-    "slug": "hungryroot",
-    "name": "Hungryroot",
-    "website": "https://www.hungryroot.com",
-    "asset": "/assets/providers/hungryroot.jpg",
-    "sourceUrl": "https://s3.amazonaws.com/hungryroot-static/img/open_graph/og_img-v2.jpg",
-    "error": null
-  },
-  {
-    "slug": "factor",
-    "name": "Factor",
-    "website": "https://www.factor75.com",
-    "asset": "/assets/providers/factor.png",
-    "sourceUrl": "https://cdn.hellofresh.com/us/EarnedMedia/OpenGraphImages/FA_SEO-ImageUpdate_2025-09.png",
-    "error": null
-  },
-  {
-    "slug": "cookunity",
-    "name": "CookUnity",
-    "website": "https://www.cookunity.com",
-    "asset": "/assets/providers/cookunity.jpg",
-    "sourceUrl": "https://static.cookunity.com/growth/media/cui-default.jpg",
-    "error": null
-  },
-  {
-    "slug": "territory-foods",
-    "name": "Territory Foods",
-    "website": "https://www.territoryfoods.com",
-    "asset": "/assets/providers/territory-foods.jpg",
-    "sourceUrl": "https://images.prismic.io/territoryfoods/b458d349-3fe6-4179-979a-8063ce5ea318_Banner-Plant-Based+copy.jpg",
-    "error": null
-  },
-  {
-    "slug": "snap-kitchen",
-    "name": "Snap Kitchen",
-    "website": "https://www.snapkitchen.com",
-    "asset": "/assets/providers/snap-kitchen.png",
-    "sourceUrl": "https://functionflo-cdn.azureedge.net/prd-6b79e8608e4047d55b2408da31cd430b/5aca9794-645a-4af4-000c-08db41e24fb9.png?updatedV2=2023-04-25_16-22-22",
-    "error": null
-  },
-  {
-    "slug": "trifecta-nutrition",
-    "name": "Trifecta Nutrition",
-    "website": "https://www.trifectanutrition.com",
-    "asset": "/assets/providers/trifecta-nutrition.jpg",
-    "sourceUrl": "https://www.trifectanutrition.com/hubfs/2022_07_SU_HP_thumbnail-1.jpg",
-    "error": null
-  },
-  {
-    "slug": "icon-meals",
-    "name": "ICON Meals",
-    "website": "https://iconmeals.com",
-    "asset": "/assets/providers/icon-meals.jpg",
-    "sourceUrl": "https://iconmeals.com/cdn/shop/files/icon-meals-thumbnail.jpg?format=pjpg&v=1657217129&width=1200",
-    "error": null
-  },
-  {
-    "slug": "eat-clean-bro",
-    "name": "Eat Clean Bro",
-    "website": "https://eatcleanbro.com",
-    "asset": "/assets/providers/eat-clean-bro.png",
-    "sourceUrl": "https://eatcleanbro.com/cdn/shop/files/Registered-Logo_No_Webside_80078843-d03f-4128-aefc-d33f0dceda22.png?crop=center&height=1200&v=1683570829&width=1200",
-    "error": null
-  },
-  {
-    "slug": "mosaic-foods",
-    "name": "Mosaic Foods",
-    "website": "https://www.mosaicfoods.com",
-    "asset": "/assets/providers/mosaic-foods.jpg",
-    "sourceUrl": "https://cdn.shopify.com/s/files/1/0080/0735/2399/files/mosaic-social-image.jpg?v=1606872021",
-    "error": null
-  },
-  {
-    "slug": "splendid-spoon",
-    "name": "Splendid Spoon",
-    "website": "https://splendidspoon.com",
-    "asset": "/assets/providers/splendid-spoon.png",
-    "sourceUrl": "https://splendidspoon.com/cdn/shop/files/splendid-brand-assets_664ac2fb-97a0-4e7e-9d89-c2400ac6eef4.png?v=1724255432&width=32",
-    "error": null
-  },
-  {
-    "slug": "daily-harvest",
-    "name": "Daily Harvest",
-    "website": "https://daily-harvest.com",
-    "asset": "/assets/providers/daily-harvest.jpg",
-    "sourceUrl": "https://daily-harvest.com/cdn/shop/files/DH_logo.jpg?v=1760391224",
-    "error": null
-  },
-  {
-    "slug": "veestro",
-    "name": "Veestro",
-    "website": "https://www.veestro.com",
-    "asset": "/assets/providers/veestro.png",
-    "sourceUrl": "https://www.veestro.com/cdn/shop/t/207/assets/apple-touch-icon.png?v=150792962246508444551661966303",
-    "error": null
-  },
-  {
-    "slug": "sakara-life",
-    "name": "Sakara Life",
-    "website": "https://www.sakara.com",
-    "asset": "/assets/providers/sakara-life.svg",
-    "sourceUrl": "https://cdn.sanity.io/images/uc3cdd1c/production/a7ea3cbabadf5c074b781a94c74de561c635f338-800x400.svg",
-    "error": null
-  },
-  {
-    "slug": "bistromd",
-    "name": "BistroMD",
-    "website": "https://www.bistromd.com",
-    "asset": "/assets/providers/bistromd.png",
-    "sourceUrl": "https://www.bistromd.com/cdn/shop/t/207/assets/favicon.png?v=144544630302378269891772728709",
-    "error": null
-  },
-  {
-    "slug": "nutrisystem",
-    "name": "Nutrisystem",
-    "website": "https://www.nutrisystem.com",
-    "asset": "/assets/providers/nutrisystem.png",
-    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://nutrisystem.com&size=256",
-    "error": null
-  },
-  {
-    "slug": "moms-meals",
-    "name": "Mom’s Meals",
-    "website": "https://www.momsmeals.com",
-    "asset": "/assets/providers/moms-meals.png",
-    "sourceUrl": "https://www.momsmeals.com/content/themes/base/images/favicon/apple-touch-icon.png",
-    "error": null
-  },
-  {
-    "slug": "magickitchen-com",
-    "name": "MagicKitchen.com",
-    "website": "https://www.magickitchen.com",
-    "asset": "/assets/providers/magickitchen-com.png",
-    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://magickitchen.com&size=256",
-    "error": null
-  },
-  {
-    "slug": "butcherbox",
-    "name": "ButcherBox",
-    "website": "https://www.butcherbox.com",
-    "asset": "/assets/providers/butcherbox.png",
-    "sourceUrl": "https://cdn.shopify.com/oxygen-v2/26785/11795/24115/3193320/build/_assets/bb-favicon-32x32-3B2HSKDY.png",
-    "error": null
-  },
-  {
-    "slug": "crowd-cow",
-    "name": "Crowd Cow",
-    "website": "https://www.crowdcow.com",
-    "asset": "/assets/providers/crowd-cow.png",
-    "sourceUrl": "https://www.crowdcow.com/assets/favicon-232d77c7509be7be5b481e4ede3033d9e752d89eddf4aca18f02368fd24a2fba.ico",
-    "error": null
-  },
-  {
-    "slug": "good-chop",
-    "name": "Good Chop",
-    "website": "https://www.goodchop.com",
-    "asset": "/assets/providers/good-chop.jpg",
-    "sourceUrl": "https://hf-website-live.s3.eu-west-1.amazonaws.com/mr/assets/goc_logo.jpeg",
-    "error": null
-  },
-  {
-    "slug": "moink",
-    "name": "Moink",
-    "website": "https://www.moinkbox.com",
-    "asset": "/assets/providers/moink.jpg",
-    "sourceUrl": "https://www.moinkbox.com/cdn/shop/files/moink20250225_191106_95.jpg?v=1753456733",
-    "error": null
-  },
-  {
-    "slug": "wild-pastures",
-    "name": "Wild Pastures",
-    "website": "https://wildpastures.com",
-    "asset": "/assets/providers/wild-pastures.jpg",
-    "sourceUrl": "https://images.clickfunnels.com/1d/5b6490c68c11e881cacb06c61bb82f/steaks-skillet.jpg",
-    "error": null
-  },
-  {
-    "slug": "porter-road",
-    "name": "Porter Road",
-    "website": "https://porterroad.com",
-    "asset": "/assets/providers/porter-road.png",
-    "sourceUrl": "https://cdn.shopify.com/s/files/1/2373/1239/files/porter-road-checkout-logo.png?height=628&pad_color=fff&v=1614979370&width=1200",
-    "error": null
-  },
-  {
-    "slug": "snake-river-farms",
-    "name": "Snake River Farms",
-    "website": "https://snakeriverfarms.com",
-    "asset": "/assets/providers/snake-river-farms.jpg",
-    "sourceUrl": "https://snakeriverfarms.com/cdn/shop/files/SRF1200x628newsize.jpg?v=1723066280",
-    "error": null
-  },
-  {
-    "slug": "meat-n-bone",
-    "name": "Meat N’ Bone",
-    "website": "https://meatnbone.com",
-    "asset": "/assets/providers/meat-n-bone.png",
-    "sourceUrl": "https://meatnbone.com/cdn/shop/files/Meat_N_Bone_Logo_8fea29e7-c942-498b-b69b-7e3da4f6b396.png?v=1760031466",
-    "error": null
-  },
-  {
-    "slug": "dartagnan",
-    "name": "D’Artagnan",
-    "website": "https://www.dartagnan.com",
-    "asset": "/assets/providers/dartagnan.png",
-    "sourceUrl": "https://www.dartagnan.com/on/demandware.static/Sites-dartagnan-Site/-/default/dw5d1e22ff/images/favicons/apple-touch-icon.png",
-    "error": null
-  },
-  {
-    "slug": "omaha-steaks",
-    "name": "Omaha Steaks",
-    "website": "https://www.omahasteaks.com",
-    "asset": "/assets/providers/omaha-steaks.png",
-    "sourceUrl": "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://omahasteaks.com&size=256",
-    "error": null
-  },
-  {
-    "slug": "wild-alaskan-company",
-    "name": "Wild Alaskan Company",
-    "website": "https://wildalaskancompany.com",
-    "asset": "/assets/providers/wild-alaskan-company.jpg",
-    "sourceUrl": "https://res.cloudinary.com/wildasset/image/upload/v1721316554/blog/wild-salmon-delivered.jpg",
-    "error": null
-  },
-  {
-    "slug": "sitka-seafood-market",
-    "name": "Sitka Seafood Market",
-    "website": "https://sitkaseafoodmarket.com",
-    "asset": "/assets/providers/sitka-seafood-market.png",
-    "sourceUrl": "https://cdn.sanity.io/images/shh4ldkk/production/ea1b5d3a719a9f113c1072df5faddb2b3baf0078-1920x960.png",
-    "error": null
-  },
-  {
-    "slug": "fulton-fish-market",
-    "name": "Fulton Fish Market",
-    "website": "https://fultonfishmarket.com",
-    "asset": "/assets/providers/fulton-fish-market.png",
-    "sourceUrl": "https://fultonfishmarket.com/cdn/shop/files/fish_favicon.png?crop=center&height=152&v=1654537112&width=152",
-    "error": null
-  },
-  {
-    "slug": "sizzlefish",
-    "name": "Sizzlefish",
-    "website": "https://www.sizzlefish.com",
-    "asset": "/assets/providers/sizzlefish.png",
-    "sourceUrl": "https://www.sizzlefish.com/cdn/shop/files/sizzlefish_logo_blue_8c95fd17-3ca3-4224-b1ef-15bb88de7dbf.png?v=1649685676",
-    "error": null
-  },
-  {
-    "slug": "vital-choice",
-    "name": "Vital Choice",
-    "website": "https://www.vitalchoice.com",
-    "asset": "/assets/providers/vital-choice.jpg",
-    "sourceUrl": "https://cdn1.vitalchoice.com/wcsstore/VitalChoice/images/catalog/22_V60348_70W_1_006_1x.jpg",
-    "error": null
-  },
-  {
-    "slug": "fish-fixe",
-    "name": "Fish Fixe",
-    "website": "https://fishfixe.com",
-    "asset": "/assets/providers/fish-fixe.jpg",
-    "sourceUrl": "https://fishfixe.com/wp-content/uploads/FishFixeAugust22.jpg",
-    "error": null
-  },
-  {
     "slug": "alaska-gold-seafood",
     "name": "Alaska Gold Seafood",
     "website": "https://alaskagoldbrand.com",
@@ -336,235 +8,27 @@
     "error": null
   },
   {
-    "slug": "seabear",
-    "name": "SeaBear",
-    "website": "https://seabear.com",
-    "asset": "/assets/providers/seabear.png",
-    "sourceUrl": "https://seabear.com/cdn/shop/files/SeaBearSmokehouse.png?v=1721752392",
+    "slug": "alaskan-salmon-company",
+    "name": "Alaskan Salmon Company",
+    "website": "https://aksalmonco.com",
+    "asset": "/assets/providers/alaskan-salmon-company.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://aksalmonco.com&size=256",
     "error": null
   },
   {
-    "slug": "wild-fork-foods",
-    "name": "Wild Fork Foods",
-    "website": "https://wildforkfoods.com",
-    "asset": "/assets/providers/wild-fork-foods.png",
-    "sourceUrl": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://wildforkfoods.com&size=256",
+    "slug": "amazing-clubs",
+    "name": "Amazing Clubs",
+    "website": "https://www.amazingclubs.com",
+    "asset": "/assets/providers/amazing-clubs.png",
+    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://amazingclubs.com&size=256",
     "error": null
   },
   {
-    "slug": "us-wellness-meats",
-    "name": "US Wellness Meats",
-    "website": "https://grasslandbeef.com",
-    "asset": "/assets/providers/us-wellness-meats.png",
-    "sourceUrl": "https://cdn.shopify.com/s/files/1/0566/8061/1897/files/uswm-logo-navy_682e90d4-9528-4a20-900f-0a00eba211a6.png?height=628&pad_color=f2f2f2&v=1661249624&width=1200",
-    "error": null
-  },
-  {
-    "slug": "misfits-market",
-    "name": "Misfits Market",
-    "website": "https://www.misfitsmarket.com",
-    "asset": "/assets/providers/misfits-market.png",
-    "sourceUrl": "https://img-cdn.misfitsmarket.com/melodious-taiyaki-9pkr2z/Z1Nq9pbqstJ98MA7_Text_preview.png",
-    "error": null
-  },
-  {
-    "slug": "imperfect-foods",
-    "name": "Imperfect Foods",
-    "website": "https://www.imperfectfoods.com",
-    "asset": "/assets/providers/imperfect-foods.png",
-    "sourceUrl": "https://img-cdn.misfitsmarket.com/melodious-taiyaki-9pkr2z/Z6ZBTJbqstJ9-YD7_Meta_Image_IF.png",
-    "error": null
-  },
-  {
-    "slug": "hungry-harvest",
-    "name": "Hungry Harvest",
-    "website": "https://hungryharvest.net",
-    "asset": "/assets/providers/hungry-harvest.png",
-    "sourceUrl": "https://images.squarespace-cdn.com/content/53bdef0ae4b06a8762460d71/2c263dcf-28d5-42a0-94e1-121db4857763/HH_primary_blackbean_RGB.png?content-type=image%2Fpng",
-    "error": null
-  },
-  {
-    "slug": "farm-fresh-to-you",
-    "name": "Farm Fresh To You",
-    "website": "https://www.farmfreshtoyou.com",
-    "asset": "/assets/providers/farm-fresh-to-you.png",
-    "sourceUrl": "https://contentwww.azureedge.net/ffty/favicon.ico",
-    "error": null
-  },
-  {
-    "slug": "full-circle",
-    "name": "Full Circle",
-    "website": "https://www.fullcircle.com",
-    "asset": "/assets/providers/full-circle.png",
-    "sourceUrl": "https://contentwwwfc.azureedge.net/fc/favicon.ico",
-    "error": null
-  },
-  {
-    "slug": "talley-farms-box",
-    "name": "Talley Farms Box",
-    "website": "https://talleyfarmsbox.com",
-    "asset": "/assets/providers/talley-farms-box.png",
-    "sourceUrl": "https://talleyfarmsbox.com/wp-content/uploads/elementor/thumbs/home-healthy-living-r04k26g8myp56qzdvuq4pg469xh1d2t38riasz5aho.png",
-    "error": null
-  },
-  {
-    "slug": "norwich-meadows-farm",
-    "name": "Norwich Meadows Farm",
-    "website": "https://norwichmeadowsfarm.com",
-    "asset": "/assets/providers/norwich-meadows-farm.png",
-    "sourceUrl": "https://norwichmeadowsfarm.com/cdn/shop/files/nmf_favicon.png?v=1757112844&width=180",
-    "error": null
-  },
-  {
-    "slug": "farm-to-people",
-    "name": "Farm to People",
-    "website": "https://farmtopeople.com",
-    "asset": "/assets/providers/farm-to-people.svg",
-    "sourceUrl": "https://farmtopeople.com/favicon.svg",
-    "error": null
-  },
-  {
-    "slug": "the-produce-box",
-    "name": "The Produce Box",
-    "website": "https://www.theproducebox.com",
-    "asset": "/assets/providers/the-produce-box.webp",
-    "sourceUrl": "https://theproducebox.com/assets/images/logo.webp",
-    "error": null
-  },
-  {
-    "slug": "market-wagon",
-    "name": "Market Wagon",
-    "website": "https://www.marketwagon.com",
-    "asset": "/assets/providers/market-wagon.png",
-    "sourceUrl": "https://marketwagon.com/img/banner3s.png",
-    "error": null
-  },
-  {
-    "slug": "the-urban-canopy",
-    "name": "The Urban Canopy",
-    "website": "https://www.theurbancanopy.org",
-    "asset": "/assets/providers/the-urban-canopy.jpg",
-    "sourceUrl": "https://images.squarespace-cdn.com/content/683f95de7cdc6d61d85341dd/9466b7c8-8250-4129-9bc9-1a375264f898/urbancanopy+share.jpg?content-type=image%2Fjpeg",
-    "error": null
-  },
-  {
-    "slug": "the-fruitguys",
-    "name": "The FruitGuys",
-    "website": "https://fruitguys.com",
-    "asset": "/assets/providers/the-fruitguys.jpg",
-    "sourceUrl": "https://fruitguys.com/wp-content/uploads/2020/03/B-Corp-Pear-Guys-Logo-Reduced.jpg",
-    "error": null
-  },
-  {
-    "slug": "harry-and-david",
-    "name": "Harry & David",
-    "website": "https://www.harryanddavid.com",
-    "asset": "/assets/providers/harry-and-david.svg",
-    "sourceUrl": "https://cdn1.harryanddavid.com/wcsstore/HarryAndDavid/images/hd-logo-2f.svg",
-    "error": null
-  },
-  {
-    "slug": "miami-fruit",
-    "name": "Miami Fruit",
-    "website": "https://miamifruit.org",
-    "asset": "/assets/providers/miami-fruit.png",
-    "sourceUrl": "https://miamifruit.org/cdn/shop/files/Screen_Shot_2023-04-27_at_6.38.14_AM_1200x1200.png?v=1682591957",
-    "error": null
-  },
-  {
-    "slug": "bountiful-baskets-food-co-op",
-    "name": "Bountiful Baskets Food Co-op",
-    "website": "https://www.bountifulbaskets.org",
-    "asset": "/assets/providers/bountiful-baskets-food-co-op.png",
-    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://bountifulbaskets.org&size=256",
-    "error": null
-  },
-  {
-    "slug": "urthbox",
-    "name": "UrthBox",
-    "website": "https://www.urthbox.com",
-    "asset": "/assets/providers/urthbox.png",
-    "sourceUrl": "https://www.urthbox.com/cdn/shop/files/ub-logo-white.png?height=628&pad_color=ffffff&v=1684360901&width=1200",
-    "error": null
-  },
-  {
-    "slug": "snackcrate",
-    "name": "SnackCrate",
-    "website": "https://www.snackcrate.com",
-    "asset": "/assets/providers/snackcrate.png",
-    "sourceUrl": "https://www.snackcrate.com/wp-content/uploads/2021/10/SnackCrate-social.png",
-    "error": null
-  },
-  {
-    "slug": "vegancuts-snack-box",
-    "name": "Vegancuts Snack Box",
-    "website": "https://vegancuts.com",
-    "asset": "/assets/providers/vegancuts-snack-box.jpg",
-    "sourceUrl": "https://vegancuts.com/cdn/shop/files/Vegan_Cuts_Day_9-6485_uncropped_high_res.jpg?v=1758826642",
-    "error": null
-  },
-  {
-    "slug": "tea-runners",
-    "name": "Tea Runners",
-    "website": "https://tearunners.com",
-    "asset": "/assets/providers/tea-runners.jpg",
-    "sourceUrl": "https://tearunners.com/cdn/shop/files/TEA_RUNNERS-8598_9dda0102-d154-4229-ab19-397eacf84e8f.jpg?v=1627492854",
-    "error": null
-  },
-  {
-    "slug": "rawspicebar",
-    "name": "RawSpiceBar",
-    "website": "https://rawspicebar.com",
-    "asset": "/assets/providers/rawspicebar.png",
-    "sourceUrl": "https://rawspicebar.com/cdn/shop/files/Revised_Favicon_180x180_crop_center.png?v=1661965562",
-    "error": null
-  },
-  {
-    "slug": "heat-hot-sauce-shop",
-    "name": "Heat Hot Sauce Shop",
-    "website": "https://heathotsauce.com",
-    "asset": "/assets/providers/heat-hot-sauce-shop.png",
-    "sourceUrl": "https://heathotsauce.com/cdn/shop/files/HeatLogo_1204x630.png?v=1700805873",
-    "error": null
-  },
-  {
-    "slug": "purple-carrot",
-    "name": "Purple Carrot",
-    "website": "https://www.purplecarrot.com",
-    "asset": "/assets/providers/purple-carrot.svg",
-    "sourceUrl": "https://www.purplecarrot.com/packs/media/images/consumer/favicons/apple-touch-icon-2a96f5da67f588b241a1db9a2e8728de.svg",
-    "error": null
-  },
-  {
-    "slug": "sunbasket",
-    "name": "Sunbasket",
-    "website": "https://sunbasket.com",
-    "asset": "/assets/providers/sunbasket.png",
-    "sourceUrl": "https://sunbasket.com/apple-touch-icon.png",
-    "error": null
-  },
-  {
-    "slug": "freshly",
-    "name": "Freshly",
-    "website": "https://www.freshly.com",
-    "asset": "/assets/providers/freshly.png",
-    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://freshly.com&size=256",
-    "error": null
-  },
-  {
-    "slug": "farmbox-delivery",
-    "name": "Farmbox Delivery",
-    "website": "https://www.farmboxdelivery.com",
-    "asset": "/assets/providers/farmbox-delivery.png",
-    "sourceUrl": "https://www.farmboxdelivery.com/favicon.ico",
-    "error": null
-  },
-  {
-    "slug": "farmbox-california",
-    "name": "Farmbox California",
-    "website": "https://www.farmboxcalifornia.com",
-    "asset": "/assets/providers/farmbox-california.jpg",
-    "sourceUrl": "https://images.kivalogic.com/1626230239-a-mix-box-resized.jpg?compress=auto&h=630&w=1200&fit=fill&fill=blur",
+    "slug": "atlas-coffee-club",
+    "name": "Atlas Coffee Club",
+    "website": "https://atlascoffeeclub.com",
+    "asset": "/assets/providers/atlas-coffee-club.png",
+    "sourceUrl": "https://atlascoffeeclub.com/cdn/shop/files/atlas-favicon.png?v=1679533820&width=180",
     "error": null
   },
   {
@@ -576,19 +40,35 @@
     "error": null
   },
   {
-    "slug": "snacksack",
-    "name": "SnackSack",
-    "website": "https://www.cratejoy.com",
-    "asset": "/assets/providers/snacksack.jpg",
-    "sourceUrl": "https://www.cratejoy.com/cdn/shop/files/cratejoy-og_3fd005e4-1327-499f-9073-d6181390874d.jpg?v=1675888371",
+    "slug": "bean-box",
+    "name": "Bean Box",
+    "website": "https://beanbox.com",
+    "asset": "/assets/providers/bean-box.jpg",
+    "sourceUrl": "https://assets.beanbox.com/assets/home-2024/q3-home-hero-1920-9fcde48adb5c95d06cb27d9d757d092618be86b184af1e21151b2f60e78ea7a7.jpg",
     "error": null
   },
   {
-    "slug": "universal-yums",
-    "name": "Universal Yums",
-    "website": "https://www.universalyums.com",
-    "asset": "/assets/providers/universal-yums.jpg",
-    "sourceUrl": "https://www.universalyums.com/wp-content/uploads/2023/06/shop.jpeg",
+    "slug": "bistromd",
+    "name": "BistroMD",
+    "website": "https://www.bistromd.com",
+    "asset": "/assets/providers/bistromd.png",
+    "sourceUrl": "https://www.bistromd.com/cdn/shop/t/207/assets/favicon.png?v=144544630302378269891772728709",
+    "error": null
+  },
+  {
+    "slug": "blue-apron",
+    "name": "Blue Apron",
+    "website": "https://www.blueapron.com",
+    "asset": "/assets/providers/blue-apron.png",
+    "sourceUrl": "https://www.blueapron.com/favicon.ico",
+    "error": null
+  },
+  {
+    "slug": "blue-bottle-coffee",
+    "name": "Blue Bottle Coffee",
+    "website": "https://bluebottlecoffee.com",
+    "asset": "/assets/providers/blue-bottle-coffee.png",
+    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://bluebottlecoffee.com&size=256",
     "error": null
   },
   {
@@ -600,11 +80,475 @@
     "error": null
   },
   {
-    "slug": "try-the-world",
-    "name": "Try The World",
-    "website": "https://trytheworld.com",
-    "asset": "/assets/providers/try-the-world.jpg",
-    "sourceUrl": "https://trytheworld.com/cdn/shop/files/TTW-Blue-BG_a5eacc70-0719-42f9-903e-8e58c76540d8.jpg?v=1760575949",
+    "slug": "bountiful-baskets-food-co-op",
+    "name": "Bountiful Baskets Food Co-op",
+    "website": "https://www.bountifulbaskets.org",
+    "asset": "/assets/providers/bountiful-baskets-food-co-op.png",
+    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://bountifulbaskets.org&size=256",
+    "error": null
+  },
+  {
+    "slug": "butcherbox",
+    "name": "ButcherBox",
+    "website": "https://www.butcherbox.com",
+    "asset": "/assets/providers/butcherbox.png",
+    "sourceUrl": "https://cdn.shopify.com/oxygen-v2/26785/11795/24115/3193320/build/_assets/bb-favicon-32x32-3B2HSKDY.png",
+    "error": null
+  },
+  {
+    "slug": "cheryls",
+    "name": "Cheryl’s",
+    "website": "https://www.cheryls.com",
+    "asset": "/assets/providers/cheryls.jpg",
+    "sourceUrl": "https://images.contentstack.io/v3/assets/blt9f0a9533818afd99/bltbecc4b167616d036/603951582eee966ee2e3d43e/CherylsLogo_250x250.jpg",
+    "error": null
+  },
+  {
+    "slug": "clean-eatz-kitchen",
+    "name": "Clean Eatz Kitchen",
+    "website": "https://cleaneatzkitchen.com",
+    "asset": "/assets/providers/clean-eatz-kitchen.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://cleaneatzkitchen.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "cometeer",
+    "name": "Cometeer",
+    "website": "https://cometeer.com",
+    "asset": "/assets/providers/cometeer.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://cometeer.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "cookunity",
+    "name": "CookUnity",
+    "website": "https://www.cookunity.com",
+    "asset": "/assets/providers/cookunity.jpg",
+    "sourceUrl": "https://static.cookunity.com/growth/media/cui-default.jpg",
+    "error": null
+  },
+  {
+    "slug": "craft-jerky-co",
+    "name": "Craft Jerky Co",
+    "website": "https://www.craftjerkyco.com",
+    "asset": "/assets/providers/craft-jerky-co.png",
+    "sourceUrl": "https://www.craftjerkyco.com/cdn/shop/files/new_634141e8-ef1b-409d-96a8-05afb1515fbf.png?v=1630848858",
+    "error": null
+  },
+  {
+    "slug": "crowd-cow",
+    "name": "Crowd Cow",
+    "website": "https://www.crowdcow.com",
+    "asset": "/assets/providers/crowd-cow.png",
+    "sourceUrl": "https://www.crowdcow.com/assets/favicon-232d77c7509be7be5b481e4ede3033d9e752d89eddf4aca18f02368fd24a2fba.ico",
+    "error": null
+  },
+  {
+    "slug": "daily-harvest",
+    "name": "Daily Harvest",
+    "website": "https://daily-harvest.com",
+    "asset": "/assets/providers/daily-harvest.jpg",
+    "sourceUrl": "https://daily-harvest.com/cdn/shop/files/DH_logo.jpg?v=1760391224",
+    "error": null
+  },
+  {
+    "slug": "dartagnan",
+    "name": "D’Artagnan",
+    "website": "https://www.dartagnan.com",
+    "asset": "/assets/providers/dartagnan.png",
+    "sourceUrl": "https://www.dartagnan.com/on/demandware.static/Sites-dartagnan-Site/-/default/dw5d1e22ff/images/favicons/apple-touch-icon.png",
+    "error": null
+  },
+  {
+    "slug": "dinnerly",
+    "name": "Dinnerly",
+    "website": "https://dinnerly.com",
+    "asset": "/assets/providers/dinnerly.png",
+    "sourceUrl": "https://dinnerly.com/images/dn/sharing/logo.png",
+    "error": null
+  },
+  {
+    "slug": "driftaway-coffee",
+    "name": "Driftaway Coffee",
+    "website": "https://store.driftaway.coffee",
+    "asset": "/assets/providers/driftaway-coffee.png",
+    "sourceUrl": "https://store.driftaway.coffee/cdn/shop/files/driftaway_ROY_2026_logo.png?height=628&pad_color=ffffff&v=1764188396&width=1200",
+    "error": null
+  },
+  {
+    "slug": "eat-clean-bro",
+    "name": "Eat Clean Bro",
+    "website": "https://eatcleanbro.com",
+    "asset": "/assets/providers/eat-clean-bro.png",
+    "sourceUrl": "https://eatcleanbro.com/cdn/shop/files/Registered-Logo_No_Webside_80078843-d03f-4128-aefc-d33f0dceda22.png?crop=center&height=1200&v=1683570829&width=1200",
+    "error": null
+  },
+  {
+    "slug": "everyplate",
+    "name": "EveryPlate",
+    "website": "https://www.everyplate.com",
+    "asset": "/assets/providers/everyplate.png",
+    "sourceUrl": "https://cdn.hellofresh.com/us/EarnedMedia/OpenGraphImages/EveryPlate_OpenGraph.png",
+    "error": null
+  },
+  {
+    "slug": "factor",
+    "name": "Factor",
+    "website": "https://www.factor75.com",
+    "asset": "/assets/providers/factor.png",
+    "sourceUrl": "https://cdn.hellofresh.com/us/EarnedMedia/OpenGraphImages/FA_SEO-ImageUpdate_2025-09.png",
+    "error": null
+  },
+  {
+    "slug": "farm-fresh-to-you",
+    "name": "Farm Fresh To You",
+    "website": "https://www.farmfreshtoyou.com",
+    "asset": "/assets/providers/farm-fresh-to-you.png",
+    "sourceUrl": "https://contentwww.azureedge.net/ffty/favicon.ico",
+    "error": null
+  },
+  {
+    "slug": "farm-to-people",
+    "name": "Farm to People",
+    "website": "https://farmtopeople.com",
+    "asset": "/assets/providers/farm-to-people.svg",
+    "sourceUrl": "https://farmtopeople.com/favicon.svg",
+    "error": null
+  },
+  {
+    "slug": "farmbox-california",
+    "name": "Farmbox California",
+    "website": "https://www.farmboxcalifornia.com",
+    "asset": "/assets/providers/farmbox-california.jpg",
+    "sourceUrl": "https://images.kivalogic.com/1626230239-a-mix-box-resized.jpg?compress=auto&h=630&w=1200&fit=fill&fill=blur",
+    "error": null
+  },
+  {
+    "slug": "farmbox-delivery",
+    "name": "Farmbox Delivery",
+    "website": "https://www.farmboxdelivery.com",
+    "asset": "/assets/providers/farmbox-delivery.png",
+    "sourceUrl": "https://www.farmboxdelivery.com/favicon.ico",
+    "error": null
+  },
+  {
+    "slug": "fish-fixe",
+    "name": "Fish Fixe",
+    "website": "https://fishfixe.com",
+    "asset": "/assets/providers/fish-fixe.jpg",
+    "sourceUrl": "https://fishfixe.com/wp-content/uploads/FishFixeAugust22.jpg",
+    "error": null
+  },
+  {
+    "slug": "freshly",
+    "name": "Freshly",
+    "website": "https://www.freshly.com",
+    "asset": "/assets/providers/freshly.png",
+    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://freshly.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "frog-hollow-farm",
+    "name": "Frog Hollow Farm",
+    "website": "https://froghollow.com",
+    "asset": "/assets/providers/frog-hollow-farm.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://froghollow.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "fuego-box",
+    "name": "Fuego Box",
+    "website": "https://fuegobox.com",
+    "asset": "/assets/providers/fuego-box.svg",
+    "sourceUrl": null,
+    "error": "Both clearbit and logo.dev failed; using SVG placeholder"
+  },
+  {
+    "slug": "full-circle",
+    "name": "Full Circle",
+    "website": "https://www.fullcircle.com",
+    "asset": "/assets/providers/full-circle.png",
+    "sourceUrl": "https://contentwwwfc.azureedge.net/fc/favicon.ico",
+    "error": null
+  },
+  {
+    "slug": "fulton-fish-market",
+    "name": "Fulton Fish Market",
+    "website": "https://fultonfishmarket.com",
+    "asset": "/assets/providers/fulton-fish-market.png",
+    "sourceUrl": "https://fultonfishmarket.com/cdn/shop/files/fish_favicon.png?crop=center&height=152&v=1654537112&width=152",
+    "error": null
+  },
+  {
+    "slug": "gobble",
+    "name": "Gobble",
+    "website": "https://www.gobble.com",
+    "asset": "/assets/providers/gobble.png",
+    "sourceUrl": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://gobble.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "good-chop",
+    "name": "Good Chop",
+    "website": "https://www.goodchop.com",
+    "asset": "/assets/providers/good-chop.jpg",
+    "sourceUrl": "https://hf-website-live.s3.eu-west-1.amazonaws.com/mr/assets/goc_logo.jpeg",
+    "error": null
+  },
+  {
+    "slug": "green-chef",
+    "name": "Green Chef",
+    "website": "https://www.greenchef.com",
+    "asset": "/assets/providers/green-chef.png",
+    "sourceUrl": "https://cdn.hellofresh.com/us/EarnedMedia/OpenGraphImages/GreenChef_OpenGraph.png",
+    "error": null
+  },
+  {
+    "slug": "harry-and-david",
+    "name": "Harry & David",
+    "website": "https://www.harryanddavid.com",
+    "asset": "/assets/providers/harry-and-david.svg",
+    "sourceUrl": "https://cdn1.harryanddavid.com/wcsstore/HarryAndDavid/images/hd-logo-2f.svg",
+    "error": null
+  },
+  {
+    "slug": "heat-hot-sauce-shop",
+    "name": "Heat Hot Sauce Shop",
+    "website": "https://heathotsauce.com",
+    "asset": "/assets/providers/heat-hot-sauce-shop.png",
+    "sourceUrl": "https://heathotsauce.com/cdn/shop/files/HeatLogo_1204x630.png?v=1700805873",
+    "error": null
+  },
+  {
+    "slug": "heatonist",
+    "name": "Heatonist",
+    "website": "https://heatonist.com",
+    "asset": "/assets/providers/heatonist.svg",
+    "sourceUrl": null,
+    "error": "Both clearbit and logo.dev failed; using SVG placeholder"
+  },
+  {
+    "slug": "hellofresh",
+    "name": "HelloFresh",
+    "website": "https://www.hellofresh.com",
+    "asset": "/assets/providers/hellofresh.png",
+    "sourceUrl": "https://hf-website-live.s3.eu-west-1.amazonaws.com/us/EarnedMedia/OpenGraphImages/HelloFresh_OpenGraph.png",
+    "error": null
+  },
+  {
+    "slug": "home-chef",
+    "name": "Home Chef",
+    "website": "https://www.homechef.com",
+    "asset": "/assets/providers/home-chef.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://homechef.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "hungry-harvest",
+    "name": "Hungry Harvest",
+    "website": "https://hungryharvest.net",
+    "asset": "/assets/providers/hungry-harvest.png",
+    "sourceUrl": "https://images.squarespace-cdn.com/content/53bdef0ae4b06a8762460d71/2c263dcf-28d5-42a0-94e1-121db4857763/HH_primary_blackbean_RGB.png?content-type=image%2Fpng",
+    "error": null
+  },
+  {
+    "slug": "hungryroot",
+    "name": "Hungryroot",
+    "website": "https://www.hungryroot.com",
+    "asset": "/assets/providers/hungryroot.jpg",
+    "sourceUrl": "https://s3.amazonaws.com/hungryroot-static/img/open_graph/og_img-v2.jpg",
+    "error": null
+  },
+  {
+    "slug": "icon-meals",
+    "name": "ICON Meals",
+    "website": "https://iconmeals.com",
+    "asset": "/assets/providers/icon-meals.jpg",
+    "sourceUrl": "https://iconmeals.com/cdn/shop/files/icon-meals-thumbnail.jpg?format=pjpg&v=1657217129&width=1200",
+    "error": null
+  },
+  {
+    "slug": "imperfect-foods",
+    "name": "Imperfect Foods",
+    "website": "https://www.imperfectfoods.com",
+    "asset": "/assets/providers/imperfect-foods.png",
+    "sourceUrl": "https://img-cdn.misfitsmarket.com/melodious-taiyaki-9pkr2z/Z6ZBTJbqstJ9-YD7_Meta_Image_IF.png",
+    "error": null
+  },
+  {
+    "slug": "japan-crate",
+    "name": "Japan Crate",
+    "website": "https://japancrate.com",
+    "asset": "/assets/providers/japan-crate.svg",
+    "sourceUrl": null,
+    "error": "Both clearbit and logo.dev failed; using SVG placeholder"
+  },
+  {
+    "slug": "jenis-splendid-ice-creams",
+    "name": "Jeni’s Splendid Ice Creams",
+    "website": "https://jenis.com",
+    "asset": "/assets/providers/jenis-splendid-ice-creams.png",
+    "sourceUrl": "https://jenis.com/cdn/shop/files/Logo.png?v=1643963632",
+    "error": null
+  },
+  {
+    "slug": "ketokrate",
+    "name": "KetoKrate",
+    "website": "https://www.ketokrate.com",
+    "asset": "/assets/providers/ketokrate.png",
+    "sourceUrl": "https://www.ketokrate.com/cdn/shop/files/Primary_Icon_Orange-301x300-a4acd96_32x32.png?v=1648945100",
+    "error": null
+  },
+  {
+    "slug": "levain-bakery",
+    "name": "Levain Bakery",
+    "website": "https://levainbakery.com",
+    "asset": "/assets/providers/levain-bakery.svg",
+    "sourceUrl": "https://levainbakery.com/cdn/shop/files/blue-cookie.png?crop=center&height=32&v=1685546472&width=32",
+    "error": null
+  },
+  {
+    "slug": "love-me-gluten-free",
+    "name": "Love Me Gluten Free",
+    "website": "https://www.lovemeglutenfree.com",
+    "asset": "/assets/providers/love-me-gluten-free.png",
+    "sourceUrl": "https://www.lovemeglutenfree.com/cdn/shop/files/December_2025_box_4_7f1b79cc-e428-4d21-9eea-c79ff2c6610e.png?v=1765411210",
+    "error": null
+  },
+  {
+    "slug": "magickitchen-com",
+    "name": "MagicKitchen.com",
+    "website": "https://www.magickitchen.com",
+    "asset": "/assets/providers/magickitchen-com.png",
+    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://magickitchen.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "market-wagon",
+    "name": "Market Wagon",
+    "website": "https://www.marketwagon.com",
+    "asset": "/assets/providers/market-wagon.png",
+    "sourceUrl": "https://marketwagon.com/img/banner3s.png",
+    "error": null
+  },
+  {
+    "slug": "marley-spoon",
+    "name": "Marley Spoon",
+    "website": "https://marleyspoon.com",
+    "asset": "/assets/providers/marley-spoon.png",
+    "sourceUrl": "https://marleyspoon.com/images/ms/sharing/logo.png",
+    "error": null
+  },
+  {
+    "slug": "mealpro",
+    "name": "MealPro",
+    "website": "https://mealpro.net",
+    "asset": "/assets/providers/mealpro.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://mealpro.net&size=256",
+    "error": null
+  },
+  {
+    "slug": "meat-n-bone",
+    "name": "Meat N’ Bone",
+    "website": "https://meatnbone.com",
+    "asset": "/assets/providers/meat-n-bone.png",
+    "sourceUrl": "https://meatnbone.com/cdn/shop/files/Meat_N_Bone_Logo_8fea29e7-c942-498b-b69b-7e3da4f6b396.png?v=1760031466",
+    "error": null
+  },
+  {
+    "slug": "megafit-meals",
+    "name": "MegaFit Meals",
+    "website": "https://megafitmeals.com",
+    "asset": "/assets/providers/megafit-meals.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://megafitmeals.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "melissas-produce",
+    "name": "Melissa's Produce",
+    "website": "https://melissas.com",
+    "asset": "/assets/providers/melissas-produce.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://melissas.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "methodology",
+    "name": "Methodology",
+    "website": "https://gomethodology.com",
+    "asset": "/assets/providers/methodology.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://gomethodology.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "miami-fruit",
+    "name": "Miami Fruit",
+    "website": "https://miamifruit.org",
+    "asset": "/assets/providers/miami-fruit.png",
+    "sourceUrl": "https://miamifruit.org/cdn/shop/files/Screen_Shot_2023-04-27_at_6.38.14_AM_1200x1200.png?v=1682591957",
+    "error": null
+  },
+  {
+    "slug": "milk-bar",
+    "name": "Milk Bar",
+    "website": "https://milkbarstore.com",
+    "asset": "/assets/providers/milk-bar.jpg",
+    "sourceUrl": "https://milkbarstore.com/cdn/shop/files/MilkBarPreview_1200x628_ee40cf74-7608-472d-a7ec-0144542c2386.jpg?v=1687543414",
+    "error": null
+  },
+  {
+    "slug": "misfits-market",
+    "name": "Misfits Market",
+    "website": "https://www.misfitsmarket.com",
+    "asset": "/assets/providers/misfits-market.png",
+    "sourceUrl": "https://img-cdn.misfitsmarket.com/melodious-taiyaki-9pkr2z/Z1Nq9pbqstJ98MA7_Text_preview.png",
+    "error": null
+  },
+  {
+    "slug": "misto",
+    "name": "Misto",
+    "website": "https://mistobox.com",
+    "asset": "/assets/providers/misto.png",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0625/0115/9140/files/mb-logo-blue.png?v=1745442874",
+    "error": null
+  },
+  {
+    "slug": "modifyhealth",
+    "name": "ModifyHealth",
+    "website": "https://modifyhealth.com",
+    "asset": "/assets/providers/modifyhealth.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://modifyhealth.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "moink",
+    "name": "Moink",
+    "website": "https://www.moinkbox.com",
+    "asset": "/assets/providers/moink.jpg",
+    "sourceUrl": "https://www.moinkbox.com/cdn/shop/files/moink20250225_191106_95.jpg?v=1753456733",
+    "error": null
+  },
+  {
+    "slug": "moms-meals",
+    "name": "Mom’s Meals",
+    "website": "https://www.momsmeals.com",
+    "asset": "/assets/providers/moms-meals.png",
+    "sourceUrl": "https://www.momsmeals.com/content/themes/base/images/favicon/apple-touch-icon.png",
+    "error": null
+  },
+  {
+    "slug": "mosaic-foods",
+    "name": "Mosaic Foods",
+    "website": "https://www.mosaicfoods.com",
+    "asset": "/assets/providers/mosaic-foods.jpg",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0080/0735/2399/files/mosaic-social-image.jpg?v=1606872021",
+    "error": null
+  },
+  {
+    "slug": "munch-addict",
+    "name": "Munch Addict",
+    "website": "https://munchaddict.com",
+    "asset": "/assets/providers/munch-addict.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://munchaddict.com&size=256",
     "error": null
   },
   {
@@ -617,60 +561,27 @@
     "method": "placeholder-fallback"
   },
   {
-    "slug": "ketokrate",
-    "name": "KetoKrate",
-    "website": "https://www.ketokrate.com",
-    "asset": "/assets/providers/ketokrate.png",
-    "sourceUrl": "https://www.ketokrate.com/cdn/shop/files/Primary_Icon_Orange-301x300-a4acd96_32x32.png?v=1648945100",
+    "slug": "murrays-cheese",
+    "name": "Murray’s Cheese",
+    "website": "https://www.murrayscheese.com",
+    "asset": "/assets/providers/murrays-cheese.png",
+    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://murrayscheese.com&size=256",
     "error": null
   },
   {
-    "slug": "love-me-gluten-free",
-    "name": "Love Me Gluten Free",
-    "website": "https://www.lovemeglutenfree.com",
-    "asset": "/assets/providers/love-me-gluten-free.png",
-    "sourceUrl": "https://www.lovemeglutenfree.com/cdn/shop/files/December_2025_box_4_7f1b79cc-e428-4d21-9eea-c79ff2c6610e.png?v=1765411210",
+    "slug": "norwich-meadows-farm",
+    "name": "Norwich Meadows Farm",
+    "website": "https://norwichmeadowsfarm.com",
+    "asset": "/assets/providers/norwich-meadows-farm.png",
+    "sourceUrl": "https://norwichmeadowsfarm.com/cdn/shop/files/nmf_favicon.png?v=1757112844&width=180",
     "error": null
   },
   {
-    "slug": "trade-coffee",
-    "name": "Trade Coffee",
-    "website": "https://www.drinktrade.com",
-    "asset": "/assets/providers/trade-coffee.png",
-    "sourceUrl": "https://www.drinktrade.com/cdn/shop/files/opengraph_v2_6dd08d1b-d999-4197-8943-0eab57c4f373.png?v=1765997753&width=1200",
-    "error": null
-  },
-  {
-    "slug": "bean-box",
-    "name": "Bean Box",
-    "website": "https://beanbox.com",
-    "asset": "/assets/providers/bean-box.jpg",
-    "sourceUrl": "https://assets.beanbox.com/assets/home-2024/q3-home-hero-1920-9fcde48adb5c95d06cb27d9d757d092618be86b184af1e21151b2f60e78ea7a7.jpg",
-    "error": null
-  },
-  {
-    "slug": "atlas-coffee-club",
-    "name": "Atlas Coffee Club",
-    "website": "https://atlascoffeeclub.com",
-    "asset": "/assets/providers/atlas-coffee-club.png",
-    "sourceUrl": "https://atlascoffeeclub.com/cdn/shop/files/atlas-favicon.png?v=1679533820&width=180",
-    "error": null
-  },
-  {
-    "slug": "sips-by",
-    "name": "Sips by",
-    "website": "https://www.sipsby.com",
-    "asset": "/assets/providers/sips-by.svg",
-    "sourceUrl": null,
-    "error": null,
-    "method": "placeholder-fallback"
-  },
-  {
-    "slug": "piquant-post",
-    "name": "Piquant Post",
-    "website": "https://piquantpost.com",
-    "asset": "/assets/providers/piquant-post.jpg",
-    "sourceUrl": "https://cdn.shopify.com/s/files/1/0493/3061/8524/files/moroccan_reveal_hero_white_bg.jpg?v=1605934967",
+    "slug": "nutrisystem",
+    "name": "Nutrisystem",
+    "website": "https://www.nutrisystem.com",
+    "asset": "/assets/providers/nutrisystem.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://nutrisystem.com&size=256",
     "error": null
   },
   {
@@ -682,83 +593,348 @@
     "error": null
   },
   {
-    "slug": "levain-bakery",
-    "name": "Levain Bakery",
-    "website": "https://levainbakery.com",
-    "asset": "/assets/providers/levain-bakery.svg",
-    "sourceUrl": "https://levainbakery.com/cdn/shop/files/blue-cookie.png?crop=center&height=32&v=1685546472&width=32",
+    "slug": "omaha-steaks",
+    "name": "Omaha Steaks",
+    "website": "https://www.omahasteaks.com",
+    "asset": "/assets/providers/omaha-steaks.png",
+    "sourceUrl": "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://omahasteaks.com&size=256",
     "error": null
   },
   {
-    "slug": "cheryls",
-    "name": "Cheryl’s",
-    "website": "https://www.cheryls.com",
-    "asset": "/assets/providers/cheryls.jpg",
-    "sourceUrl": "https://images.contentstack.io/v3/assets/blt9f0a9533818afd99/bltbecc4b167616d036/603951582eee966ee2e3d43e/CherylsLogo_250x250.jpg",
+    "slug": "piquant-post",
+    "name": "Piquant Post",
+    "website": "https://piquantpost.com",
+    "asset": "/assets/providers/piquant-post.jpg",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0493/3061/8524/files/moroccan_reveal_hero_white_bg.jpg?v=1605934967",
     "error": null
   },
   {
-    "slug": "milk-bar",
-    "name": "Milk Bar",
-    "website": "https://milkbarstore.com",
-    "asset": "/assets/providers/milk-bar.jpg",
-    "sourceUrl": "https://milkbarstore.com/cdn/shop/files/MilkBarPreview_1200x628_ee40cf74-7608-472d-a7ec-0144542c2386.jpg?v=1687543414",
+    "slug": "porter-road",
+    "name": "Porter Road",
+    "website": "https://porterroad.com",
+    "asset": "/assets/providers/porter-road.png",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2373/1239/files/porter-road-checkout-logo.png?height=628&pad_color=fff&v=1614979370&width=1200",
     "error": null
   },
   {
-    "slug": "jenis-splendid-ice-creams",
-    "name": "Jeni’s Splendid Ice Creams",
-    "website": "https://jenis.com",
-    "asset": "/assets/providers/jenis-splendid-ice-creams.png",
-    "sourceUrl": "https://jenis.com/cdn/shop/files/Logo.png?v=1643963632",
+    "slug": "primal-pastures",
+    "name": "Primal Pastures",
+    "website": "https://primalpastures.com",
+    "asset": "/assets/providers/primal-pastures.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://primalpastures.com&size=256",
     "error": null
   },
   {
-    "slug": "murrays-cheese",
-    "name": "Murray’s Cheese",
-    "website": "https://www.murrayscheese.com",
-    "asset": "/assets/providers/murrays-cheese.png",
-    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://murrayscheese.com&size=256",
+    "slug": "purple-carrot",
+    "name": "Purple Carrot",
+    "website": "https://www.purplecarrot.com",
+    "asset": "/assets/providers/purple-carrot.svg",
+    "sourceUrl": "https://www.purplecarrot.com/packs/media/images/consumer/favicons/apple-touch-icon-2a96f5da67f588b241a1db9a2e8728de.svg",
     "error": null
   },
   {
-    "slug": "amazing-clubs",
-    "name": "Amazing Clubs",
-    "website": "https://www.amazingclubs.com",
-    "asset": "/assets/providers/amazing-clubs.png",
-    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://amazingclubs.com&size=256",
+    "slug": "rastellis",
+    "name": "Rastelli's",
+    "website": "https://rastellis.com",
+    "asset": "/assets/providers/rastellis.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://rastellis.com&size=256",
     "error": null
   },
   {
-    "slug": "craft-jerky-co",
-    "name": "Craft Jerky Co",
-    "website": "https://www.craftjerkyco.com",
-    "asset": "/assets/providers/craft-jerky-co.png",
-    "sourceUrl": "https://www.craftjerkyco.com/cdn/shop/files/new_634141e8-ef1b-409d-96a8-05afb1515fbf.png?v=1630848858",
+    "slug": "rawspicebar",
+    "name": "RawSpiceBar",
+    "website": "https://rawspicebar.com",
+    "asset": "/assets/providers/rawspicebar.png",
+    "sourceUrl": "https://rawspicebar.com/cdn/shop/files/Revised_Favicon_180x180_crop_center.png?v=1661965562",
     "error": null
   },
   {
-    "slug": "misto",
-    "name": "Misto",
-    "website": "https://mistobox.com",
-    "asset": "/assets/providers/misto.png",
-    "sourceUrl": "https://cdn.shopify.com/s/files/1/0625/0115/9140/files/mb-logo-blue.png?v=1745442874",
+    "slug": "sakara-life",
+    "name": "Sakara Life",
+    "website": "https://www.sakara.com",
+    "asset": "/assets/providers/sakara-life.svg",
+    "sourceUrl": "https://cdn.sanity.io/images/uc3cdd1c/production/a7ea3cbabadf5c074b781a94c74de561c635f338-800x400.svg",
     "error": null
   },
   {
-    "slug": "driftaway-coffee",
-    "name": "Driftaway Coffee",
-    "website": "https://store.driftaway.coffee",
-    "asset": "/assets/providers/driftaway-coffee.png",
-    "sourceUrl": "https://store.driftaway.coffee/cdn/shop/files/driftaway_ROY_2026_logo.png?height=628&pad_color=ffffff&v=1764188396&width=1200",
+    "slug": "sea-to-table",
+    "name": "Sea to Table",
+    "website": "https://sea2table.com",
+    "asset": "/assets/providers/sea-to-table.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://sea2table.com&size=256",
     "error": null
   },
   {
-    "slug": "blue-bottle-coffee",
-    "name": "Blue Bottle Coffee",
-    "website": "https://bluebottlecoffee.com",
-    "asset": "/assets/providers/blue-bottle-coffee.png",
-    "sourceUrl": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://bluebottlecoffee.com&size=256",
+    "slug": "seabear",
+    "name": "SeaBear",
+    "website": "https://seabear.com",
+    "asset": "/assets/providers/seabear.png",
+    "sourceUrl": "https://seabear.com/cdn/shop/files/SeaBearSmokehouse.png?v=1721752392",
+    "error": null
+  },
+  {
+    "slug": "seoulbox",
+    "name": "Seoulbox",
+    "website": "https://myseoulbox.com",
+    "asset": "/assets/providers/seoulbox.svg",
+    "sourceUrl": null,
+    "error": "Both clearbit and logo.dev failed; using SVG placeholder"
+  },
+  {
+    "slug": "sips-by",
+    "name": "Sips by",
+    "website": "https://www.sipsby.com",
+    "asset": "/assets/providers/sips-by.svg",
+    "sourceUrl": null,
+    "error": null,
+    "method": "placeholder-fallback"
+  },
+  {
+    "slug": "sitka-seafood-market",
+    "name": "Sitka Seafood Market",
+    "website": "https://sitkaseafoodmarket.com",
+    "asset": "/assets/providers/sitka-seafood-market.png",
+    "sourceUrl": "https://cdn.sanity.io/images/shh4ldkk/production/ea1b5d3a719a9f113c1072df5faddb2b3baf0078-1920x960.png",
+    "error": null
+  },
+  {
+    "slug": "sizzlefish",
+    "name": "Sizzlefish",
+    "website": "https://www.sizzlefish.com",
+    "asset": "/assets/providers/sizzlefish.png",
+    "sourceUrl": "https://www.sizzlefish.com/cdn/shop/files/sizzlefish_logo_blue_8c95fd17-3ca3-4224-b1ef-15bb88de7dbf.png?v=1649685676",
+    "error": null
+  },
+  {
+    "slug": "snackcrate",
+    "name": "SnackCrate",
+    "website": "https://www.snackcrate.com",
+    "asset": "/assets/providers/snackcrate.png",
+    "sourceUrl": "https://www.snackcrate.com/wp-content/uploads/2021/10/SnackCrate-social.png",
+    "error": null
+  },
+  {
+    "slug": "snackfever",
+    "name": "SnackFever",
+    "website": "https://snackfever.com",
+    "asset": "/assets/providers/snackfever.svg",
+    "sourceUrl": null,
+    "error": "Both clearbit and logo.dev failed; using SVG placeholder"
+  },
+  {
+    "slug": "snacksack",
+    "name": "SnackSack",
+    "website": "https://www.cratejoy.com",
+    "asset": "/assets/providers/snacksack.jpg",
+    "sourceUrl": "https://www.cratejoy.com/cdn/shop/files/cratejoy-og_3fd005e4-1327-499f-9073-d6181390874d.jpg?v=1675888371",
+    "error": null
+  },
+  {
+    "slug": "snake-river-farms",
+    "name": "Snake River Farms",
+    "website": "https://snakeriverfarms.com",
+    "asset": "/assets/providers/snake-river-farms.jpg",
+    "sourceUrl": "https://snakeriverfarms.com/cdn/shop/files/SRF1200x628newsize.jpg?v=1723066280",
+    "error": null
+  },
+  {
+    "slug": "snap-kitchen",
+    "name": "Snap Kitchen",
+    "website": "https://www.snapkitchen.com",
+    "asset": "/assets/providers/snap-kitchen.png",
+    "sourceUrl": "https://functionflo-cdn.azureedge.net/prd-6b79e8608e4047d55b2408da31cd430b/5aca9794-645a-4af4-000c-08db41e24fb9.png?updatedV2=2023-04-25_16-22-22",
+    "error": null
+  },
+  {
+    "slug": "splendid-spoon",
+    "name": "Splendid Spoon",
+    "website": "https://splendidspoon.com",
+    "asset": "/assets/providers/splendid-spoon.png",
+    "sourceUrl": "https://splendidspoon.com/cdn/shop/files/splendid-brand-assets_664ac2fb-97a0-4e7e-9d89-c2400ac6eef4.png?v=1724255432&width=32",
+    "error": null
+  },
+  {
+    "slug": "sprinly",
+    "name": "Sprinly",
+    "website": "https://sprinly.com",
+    "asset": "/assets/providers/sprinly.svg",
+    "sourceUrl": null,
+    "error": "Both clearbit and logo.dev failed; using SVG placeholder"
+  },
+  {
+    "slug": "sunbasket",
+    "name": "Sunbasket",
+    "website": "https://sunbasket.com",
+    "asset": "/assets/providers/sunbasket.png",
+    "sourceUrl": "https://sunbasket.com/apple-touch-icon.png",
+    "error": null
+  },
+  {
+    "slug": "talley-farms-box",
+    "name": "Talley Farms Box",
+    "website": "https://talleyfarmsbox.com",
+    "asset": "/assets/providers/talley-farms-box.png",
+    "sourceUrl": "https://talleyfarmsbox.com/wp-content/uploads/elementor/thumbs/home-healthy-living-r04k26g8myp56qzdvuq4pg469xh1d2t38riasz5aho.png",
+    "error": null
+  },
+  {
+    "slug": "tea-runners",
+    "name": "Tea Runners",
+    "website": "https://tearunners.com",
+    "asset": "/assets/providers/tea-runners.jpg",
+    "sourceUrl": "https://tearunners.com/cdn/shop/files/TEA_RUNNERS-8598_9dda0102-d154-4229-ab19-397eacf84e8f.jpg?v=1627492854",
+    "error": null
+  },
+  {
+    "slug": "tempo",
+    "name": "Tempo",
+    "website": "https://tempomeals.com",
+    "asset": "/assets/providers/tempo.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://tempomeals.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "territory-foods",
+    "name": "Territory Foods",
+    "website": "https://www.territoryfoods.com",
+    "asset": "/assets/providers/territory-foods.jpg",
+    "sourceUrl": "https://images.prismic.io/territoryfoods/b458d349-3fe6-4179-979a-8063ce5ea318_Banner-Plant-Based+copy.jpg",
+    "error": null
+  },
+  {
+    "slug": "the-fruitguys",
+    "name": "The FruitGuys",
+    "website": "https://fruitguys.com",
+    "asset": "/assets/providers/the-fruitguys.jpg",
+    "sourceUrl": "https://fruitguys.com/wp-content/uploads/2020/03/B-Corp-Pear-Guys-Logo-Reduced.jpg",
+    "error": null
+  },
+  {
+    "slug": "the-produce-box",
+    "name": "The Produce Box",
+    "website": "https://www.theproducebox.com",
+    "asset": "/assets/providers/the-produce-box.webp",
+    "sourceUrl": "https://theproducebox.com/assets/images/logo.webp",
+    "error": null
+  },
+  {
+    "slug": "the-urban-canopy",
+    "name": "The Urban Canopy",
+    "website": "https://www.theurbancanopy.org",
+    "asset": "/assets/providers/the-urban-canopy.jpg",
+    "sourceUrl": "https://images.squarespace-cdn.com/content/683f95de7cdc6d61d85341dd/9466b7c8-8250-4129-9bc9-1a375264f898/urbancanopy+share.jpg?content-type=image%2Fjpeg",
+    "error": null
+  },
+  {
+    "slug": "tokyotreat",
+    "name": "TokyoTreat",
+    "website": "https://tokyotreat.com",
+    "asset": "/assets/providers/tokyotreat.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://tokyotreat.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "trade-coffee",
+    "name": "Trade Coffee",
+    "website": "https://www.drinktrade.com",
+    "asset": "/assets/providers/trade-coffee.png",
+    "sourceUrl": "https://www.drinktrade.com/cdn/shop/files/opengraph_v2_6dd08d1b-d999-4197-8943-0eab57c4f373.png?v=1765997753&width=1200",
+    "error": null
+  },
+  {
+    "slug": "trifecta-nutrition",
+    "name": "Trifecta Nutrition",
+    "website": "https://www.trifectanutrition.com",
+    "asset": "/assets/providers/trifecta-nutrition.jpg",
+    "sourceUrl": "https://www.trifectanutrition.com/hubfs/2022_07_SU_HP_thumbnail-1.jpg",
+    "error": null
+  },
+  {
+    "slug": "try-the-world",
+    "name": "Try The World",
+    "website": "https://trytheworld.com",
+    "asset": "/assets/providers/try-the-world.jpg",
+    "sourceUrl": "https://trytheworld.com/cdn/shop/files/TTW-Blue-BG_a5eacc70-0719-42f9-903e-8e58c76540d8.jpg?v=1760575949",
+    "error": null
+  },
+  {
+    "slug": "universal-yums",
+    "name": "Universal Yums",
+    "website": "https://www.universalyums.com",
+    "asset": "/assets/providers/universal-yums.jpg",
+    "sourceUrl": "https://www.universalyums.com/wp-content/uploads/2023/06/shop.jpeg",
+    "error": null
+  },
+  {
+    "slug": "urthbox",
+    "name": "UrthBox",
+    "website": "https://www.urthbox.com",
+    "asset": "/assets/providers/urthbox.png",
+    "sourceUrl": "https://www.urthbox.com/cdn/shop/files/ub-logo-white.png?height=628&pad_color=ffffff&v=1684360901&width=1200",
+    "error": null
+  },
+  {
+    "slug": "us-wellness-meats",
+    "name": "US Wellness Meats",
+    "website": "https://grasslandbeef.com",
+    "asset": "/assets/providers/us-wellness-meats.png",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0566/8061/1897/files/uswm-logo-navy_682e90d4-9528-4a20-900f-0a00eba211a6.png?height=628&pad_color=f2f2f2&v=1661249624&width=1200",
+    "error": null
+  },
+  {
+    "slug": "veestro",
+    "name": "Veestro",
+    "website": "https://www.veestro.com",
+    "asset": "/assets/providers/veestro.png",
+    "sourceUrl": "https://www.veestro.com/cdn/shop/t/207/assets/apple-touch-icon.png?v=150792962246508444551661966303",
+    "error": null
+  },
+  {
+    "slug": "vegancuts-snack-box",
+    "name": "Vegancuts Snack Box",
+    "website": "https://vegancuts.com",
+    "asset": "/assets/providers/vegancuts-snack-box.jpg",
+    "sourceUrl": "https://vegancuts.com/cdn/shop/files/Vegan_Cuts_Day_9-6485_uncropped_high_res.jpg?v=1758826642",
+    "error": null
+  },
+  {
+    "slug": "vital-choice",
+    "name": "Vital Choice",
+    "website": "https://www.vitalchoice.com",
+    "asset": "/assets/providers/vital-choice.jpg",
+    "sourceUrl": "https://cdn1.vitalchoice.com/wcsstore/VitalChoice/images/catalog/22_V60348_70W_1_006_1x.jpg",
+    "error": null
+  },
+  {
+    "slug": "wild-alaskan-company",
+    "name": "Wild Alaskan Company",
+    "website": "https://wildalaskancompany.com",
+    "asset": "/assets/providers/wild-alaskan-company.jpg",
+    "sourceUrl": "https://res.cloudinary.com/wildasset/image/upload/v1721316554/blog/wild-salmon-delivered.jpg",
+    "error": null
+  },
+  {
+    "slug": "wild-fork-foods",
+    "name": "Wild Fork Foods",
+    "website": "https://wildforkfoods.com",
+    "asset": "/assets/providers/wild-fork-foods.png",
+    "sourceUrl": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://wildforkfoods.com&size=256",
+    "error": null
+  },
+  {
+    "slug": "wild-pastures",
+    "name": "Wild Pastures",
+    "website": "https://wildpastures.com",
+    "asset": "/assets/providers/wild-pastures.jpg",
+    "sourceUrl": "https://images.clickfunnels.com/1d/5b6490c68c11e881cacb06c61bb82f/steaks-skillet.jpg",
+    "error": null
+  },
+  {
+    "slug": "wild-tide-seafoods",
+    "name": "Wild Tide Seafoods",
+    "website": "https://wildtideseafoods.com",
+    "asset": "/assets/providers/wild-tide-seafoods.png",
+    "sourceUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://wildtideseafoods.com&size=256",
     "error": null
   }
 ]
