@@ -107,6 +107,12 @@ Plans:
 
 **Goal:** Create Plan records with real pricing data for all providers, properly handling the different pricing models (per-serving for meal kits, per-box for protein/produce/specialty), and update denormalized min/max price fields on providers.
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 25-01-PLAN.md — Build xAI-powered pricing research script + test on 2-3 providers across categories
+- [ ] 25-02-PLAN.md — Run full batch pricing across all ~99 providers + recompute denormalized fields + verify build
+
 **Requirements:**
 - R25.1: Create at least 1 Plan record for every active provider (currently 77+ have zero plans)
 - R25.2: For meal kits and prepared meals: populate pricePerServingCents accurately
@@ -189,4 +195,4 @@ Plans:
 Full details: `.planning/milestones/`
 
 ---
-*Last updated: 2026-03-23 after Phase 24 planning complete*
+*Last updated: 2026-03-23 after Phase 25 planning complete*
