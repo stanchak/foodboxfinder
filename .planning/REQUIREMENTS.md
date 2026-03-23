@@ -16,11 +16,11 @@ Requirements for milestone v2.1: Navigation & About Page.
 
 ### About Page
 
-- [ ] **ABOUT-01**: /about page with mission statement -- what FoodBoxFinder is and who it's for
-- [ ] **ABOUT-02**: /about page explains how providers are evaluated and compared (methodology)
-- [ ] **ABOUT-03**: /about page includes affiliate disclosure and editorial independence statement
-- [ ] **ABOUT-04**: /about page has SEO metadata and JSON-LD structured data (AboutPage schema)
-- [ ] **ABOUT-05**: /about page is visually on-brand with Citrus Pop theme
+- [x] **ABOUT-01**: /about page with mission statement -- what FoodBoxFinder is and who it's for
+- [x] **ABOUT-02**: /about page explains how providers are evaluated and compared (methodology)
+- [x] **ABOUT-03**: /about page includes affiliate disclosure and editorial independence statement
+- [x] **ABOUT-04**: /about page has SEO metadata and JSON-LD structured data (AboutPage schema)
+- [x] **ABOUT-05**: /about page is visually on-brand with Citrus Pop theme
 
 ## Future Requirements
 
@@ -45,11 +45,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NAV-02 | Phase 20 | Complete |
 | NAV-03 | Phase 20 | Complete |
 | NAV-04 | Phase 20 | Complete |
-| ABOUT-01 | Phase 21 | Pending |
-| ABOUT-02 | Phase 21 | Pending |
-| ABOUT-03 | Phase 21 | Pending |
-| ABOUT-04 | Phase 21 | Pending |
-| ABOUT-05 | Phase 21 | Pending |
+| ABOUT-01 | Phase 21 | Complete |
+| ABOUT-02 | Phase 21 | Complete |
+| ABOUT-03 | Phase 21 | Complete |
+| ABOUT-04 | Phase 21 | Complete |
+| ABOUT-05 | Phase 21 | Complete |
 
 **Coverage:**
 - v2.1 requirements: 9 total
