@@ -89,6 +89,7 @@ model Provider {
   foundedYear    Int?
   headquarters   String?
   deliveryAreaDescription String? @db.Text
+  parentCompany  String?
 
   // Ratings (denormalized for performance)
   averageRating  Float    @default(0)
