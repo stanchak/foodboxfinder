@@ -236,7 +236,7 @@ export default async function ProviderDetailPage({
         {(provider.heroImageUrl ?? provider.logoUrl) ? (
           <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden">
             {/* Blurred background layer — wrapper div carries the filter */}
-            <div className="absolute -inset-8 scale-150 blur-3xl brightness-50 saturate-150" aria-hidden="true">
+            <div className="absolute -inset-8 scale-150 blur-3xl saturate-150" aria-hidden="true">
               <Image
                 src={(provider.heroImageUrl ?? provider.logoUrl)!}
                 alt=""
