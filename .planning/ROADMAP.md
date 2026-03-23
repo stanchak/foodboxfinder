@@ -32,7 +32,7 @@
 **Plans:** 1 plan
 
 Plans:
-- [ ] 20-01-PLAN.md -- Update Header and MobileNav: remove Compare, elevate Best Of + Blog, add About link
+- [x] 20-01-PLAN.md -- Update Header and MobileNav: remove Compare, elevate Best Of + Blog, add About link
 
 ### Phase 21: About Page
 
@@ -55,7 +55,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 20. Navigation Refinement | v2.1 | 0/1 | Not started | - |
+| 20. Navigation Refinement | v2.1 | 1/1 | Complete   | 2026-03-23 |
 | 21. About Page | v2.1 | 0/TBD | Not started | - |
 
 <details>

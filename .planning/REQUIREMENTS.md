@@ -9,10 +9,10 @@ Requirements for milestone v2.1: Navigation & About Page.
 
 ### Navigation
 
-- [ ] **NAV-01**: Compare link removed from primary navigation (Header and MobileNav)
-- [ ] **NAV-02**: Best Of and Blog links are visually elevated in header (larger text, more prominent styling)
-- [ ] **NAV-03**: Compare tray and /compare page remain fully functional when accessed via provider cards
-- [ ] **NAV-04**: About link added to site navigation
+- [x] **NAV-01**: Compare link removed from primary navigation (Header and MobileNav)
+- [x] **NAV-02**: Best Of and Blog links are visually elevated in header (larger text, more prominent styling)
+- [x] **NAV-03**: Compare tray and /compare page remain fully functional when accessed via provider cards
+- [x] **NAV-04**: About link added to site navigation
 
 ### About Page
 
@@ -41,10 +41,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| NAV-01 | Phase 20 | Pending |
-| NAV-02 | Phase 20 | Pending |
-| NAV-03 | Phase 20 | Pending |
-| NAV-04 | Phase 20 | Pending |
+| NAV-01 | Phase 20 | Complete |
+| NAV-02 | Phase 20 | Complete |
+| NAV-03 | Phase 20 | Complete |
+| NAV-04 | Phase 20 | Complete |
 | ABOUT-01 | Phase 21 | Pending |
 | ABOUT-02 | Phase 21 | Pending |
 | ABOUT-03 | Phase 21 | Pending |
