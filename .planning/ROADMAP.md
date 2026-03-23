@@ -111,7 +111,7 @@ Plans:
 
 Plans:
 - [x] 25-01-PLAN.md — Build xAI-powered pricing research script + test on 2-3 providers across categories
-- [ ] 25-02-PLAN.md — Run full batch pricing across all ~99 providers + recompute denormalized fields + verify build
+- [x] 25-02-PLAN.md — Run full batch pricing across all ~99 providers + recompute denormalized fields + verify build
 
 **Requirements:**
 - R25.1: Create at least 1 Plan record for every active provider (currently 77+ have zero plans)
