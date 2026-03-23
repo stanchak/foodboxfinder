@@ -169,7 +169,15 @@ function extractLargeImages(html: string, baseUrl: string): string[] {
           const parsed = new URL(baseUrl);
           imgUrl = `${parsed.protocol}//${parsed.host}${imgUrl}`;
         } catch { continue; }
+      } else if (!imgUrl.startsWith("http")) {
+        // Relative URL without leading slash — resolve against base
+        try {
+          const parsed = new URL(baseUrl);
+          imgUrl = `${parsed.protocol}//${parsed.host}/${imgUrl}`;
+        } catch { continue; }
       }
+      // Final validation — must be a valid URL
+      try { new URL(imgUrl); } catch { continue; }
       candidates.push(imgUrl);
     }
   }
@@ -185,7 +193,7 @@ function extractLargeImages(html: string, baseUrl: string): string[] {
       } catch { continue; }
     }
     if (!imgUrl.endsWith(".svg") && !imgUrl.includes("data:")) {
-      candidates.push(imgUrl);
+      try { new URL(imgUrl); candidates.push(imgUrl); } catch { /* skip invalid */ }
     }
   }
   return candidates;
