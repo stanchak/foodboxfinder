@@ -49,14 +49,17 @@ Plans:
 4. /about has a proper page title, meta description, and AboutPage JSON-LD structured data
 5. The page visually matches the Citrus Pop theme (orange primary, teal accent, Nunito fonts, consistent spacing and typography)
 
-**Plans:** TBD
+**Plans:** 1 plan
+
+Plans:
+- [ ] 21-01-PLAN.md -- Create /about page with mission, methodology, disclosure, SEO metadata, and add to sitemap
 
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 20. Navigation Refinement | v2.1 | 1/1 | Complete    | 2026-03-23 |
-| 21. About Page | v2.1 | 0/TBD | Not started | - |
+| 21. About Page | v2.1 | 0/1 | Not started | - |
 
 <details>
 <summary>✅ v2.0 Unified Discovery Interface (Phases 17-19) -- SHIPPED 2026-03-22</summary>
