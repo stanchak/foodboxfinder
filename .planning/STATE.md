@@ -48,10 +48,18 @@ None yet.
 
 ### Blockers/Concerns
 
-- Firecrawl MCP configured but requires session restart to activate
+None after restart.
 
 ## Session Continuity
 
 Last session: 2026-03-22
-Stopped at: Milestone v3.0 started — defining requirements
+Stopped at: Milestone v3.0 started — research phase next
+Resume context:
+- v3.0 milestone committed and PROJECT.md/STATE.md updated
+- Firecrawl MCP configured in .mcp.json (will be active after restart)
+- xAI API key stored in .env.local (web search, X search, Grok image gen)
+- User chose "Research first" — spawn 4 parallel researchers on restart
+- Research focus: data completeness + full market coverage (NOT new UI features)
+- User is in YOLO mode — Claude makes all decisions
+- Phase numbering continues from 21 (v3.0 starts at phase 22)
 Resume file: None
