@@ -234,18 +234,28 @@ export default async function ProviderDetailPage({
 
         {/* Hero Image */}
         {(provider.heroImageUrl ?? provider.logoUrl) ? (
-          <div className="mt-6 relative w-full aspect-[2/1] max-h-[400px] rounded-2xl overflow-hidden bg-gradient-to-br from-neutral-50 to-neutral-100/80">
+          <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden">
+            {/* Blurred background layer */}
+            <Image
+              src={(provider.heroImageUrl ?? provider.logoUrl)!}
+              alt=""
+              fill
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              className="object-cover scale-110 blur-2xl brightness-75"
+              aria-hidden="true"
+            />
+            {/* Sharp foreground image */}
             <Image
               src={(provider.heroImageUrl ?? provider.logoUrl)!}
               alt={provider.name}
               fill
               sizes="(max-width: 1280px) 100vw, 1280px"
-              className="object-contain"
+              className="object-contain relative z-10"
               priority
             />
           </div>
         ) : (
-          <div className="mt-6 relative w-full aspect-[2/1] max-h-[400px] rounded-2xl overflow-hidden bg-gradient-to-br from-neutral-50 to-neutral-100/80 flex items-center justify-center">
+          <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-neutral-50 to-neutral-100/80 flex items-center justify-center">
             <span className="text-7xl font-extrabold text-neutral-200" aria-hidden="true">
               {provider.name.charAt(0).toUpperCase()}
             </span>
