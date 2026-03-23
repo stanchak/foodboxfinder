@@ -65,6 +65,13 @@ enum ProviderStatus {
   DISCONTINUED
 }
 
+enum HeroImageSource {
+  OG_IMAGE       // From provider's og:image meta tag
+  SITE_SCRAPE    // From another image found on provider's homepage
+  GENERATED      // AI-generated or stock fallback
+  MANUAL         // Manually set by admin
+}
+
 enum ValueTier {
   BUDGET
   MID
@@ -84,6 +91,7 @@ model Provider {
   affiliateUrl String?
   logoUrl     String?
   heroImageUrl String?
+  heroImageSource HeroImageSource?
 
   // Business details
   foundedYear    Int?

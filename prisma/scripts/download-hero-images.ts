@@ -143,6 +143,54 @@ function extractOgImage(html: string, baseUrl: string): string | null {
   return null;
 }
 
+function extractLargeImages(html: string, baseUrl: string): string[] {
+  // Find <img> tags with src containing common hero/banner patterns
+  const imgPattern = /<img[^>]+src="([^"]+)"[^>]*>/gi;
+  const candidates: string[] = [];
+  let match;
+  while ((match = imgPattern.exec(html)) !== null) {
+    let imgUrl = match[1];
+    // Skip tiny images, icons, tracking pixels, SVGs, data URIs
+    if (imgUrl.includes("favicon") || imgUrl.includes("1x1") || imgUrl.includes("pixel") ||
+        imgUrl.includes("icon") || imgUrl.includes("logo") || imgUrl.startsWith("data:") ||
+        imgUrl.endsWith(".svg") || imgUrl.includes("tracking") || imgUrl.includes("spacer") ||
+        imgUrl.includes("badge") || imgUrl.includes("sprite")) {
+      continue;
+    }
+    // Look for size hints suggesting a large image
+    const widthMatch = match[0].match(/width="?(\d+)/i);
+    const hasLargeWidth = widthMatch && parseInt(widthMatch[1]) >= 400;
+    const hasHeroClass = /class="[^"]*(?:hero|banner|cover|header|feature|main)[^"]*"/i.test(match[0]);
+    const hasLargeSrc = /\d{3,4}x\d{3,4}|w[_-]?\d{3,4}|width[_-]?\d{3,4}/i.test(imgUrl);
+    if (hasLargeWidth || hasHeroClass || hasLargeSrc) {
+      if (imgUrl.startsWith("//")) imgUrl = "https:" + imgUrl;
+      else if (imgUrl.startsWith("/")) {
+        try {
+          const parsed = new URL(baseUrl);
+          imgUrl = `${parsed.protocol}//${parsed.host}${imgUrl}`;
+        } catch { continue; }
+      }
+      candidates.push(imgUrl);
+    }
+  }
+  // Also check CSS background-image for hero sections
+  const bgPattern = /background(?:-image)?:\s*url\(["']?([^"')]+)["']?\)/gi;
+  while ((match = bgPattern.exec(html)) !== null) {
+    let imgUrl = match[1];
+    if (imgUrl.startsWith("//")) imgUrl = "https:" + imgUrl;
+    else if (imgUrl.startsWith("/")) {
+      try {
+        const parsed = new URL(baseUrl);
+        imgUrl = `${parsed.protocol}//${parsed.host}${imgUrl}`;
+      } catch { continue; }
+    }
+    if (!imgUrl.endsWith(".svg") && !imgUrl.includes("data:")) {
+      candidates.push(imgUrl);
+    }
+  }
+  return candidates;
+}
+
 // Curated Unsplash fallback images by category
 const FALLBACK_IMAGES: Record<string, string[]> = {
   MEAL_KIT: [
@@ -248,7 +296,7 @@ async function main() {
   const fallbackOnly = args.includes("--fallback-only");
 
   console.log(`\n=== Download Hero Images ===`);
-  console.log(`Strategy: ${fallbackOnly ? "Unsplash fallback only" : "Provider og:image → Unsplash fallback"}`);
+  console.log(`Strategy: ${fallbackOnly ? "Stock fallback only" : "1) og:image → 2) site scrape → 3) stock fallback"}`);
   console.log(`Output: ${HERO_DIR}\n`);
 
   fs.mkdirSync(HERO_DIR, { recursive: true });
@@ -267,6 +315,7 @@ async function main() {
   console.log(`Found ${providers.length} providers\n`);
 
   let fromProvider = 0;
+  let fromScrape = 0;
   let fromFallback = 0;
   let skippedExisting = 0;
   let failed = 0;
@@ -292,12 +341,15 @@ async function main() {
     }
 
     let downloaded = false;
+    let source: "OG_IMAGE" | "SITE_SCRAPE" | "GENERATED" | null = null;
+    let htmlBody: string | null = null;
 
     // Step 1: Try provider's og:image
     if (!fallbackOnly && provider.website) {
       try {
         process.stdout.write(`  🌐 ${provider.slug} — fetching og:image...`);
         const { body } = await fetchUrl(provider.website);
+        htmlBody = body;
         const ogImage = extractOgImage(body, provider.website);
 
         if (ogImage) {
@@ -305,10 +357,11 @@ async function main() {
           downloaded = await downloadFile(ogImage, fullPath);
           if (downloaded) {
             const size = fs.statSync(fullPath).size;
-            console.log(` ✓ (${Math.round(size / 1024)}KB from provider)`);
+            console.log(` ✓ (${Math.round(size / 1024)}KB from og:image)`);
+            source = "OG_IMAGE";
             fromProvider++;
           } else {
-            console.log(` too small, trying fallback...`);
+            console.log(` too small`);
           }
         } else {
           console.log(` none found`);
@@ -316,10 +369,31 @@ async function main() {
       } catch (err) {
         console.log(` error: ${(err as Error).message}`);
       }
-      await sleep(500); // Be polite to provider sites
+      await sleep(500);
     }
 
-    // Step 2: Fallback to Unsplash
+    // Step 2: Try scraping homepage for large images
+    if (!downloaded && !fallbackOnly && htmlBody && provider.website) {
+      const largeImages = extractLargeImages(htmlBody, provider.website);
+      if (largeImages.length > 0) {
+        for (const imgUrl of largeImages.slice(0, 3)) {
+          process.stdout.write(`  🔍 ${provider.slug} — trying homepage image...`);
+          downloaded = await downloadFile(imgUrl, fullPath);
+          if (downloaded) {
+            const size = fs.statSync(fullPath).size;
+            console.log(` ✓ (${Math.round(size / 1024)}KB from site scrape)`);
+            source = "SITE_SCRAPE";
+            fromScrape++;
+            break;
+          } else {
+            console.log(` too small`);
+          }
+        }
+        await sleep(300);
+      }
+    }
+
+    // Step 3: Fallback to Unsplash (generated/stock)
     if (!downloaded) {
       const category = provider.category as string;
       const images = FALLBACK_IMAGES[category];
@@ -334,12 +408,13 @@ async function main() {
       categoryIndex[category]++;
 
       const fallbackUrl = getFallbackUrl(images[idx]);
-      process.stdout.write(`  📷 ${provider.slug} — Unsplash fallback...`);
+      process.stdout.write(`  📷 ${provider.slug} — stock fallback...`);
       downloaded = await downloadFile(fallbackUrl, fullPath);
 
       if (downloaded) {
         const size = fs.statSync(fullPath).size;
         console.log(` ✓ (${Math.round(size / 1024)}KB)`);
+        source = "GENERATED";
         fromFallback++;
       } else {
         console.log(` ✗ FAILED`);
@@ -349,18 +424,19 @@ async function main() {
       await sleep(200);
     }
 
-    // Update DB
-    if (downloaded) {
+    // Update DB with path and source
+    if (downloaded && source) {
       await prisma.provider.update({
         where: { id: provider.id },
-        data: { heroImageUrl: localPath },
+        data: { heroImageUrl: localPath, heroImageSource: source },
       });
     }
   }
 
   console.log(`\n=== Results ===`);
-  console.log(`From provider sites: ${fromProvider}`);
-  console.log(`From Unsplash fallback: ${fromFallback}`);
+  console.log(`From provider og:image: ${fromProvider}`);
+  console.log(`From provider site scrape: ${fromScrape}`);
+  console.log(`From stock fallback: ${fromFallback}`);
   console.log(`Skipped (already existed): ${skippedExisting}`);
   console.log(`Failed: ${failed}`);
   console.log(`Total files: ${fs.readdirSync(HERO_DIR).length}`);

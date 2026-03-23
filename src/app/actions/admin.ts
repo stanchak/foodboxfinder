@@ -5,7 +5,11 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/generated/prisma/client";
-import type { CategoryType, DietaryTag, PlanFrequency, ContentStatus, ProviderStatus, ValueTier } from "@/generated/prisma/client";
+import type { CategoryType, DietaryTag, PlanFrequency, ContentStatus, ProviderStatus, ValueTier, HeroImageSource } from "@/generated/prisma/client";
+import fs from "fs";
+import path from "path";
+import https from "https";
+import http from "http";
 import { getSlugByCategory } from "@/lib/categories";
 
 // -- Types --
@@ -134,6 +138,46 @@ function isValidValueTier(value: string): value is ValueTier {
   return VALID_VALUE_TIERS.includes(value as ValueTier);
 }
 
+const VALID_HERO_IMAGE_SOURCES: HeroImageSource[] = ["OG_IMAGE", "SITE_SCRAPE", "GENERATED", "MANUAL"];
+function isValidHeroImageSource(value: string): value is HeroImageSource {
+  return VALID_HERO_IMAGE_SOURCES.includes(value as HeroImageSource);
+}
+
+function downloadImageFromUrl(url: string, dest: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const client = url.startsWith("https") ? https : http;
+    const req = client.get(url, {
+      headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
+      timeout: 15000,
+    }, (response) => {
+      if ((response.statusCode === 301 || response.statusCode === 302 || response.statusCode === 307) && response.headers.location) {
+        let redirectUrl = response.headers.location;
+        if (redirectUrl.startsWith("/")) {
+          try {
+            const parsed = new URL(url);
+            redirectUrl = `${parsed.protocol}//${parsed.host}${redirectUrl}`;
+          } catch { resolve(false); return; }
+        }
+        downloadImageFromUrl(redirectUrl, dest).then(resolve);
+        return;
+      }
+      if (response.statusCode !== 200) { resolve(false); return; }
+      const dir = path.dirname(dest);
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+      const file = fs.createWriteStream(dest);
+      response.pipe(file);
+      file.on("finish", () => {
+        file.close();
+        const stats = fs.statSync(dest);
+        if (stats.size < 2000) { fs.unlinkSync(dest); resolve(false); return; }
+        resolve(true);
+      });
+    });
+    req.on("error", () => resolve(false));
+    req.on("timeout", () => { req.destroy(); resolve(false); });
+  });
+}
+
 // -- Auth --
 
 export async function loginAction(
@@ -192,7 +236,10 @@ export async function createProvider(
   const website = getString(formData, "website");
   const affiliateUrl = getOptionalString(formData, "affiliateUrl");
   const logoUrl = getOptionalString(formData, "logoUrl");
-  const heroImageUrl = getOptionalString(formData, "heroImageUrl");
+  let heroImageUrl = getOptionalString(formData, "heroImageUrl");
+  const pullHeroFromUrl = getOptionalString(formData, "pullHeroFromUrl");
+  const heroImageSourceRaw = getOptionalString(formData, "heroImageSource");
+  let heroImageSource = heroImageSourceRaw && isValidHeroImageSource(heroImageSourceRaw) ? heroImageSourceRaw : null;
   const foundedYear = getOptionalInt(formData, "foundedYear");
   const headquarters = getOptionalString(formData, "headquarters");
   const deliveryAreaDescription = getOptionalString(formData, "deliveryAreaDescription");
@@ -246,6 +293,19 @@ export async function createProvider(
     return { success: false, message: "Please fix the errors below.", errors };
   }
 
+  // Handle pull hero from URL
+  if (pullHeroFromUrl) {
+    const heroDir = path.join(process.cwd(), "public/assets/providers/heroes");
+    const dest = path.join(heroDir, `${slug}.jpg`);
+    const ok = await downloadImageFromUrl(pullHeroFromUrl, dest);
+    if (ok) {
+      heroImageUrl = `/assets/providers/heroes/${slug}.jpg`;
+      heroImageSource = "MANUAL";
+    } else {
+      return { success: false, message: "Failed to download image from the provided URL.", errors: { pullHeroFromUrl: "Could not download image." } };
+    }
+  }
+
   try {
     // Check for slug uniqueness
     const existing = await prisma.provider.findUnique({ where: { slug } });
@@ -267,6 +327,7 @@ export async function createProvider(
         affiliateUrl,
         logoUrl,
         heroImageUrl,
+        heroImageSource,
         foundedYear,
         headquarters,
         deliveryAreaDescription,
@@ -326,7 +387,10 @@ export async function updateProvider(
   const website = getString(formData, "website");
   const affiliateUrl = getOptionalString(formData, "affiliateUrl");
   const logoUrl = getOptionalString(formData, "logoUrl");
-  const heroImageUrl = getOptionalString(formData, "heroImageUrl");
+  let heroImageUrl = getOptionalString(formData, "heroImageUrl");
+  const pullHeroFromUrl = getOptionalString(formData, "pullHeroFromUrl");
+  const heroImageSourceRaw = getOptionalString(formData, "heroImageSource");
+  let heroImageSource = heroImageSourceRaw && isValidHeroImageSource(heroImageSourceRaw) ? heroImageSourceRaw : null;
   const foundedYear = getOptionalInt(formData, "foundedYear");
   const headquarters = getOptionalString(formData, "headquarters");
   const deliveryAreaDescription = getOptionalString(formData, "deliveryAreaDescription");
@@ -382,6 +446,19 @@ export async function updateProvider(
     return { success: false, message: "Please fix the errors below.", errors };
   }
 
+  // Handle pull hero from URL
+  if (pullHeroFromUrl) {
+    const heroDir = path.join(process.cwd(), "public/assets/providers/heroes");
+    const dest = path.join(heroDir, `${slug}.jpg`);
+    const ok = await downloadImageFromUrl(pullHeroFromUrl, dest);
+    if (ok) {
+      heroImageUrl = `/assets/providers/heroes/${slug}.jpg`;
+      heroImageSource = "MANUAL";
+    } else {
+      return { success: false, message: "Failed to download image from the provided URL.", errors: { pullHeroFromUrl: "Could not download image." } };
+    }
+  }
+
   try {
     // Check slug uniqueness (exclude self)
     const existing = await prisma.provider.findUnique({ where: { slug } });
@@ -407,6 +484,7 @@ export async function updateProvider(
         affiliateUrl,
         logoUrl,
         heroImageUrl,
+        heroImageSource,
         foundedYear,
         headquarters,
         deliveryAreaDescription,

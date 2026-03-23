@@ -49,6 +49,7 @@ interface ProviderData {
   affiliateUrl: string | null;
   logoUrl: string | null;
   heroImageUrl: string | null;
+  heroImageSource: string | null;
   foundedYear: number | null;
   headquarters: string | null;
   deliveryAreaDescription: string | null;
@@ -443,6 +444,47 @@ export default function ProviderForm({
               defaultValue={provider?.heroImageUrl ?? ""}
               className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
+            {provider?.heroImageSource && (
+              <p className="mt-1 text-xs text-neutral-500">
+                Source: <span className="font-medium">{provider.heroImageSource.replace("_", " ").toLowerCase()}</span>
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="pullHeroFromUrl" className="block text-sm font-medium text-neutral-700 mb-1">
+              Pull Hero Image from URL
+            </label>
+            <div className="flex gap-2">
+              <input
+                type="url"
+                id="pullHeroFromUrl"
+                name="pullHeroFromUrl"
+                placeholder="Paste any image URL to download locally..."
+                className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+              />
+            </div>
+            <p className="mt-1 text-xs text-neutral-500">
+              If provided, this URL will be downloaded and saved as the hero image (overrides Hero Image URL above).
+            </p>
+          </div>
+
+          <div>
+            <label htmlFor="heroImageSource" className="block text-sm font-medium text-neutral-700 mb-1">
+              Hero Image Source
+            </label>
+            <select
+              id="heroImageSource"
+              name="heroImageSource"
+              defaultValue={provider?.heroImageSource ?? ""}
+              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            >
+              <option value="">Not set</option>
+              <option value="OG_IMAGE">OG Image (from provider site)</option>
+              <option value="SITE_SCRAPE">Site Scrape (from provider homepage)</option>
+              <option value="GENERATED">Generated (stock/AI fallback)</option>
+              <option value="MANUAL">Manual (admin-provided)</option>
+            </select>
           </div>
         </div>
       </fieldset>
