@@ -12,7 +12,7 @@ import {
   DIETARY_TAG_OPTIONS,
   VALUE_TIER_LABELS,
 } from "@/lib/filter-constants";
-import { CATEGORY_NAV_ITEMS } from "@/lib/categories";
+import { CATEGORY_NAV_ITEMS, getCategoryBySlug } from "@/lib/categories";
 
 // --- Category Icons ---
 
@@ -812,7 +812,8 @@ export default function UnifiedFilters({
                   All ({allCount})
                 </button>
                 {CATEGORY_NAV_ITEMS.map((item) => {
-                  const count = categoryCounts.find((c) => c.category === item.slug || c.category === item.slug.toUpperCase().replace(/-/g, "_"))
+                  const enumKey = getCategoryBySlug(item.slug)?.key;
+                  const count = categoryCounts.find((c) => c.category === enumKey)
                   const isActive = currentCategory === item.slug;
                   return (
                     <button

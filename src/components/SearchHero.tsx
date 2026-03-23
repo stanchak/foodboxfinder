@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { CATEGORY_NAV_ITEMS } from "@/lib/categories";
+import { CATEGORY_NAV_ITEMS, getCategoryBySlug } from "@/lib/categories";
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   "meal-kits": (
@@ -190,8 +190,9 @@ export default function SearchHero({
 
           {/* Per-category tabs */}
           {CATEGORY_NAV_ITEMS.map((item) => {
+            const enumKey = getCategoryBySlug(item.slug)?.key;
             const countEntry = categoryCounts.find(
-              (c) => c.category === item.slug,
+              (c) => c.category === enumKey,
             );
             const count = countEntry?._count ?? 0;
             const isActive = currentCategory === item.slug;
