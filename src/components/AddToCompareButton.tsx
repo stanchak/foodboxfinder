@@ -35,7 +35,7 @@ export default function AddToCompareButton({
       <button
         type="button"
         onClick={handleClick}
-        className={`relative z-10 inline-flex items-center justify-center font-medium rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500 border border-primary-600 bg-primary-50 text-primary-700 hover:bg-primary-100 ${sizeClasses} ${className ?? ""}`}
+        className={`relative z-10 inline-flex items-center justify-center font-medium rounded-full transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500 border border-primary-600 bg-primary-50 text-primary-700 shadow-sm hover:bg-primary-100 ${sizeClasses} ${className ?? ""}`}
         aria-label={`Remove ${name} from comparison`}
         aria-pressed={true}
       >
@@ -63,7 +63,7 @@ export default function AddToCompareButton({
       type="button"
       onClick={handleClick}
       disabled={disabled}
-      className={`relative z-10 inline-flex items-center justify-center font-medium rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-neutral-500 border border-neutral-300 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed ${sizeClasses} ${className ?? ""}`}
+      className={`relative z-10 inline-flex items-center justify-center font-medium rounded-full transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-neutral-500 bg-white/90 backdrop-blur-sm border border-neutral-200/80 text-neutral-700 shadow-sm hover:bg-white hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed ${sizeClasses} ${className ?? ""}`}
       aria-label={
         disabled
           ? "Comparison is full (4 providers max)"
