@@ -55,7 +55,23 @@ Consumers can quickly discover and compare food box subscriptions that match the
 
 ### Active
 
-(None — start next milestone to define new requirements)
+- [ ] Audit existing 95 providers for data completeness across all schema fields
+- [ ] Research the full food box subscription market to identify missing providers
+- [ ] Populate real pricing data (per serving, per box) for all providers
+- [ ] Fill missing fields: dietary tags, prep style, household fit, geography, flexibility, descriptions
+- [ ] Obtain proper logos/graphics for all providers (eliminate fallbacks)
+- [ ] Validate accuracy of existing provider data against current provider websites
+- [ ] Build import/update tooling for bulk data operations
+
+## Current Milestone: v3.0 Data Completeness & Market Coverage
+
+**Goal:** Make the dataset comprehensive (all providers in the market) and accurate (every field populated and validated) — the foundation that makes discovery actually useful.
+
+**Target features:**
+- Full market coverage across all 5 categories
+- Complete, validated data for every provider
+- Real pricing, accurate dietary/category data, proper graphics
+- Tooling for bulk data import and validation
 
 
 ### Out of Scope
@@ -133,4 +149,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-23 after v2.1 milestone complete*
+*Last updated: 2026-03-22 after v3.0 milestone started*
