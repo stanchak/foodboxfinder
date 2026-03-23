@@ -53,7 +53,7 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 23-01-PLAN.md — Download logos for 22 new providers, update manifest.json
+- [x] 23-01-PLAN.md — Download logos for 22 new providers, update manifest.json
 - [ ] 23-02-PLAN.md — Create migration script to insert 22 providers into database + build verification
 
 **Requirements:**
