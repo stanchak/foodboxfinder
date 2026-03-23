@@ -14,7 +14,7 @@
 **Goal:** Make the dataset comprehensive (all providers in the market) and accurate (every field populated and validated) — the foundation that makes discovery actually useful.
 
 - [x] **Phase 22: Schema Evolution & Status Cleanup** -- Add parentCompany field, update 28 unclear→active statuses, flag discontinued providers, add ownership/M&A notes, clean data foundation
-- [ ] **Phase 23: Market Expansion** -- Add ~22 missing Tier 1+2 providers from market gap research (Clean Eatz Kitchen, Tempo, Rastelli's, Cometeer, TokyoTreat, etc.), obtain logos, create basic records
+- [x] **Phase 23: Market Expansion** -- Add ~22 missing Tier 1+2 providers from market gap research (Clean Eatz Kitchen, Tempo, Rastelli's, Cometeer, TokyoTreat, etc.), obtain logos, create basic records
 - [ ] **Phase 24: Bulk Content Enrichment** -- AI-assisted enrichment for all ~100+ providers: real descriptions, shortDescriptions, pros/cons, valueTier, dietaryTags, flexibility, foundedYear, headquarters, deliveryArea using xAI Responses API + Firecrawl
 - [ ] **Phase 25: Pricing & Plans** -- Create Plan records with real pricing for all providers, handle per-serving vs per-box vs per-item pricing models, update denormalized min/max fields
 - [ ] **Phase 26: SEO, FAQs & Validation** -- Generate metaTitle/metaDescription for all providers, create 2-3 FAQs each, populate affiliateUrls, cross-validate all data against live provider websites, set lastVerifiedAt
@@ -74,6 +74,12 @@ Plans:
 ### Phase 24: Bulk Content Enrichment
 
 **Goal:** Fill all empty content fields for ~100+ providers using AI-assisted research (xAI Responses API + Firecrawl), transforming stub providers into consumer-ready pages with real descriptions, pros/cons, dietary info, and metadata.
+
+**Plans:** 2 plans
+
+Plans:
+- [ ] 24-01-PLAN.md — Build the xAI-powered batch enrichment script with API integration, validation, and batch processing
+- [ ] 24-02-PLAN.md — Run full enrichment across all providers, verify data quality, and confirm build passes
 
 **Requirements:**
 - R24.1: Generate real `description` (2-3 sentences) for all providers with stub descriptions
@@ -183,4 +189,4 @@ Plans:
 Full details: `.planning/milestones/`
 
 ---
-*Last updated: 2026-03-23 after Phase 23 planning complete*
+*Last updated: 2026-03-23 after Phase 24 planning complete*
