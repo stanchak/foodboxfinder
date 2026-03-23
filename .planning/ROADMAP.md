@@ -29,7 +29,10 @@
 3. User can still add providers to the compare tray from provider cards and reach /compare with full functionality
 4. About link appears in site navigation (Header, MobileNav, and Footer)
 
-**Plans:** TBD
+**Plans:** 1 plan
+
+Plans:
+- [ ] 20-01-PLAN.md -- Update Header and MobileNav: remove Compare, elevate Best Of + Blog, add About link
 
 ### Phase 21: About Page
 
@@ -52,7 +55,7 @@
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 20. Navigation Refinement | v2.1 | 0/TBD | Not started | - |
+| 20. Navigation Refinement | v2.1 | 0/1 | Not started | - |
 | 21. About Page | v2.1 | 0/TBD | Not started | - |
 
 <details>
