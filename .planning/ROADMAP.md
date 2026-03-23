@@ -26,7 +26,7 @@
 **Plans:** 2 plans
 
 Plans:
-- [ ] 22-01-PLAN.md — Schema change (parentCompany field) + data migration script (status cleanup, parentCompany values, ownership notes)
+- [x] 22-01-PLAN.md — Schema change (parentCompany field) + data migration script (status cleanup, parentCompany values, ownership notes)
 - [ ] 22-02-PLAN.md — Admin UI update (parentCompany in ProviderForm + server actions) + build verification
 
 **Requirements:**

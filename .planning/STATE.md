@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Data Completeness & Market Coverage
-status: defining_requirements
-stopped_at: Milestone started
-last_updated: "2026-03-22"
+status: unknown
+stopped_at: Completed 22-01-PLAN.md
+last_updated: "2026-03-23T03:54:22.772Z"
 progress:
-  total_phases: 0
+  total_phases: 5
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 2
+  completed_plans: 1
 ---
 
 # Project State
@@ -19,14 +19,36 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences -- with transparent criteria and visual brand identity.
-**Current focus:** Defining requirements for v3.0
+**Current focus:** Phase 22 — schema-evolution-status-cleanup
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-03-22 — Milestone v3.0 started
+Phase: 22 (schema-evolution-status-cleanup) — EXECUTING
+Plan: 2 of 2
+
+## v3.0 Phase Overview
+
+| Phase | Name | Status | Description |
+|-------|------|--------|-------------|
+| 22 | Schema Evolution & Status Cleanup | Ready to plan | parentCompany field, 28 status updates, M&A notes, discontinued flags |
+| 23 | Market Expansion | Pending | Add ~22 missing providers from market gap research |
+| 24 | Bulk Content Enrichment | Pending | AI-assisted fill of all empty fields for ~100+ providers |
+| 25 | Pricing & Plans | Pending | Real pricing Plans for all providers |
+| 26 | SEO, FAQs & Validation | Pending | Meta, FAQs, affiliate URLs, cross-validation |
+
+## Research Summary (Key Findings)
+
+**Data completeness:** 81% of 95 providers are empty shells (19% quality score or less). Only 18 hand-crafted providers have real content.
+
+**Market gaps:** Missing ~55-65 providers. Top 22 (Tier 1+2) are must-adds: Clean Eatz Kitchen, Tempo, Rastelli's, Sea to Table, Cometeer, TokyoTreat, Japan Crate, Munch Addict, Heatonist, Melissa's Produce, Sprinly, ModifyHealth, MealPro, MegaFit Meals, Methodology, Primal Pastures, Alaskan Salmon Co, Wild Tide Seafoods, Frog Hollow Farm, Seoulbox, SnackFever, Fuego Box.
+
+**Status validation:** All 28 "unclear" providers confirmed ACTIVE. Only Freshly is discontinued.
+
+**Pricing insight:** Per-serving pricing only works for meal kits + prepared meals. Protein/produce/specialty need per-box pricing as primary metric.
+
+**Industry shifts:** Blue Apron → Wonder Group. Marley Spoon/Dinnerly/BistroMD → FreshRealm fulfillment. HelloFresh owns Factor/Green Chef/EveryPlate. GLP-1 meal plans are an emerging trend. Subscription-free models gaining traction.
+
+**Tools available:** xAI Responses API (grok-4, web_search + x_search) for live research. Firecrawl for page scraping.
 
 ## Performance Metrics
 
@@ -42,24 +64,28 @@ Last activity: 2026-03-22 — Milestone v3.0 started
 
 Decisions are logged in PROJECT.md Key Decisions table.
 
+- [Phase 22]: FreshRealm is fulfillment partner not parent company -- parentCompany for Marley Spoon/Dinnerly/BistroMD is Marley Spoon Group SE
+- [Phase 22]: Established prisma/scripts/ directory for one-off data migration scripts following seed.ts client pattern
+
 ### Pending Todos
 
 None yet.
 
 ### Blockers/Concerns
 
-None after restart.
+- Pricing schema may need `pricingModel` enum (PER_SERVING/PER_BOX/PER_ITEM/PROGRAM) — evaluate in Phase 22
+- Some provider websites are Cloudflare-protected (bot detection) — Firecrawl may be blocked on some
 
 ## Session Continuity
 
-Last session: 2026-03-22
-Stopped at: Milestone v3.0 started — research phase next
+Last session: 2026-03-23T03:54:22.770Z
+Stopped at: Completed 22-01-PLAN.md
 Resume context:
-- v3.0 milestone committed and PROJECT.md/STATE.md updated
-- Firecrawl MCP configured in .mcp.json (will be active after restart)
-- xAI API key stored in .env.local (web search, X search, Grok image gen)
-- User chose "Research first" — spawn 4 parallel researchers on restart
-- Research focus: data completeness + full market coverage (NOT new UI features)
+
+- 5 phases defined (22-26) covering schema→expansion→enrichment→pricing→validation
+- xAI Responses API tested and working (grok-4-1-fast-reasoning + web_search + x_search via curl)
+- 4 research files in .planning/research/v3-*.md (1,402 lines total)
 - User is in YOLO mode — Claude makes all decisions
-- Phase numbering continues from 21 (v3.0 starts at phase 22)
+- Next step: /gsd:plan-phase 22 (or /gsd:discuss-phase 22 for context)
+
 Resume file: None
