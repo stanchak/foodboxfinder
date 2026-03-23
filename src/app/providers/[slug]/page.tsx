@@ -235,15 +235,16 @@ export default async function ProviderDetailPage({
         {/* Hero Image */}
         {(provider.heroImageUrl ?? provider.logoUrl) ? (
           <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden">
-            {/* Blurred background layer */}
-            <Image
-              src={(provider.heroImageUrl ?? provider.logoUrl)!}
-              alt=""
-              fill
-              sizes="(max-width: 1280px) 100vw, 1280px"
-              className="object-cover scale-110 blur-2xl brightness-75"
-              aria-hidden="true"
-            />
+            {/* Blurred background layer — wrapper div carries the filter */}
+            <div className="absolute inset-0 scale-125 blur-2xl brightness-75" aria-hidden="true">
+              <Image
+                src={(provider.heroImageUrl ?? provider.logoUrl)!}
+                alt=""
+                fill
+                sizes="(max-width: 1280px) 100vw, 1280px"
+                className="object-cover"
+              />
+            </div>
             {/* Sharp foreground image */}
             <Image
               src={(provider.heroImageUrl ?? provider.logoUrl)!}
