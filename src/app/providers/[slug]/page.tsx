@@ -232,128 +232,133 @@ export default async function ProviderDetailPage({
         {/* Breadcrumbs */}
         <Breadcrumbs items={breadcrumbItems} />
 
-        {/* Hero Image */}
-        {(provider.heroImageUrl ?? provider.logoUrl) ? (
-          <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden">
-            <Image
-              src={(provider.heroImageUrl ?? provider.logoUrl)!}
-              alt={provider.name}
-              fill
-              sizes="(max-width: 1280px) 100vw, 1280px"
-              className="object-contain"
-              priority
-            />
-          </div>
-        ) : (
-          <div className="mt-6 relative w-full h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden flex items-center justify-center">
-            <span className="text-7xl font-extrabold text-neutral-200" aria-hidden="true">
-              {provider.name.charAt(0).toUpperCase()}
-            </span>
-          </div>
-        )}
-
-        {/* Header Info */}
-        <div className="mt-6">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge color="category">{categoryInfo.label}</Badge>
-            {provider.secondaryCategory && (
-              <Badge color="default">
-                {CATEGORY_MAP[provider.secondaryCategory].label}
-              </Badge>
-            )}
-            {provider.freeShipping && (
-              <Badge color="dietary">Free Shipping</Badge>
-            )}
-            {provider.status !== "ACTIVE" && (
-              <span
-                className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${getStatusStyle(provider.status)}`}
-              >
-                {provider.status.charAt(0) + provider.status.slice(1).toLowerCase()}
-              </span>
-            )}
-          </div>
-
-          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
-            {provider.name}
-          </h1>
-
-          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-            {provider.reviewCount > 0 ? (
-              <a
-                href="#reviews"
-                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-              >
-                <RatingStars rating={provider.averageRating} size="md" />
-                <span className="text-sm text-neutral-500">
-                  ({provider.reviewCount} {provider.reviewCount === 1 ? "review" : "reviews"})
-                </span>
-              </a>
-            ) : (
-              <span className="text-sm text-neutral-500">No reviews yet</span>
-            )}
-
-            <span className="text-sm font-semibold text-primary-700">
-              {formatPriceRange(
-                provider.minPricePerServingCents,
-                provider.maxPricePerServingCents,
-              )}
-              {provider.minPricePerServingCents != null ? "/serving" : ""}
-            </span>
-          </div>
-
-          <p className="mt-4 text-neutral-700 leading-relaxed max-w-3xl">
-            {provider.shortDescription ?? provider.description}
-          </p>
-
-          {/* Dietary tags */}
-          {provider.dietaryTags.length > 0 && (
-            <div className="mt-4 flex flex-wrap gap-2">
-              {provider.dietaryTags.map((dt) => (
-                <Badge key={dt.tag} color="dietary">
-                  {formatDietaryTagLabel(dt.tag)}
+        {/* Hero: Info + Image side-by-side */}
+        <div className="mt-6 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
+          {/* Info column */}
+          <div className="lg:col-span-7">
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge color="category">{categoryInfo.label}</Badge>
+              {provider.secondaryCategory && (
+                <Badge color="default">
+                  {CATEGORY_MAP[provider.secondaryCategory].label}
                 </Badge>
-              ))}
+              )}
+              {provider.freeShipping && (
+                <Badge color="dietary">Free Shipping</Badge>
+              )}
+              {provider.status !== "ACTIVE" && (
+                <span
+                  className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${getStatusStyle(provider.status)}`}
+                >
+                  {provider.status.charAt(0) + provider.status.slice(1).toLowerCase()}
+                </span>
+              )}
             </div>
-          )}
 
-          {/* CTA and website links */}
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <AffiliateLink
-              providerId={provider.id}
-              providerName={provider.name}
-              affiliateUrl={provider.affiliateUrl}
-              website={provider.website}
-              source={`/providers/${provider.slug}`}
-            />
-            <a
-              href={provider.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 transition-colors"
-            >
-              Official Website
-            </a>
+            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
+              {provider.name}
+            </h1>
+
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+              {provider.reviewCount > 0 ? (
+                <a
+                  href="#reviews"
+                  className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                >
+                  <RatingStars rating={provider.averageRating} size="md" />
+                  <span className="text-sm text-neutral-500">
+                    ({provider.reviewCount} {provider.reviewCount === 1 ? "review" : "reviews"})
+                  </span>
+                </a>
+              ) : (
+                <span className="text-sm text-neutral-500">No reviews yet</span>
+              )}
+
+              <span className="text-sm font-semibold text-primary-700">
+                {formatPriceRange(
+                  provider.minPricePerServingCents,
+                  provider.maxPricePerServingCents,
+                )}
+                {provider.minPricePerServingCents != null ? "/serving" : ""}
+              </span>
+            </div>
+
+            <p className="mt-4 text-neutral-700 leading-relaxed">
+              {provider.shortDescription ?? provider.description}
+            </p>
+
+            {/* Dietary tags */}
+            {provider.dietaryTags.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {provider.dietaryTags.map((dt) => (
+                  <Badge key={dt.tag} color="dietary">
+                    {formatDietaryTagLabel(dt.tag)}
+                  </Badge>
+                ))}
+              </div>
+            )}
+
+            {/* CTA and website links */}
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <AffiliateLink
+                providerId={provider.id}
+                providerName={provider.name}
+                affiliateUrl={provider.affiliateUrl}
+                website={provider.website}
+                source={`/providers/${provider.slug}`}
+              />
+              <a
+                href={provider.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 transition-colors"
+              >
+                Official Website
+              </a>
+            </div>
+
+            {/* Quick details */}
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-neutral-600">
+              {provider.foundedYear && (
+                <span>Founded {provider.foundedYear}</span>
+              )}
+              {provider.headquarters && (
+                <span>HQ: {provider.headquarters}</span>
+              )}
+              {provider.deliveryAreaDescription && (
+                <span>Delivers: {provider.deliveryAreaDescription}</span>
+              )}
+              {provider.lastVerifiedAt && (
+                <span>
+                  Verified{" "}
+                  {new Intl.DateTimeFormat("en-US", {
+                    month: "short",
+                    year: "numeric",
+                  }).format(provider.lastVerifiedAt)}
+                </span>
+              )}
+            </div>
           </div>
 
-          {/* Quick details */}
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-neutral-600">
-            {provider.foundedYear && (
-              <span>Founded {provider.foundedYear}</span>
-            )}
-            {provider.headquarters && (
-              <span>HQ: {provider.headquarters}</span>
-            )}
-            {provider.deliveryAreaDescription && (
-              <span>Delivers: {provider.deliveryAreaDescription}</span>
-            )}
-            {provider.lastVerifiedAt && (
-              <span>
-                Verified{" "}
-                {new Intl.DateTimeFormat("en-US", {
-                  month: "short",
-                  year: "numeric",
-                }).format(provider.lastVerifiedAt)}
-              </span>
+          {/* Image column */}
+          <div className="mt-6 lg:mt-0 lg:col-span-5 lg:sticky lg:top-24">
+            {(provider.heroImageUrl ?? provider.logoUrl) ? (
+              <div className="relative aspect-[3/2] w-full rounded-2xl overflow-hidden bg-neutral-100 ring-1 ring-neutral-200/60 shadow-card">
+                <Image
+                  src={(provider.heroImageUrl ?? provider.logoUrl)!}
+                  alt={provider.name}
+                  fill
+                  sizes="(max-width: 1023px) 100vw, 42vw"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            ) : (
+              <div className="relative aspect-[3/2] w-full rounded-2xl overflow-hidden bg-gradient-to-br from-neutral-50 to-neutral-100/80 ring-1 ring-neutral-200/60 shadow-card flex items-center justify-center">
+                <span className="text-7xl font-extrabold text-neutral-200" aria-hidden="true">
+                  {provider.name.charAt(0).toUpperCase()}
+                </span>
+              </div>
             )}
           </div>
         </div>
