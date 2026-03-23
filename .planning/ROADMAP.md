@@ -27,7 +27,7 @@
 
 Plans:
 - [x] 22-01-PLAN.md — Schema change (parentCompany field) + data migration script (status cleanup, parentCompany values, ownership notes)
-- [ ] 22-02-PLAN.md — Admin UI update (parentCompany in ProviderForm + server actions) + build verification
+- [x] 22-02-PLAN.md — Admin UI update (parentCompany in ProviderForm + server actions) + build verification
 
 **Requirements:**
 - R22.1: Add `parentCompany` field (optional String) to Provider model in Prisma schema
