@@ -27,22 +27,22 @@ export default function Header() {
               Discover
             </Link>
             <Link
-              href="/compare"
-              className="text-base font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
-            >
-              Compare
-            </Link>
-            <Link
               href="/best"
-              className="text-base font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+              className="text-lg font-semibold text-neutral-700 hover:text-accent-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
             >
               Best Of
             </Link>
             <Link
               href="/blog"
-              className="text-base font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+              className="text-lg font-semibold text-neutral-700 hover:text-accent-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
             >
               Blog
+            </Link>
+            <Link
+              href="/about"
+              className="text-base font-medium text-neutral-600 hover:text-primary-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+            >
+              About
             </Link>
           </div>
 
