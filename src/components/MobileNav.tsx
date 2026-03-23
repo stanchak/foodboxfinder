@@ -163,25 +163,25 @@ export default function MobileNav() {
                 Discover All Providers
               </Link>
               <Link
-                href="/compare"
-                className="block px-3 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 rounded-xl transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Compare
-              </Link>
-              <Link
                 href="/best"
-                className="block px-3 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 rounded-xl transition-colors"
+                className="block px-3 py-3 text-lg font-semibold text-neutral-800 hover:bg-accent-50 hover:text-accent-700 rounded-xl transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Best Of
               </Link>
               <Link
                 href="/blog"
-                className="block px-3 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 rounded-xl transition-colors"
+                className="block px-3 py-3 text-lg font-semibold text-neutral-800 hover:bg-accent-50 hover:text-accent-700 rounded-xl transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Blog
+              </Link>
+              <Link
+                href="/about"
+                className="block px-3 py-2.5 text-base font-medium text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 rounded-xl transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                About
               </Link>
             </nav>
           </div>
