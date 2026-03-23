@@ -147,7 +147,7 @@ export default async function CategoryPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 bg-neutral-50 min-h-screen">
         {/* Breadcrumbs */}
         <Breadcrumbs items={[
           { label: "Home", href: "/" },
@@ -155,7 +155,7 @@ export default async function CategoryPage({
         ]} />
 
         {/* Page header */}
-        <header className="mb-8 mt-4 rounded-2xl bg-gradient-to-r from-primary-50 to-accent-50/30 p-6 sm:p-8">
+        <header className="mb-8 mt-4">
           <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
             {categoryInfo.label}
           </h1>
