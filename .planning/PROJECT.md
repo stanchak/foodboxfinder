@@ -48,16 +48,14 @@ Consumers can quickly discover and compare food box subscriptions that match the
 - ✓ AI-generated cover images for collections and blog posts — v2.0
 - ✓ FoodBoxFinder mascot logo with transparent background — v2.0
 
+- ✓ Compare demoted from top-level nav; Best Of + Blog visually elevated — v2.1
+- ✓ About page with mission, methodology, and affiliate disclosure — v2.1
+- ✓ About link in Header, MobileNav, and Footer — v2.1
+- ✓ AboutPage JSON-LD structured data and sitemap entry — v2.1
+
 ### Active
 
-#### Current Milestone: v2.1 Navigation & About Page
-
-**Goal:** Refine navigation hierarchy and add foundational content page
-
-**Target features:**
-- Demote Compare from top-level nav (tool, not destination)
-- Elevate Best Of + Blog prominence in header
-- About FoodBoxFinder page (mission, how it works, trust & transparency, affiliate disclosure)
+(None — start next milestone to define new requirements)
 
 
 ### Out of Scope
@@ -80,12 +78,13 @@ Consumers can quickly discover and compare food box subscriptions that match the
 - **Research corpus**: `temp/plandocs/` — MASTER-LANDSCAPE.md, category deep-dives (meal-kits, prepared-meals, protein-boxes, produce-boxes, specialty-boxes), taxonomy rubric, content matrix.
 - **Status breakdown**: 66 active/hybrid providers (priority), remaining are unclear/discontinued.
 
-### Current State (v1.0 shipped)
-- 34,192 lines of TypeScript across 200+ files
-- 95 providers seeded with 9-dimension filtering, side-by-side comparison, and full SEO
-- Deep teal + warm amber brand identity with Inter + Source Serif 4 typography
-- WCAG 2.1 AA accessible (skip nav, focus traps, ARIA labels, keyboard navigation)
-- 158 commits, 23K insertions in this milestone
+### Current State (v2.1 shipped)
+- 95 providers with unified /search discovery, 9-dimension filtering, side-by-side comparison
+- Citrus Pop theme (orange primary, teal accent, Nunito fonts) with elderly-accessible sizing
+- Streamlined nav: Discover | Best Of | Blog | About (Compare accessible via provider cards)
+- /about page with mission, methodology, and affiliate transparency
+- Full SEO: metadata, JSON-LD, canonical URLs, sitemap on all public pages
+- WCAG 2.1 AA accessible
 
 ### Import Strategy
 - One-time seed from food-box-companies.json
@@ -112,6 +111,9 @@ Consumers can quickly discover and compare food box subscriptions that match the
 | SEO built into pages as we go | Discovery site needs organic traffic; not a blocker but a co-requirement | -- Pending |
 | Admin UI retained for v1 | Need way to manage providers after import | -- Pending |
 | Keep Review/Blog/Collection schemas but defer UI | Reduces scope while preserving future capability | -- Pending |
+| Demote Compare from nav, elevate Best Of + Blog | Compare is a tool accessed via provider cards, not a destination | ✓ Good |
+| Two-tier nav link styling (elevated vs standard) | Best Of + Blog get accent colors as primary content links | ✓ Good |
+| Static About page (no dynamic content) | Simple content page, no database queries needed | ✓ Good |
 
 ## Evolution
 
@@ -131,4 +133,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-22 after v2.1 milestone started*
+*Last updated: 2026-03-23 after v2.1 milestone complete*

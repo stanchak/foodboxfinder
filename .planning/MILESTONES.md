@@ -1,5 +1,16 @@
 # Milestones
 
+## v2.1 Navigation & About Page (Shipped: 2026-03-23)
+
+**Phases completed:** 2 phases, 2 plans, 4 tasks
+
+**Key accomplishments:**
+
+- Cleaner nav hierarchy removing Compare from header/mobile, elevating Best Of and Blog with accent styling, and adding About link for trust content
+- Static /about page with mission statement, 9-dimension methodology grid, and affiliate disclosure with editorial independence card
+
+---
+
 ## v2.0 Unified Discovery Interface (Shipped: 2026-03-22)
 
 **Phases completed:** 3 phases, 8 plans, 16 tasks
