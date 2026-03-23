@@ -216,6 +216,7 @@ export async function createProvider(
   const shippingNotes = getOptionalString(formData, "shippingNotes");
   const flexibility = getOptionalString(formData, "flexibility");
   const pricingSignal = getOptionalString(formData, "pricingSignal");
+  const parentCompany = getOptionalString(formData, "parentCompany");
 
   // Pros and cons from textarea (one per line)
   const prosRaw = getString(formData, "pros");
@@ -285,6 +286,7 @@ export async function createProvider(
         shippingNotes,
         flexibility,
         pricingSignal,
+        parentCompany,
         prosJson: pros.length > 0 ? pros : undefined,
         consJson: cons.length > 0 ? cons : undefined,
         dietaryTags: {
@@ -350,6 +352,7 @@ export async function updateProvider(
   const shippingNotes = getOptionalString(formData, "shippingNotes");
   const flexibility = getOptionalString(formData, "flexibility");
   const pricingSignal = getOptionalString(formData, "pricingSignal");
+  const parentCompany = getOptionalString(formData, "parentCompany");
 
   const prosRaw = getString(formData, "pros");
   const consRaw = getString(formData, "cons");
@@ -425,6 +428,7 @@ export async function updateProvider(
         shippingNotes,
         flexibility,
         pricingSignal,
+        parentCompany,
         prosJson: pros.length > 0 ? pros : Prisma.DbNull,
         consJson: cons.length > 0 ? cons : Prisma.DbNull,
         dietaryTags: {
