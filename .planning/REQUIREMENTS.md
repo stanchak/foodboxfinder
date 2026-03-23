@@ -3,108 +3,58 @@
 **Defined:** 2026-03-22
 **Core Value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences — with transparent criteria and visual brand identity.
 
-## v2.0 Requirements
+## v2.1 Requirements
 
-### Unified Interface
+Requirements for milestone v2.1: Navigation & About Page.
 
-- [x] **UI-01**: User can browse all 95+ providers across all categories from a single /discover page
-- [x] **UI-02**: User can filter by category using prominent quick-filter buttons (Kayak-style tabs)
-- [x] **UI-03**: User can filter by all 9 dimensions (category, diet, prep style, value tier, household, model type, geography, shipping, flexibility) from a left sidebar
-- [x] **UI-04**: User can search by provider name or keyword with autocomplete from a prominent search bar
-- [x] **UI-05**: User can see active filter count and clear individual or all filters
-- [x] **UI-06**: URL search params drive all filter/sort state (shareable URLs)
-- [x] **UI-07**: Results show provider count with aria-live announcement on filter change
+### Navigation
 
-### Accessibility & Elderly-Friendly Design
+- [ ] **NAV-01**: Compare link removed from primary navigation (Header and MobileNav)
+- [ ] **NAV-02**: Best Of and Blog links are visually elevated in header (larger text, more prominent styling)
+- [ ] **NAV-03**: Compare tray and /compare page remain fully functional when accessed via provider cards
+- [ ] **NAV-04**: About link added to site navigation
 
-- [x] **A11Y-01**: All body text is 16px minimum, filter labels 16px minimum
-- [x] **A11Y-02**: All interactive elements meet 44x44px touch target minimum
-- [x] **A11Y-03**: Category filter buttons are large pill-shaped with icon + text
-- [x] **A11Y-04**: Checkboxes and radio inputs are 20x20px with generous label spacing
-- [x] **A11Y-05**: Filter option rows have min-height 44px with hover highlight
+### About Page
 
-### Category Color System
-
-- [x] **CAT-01**: Each of the 5 categories has a distinct color (orange, berry, amber, green, teal) defined as design tokens
-- [x] **CAT-02**: Category badges use per-category colors instead of uniform primary
-- [x] **CAT-03**: Provider cards show category via colored top-border accent
-- [x] **CAT-04**: Category colors are distinguishable in grayscale (color not sole differentiator)
-
-### Navigation Simplification
-
-- [x] **NAV-01**: Header nav simplified — remove individual category links, add "Discover" as primary
-- [x] **NAV-02**: Homepage hero CTA routes to /discover instead of separate category pages
-- [x] **NAV-03**: Compare, Blog, Best Of remain as their own pages/nav items
-- [x] **NAV-04**: Individual category pages redirect to /discover?category={slug} for SEO continuity
-
-### Component Sizing Updates
-
-- [x] **SIZE-01**: Button md size increased to px-5 py-3 text-base (48px min height)
-- [x] **SIZE-02**: Badge text increased from 11px to 12px with increased padding
-- [x] **SIZE-03**: ProviderCard text sizes increased (title text-lg, description text-base, price text-xl)
-- [x] **SIZE-04**: Card padding increased to p-6, image height to h-48
-- [x] **SIZE-05**: Results grid uses 3 columns on desktop (not 4) with gap-8
-
-### Zero Results & Feedback
-
-- [x] **UX-01**: Zero-results state with illustration, helpful text, and prominent "Clear Filters" / "Browse All" buttons
-- [x] **UX-02**: Filter-applied chips displayed above results with individual remove buttons
-- [x] **UX-03**: Loading skeletons match the larger card sizes
+- [ ] **ABOUT-01**: /about page with mission statement — what FoodBoxFinder is and who it's for
+- [ ] **ABOUT-02**: /about page explains how providers are evaluated and compared (methodology)
+- [ ] **ABOUT-03**: /about page includes affiliate disclosure and editorial independence statement
+- [ ] **ABOUT-04**: /about page has SEO metadata and JSON-LD structured data (AboutPage schema)
+- [ ] **ABOUT-05**: /about page is visually on-brand with Citrus Pop theme
 
 ## Future Requirements
 
-### Advanced Search
-
-- **SEARCH-01**: Autocomplete dropdown with provider name suggestions
-- **SEARCH-02**: Search by dietary tag, prep style keywords
-- **SEARCH-03**: Recent searches history
+None deferred for this milestone.
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Map-based provider search | Food boxes ship nationally, location not primary filter |
-| Price comparison charts | Pricing data too sparse (17% populated) |
-| User accounts / saved searches | No auth system, deferred |
-| AI recommendations | v3 feature |
+| Compare page redesign | Compare UX unchanged — only nav demotion |
+| New filter dimensions | Filter system unchanged in v2.1 |
+| User accounts / login | Not relevant to discovery product |
+| Contact form on About page | Keep it simple — static content only |
 
 ## Traceability
 
+Which phases cover which requirements. Updated during roadmap creation.
+
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| UI-01 | Phase 17 | Complete |
-| UI-02 | Phase 17 | Complete |
-| UI-03 | Phase 17 | Complete |
-| UI-04 | Phase 17 | Complete |
-| UI-05 | Phase 17 | Complete |
-| UI-06 | Phase 17 | Complete |
-| UI-07 | Phase 17 | Complete |
-| A11Y-01 | Phase 18 | Complete |
-| A11Y-02 | Phase 18 | Complete |
-| A11Y-03 | Phase 18 | Complete |
-| A11Y-04 | Phase 18 | Complete |
-| A11Y-05 | Phase 18 | Complete |
-| CAT-01 | Phase 18 | Complete |
-| CAT-02 | Phase 18 | Complete |
-| CAT-03 | Phase 18 | Complete |
-| CAT-04 | Phase 18 | Complete |
-| NAV-01 | Phase 19 | Complete |
-| NAV-02 | Phase 19 | Complete |
-| NAV-03 | Phase 19 | Complete |
-| NAV-04 | Phase 19 | Complete |
-| SIZE-01 | Phase 18 | Complete |
-| SIZE-02 | Phase 18 | Complete |
-| SIZE-03 | Phase 18 | Complete |
-| SIZE-04 | Phase 18 | Complete |
-| SIZE-05 | Phase 18 | Complete |
-| UX-01 | Phase 17 | Complete |
-| UX-02 | Phase 17 | Complete |
-| UX-03 | Phase 17 | Complete |
+| NAV-01 | — | Pending |
+| NAV-02 | — | Pending |
+| NAV-03 | — | Pending |
+| NAV-04 | — | Pending |
+| ABOUT-01 | — | Pending |
+| ABOUT-02 | — | Pending |
+| ABOUT-03 | — | Pending |
+| ABOUT-04 | — | Pending |
+| ABOUT-05 | — | Pending |
 
 **Coverage:**
-- v2.0 requirements: 28 total
-- Mapped to phases: 28
-- Unmapped: 0 ✓
+- v2.1 requirements: 9 total
+- Mapped to phases: 0
+- Unmapped: 9 ⚠️
 
 ---
 *Requirements defined: 2026-03-22*
