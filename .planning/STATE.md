@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Navigation & About Page
 status: active
-stopped_at: ""
-last_updated: "2026-03-22T23:00:00.000Z"
+stopped_at: "Roadmap created for v2.1"
+last_updated: "2026-03-22T23:15:00.000Z"
 progress:
-  total_phases: 0
+  total_phases: 2
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -19,20 +19,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences -- with transparent criteria and visual brand identity.
-**Current focus:** Defining requirements for v2.1
+**Current focus:** Phase 20 - Navigation Refinement
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-03-22 — Milestone v2.1 started
+Phase: 20 of 21 (Navigation Refinement)
+Plan: Ready to plan
+Status: Ready to plan
+Last activity: 2026-03-22 -- Roadmap created for v2.1 milestone (2 phases, 9 requirements)
+
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0
+- Total plans completed: 0 (this milestone)
 - Average duration: -
 - Total execution time: 0 hours
 
@@ -42,54 +44,12 @@ Last activity: 2026-03-22 — Milestone v2.1 started
 |-------|-------|-------|----------|
 | - | - | - | - |
 
-**Recent Trend:**
+**Recent Trend (from v2.0):**
 
-- Last 5 plans: -
-- Trend: -
+- Last 5 plans: 1min, 2min, 1min, 4min, 2min
+- Trend: Stable (~2min avg)
 
 *Updated after each plan completion*
-| Phase 01 P01 | 2.5min | 2 tasks | 7 files |
-| Phase 01 P02 | 8min | 2 tasks | 10 files |
-| Phase 02 P01 | 3min | 2 tasks | 6 files |
-| Phase 02 P02 | 1min | 1 tasks | 2 files |
-| Phase 03 P01 | 2min | 2 tasks | 4 files |
-| Phase 04 P01 | 3min | 2 tasks | 2 files |
-| Phase 05 P02 | 2min | 2 tasks | 3 files |
-| Phase 05 P01 | 4min | 1 tasks | 4 files |
-| Phase 06 P01 | 1min | 2 tasks | 1 files |
-| Phase 07 P01 | 4min | 2 tasks | 4 files |
-| Phase 08 P01 | 2min | 2 tasks | 2 files |
-| Phase 09 P02 | 1min | 1 tasks | 0 files |
-| Phase 09 P01 | 2min | 2 tasks | 8 files |
-| Phase 10 P02 | 1min | 2 tasks | 2 files |
-| Phase 10 P01 | 2min | 2 tasks | 2 files |
-| Phase 11 P01 | 2min | 2 tasks | 5 files |
-| Phase 12 P01 | 1min | 2 tasks | 6 files |
-| Phase 12 P03 | 2min | 2 tasks | 2 files |
-| Phase 12 P02 | 2min | 2 tasks | 2 files |
-| Phase 13 P04 | 1min | 1 tasks | 1 files |
-| Phase 13 P02 | 2min | 2 tasks | 2 files |
-| Phase 13 P03 | 2min | 2 tasks | 7 files |
-| Phase 13 P01 | 2min | 2 tasks | 3 files |
-| Phase 14 P01 | 2min | 2 tasks | 2 files |
-| Phase 14 P02 | 1min | 2 tasks | 2 files |
-| Phase 15 P05 | 2min | 2 tasks | 4 files |
-| Phase 15 P03 | 2min | 2 tasks | 3 files |
-| Phase 15 P04 | 3min | 2 tasks | 2 files |
-| Phase 15 P01 | 3min | 2 tasks | 3 files |
-| Phase 15 P02 | 5min | 2 tasks | 3 files |
-| Phase 16 P02 | 2min | 2 tasks | 1 files |
-| Phase 16 P01 | 2min | 2 tasks | 1 files |
-| Phase 16 P03 | 3min | 2 tasks | 4 files |
-| Phase 16 P04 | 3min | 2 tasks | 4 files |
-| Phase 17 P01 | 1min | 2 tasks | 2 files |
-| Phase 17 P02 | 3min | 2 tasks | 2 files |
-| Phase 17 P03 | 2min | 2 tasks | 2 files |
-| Phase 18 P01 | 1min | 2 tasks | 5 files |
-| Phase 18 P02 | 4min | 2 tasks | 6 files |
-| Phase 18 P03 | 2min | 2 tasks | 4 files |
-| Phase 19 P01 | 1min | 2 tasks | 3 files |
-| Phase 19 P02 | 2min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -98,77 +58,10 @@ Last activity: 2026-03-22 — Milestone v2.1 started
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- [Roadmap]: 11 phases derived from 72 requirements at fine granularity. Data Foundation is the critical path blocker for all other phases.
-- [Roadmap]: SEO metadata requirements (SEO-01 through SEO-03) assigned to Phase 9 as a cross-site verification pass, even though individual pages build metadata inline during their phases.
-- [Phase 01]: Used ProviderStatus enum instead of boolean active -- supports HYBRID, UNCLEAR, DISCONTINUED states
-- [Phase 01]: Stored modelType, prepStyle, householdFit, geography as nullable strings (not enums) due to high cardinality
-- [Phase 01]: Used macOS sips for ICO-to-PNG conversion (sharp cannot read ICO format)
-- [Phase 01]: Hand-crafted providers keep editorial base with JSON metadata overlaid; diet tags merged as union
-- [Phase 02]: Grouped string matching for prepStyle (37->8 groups) and modelType (11->5 groups) using contains matching for high-cardinality fields
-- [Phase 02]: Null-aware filtering (OR match/null/empty) for sparse dataset fields (valueTier 8%, householdFit 4%, geography 9%)
-- [Phase 02]: Prisma AND array composition for multiple null-aware OR clauses prevents key collision in getFilteredProviders
-- [Phase 03]: ProviderLogo is a pure Server Component -- no interactivity needed
-- [Phase 03]: Size variant const map pattern follows Badge.tsx/Button.tsx convention
-- [Phase 03]: No next.config.ts changes needed -- all 95 logos are local files
-- [Phase 04]: Show status badge only for non-ACTIVE providers to reduce visual noise
-- [Phase 04]: XSS-safe JSON-LD pattern: .replace(/</g, '\u003c') after JSON.stringify
-- [Phase 05]: Passed category slug as search param to parseProviderFilters -- unifies filter parsing in one call
-- [Phase 05]: ActiveFilterChips added as named export in CategoryFilters.tsx -- shares URL-driven state pattern
-- [Phase 05]: Extracted client-safe filter constants to filter-constants.ts to avoid server-only guard
-- [Phase 06]: Show real review count (0) instead of misleading 500+ fallback -- honesty over impression
-- [Phase 06]: XSS-safe JSON-LD pattern (.replace(/</g, '\u003c')) now consistent across all public pages
-- [Phase 07]: Used select clause in getProvidersForComparison for explicit field control
-- [Phase 07]: permanentRedirect (308) for canonical slug order to preserve SEO link equity
-- [Phase 07]: Value tier enum displayed as title case via lookup map for readability
-- [Phase 08]: Used spread operator with conditional array for OR clause to avoid Prisma type complexity in searchProviders
-- [Phase 09]: No code changes needed for collections -- infrastructure fully verified as complete from prior phases
-- [Phase 09]: Used relative canonical paths (not full URLs) since Next.js resolves against metadataBase
-- [Phase 10]: Used groupBy instead of separate count queries for category breakdown -- single query, ordered by count descending
-- [Phase 10]: Sort options use orderByMap pattern with safe fallback to prevent invalid orderBy values
-- [Phase 10]: Followed existing validation pattern (VALID_VALUE_TIERS + isValidValueTier) consistent with other enum validators
-- [Phase 11]: No code changes needed for UX verification -- all infrastructure (error.tsx, global-error.tsx, not-found.tsx, sticky Header, MobileNav) already in place from prior phases
-- [Phase 12]: Used oklch raw value for :focus-visible baseline outline instead of CSS variable reference
-- [Phase 12]: Standardized icon colors to text-primary-600/text-gray-300 across all comparison tables
-- [Phase 12]: Used stretched-link CSS pattern (after:absolute after:inset-0 on heading Link) to avoid nesting interactive elements inside Link
-- [Phase 12]: Manual focus trap via useEffect keydown listener -- no external library needed for two drawers
-- [Phase 13]: Used from-white gradient to match page background color for seamless scroll fade effect
-- [Phase 13]: No architectural changes needed for table accessibility -- all fixes are CSS class and HTML element changes
-- [Phase 13]: Used Badge component with default color for Free Shipping to avoid competing with primary green category badges
-- [Phase 13]: Used collapsedGroups Set state for filter group collapse -- O(1) toggle pattern
-- [Phase 14]: Used oklch color space exclusively for all design tokens (no hex, no rgb)
-- [Phase 14]: Decoupled success green (hue 150) from primary teal (hue 190) for semantic clarity
-- [Phase 14]: Badge dietary variant uses neutral-100 bg (not primary) to distinguish from category badges
-- [Phase 14]: Badge shapes split by function: labels use rounded-md, tags/status use rounded-full
-- [Phase 15]: Used bg-neutral-50 warm off-white for alternating comparison rows instead of transparent gray
-- [Phase 15]: Dark chips (bg-gray-900) for high contrast provider selection in CompareBar frosted glass
-- [Phase 15]: Used space-y-6 alongside divide-y divide-gray-100 for filter groups -- provides both spacing and visual dividers
-- [Phase 15]: Solid active chips (bg-primary-600 text-white) replace outlined chips for stronger visual contrast
-- [Phase 16]: All 9 provider detail section headings use consistent text-xl font-extrabold pattern
-- [Phase 16]: Used bg-gradient-to-br with accent-50/30 for warm diagonal hero gradient
-- [Phase 16]: Switched social proof section from primary-700 to gray-900 for stronger contrast
-- [Phase 17]: Text search uses case-insensitive contains on name/shortDescription/description via OR composition
-- [Phase 17]: freeShipping uses exact boolean match (not null-aware) since field defaults to false
-- [Phase 17]: Default pageSize changed from 12 to 18 for unified discovery 3x6 grid
-- [Phase 17]: Chip-style buttons for Tier 1-2 filters with 48px min height replacing small checkboxes
-- [Phase 17]: Bottom sheet mobile pattern (max-h-[85vh]) replaces side drawer for filter-heavy interfaces
-- [Phase 17]: Clear All preserves ?q= search query parameter
-- [Phase 17]: Passed totalCount prop to UnifiedFilters to match actual component signature for mobile bottom sheet results count
-- [Phase 17]: Used plain <a href> for zero-results buttons to trigger full page navigation and clear all URL params
-- [Phase 18]: Used oklch color space exclusively for all 20 category tokens per D-14 decision
-- [Phase 18]: Badge categoryType prop is optional for backwards compatibility -- existing callers unaffected
-- [Phase 18]: Kept active filter chip text-sm (not text-base) in CategoryFilters since chips are compact secondary UI -- increased from text-xs
-- [Phase 18]: Increased RatingStars sizes by 2px per tier (16->18, 20->22, 24->26) for proportional scaling
-- [Phase 18]: Used lg:grid-cols-3 (1024px) instead of xl:grid-cols-3 (1280px) for 3-column layout to match sidebar visibility breakpoint
 - [Phase 19]: Removed CATEGORY_NAV_ITEMS from Header and MobileNav -- categories now accessed via /search filters
-- [Phase 19]: Changed Footer column heading from Categories to Browse for unified discovery model
 - [Phase 19]: Added Best Of link to MobileNav (was missing from mobile navigation)
-- [Phase 19]: 301 permanent redirect for old category URLs to preserve SEO link equity
-- [Phase 19]: /search sitemap priority raised to 0.9 as primary discovery page; category variants at 0.8
-
-### Roadmap Evolution
-
-- Phase 12 added: Critical Design & Accessibility Fixes (P0 issues from UX/UI/A11y agent reviews)
-- Phase 13 added: Design Polish & UX Improvements (P1/P2 issues from UX/UI/A11y agent reviews)
+- [Phase 19]: Changed Footer column heading from Categories to Browse for unified discovery model
+- [Roadmap v2.1]: 2 phases derived from 9 requirements. Navigation changes first (Phase 20), then About page (Phase 21).
 
 ### Pending Todos
 
@@ -176,12 +69,10 @@ None yet.
 
 ### Blockers/Concerns
 
-- Dataset sparsity: diet_tags (16%), household_fit (4%), value_tier (8%) population. Null-aware filtering (FILTER-10) mitigates but filters will show sparse results until admin enrichment.
-- 5 .ico logo files need conversion to .png before seeding (DATA-05).
-- Price fields null for ~83% of providers at launch. Plan records do not exist yet for most providers.
+None for v2.1 -- this is a small, self-contained milestone with no database changes or new dependencies.
 
 ## Session Continuity
 
-Last session: 2026-03-22T21:44:27.854Z
-Stopped at: Completed 19-02-PLAN.md
+Last session: 2026-03-22
+Stopped at: Roadmap created for v2.1 milestone
 Resume file: None
