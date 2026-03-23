@@ -139,7 +139,7 @@ Plans:
 
 Plans:
 - [ ] 26-01-PLAN.md — Build SEO meta + FAQ generation script with template fallback + test
-- [ ] 26-02-PLAN.md — Build affiliate URL + validation + lastVerifiedAt script + test
+- [x] 26-02-PLAN.md — Build affiliate URL + validation + lastVerifiedAt script + test
 - [ ] 26-03-PLAN.md — Run both scripts at full scale + verify FAQ JSON-LD + confirm build
 
 **Requirements:**
