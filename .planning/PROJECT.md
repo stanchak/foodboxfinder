@@ -50,7 +50,14 @@ Consumers can quickly discover and compare food box subscriptions that match the
 
 ### Active
 
-(None — start next milestone to define new requirements)
+#### Current Milestone: v2.1 Navigation & About Page
+
+**Goal:** Refine navigation hierarchy and add foundational content page
+
+**Target features:**
+- Demote Compare from top-level nav (tool, not destination)
+- Elevate Best Of + Blog prominence in header
+- About FoodBoxFinder page (mission, how it works, trust & transparency, affiliate disclosure)
 
 
 ### Out of Scope
@@ -124,4 +131,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-22 after v2.0 milestone complete*
+*Last updated: 2026-03-22 after v2.1 milestone started*

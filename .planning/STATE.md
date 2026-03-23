@@ -1,30 +1,32 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.0
-milestone_name: Unified Discovery Interface
-status: unknown
-stopped_at: Completed 19-02-PLAN.md
-last_updated: "2026-03-22T22:28:40.734Z"
+milestone: v2.1
+milestone_name: Navigation & About Page
+status: active
+stopped_at: ""
+last_updated: "2026-03-22T23:00:00.000Z"
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 8
-  completed_plans: 8
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-21)
+See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** Consumers can quickly discover and compare food box subscriptions that match their dietary needs, budget, and preferences -- with transparent criteria and visual brand identity.
-**Current focus:** Phase 19 — Navigation & Route Simplification
+**Current focus:** Defining requirements for v2.1
 
 ## Current Position
 
-Phase: 19
-Plan: Not started
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-03-22 — Milestone v2.1 started
 
 ## Performance Metrics
 
