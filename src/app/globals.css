@@ -1,31 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(0.980 0.016 73);
-  --foreground: oklch(0.230 0.008 38);
+  --background: #ffffff;
+  --foreground: #1e293b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-nunito-sans);
-  --font-heading: var(--font-nunito);
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
 @theme {
-  /* Primary: Tangerine Orange */
-  --color-primary-50: oklch(0.980 0.016 55);
-  --color-primary-100: oklch(0.945 0.040 50);
-  --color-primary-200: oklch(0.890 0.085 45);
-  --color-primary-300: oklch(0.820 0.140 42);
-  --color-primary-400: oklch(0.750 0.180 40);
-  --color-primary-500: oklch(0.700 0.200 39);
-  --color-primary-600: oklch(0.646 0.194 38);
-  --color-primary-700: oklch(0.560 0.175 36);
-  --color-primary-800: oklch(0.470 0.145 35);
-  --color-primary-900: oklch(0.380 0.110 34);
-  --color-primary-950: oklch(0.270 0.075 33);
+  /* Primary: Orange (Tailwind orange scale) */
+  --color-primary-50: #fff7ed;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #f97316;
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+  --color-primary-800: #9a3412;
+  --color-primary-900: #7c2d12;
+  --color-primary-950: #431407;
 
   /* Accent: Teal Green */
   --color-accent-50: oklch(0.975 0.014 190);
@@ -41,21 +41,21 @@
   --color-accent-950: oklch(0.260 0.045 185);
 
   /* Rating Stars — matches primary-600 orange */
-  --color-star: oklch(0.646 0.194 38);
-  --color-star-empty: oklch(0.920 0.008 50);
+  --color-star: #ea580c;
+  --color-star-empty: #e2e8f0;
 
-  /* Warm Neutral (hues shifted toward orange for harmony) */
-  --color-neutral-50: oklch(0.985 0.004 55);
-  --color-neutral-100: oklch(0.960 0.006 52);
-  --color-neutral-200: oklch(0.920 0.008 50);
-  --color-neutral-300: oklch(0.860 0.010 48);
-  --color-neutral-400: oklch(0.720 0.010 45);
-  --color-neutral-500: oklch(0.600 0.010 42);
-  --color-neutral-600: oklch(0.500 0.008 40);
-  --color-neutral-700: oklch(0.400 0.008 38);
-  --color-neutral-800: oklch(0.310 0.008 38);
-  --color-neutral-900: oklch(0.230 0.008 38);
-  --color-neutral-950: oklch(0.150 0.005 38);
+  /* Neutral: True Slate (Tailwind slate scale) */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+  --color-neutral-950: #020617;
 
   /* Semantic: Success */
   --color-success-50: oklch(0.975 0.020 155);
@@ -105,17 +105,17 @@
   --color-cat-specialty-600: oklch(0.560 0.104 185);
   --color-cat-specialty-700: oklch(0.480 0.090 185);
 
-  /* Shadows (warm orange-tinted, higher chroma for visible warmth) */
-  --shadow-card: 0 1px 3px 0 oklch(0.55 0.04 38 / 0.07), 0 1px 2px -1px oklch(0.55 0.04 38 / 0.05);
-  --shadow-card-hover: 0 8px 20px -4px oklch(0.55 0.06 38 / 0.12), 0 4px 8px -4px oklch(0.55 0.04 38 / 0.07);
-  --shadow-elevated: 0 12px 32px -6px oklch(0.55 0.06 38 / 0.15), 0 6px 12px -4px oklch(0.55 0.04 38 / 0.08);
-  --shadow-header: 0 1px 0 0 oklch(0.55 0.04 38 / 0.08);
+  /* Shadows (neutral, no warm tint) */
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.05);
+  --shadow-card-hover: 0 8px 20px -4px rgb(0 0 0 / 0.1), 0 4px 8px -4px rgb(0 0 0 / 0.06);
+  --shadow-elevated: 0 12px 32px -6px rgb(0 0 0 / 0.12), 0 6px 12px -4px rgb(0 0 0 / 0.07);
+  --shadow-header: 0 1px 0 0 rgb(0 0 0 / 0.06);
 
   /* Border Radius */
   --radius-sm: 0.5rem;
   --radius-button: 9999px;
   --radius-input: 0.75rem;
-  --radius-card: 1rem;
+  --radius-card: 0.75rem;
   --radius-badge: 9999px;
 }
 
@@ -129,6 +129,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 :focus-visible {
-  outline: 2px solid oklch(0.646 0.194 38);
+  outline: 2px solid #ea580c;
   outline-offset: 2px;
 }
