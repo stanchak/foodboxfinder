@@ -137,7 +137,7 @@ export const getFeaturedProviders = cache(async () => {
     where: { status: "ACTIVE", featured: true },
     include: { dietaryTags: true },
     orderBy: { averageRating: "desc" },
-    take: 8,
+    take: 12,
   });
 });
 

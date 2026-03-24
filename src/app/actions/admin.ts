@@ -1123,3 +1123,19 @@ export async function deleteCollection(formData: FormData): Promise<void> {
 
   redirect("/admin/collections");
 }
+
+// -- Logo Preview --
+
+export async function setActiveLogo(logoFile: string) {
+  const publicDir = path.join(process.cwd(), "public");
+  const src = path.join(publicDir, "assets/logos/box-concepts", logoFile);
+  const dest = path.join(publicDir, "foodboxfinder-logo-21.jpg");
+
+  if (!fs.existsSync(src)) {
+    return { success: false, message: "Logo file not found" };
+  }
+
+  fs.copyFileSync(src, dest);
+  revalidatePath("/", "layout");
+  return { success: true, message: `Logo updated to ${logoFile}` };
+}
