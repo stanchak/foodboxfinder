@@ -9,13 +9,11 @@ export default function Header() {
       <nav aria-label="Main" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 sm:h-24 lg:h-40">
           <Link href="/" className="flex-shrink-0 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600" aria-label="FoodBoxFinder home">
-            <Image
-              src="/foodboxfinder-logo-transparent.png"
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`/foodboxfinder-logo.jpg?v=${Date.now()}`}
               alt="FoodBoxFinder"
-              width={450}
-              height={150}
-              className="h-16 sm:h-20 lg:h-[150px] w-auto object-contain"
-              priority
+              className="h-16 sm:h-20 lg:h-[120px] w-auto object-contain"
             />
           </Link>
 
