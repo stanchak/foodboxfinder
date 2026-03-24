@@ -586,10 +586,10 @@ export default async function HomePage() {
                 <p className="text-4xl font-extrabold text-white sm:text-5xl">
                   {stat.value}
                 </p>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-neutral-400">
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-primary-200">
                   {stat.label}
                 </p>
-                <p className="mt-0.5 text-sm text-neutral-500">
+                <p className="mt-0.5 text-sm text-primary-300">
                   {stat.description}
                 </p>
               </div>

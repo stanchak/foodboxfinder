@@ -21,7 +21,7 @@ export default function AffiliateLink({
         href={trackingUrl}
         target="_blank"
         rel="noopener noreferrer sponsored"
-        className="inline-flex items-center justify-center gap-1.5 rounded-full bg-accent-500 px-4 py-2 text-sm font-semibold text-white hover:bg-accent-600 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 transition-all duration-200"
+        className="inline-flex items-center justify-center gap-1.5 rounded-full bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-700 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 transition-all duration-200"
       >
         Visit Site
         <ExternalLinkIcon size={14} />
@@ -35,7 +35,7 @@ export default function AffiliateLink({
       href={trackingUrl}
       target="_blank"
       rel="noopener noreferrer sponsored"
-      className="inline-flex items-center justify-center gap-2 rounded-full bg-accent-500 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-accent-600 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 transition-all duration-200"
+      className="inline-flex items-center justify-center gap-2 rounded-full bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary-700 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 transition-all duration-200"
     >
       Visit {providerName}
       <ExternalLinkIcon size={16} />

@@ -164,7 +164,7 @@ export default function SearchHero({
           <button
             type="button"
             onClick={handleSearchSubmit}
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl bg-primary-600 px-6 py-3 text-base font-bold text-white hover:bg-primary-700 transition-colors"
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-primary-600 px-6 py-3 text-base font-bold text-white hover:bg-primary-700 transition-colors"
           >
             Search
           </button>

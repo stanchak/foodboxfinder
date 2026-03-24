@@ -100,7 +100,7 @@ export default function ProviderCard({
 
         {/* Short description */}
         {provider.shortDescription && (
-          <p className="mt-1 text-base text-neutral-600 line-clamp-2">
+          <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
             {provider.shortDescription}
           </p>
         )}
