@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createProvider, updateProvider } from "@/app/actions/admin";
 import type { AdminFormState } from "@/app/actions/admin";
 import FormBanner from "@/components/admin/FormBanner";
+import ImageUploader from "@/components/admin/ImageUploader";
 
 const CATEGORY_OPTIONS = [
   { value: "MEAL_KIT", label: "Meal Kit" },
@@ -421,55 +422,24 @@ export default function ProviderForm({
           Images
         </legend>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="logoUrl" className="block text-sm font-medium text-neutral-700 mb-1">
-              Logo URL
-            </label>
-            <input
-              type="url"
-              id="logoUrl"
-              name="logoUrl"
-              defaultValue={provider?.logoUrl ?? ""}
-              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
-            />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <ImageUploader
+            name="logoUrl"
+            label="Logo"
+            currentUrl={provider?.logoUrl}
+            directory="assets/providers"
+            filenamePrefix={provider?.slug ?? "new-provider-logo"}
+            helpText="Provider brand logo. Drop an image or paste a URL."
+          />
 
-          <div>
-            <label htmlFor="heroImageUrl" className="block text-sm font-medium text-neutral-700 mb-1">
-              Hero Image URL
-            </label>
-            <input
-              type="url"
-              id="heroImageUrl"
-              name="heroImageUrl"
-              defaultValue={provider?.heroImageUrl ?? ""}
-              className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
-            />
-            {provider?.heroImageSource && (
-              <p className="mt-1 text-xs text-neutral-500">
-                Source: <span className="font-medium">{provider.heroImageSource.replace("_", " ").toLowerCase()}</span>
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="pullHeroFromUrl" className="block text-sm font-medium text-neutral-700 mb-1">
-              Pull Hero Image from URL
-            </label>
-            <div className="flex gap-2">
-              <input
-                type="url"
-                id="pullHeroFromUrl"
-                name="pullHeroFromUrl"
-                placeholder="Paste any image URL to download locally..."
-                className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
-              />
-            </div>
-            <p className="mt-1 text-xs text-neutral-500">
-              If provided, this URL will be downloaded and saved as the hero image (overrides Hero Image URL above).
-            </p>
-          </div>
+          <ImageUploader
+            name="heroImageUrl"
+            label="Hero Image"
+            currentUrl={provider?.heroImageUrl}
+            directory="assets/providers/heroes"
+            filenamePrefix={provider?.slug ?? "new-provider-hero"}
+            helpText="Large banner image for the provider detail page."
+          />
 
           <div>
             <label htmlFor="heroImageSource" className="block text-sm font-medium text-neutral-700 mb-1">

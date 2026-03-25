@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createCollection, updateCollection } from "@/app/actions/admin";
 import type { AdminFormState } from "@/app/actions/admin";
 import FormBanner from "@/components/admin/FormBanner";
+import ImageUploader from "@/components/admin/ImageUploader";
 
 const STATUS_OPTIONS = [
   { value: "DRAFT", label: "Draft" },
@@ -174,18 +175,14 @@ export default function CollectionForm({
         />
       </div>
 
-      <div>
-        <label htmlFor="coverImageUrl" className="block text-sm font-medium text-neutral-700 mb-1">
-          Cover Image URL
-        </label>
-        <input
-          type="url"
-          id="coverImageUrl"
-          name="coverImageUrl"
-          defaultValue={collection?.coverImageUrl ?? ""}
-          className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
-        />
-      </div>
+      <ImageUploader
+        name="coverImageUrl"
+        label="Cover Image"
+        currentUrl={collection?.coverImageUrl}
+        directory="assets/collections"
+        filenamePrefix={collection?.slug ?? "new-collection-cover"}
+        helpText="Featured image for the collection page."
+      />
 
       {/* SEO */}
       <fieldset className="space-y-4">

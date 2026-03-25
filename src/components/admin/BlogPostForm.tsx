@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createBlogPost, updateBlogPost } from "@/app/actions/admin";
 import type { AdminFormState } from "@/app/actions/admin";
 import FormBanner from "@/components/admin/FormBanner";
+import ImageUploader from "@/components/admin/ImageUploader";
 
 const STATUS_OPTIONS = [
   { value: "DRAFT", label: "Draft" },
@@ -146,18 +147,14 @@ export default function BlogPostForm({
         )}
       </div>
 
-      <div>
-        <label htmlFor="coverImageUrl" className="block text-sm font-medium text-neutral-700 mb-1">
-          Cover Image URL
-        </label>
-        <input
-          type="url"
-          id="coverImageUrl"
-          name="coverImageUrl"
-          defaultValue={post?.coverImageUrl ?? ""}
-          className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
-        />
-      </div>
+      <ImageUploader
+        name="coverImageUrl"
+        label="Cover Image"
+        currentUrl={post?.coverImageUrl}
+        directory="assets/blog"
+        filenamePrefix={post?.slug ?? "new-blog-cover"}
+        helpText="Featured image displayed at the top of the blog post."
+      />
 
       {/* SEO */}
       <fieldset className="space-y-4">
