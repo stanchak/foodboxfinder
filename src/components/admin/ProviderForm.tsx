@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import Link from "next/link";
 import { createProvider, updateProvider } from "@/app/actions/admin";
 import type { AdminFormState } from "@/app/actions/admin";
+import FormBanner from "@/components/admin/FormBanner";
 
 const CATEGORY_OPTIONS = [
   { value: "MEAL_KIT", label: "Meal Kit" },
@@ -99,17 +100,7 @@ export default function ProviderForm({
     <form action={formAction} className="space-y-8">
       {provider && <input type="hidden" name="id" value={provider.id} />}
 
-      {state.message && (
-        <div
-          className={`border rounded-lg p-3 text-sm ${
-            state.success
-              ? "bg-green-50 border-green-200 text-green-700"
-              : "bg-red-50 border-red-200 text-red-700"
-          }`}
-        >
-          {state.message}
-        </div>
-      )}
+      <FormBanner success={state.success} message={state.message} />
 
       {/* Basic Info */}
       <fieldset className="space-y-4">
@@ -147,6 +138,7 @@ export default function ProviderForm({
               placeholder="Auto-generated from name if empty"
               className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
+            <p className="text-xs text-neutral-500 mt-1">URL-friendly identifier (e.g. &quot;hello-fresh&quot;). Auto-generated from name if left blank.</p>
             {state.errors.slug && (
               <p className="mt-1 text-sm text-red-600">{state.errors.slug}</p>
             )}
@@ -165,6 +157,7 @@ export default function ProviderForm({
             defaultValue={provider?.shortDescription ?? ""}
             className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
+          <p className="text-xs text-neutral-500 mt-1">One-liner shown on cards and search results (max 300 chars).</p>
         </div>
 
         <div>
@@ -179,6 +172,7 @@ export default function ProviderForm({
             defaultValue={provider?.description ?? ""}
             className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
+          <p className="text-xs text-neutral-500 mt-1">Full description shown on the provider detail page.</p>
           {state.errors.description && (
             <p className="mt-1 text-sm text-red-600">{state.errors.description}</p>
           )}
@@ -213,6 +207,7 @@ export default function ProviderForm({
               defaultValue={provider?.affiliateUrl ?? ""}
               className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
+            <p className="text-xs text-neutral-500 mt-1">Tracked link for monetization. Users clicking &quot;Visit Site&quot; go here instead of the website URL.</p>
           </div>
         </div>
       </fieldset>
@@ -307,6 +302,7 @@ export default function ProviderForm({
                 <option key={opt.value} value={opt.value}>{opt.label}</option>
               ))}
             </select>
+            <p className="text-xs text-neutral-500 mt-1">Price positioning: Budget (&lt;$7), Mid ($7-10), Premium ($10-14), Luxury ($14+) per serving.</p>
           </div>
 
           <div>
@@ -321,6 +317,7 @@ export default function ProviderForm({
               defaultValue={provider?.modelType ?? ""}
               className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
+            <p className="text-xs text-neutral-500 mt-1">Business model: Traditional (curated menu), Marketplace (choose from vendors), or Hybrid.</p>
           </div>
 
           <div>
@@ -335,6 +332,7 @@ export default function ProviderForm({
               defaultValue={provider?.prepStyle ?? ""}
               className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
+            <p className="text-xs text-neutral-500 mt-1">How much cooking is involved: Cook from scratch, Heat and eat, Ready to eat, No cook.</p>
           </div>
         </div>
 
@@ -351,6 +349,7 @@ export default function ProviderForm({
               defaultValue={provider?.householdFit ?? ""}
               className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
+            <p className="text-xs text-neutral-500 mt-1">Who this service works best for: Singles, Couples, Families, Large families.</p>
           </div>
 
           <div>
@@ -365,6 +364,7 @@ export default function ProviderForm({
               defaultValue={provider?.geography ?? ""}
               className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
+            <p className="text-xs text-neutral-500 mt-1">Delivery coverage: Nationwide, Regional, or specific area (e.g. &quot;West Coast only&quot;).</p>
           </div>
 
           <div>
@@ -379,6 +379,7 @@ export default function ProviderForm({
               defaultValue={provider?.pricingSignal ?? ""}
               className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
+            <p className="text-xs text-neutral-500 mt-1">Human-readable price range shown on cards when plan data is unavailable.</p>
           </div>
         </div>
 
@@ -409,6 +410,7 @@ export default function ProviderForm({
               defaultValue={provider?.flexibility ?? ""}
               className="block w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
+            <p className="text-xs text-neutral-500 mt-1">Subscription flexibility: skip/pause/cancel policies, commitment length, etc.</p>
           </div>
         </div>
       </fieldset>
@@ -560,7 +562,7 @@ export default function ProviderForm({
             Price Overrides (cents)
           </legend>
           <p className="text-xs text-neutral-500">
-            These are normally auto-calculated from plans. Override only if needed.
+            These are normally auto-calculated from plans. Override only if needed. Enter values in cents (e.g. 899 = $8.99).
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>

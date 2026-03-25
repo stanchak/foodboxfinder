@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { deletePlan } from "@/app/actions/admin";
 import PlanForm from "./PlanForm";
+import ConfirmModal from "./ConfirmModal";
 
 interface PlanData {
   id: string;
@@ -40,6 +41,8 @@ export default function PlanManager({
 }>) {
   const [showNewForm, setShowNewForm] = useState(false);
   const [editingPlanId, setEditingPlanId] = useState<string | null>(null);
+  const [deletingPlanId, setDeletingPlanId] = useState<string | null>(null);
+  const deleteFormRefs = useRef<Map<string, HTMLFormElement>>(new Map());
 
   return (
     <div className="space-y-4">
@@ -110,17 +113,19 @@ export default function PlanManager({
                       >
                         Edit
                       </button>
-                      <form action={deletePlan}>
+                      <form
+                        ref={(el) => {
+                          if (el) deleteFormRefs.current.set(plan.id, el);
+                          else deleteFormRefs.current.delete(plan.id);
+                        }}
+                        action={deletePlan}
+                      >
                         <input type="hidden" name="id" value={plan.id} />
                         <input type="hidden" name="providerId" value={providerId} />
                         <button
-                          type="submit"
+                          type="button"
                           className="text-sm text-red-600 hover:text-red-700 font-medium"
-                          onClick={(e) => {
-                            if (!confirm("Delete this plan?")) {
-                              e.preventDefault();
-                            }
-                          }}
+                          onClick={() => setDeletingPlanId(plan.id)}
                         >
                           Delete
                         </button>
@@ -133,6 +138,21 @@ export default function PlanManager({
           ))}
         </div>
       )}
+
+      <ConfirmModal
+        open={deletingPlanId !== null}
+        title="Delete Plan"
+        message={`Delete this plan? This cannot be undone.`}
+        confirmLabel="Delete Plan"
+        onConfirm={() => {
+          if (deletingPlanId) {
+            const form = deleteFormRefs.current.get(deletingPlanId);
+            form?.requestSubmit();
+          }
+          setDeletingPlanId(null);
+        }}
+        onCancel={() => setDeletingPlanId(null)}
+      />
     </div>
   );
 }

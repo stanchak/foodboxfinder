@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import Link from "next/link";
 import { createBlogPost, updateBlogPost } from "@/app/actions/admin";
 import type { AdminFormState } from "@/app/actions/admin";
+import FormBanner from "@/components/admin/FormBanner";
 
 const STATUS_OPTIONS = [
   { value: "DRAFT", label: "Draft" },
@@ -42,17 +43,7 @@ export default function BlogPostForm({
     <form action={formAction} className="space-y-6">
       {post && <input type="hidden" name="id" value={post.id} />}
 
-      {state.message && (
-        <div
-          className={`border rounded-lg p-3 text-sm ${
-            state.success
-              ? "bg-green-50 border-green-200 text-green-700"
-              : "bg-red-50 border-red-200 text-red-700"
-          }`}
-        >
-          {state.message}
-        </div>
-      )}
+      <FormBanner success={state.success} message={state.message} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>

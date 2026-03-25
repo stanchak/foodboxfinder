@@ -52,7 +52,7 @@ export default async function AdminCollectionsPage() {
                     <td className="px-4 py-3">
                       <div>
                         <p className="font-medium text-neutral-900">{collection.title}</p>
-                        <p className="text-xs text-neutral-500">/{collection.slug}</p>
+                        <p className="text-xs text-neutral-500"><code className="font-mono bg-neutral-100 px-1.5 py-0.5 rounded">/{collection.slug}</code></p>
                       </div>
                     </td>
                     <td className="px-4 py-3 text-center">

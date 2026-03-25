@@ -8,14 +8,17 @@ export const metadata: Metadata = {
   title: "Providers",
 };
 
+const PAGE_SIZE = 20;
+
 export default async function AdminProvidersPage(props: {
-  searchParams: Promise<{ q?: string; category?: string; status?: string; sort?: string }>;
+  searchParams: Promise<{ q?: string; category?: string; status?: string; sort?: string; page?: string }>;
 }) {
   const searchParams = await props.searchParams;
   const query = searchParams.q ?? "";
   const categoryFilter = searchParams.category ?? "";
   const statusFilter = searchParams.status ?? "";
   const sortParam = searchParams.sort ?? "updated";
+  const currentPage = Math.max(1, parseInt(searchParams.page ?? "1", 10) || 1);
 
   const where = {
     ...(query && {
@@ -41,13 +44,22 @@ export default async function AdminProvidersPage(props: {
   };
   const orderBy = orderByMap[sortParam] ?? orderByMap.updated;
 
-  const providers = await prisma.provider.findMany({
-    where,
-    orderBy,
-    include: {
-      _count: { select: { reviews: true, plans: true } },
-    },
-  });
+  const [providers, totalCount] = await Promise.all([
+    prisma.provider.findMany({
+      where,
+      orderBy,
+      include: {
+        _count: { select: { reviews: true, plans: true } },
+      },
+      skip: (currentPage - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
+    }),
+    prisma.provider.count({ where }),
+  ]);
+
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+  const startItem = (currentPage - 1) * PAGE_SIZE + 1;
+  const endItem = Math.min(currentPage * PAGE_SIZE, totalCount);
 
   return (
     <div>
@@ -165,7 +177,7 @@ export default async function AdminProvidersPage(props: {
                     <td className="px-4 py-3">
                       <div>
                         <p className="font-medium text-neutral-900">{provider.name}</p>
-                        <p className="text-xs text-neutral-500">/{provider.slug}</p>
+                        <p className="text-xs text-neutral-500"><code className="font-mono bg-neutral-100 px-1.5 py-0.5 rounded">/{provider.slug}</code></p>
                       </div>
                     </td>
                     <td className="px-4 py-3 text-neutral-600">
@@ -212,8 +224,41 @@ export default async function AdminProvidersPage(props: {
             </tbody>
           </table>
         </div>
-        <div className="px-4 py-3 border-t border-neutral-200 bg-neutral-50 text-sm text-neutral-500">
-          {providers.length} provider{providers.length !== 1 ? "s" : ""}
+        <div className="px-4 py-3 border-t border-neutral-200 bg-neutral-50 flex items-center justify-between">
+          <p className="text-sm text-neutral-500">
+            Showing {startItem}–{endItem} of {totalCount} provider{totalCount !== 1 ? "s" : ""}
+          </p>
+          {totalPages > 1 && (
+            <div className="flex items-center gap-2">
+              {currentPage > 1 ? (
+                <Link
+                  href={`/admin/providers?${new URLSearchParams({ ...(query && { q: query }), ...(categoryFilter && { category: categoryFilter }), ...(statusFilter && { status: statusFilter }), ...(sortParam !== "updated" && { sort: sortParam }), page: String(currentPage - 1) }).toString()}`}
+                  className="px-3 py-1.5 text-sm font-medium rounded-lg bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 transition-colors"
+                >
+                  Previous
+                </Link>
+              ) : (
+                <span className="px-3 py-1.5 text-sm font-medium rounded-lg bg-neutral-100 border border-neutral-200 text-neutral-400 cursor-not-allowed">
+                  Previous
+                </span>
+              )}
+              <span className="text-sm text-neutral-600">
+                Page {currentPage} of {totalPages}
+              </span>
+              {currentPage < totalPages ? (
+                <Link
+                  href={`/admin/providers?${new URLSearchParams({ ...(query && { q: query }), ...(categoryFilter && { category: categoryFilter }), ...(statusFilter && { status: statusFilter }), ...(sortParam !== "updated" && { sort: sortParam }), page: String(currentPage + 1) }).toString()}`}
+                  className="px-3 py-1.5 text-sm font-medium rounded-lg bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 transition-colors"
+                >
+                  Next
+                </Link>
+              ) : (
+                <span className="px-3 py-1.5 text-sm font-medium rounded-lg bg-neutral-100 border border-neutral-200 text-neutral-400 cursor-not-allowed">
+                  Next
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
