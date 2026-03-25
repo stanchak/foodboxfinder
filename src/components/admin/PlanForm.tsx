@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { savePlan } from "@/app/actions/admin";
 import type { AdminFormState } from "@/app/actions/admin";
+import FormBanner from "@/components/admin/FormBanner";
 
 const FREQUENCY_OPTIONS = [
   { value: "WEEKLY", label: "Weekly" },
@@ -56,17 +57,7 @@ export default function PlanForm({
         <input type="hidden" name="providerId" value={providerId} />
         {plan && <input type="hidden" name="id" value={plan.id} />}
 
-        {state.message && (
-          <div
-            className={`border rounded-lg p-2 text-sm ${
-              state.success
-                ? "bg-green-50 border-green-200 text-green-700"
-                : "bg-red-50 border-red-200 text-red-700"
-            }`}
-          >
-            {state.message}
-          </div>
-        )}
+        <FormBanner success={state.success} message={state.message} />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div>

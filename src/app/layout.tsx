@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import CompareProvider from "@/components/CompareProvider";
-import CompareBar from "@/components/CompareBar";
+import ConsumerShell from "@/components/ConsumerShell";
 import "./globals.css";
 
 const inter = Inter({
@@ -60,12 +57,9 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <CompareProvider>
-          <Header />
-          <main id="main-content" className="flex-1 pb-20">{children}</main>
-          <Footer />
-          <CompareBar />
-        </CompareProvider>
+        <ConsumerShell>
+          {children}
+        </ConsumerShell>
       </body>
     </html>
   );

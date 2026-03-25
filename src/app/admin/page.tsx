@@ -51,32 +51,42 @@ export default async function AdminDashboardPage() {
       label: "Providers",
       value: providerCount,
       sub: `${activeProviderCount} active`,
-      color: "bg-blue-50 text-blue-700",
+      borderColor: "border-blue-500",
+      bgColor: "bg-blue-50",
+      textColor: "text-blue-700",
     },
     {
       label: "Reviews",
       value: reviewCount,
       sub: `${pendingReviewCount} pending`,
-      color: "bg-amber-50 text-amber-700",
+      borderColor: "border-amber-500",
+      bgColor: "bg-amber-50",
+      textColor: "text-amber-700",
       alert: pendingReviewCount > 0,
     },
     {
       label: "Blog Posts",
       value: blogPostCount,
       sub: `${publishedBlogPostCount} published`,
-      color: "bg-green-50 text-green-700",
+      borderColor: "border-green-500",
+      bgColor: "bg-green-50",
+      textColor: "text-green-700",
     },
     {
       label: "Collections",
       value: collectionCount,
       sub: `${publishedCollectionCount} published`,
-      color: "bg-purple-50 text-purple-700",
+      borderColor: "border-purple-500",
+      bgColor: "bg-purple-50",
+      textColor: "text-purple-700",
     },
     {
       label: "Affiliate Clicks",
       value: recentClickCount,
       sub: "Last 30 days",
-      color: "bg-pink-50 text-pink-700",
+      borderColor: "border-pink-500",
+      bgColor: "bg-pink-50",
+      textColor: "text-pink-700",
     },
   ];
 
@@ -88,9 +98,9 @@ export default async function AdminDashboardPage() {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="bg-white rounded-xl shadow-card p-5"
+            className={`bg-white rounded-xl shadow-card p-5 border-l-4 ${stat.borderColor}`}
           >
-            <p className="text-sm font-medium text-neutral-500">{stat.label}</p>
+            <p className={`text-sm font-medium ${stat.textColor}`}>{stat.label}</p>
             <p className="mt-1 text-3xl font-bold text-neutral-900">{stat.value}</p>
             <p className={`mt-1 text-sm ${stat.alert ? "text-amber-600 font-medium" : "text-neutral-500"}`}>
               {stat.sub}
